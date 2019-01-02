@@ -19,3 +19,46 @@
 - 프로젝트 폴더 준비
     - Maven 프로젝트 디렉토리 구조로 만든다.
     - 깃 서버에 업로드
+- 자바 소스 컴파일
+    - .java와 .class 파일의 관계
+    - 일반 클래스와 public 클래스
+    - -d 옵션으로 사용하여 별도의 디렉토리에 .class 파일 생성
+- 자바 클래스 실행
+    - -classpath 또는 -cp 옵션 
+    - 패키지 클래스 실행 
+- 패키지 무소속 클래스와 패키지 소속 클래스 
+- Eclipse IDE 도구 설치 및 설정
+    - 에디터
+        - 탭 대신 스페이스로 처리
+        - 한 줄 당 글자 수: 100자 안내선  
+        - 공백 문자를 흐릿하게 표시
+    - 워크스페이스 
+        - 문자집합 : UTF-8
+    - Java / JRE 
+        - OpenJDK 11 버전으로 설정
+        - 단, 회사에서 JDK8을 사용한다면 8로 설정하라.
+    - Web
+        - HTML, CSS, JSP 문자집합: UTF-8 
+    - java code style guild 설치
+        - google java style guide 검색한 후 github 링크 클릭
+        - eclipse-java-google-style.xml을 다운로드 받아 설치한다.
+- gradle 빌드 도구 설치
+    - apt-get 기본 저장소에는 gradle 최신 버전이 없다.
+    - 그래서 최신 버전을 갖고 있는 저장소를 추가해야 한다.
+    - apt-get 저장소 추가: $ sudo add-apt-repository ppa:cwchien/gradle
+    - 설치: $ sudo apt-get install gradle
+- 일반 프로젝트 폴더를 이클립스 프로젝트 폴더로 만들기
+    - 이클립스 IDE가 사용할 설정 파일과 디렉토리가 있어야 한다.
+    - 예).project, .classpath, .settings/
+    - Gradle 빌드 도구를 사용하여 이클립스 프로젝트와 관련된 파일을 자동 생성한다.
+    - 절차
+        - 1) 프로젝트 디렉토리 생성
+        - 2) gradle 초기화 수행 : 프로젝트 폴더에 기본 파일 및 디렉토리 생성
+            - $ gradle init --type java-application
+        - 3) gradle 빌드 스크립트 파일(build.gradle)에 eclipse 플러그인 추가 
+            - id 'eclipse' 추가
+        - 4) 이클립스 설정 파일 생성
+            - $ gradle eclipse
+        - 5) 이클립스로 import 
+- javadoc 사용법
+- 자바 리터럴(literal)
