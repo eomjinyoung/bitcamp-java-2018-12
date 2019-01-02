@@ -61,4 +61,13 @@
             - $ gradle eclipse
         - 5) 이클립스로 import 
 - javadoc 사용법
-- 자바 리터럴(literal)
+- git 서버 업로드
+    - 1) 관리 명단에 등록: 
+        - bitcamp-java-2018-12$ git add .
+    - 2) 명단에 등록된 파일 및 디렉토리 백업: 
+        - bitcamp-java-2018-12$ git commit -m "메시지"
+    - 3) 깃 서버에 업로드: 
+        - bitcamp-java-2018-12$ git push 
+- git 저장소 복제
+    - git$ git clone https://github.com/아이디/저장소.git
+    - git$ git clone https://github.com/아이디/저장소.git 다른디렉토리명
