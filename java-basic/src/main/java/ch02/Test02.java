@@ -1,4 +1,4 @@
-// 리터럴(literal)과 메모리의 크기
+// 정수 리터럴(literal)과 메모리의 크기
 package ch02;
 
 public class Test02 {
