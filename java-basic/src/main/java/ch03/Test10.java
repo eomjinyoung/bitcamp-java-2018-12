@@ -15,6 +15,7 @@ public class Test10 {
     // next()는 공백을 버리기 때문에 영향을 받지 않는다.
     
     System.out.printf("%d(%s)\n", age, name);
+    System.out.println(age + "(" + name + ")");
   }
 }
 
