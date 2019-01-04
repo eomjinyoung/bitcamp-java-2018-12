@@ -1,4 +1,4 @@
-// 변수 선언
+// 변수 선언과 메모리 크기
 package ch03;
 
 public class Test01 {
@@ -48,6 +48,11 @@ public class Test01 {
     f2 = 98765.43456789f; // 유효 자릿수를 넘어 가는 경우 짤려서 저장된다. 
                           // 정수 메모리와 달리 컴파일 오류가 발생하지 않는다. 
                           // 그래서 더더욱 주의해서 사용해야 한다.
+    System.out.println(f1);
+    System.out.println(f2);
+
+    f1 = 9876.543f;
+    f2 = 12.34567f;
     System.out.println(f1);
     System.out.println(f2);
     
