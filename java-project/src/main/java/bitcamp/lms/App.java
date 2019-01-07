@@ -1,19 +1,48 @@
 package bitcamp.lms;
 
+import java.sql.Date;
+import java.util.Scanner;
+
 public class App {
 
   public static void main(String[] args) {
-    System.out.println("번호: " + 1); // 문자열 리터럴과 숫자 리터럴 합치기
-    System.out.println("수업명: 자바 프로젝트 실습"); // 문자열 리터럴 출력
-    System.out.println("설명: " + "자바 프로젝트를 통한 자바 언어 활용법 익히기"); // 문자열 연결
-    System.out.print("시작일: "); // 줄바꿈 없이 출력
-    System.out.println("2019-01-02");
-    System.out.print("종료일: ");
-    System.out.print("2019-01-02\n"); // 문자열 속에 줄바꿈 명령 넣기
-    System.out.print("총수업시간: ");
-    System.out.print(1000);
-    System.out.print(" 시간");
-    System.out.println(); // 아규먼트 없이 호출하면 줄바꿈 명령만 실행
-    System.out.printf("일수업시간: %d 시간\n", 8); // 문자열의 형식을 정의해 두고 값을 넣어 출력하기
+    
+    // 키보드 입력 스트림(System.in)을 스캐너 객체에 연결한다.
+    // => 스캐너는 입력 스트림으로 들어온 문자열을 줄 단위로 잘라주는 역할을 수행한다.
+    Scanner keyboard = new Scanner(System.in);
+
+    // 콘솔에서 입력 받은 값을 변수에 저장한다.
+    System.out.print("번호? ");
+    int no = Integer.parseInt(keyboard.nextLine());
+    
+    System.out.print("수업명? ");
+    String title = keyboard.nextLine();
+    
+    System.out.print("설명? ");
+    String contents = keyboard.nextLine();
+    
+    System.out.print("시작일? ");
+    Date startDate = Date.valueOf(keyboard.nextLine());
+    
+    System.out.print("종료일? ");
+    Date endDate = Date.valueOf(keyboard.nextLine());
+    
+    System.out.print("총수업시간? ");
+    int totalHours = Integer.parseInt(keyboard.nextLine());
+    
+    System.out.print("일수업시간? ");
+    int dayHours = Integer.parseInt(keyboard.nextLine());
+    
+    // 사용후 스캐너 객체의 자원을 해제한다.
+    keyboard.close();
+    
+    System.out.println(); // 빈 줄 출력
+    
+    System.out.printf("번호: %d\n", no);
+    System.out.printf("수업명: %s\n", title);
+    System.out.printf("설명: %s\n", contents);
+    System.out.printf("기간: %s ~ %s\n", startDate, endDate);
+    System.out.printf("총수업시간: %d 시간\n", totalHours);
+    System.out.printf("일수업시간: %d 시간\n", dayHours);
   }
 }
