@@ -1,4 +1,4 @@
-// 논리 연산자: &&, ||, ^
+// 논리 연산자: &&, ||, ^, !
 package ch04;
 
 public class Test10 {
@@ -21,6 +21,10 @@ public class Test10 {
     
     // &&, || 연산는 피연산자가 반드시 boolean 타입 이어야 한다. 즉 true 또는 false 이어야 한다.
     //System.out.println(1 && 1); // 컴파일 오류!
+    
+    // !(not) 논리 연산자
+    System.out.println(!true);
+    System.out.println(!false);
   }
 }
 

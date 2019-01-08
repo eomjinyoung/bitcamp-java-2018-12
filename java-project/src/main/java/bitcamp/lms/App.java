@@ -6,43 +6,59 @@ import java.util.Scanner;
 public class App {
 
   public static void main(String[] args) {
-    
+
     // 키보드 입력 스트림(System.in)을 스캐너 객체에 연결한다.
     // => 스캐너는 입력 스트림으로 들어온 문자열을 줄 단위로 잘라주는 역할을 수행한다.
     Scanner keyboard = new Scanner(System.in);
 
-    // 콘솔에서 입력 받은 값을 변수에 저장한다.
-    System.out.print("번호? ");
-    int no = Integer.parseInt(keyboard.nextLine());
+    int no;
+    String title;
+    String contents;
+    Date startDate;
+    Date endDate;
+    int totalHours;
+    int dayHours;
     
-    System.out.print("수업명? ");
-    String title = keyboard.nextLine();
-    
-    System.out.print("설명? ");
-    String contents = keyboard.nextLine();
-    
-    System.out.print("시작일? ");
-    Date startDate = Date.valueOf(keyboard.nextLine());
-    
-    System.out.print("종료일? ");
-    Date endDate = Date.valueOf(keyboard.nextLine());
-    
-    System.out.print("총수업시간? ");
-    int totalHours = Integer.parseInt(keyboard.nextLine());
-    
-    System.out.print("일수업시간? ");
-    int dayHours = Integer.parseInt(keyboard.nextLine());
+    while (true) {
+      // 콘솔에서 입력 받은 값을 변수에 저장한다.
+      System.out.print("번호? ");
+      no = Integer.parseInt(keyboard.nextLine());
+
+      System.out.print("수업명? ");
+      title = keyboard.nextLine();
+
+      System.out.print("설명? ");
+      contents = keyboard.nextLine();
+
+      System.out.print("시작일? ");
+      startDate = Date.valueOf(keyboard.nextLine());
+
+      System.out.print("종료일? ");
+      endDate = Date.valueOf(keyboard.nextLine());
+
+      System.out.print("총수업시간? ");
+      totalHours = Integer.parseInt(keyboard.nextLine());
+
+      System.out.print("일수업시간? ");
+      dayHours = Integer.parseInt(keyboard.nextLine());
+      
+      System.out.print("계속 하시겠습니까?(Y/n)");
+      String str = keyboard.nextLine();
+      if (!str.equalsIgnoreCase("y") && !str.equalsIgnoreCase(""))
+        break;
+    }
     
     // 사용후 스캐너 객체의 자원을 해제한다.
-    keyboard.close();
-    
+    //keyboard.close();
+
     System.out.println(); // 빈 줄 출력
-    
+
     System.out.printf("번호: %d\n", no);
     System.out.printf("수업명: %s\n", title);
     System.out.printf("설명: %s\n", contents);
     System.out.printf("기간: %s ~ %s\n", startDate, endDate);
     System.out.printf("총수업시간: %d 시간\n", totalHours);
     System.out.printf("일수업시간: %d 시간\n", dayHours);
+
   }
 }
