@@ -33,6 +33,12 @@ public class Test09 {
     // a = a++;
     // a = 5;   a = 6
     // a <= 5
+    
+    int x = 5;
+    int y = 10;
+    int z = ++x * y--;
+    System.out.println(z);
+    
   }
 }
 
