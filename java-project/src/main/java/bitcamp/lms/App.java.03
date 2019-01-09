@@ -1,4 +1,4 @@
-// 4단계: 제약사항 보충 구현
+// 3단계: 배열 적용
 package bitcamp.lms;
 
 import java.sql.Date;
@@ -48,7 +48,7 @@ public class App {
       String input = keyboard.nextLine();
       System.out.println();
       
-      if (!input.equalsIgnoreCase("y") && !input.equals(""))
+      if (!input.equalsIgnoreCase("y"))
         break;
     }
     
@@ -57,7 +57,7 @@ public class App {
     int count = 0;
     
     while (count < index) {
-      System.out.printf("%d, %-20s, %s ~ %s, %4d\n", 
+      System.out.printf("%d, %s, %s ~ %s, %d\n", 
         no[count], title[count], startDate[count], endDate[count], totalHours[count]);
       count++;
     }

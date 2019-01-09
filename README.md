@@ -107,3 +107,6 @@
 - 할당 연산자
 - if 조건문, switch 문과 break
 - while 반복문, break와 continue
+
+# 8일 
+- 과제 풀이
