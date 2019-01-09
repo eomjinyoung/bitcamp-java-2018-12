@@ -3,58 +3,31 @@ package ch06;
 
 public class Test09 {
   public static void main(String[] args) {
-    compute("홍길동", 100, 100, 90);
-    compute("임꺽정");
-    compute("유관순", 100, 100, 100, 100);
+    int value = 100;
+    m1(value);
+    System.out.println(value);
     
-    compute3(new int[] {100, 100, 90}, "홍길동");
-    compute3(new int[] {}, "임꺽정");
-    compute3(new int[] {100, 100, 100, 100}, "유관순");
+    m1(value + 15);
+    System.out.println(value);
     
-    compute4(new int[] {100, 90, 80}, new String[] {"홍길동", "임꺽정", "유관순"});
+    m1(value + 15);
+    System.out.println(value);
   }
   
-  // 1) 가변 파라미터는 무조건 마지막 순서에 와야 한다. 
-  //static int plus1(int... value, String name) { // 컴파일 오류!
-  static void compute(String name, int... value) {  
-    int sum = 0; 
-    for (int i = 0; i < value.length; i++) {
-      sum += value[i];
-    }
-    System.out.printf("%s 님의 총점은 %d입니다.\n", name, sum);
+  static void m1(int value) {
+    value = 200;
+    System.out.printf("m1(): %d\n", value);
   }
-  
-  // 2) 가변 파라미터는 1개만 가능하다. 
-  /*
-  static int compute2(int...value, String... name) {// 컴파일 오류!
-    int sum = 0; 
-    for (int i = 0; i < value.length; i++) {
-      sum += value[i];
-    }
-    return sum;
-  }
-  */
-  
-  // 배열은 순서에 상관없다. 어느 순서에도 올 수 있다.
-  static void compute3(int[] value, String name) {  
-    int sum = 0; 
-    for (int i = 0; i < value.length; i++) {
-      sum += value[i];
-    }
-    System.out.printf("%s 님의 총점은 %d입니다.\n", name, sum);
-  }
-
-  // 여러 개의 배열을 파라미터의 값으로 넘길 수 있다.
-  static void compute4(int[] value, String[] name) {  
-    for (int i = 0; i < value.length; i++) {
-      System.out.printf("%s 님의 점수는 %d입니다.\n", name[i], value[i]);
-    }
-  }  
-  
 }
 
+// 위 코드를 보고 로컬 변수를 모두 찾아 그 이름을 나열하라!
+// 답: main() - value, args,  m1() - value
 
-
+/*
+# 로컬 변수의 생성 과 소멸
+- 메서드가 호출될 때 생성된다.
+- 메서드를 실행한 후 리턴 할 때 소멸된다.
+ */
 
 
 
