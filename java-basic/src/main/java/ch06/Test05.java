@@ -16,6 +16,8 @@ public class Test05 {
     // result = 14;
     //
     System.out.println(result);
+    
+    System.out.printf("100 + 200 = %d\n", plus(100, 200));
   }
   
   static int plus(int a, int b) {
