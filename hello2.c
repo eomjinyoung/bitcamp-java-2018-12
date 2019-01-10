@@ -22,6 +22,14 @@ int main() {
 
     printScore(&s);
 
+    Score scores[3];
+
+    scores[0].kor = 80;
+    scores[0].eng = 70;
+    scores[0].math = 60;
+
+    printScore(&scores[0]);
+
     return 0;
 }
 
