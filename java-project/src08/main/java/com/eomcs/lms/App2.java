@@ -7,7 +7,7 @@ public class App2 {
 
   public static void main(String[] args) {
     
-    Scanner keyboard = new Scanner(System.in);
+    Scanner okok = new Scanner(System.in);
 
     final int LENGTH = 10;
     
@@ -18,22 +18,22 @@ public class App2 {
       Member member = new Member();
       
       System.out.print("번호? ");
-      member.no = Integer.parseInt(keyboard.nextLine());
+      member.no = Integer.parseInt(okok.nextLine());
       
       System.out.print("이름? ");
-      member.name = keyboard.nextLine();
+      member.name = okok.nextLine();
       
       System.out.print("이메일? ");
-      member.email = keyboard.nextLine();
+      member.email = okok.nextLine();
       
       System.out.print("암호? ");
-      member.password = keyboard.nextLine();
+      member.password = okok.nextLine();
   
       System.out.print("사진? ");
-      member.photo = keyboard.nextLine();
+      member.photo = okok.nextLine();
   
       System.out.print("전화? ");
-      member.tel = keyboard.nextLine();
+      member.tel = okok.nextLine();
   
       member.registeredDate = new Date(System.currentTimeMillis()); 
       
@@ -41,7 +41,7 @@ public class App2 {
       i++;
       
       System.out.print("\n계속 입력하시겠습니까?(Y/n) ");
-      String answer = keyboard.nextLine().toLowerCase();
+      String answer = okok.nextLine().toLowerCase();
       
       if (!answer.equals("y") && answer.length() > 0) {
         break;
@@ -50,7 +50,7 @@ public class App2 {
       System.out.println();
     }
     
-    keyboard.close();
+    okok.close();
     
     System.out.println();
     
