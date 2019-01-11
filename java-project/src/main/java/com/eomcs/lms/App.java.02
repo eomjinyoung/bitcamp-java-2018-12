@@ -15,13 +15,15 @@ public class App {
   static Member[] members = new Member[LENGTH];
   static int memberIdx = 0;
   
-  static Board[] boards = new Board[LENGTH];
-  static int boardIdx = 0;
   
   public static void main(String[] args) {
     
+    Board[] boards = new Board[LENGTH];
+    int boardIdx = 0;
+    
     while (true) {
-      String command = prompt();
+      System.out.print("명령> ");
+      String command = keyboard.nextLine().toLowerCase();
 
       if (command.equals("/lesson/add")) {
         addLesson();
@@ -36,10 +38,28 @@ public class App {
         listMember();
         
       } else if (command.equals("/board/add")) {
-        addBoard();
+        Board board = new Board();
+        
+        System.out.print("번호? ");
+        board.no = Integer.parseInt(keyboard.nextLine());
+        
+        System.out.print("내용? ");
+        board.contents = keyboard.nextLine();
+        
+        board.createdDate = new Date(System.currentTimeMillis()); 
+        
+        board.viewCount = 0;
+        
+        boards[boardIdx] = board;
+        boardIdx++;
+        
+        System.out.println("저장하였습니다.");
         
       } else if (command.equals("/board/list")) {
-        listBoard();
+        for (int j = 0; j < boardIdx; j++) {
+          System.out.printf("%3d, %-20s, %s, %d\n", 
+              boards[j].no, boards[j].contents, boards[j].createdDate, boards[j].viewCount);
+        }
         
       } else if (command.equals("quit")) {
         System.out.println("안녕!");
@@ -53,37 +73,6 @@ public class App {
     }
 
     keyboard.close();
-  }
-
-  private static String prompt() {
-    System.out.print("명령> ");
-    return keyboard.nextLine().toLowerCase();
-  }
-
-  private static void listBoard() {
-    for (int j = 0; j < boardIdx; j++) {
-      System.out.printf("%3d, %-20s, %s, %d\n", 
-          boards[j].no, boards[j].contents, boards[j].createdDate, boards[j].viewCount);
-    }
-  }
-
-  private static void addBoard() {
-    Board board = new Board();
-    
-    System.out.print("번호? ");
-    board.no = Integer.parseInt(keyboard.nextLine());
-    
-    System.out.print("내용? ");
-    board.contents = keyboard.nextLine();
-    
-    board.createdDate = new Date(System.currentTimeMillis()); 
-    
-    board.viewCount = 0;
-    
-    boards[boardIdx] = board;
-    boardIdx++;
-    
-    System.out.println("저장하였습니다.");
   }
 
   private static void listMember() {

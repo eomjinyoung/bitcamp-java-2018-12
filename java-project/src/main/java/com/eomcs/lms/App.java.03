@@ -21,7 +21,8 @@ public class App {
   public static void main(String[] args) {
     
     while (true) {
-      String command = prompt();
+      System.out.print("명령> ");
+      String command = keyboard.nextLine().toLowerCase();
 
       if (command.equals("/lesson/add")) {
         addLesson();
@@ -53,11 +54,6 @@ public class App {
     }
 
     keyboard.close();
-  }
-
-  private static String prompt() {
-    System.out.print("명령> ");
-    return keyboard.nextLine().toLowerCase();
   }
 
   private static void listBoard() {

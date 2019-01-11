@@ -4,22 +4,19 @@ import java.sql.Date;
 import java.util.Scanner;
 
 public class App {
-
-  static Scanner keyboard = new Scanner(System.in);
-
-  static final int LENGTH = 10;
   
+  final static int LENGTH = 10;
+  
+  static Scanner keyboard = new Scanner(System.in);
   static Lesson[] lessons = new Lesson[LENGTH];
   static int lessonIdx = 0;
-  
   static Member[] members = new Member[LENGTH];
   static int memberIdx = 0;
-  
   static Board[] boards = new Board[LENGTH];
   static int boardIdx = 0;
-  
+
   public static void main(String[] args) {
-    
+
     while (true) {
       String command = prompt();
 
@@ -55,19 +52,14 @@ public class App {
     keyboard.close();
   }
 
-  private static String prompt() {
-    System.out.print("명령> ");
-    return keyboard.nextLine().toLowerCase();
-  }
-
-  private static void listBoard() {
+  static void listBoard() {
     for (int j = 0; j < boardIdx; j++) {
       System.out.printf("%3d, %-20s, %s, %d\n", 
           boards[j].no, boards[j].contents, boards[j].createdDate, boards[j].viewCount);
     }
   }
 
-  private static void addBoard() {
+  static void addBoard() {
     Board board = new Board();
     
     System.out.print("번호? ");
@@ -86,7 +78,7 @@ public class App {
     System.out.println("저장하였습니다.");
   }
 
-  private static void listMember() {
+  static void listMember() {
     for (int j = 0; j < memberIdx; j++) {
       System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
           members[j].no, members[j].name, members[j].email, 
@@ -94,7 +86,7 @@ public class App {
     }
   }
 
-  private static void addMember() {
+  static void addMember() {
     Member member = new Member();
     
     System.out.print("번호? ");
@@ -122,16 +114,8 @@ public class App {
     
     System.out.println("저장하였습니다.");
   }
-
-  private static void listLesson() {
-    for (int j = 0; j < lessonIdx; j++) {
-      System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
-          lessons[j].no, lessons[j].title, lessons[j].startDate, 
-          lessons[j].endDate, lessons[j].totalHours);
-    }
-  }
-
-  private static void addLesson() {
+  
+  static void addLesson() {
     Lesson lesson = new Lesson();
 
     System.out.print("번호? ");
@@ -161,4 +145,30 @@ public class App {
 
     System.out.println("저장하였습니다.");
   }
+  
+  static void listLesson() {
+    for (int j = 0; j < lessonIdx; j++) {
+      System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
+          lessons[j].no, lessons[j].title, lessons[j].startDate, 
+          lessons[j].endDate, lessons[j].totalHours);
+    }
+  }
+  
+  static String prompt() {
+    System.out.print("명령> ");
+    return keyboard.nextLine();
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
