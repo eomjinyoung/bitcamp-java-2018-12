@@ -2,6 +2,15 @@
 package ch10;
 
 class Monitor1 {
+  
+  // 인스턴스 변수(클래스 변수 포함)가 생성되면 0으로 자동 초기화 된다.
+  // byte, short, int, long = 0
+  // float, double = 0.0
+  // boolean = false
+  // char = '\u0000'
+  //
+  // 주의! 로컬 변수는 자동 초기화 되지 않는다.
+  // 
   int bright; // 밝기 (0% ~ 100%)
   int contrast; // 명암 (0% ~ 100%)
   int widthRes; // 해상도 너비
