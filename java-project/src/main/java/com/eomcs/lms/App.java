@@ -14,7 +14,16 @@ public class App {
     // 외부로 분리한 클래스에서 사용할 keyboard를 주입한다.
     LessonHandler.keyboard = keyboard;
     MemberHandler.keyboard = keyboard;
-    BoardHandler.keyboard = keyboard;
+    
+    BoardHandler board1 = new BoardHandler();
+    board1.keyboard = keyboard;
+    
+    BoardHandler board2 = new BoardHandler();
+    board2.keyboard = keyboard;
+    
+    BoardHandler board3 = new BoardHandler();
+    board3.keyboard = keyboard;
+    
     
     while (true) {
       String command = prompt();
@@ -32,10 +41,22 @@ public class App {
         MemberHandler.listMember();
         
       } else if (command.equals("/board/add")) {
-        BoardHandler.addBoard();
+        board1.addBoard();
         
       } else if (command.equals("/board/list")) {
-        BoardHandler.listBoard();
+        board1.listBoard();
+        
+      } else if (command.equals("/board2/add")) {
+        board2.addBoard();
+        
+      } else if (command.equals("/board2/list")) {
+        board2.listBoard();
+        
+      } else if (command.equals("/board3/add")) {
+        board3.addBoard();
+        
+      } else if (command.equals("/board3/list")) {
+        board3.listBoard();
         
       } else if (command.equals("quit")) {
         System.out.println("안녕!");
