@@ -170,4 +170,11 @@
 
 ## 13일 
 - 과제 풀이 : 14번
--
+- Wrapper 클래스의 역할과 활용법
+- 오토 박싱과 오토 언박싱 
+- Wrapper 클래스의 생성자가 deprecated 된 이유
+- 캡슐화의 필요성과 활용법
+- setter/getter와 프로퍼티
+- 접근 제한자(modifier): private, (default), protected, public
+- 기능을 확장하는 다양한 방법: 기존 코드 변경, 기존 코드 복제
+- 상속을 이용한 기능 확장의 이점
