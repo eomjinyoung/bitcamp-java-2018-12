@@ -14,7 +14,6 @@ public class Test10 {
     int i2 = obj1; // auto-unboxing. 즉 내부적으로 obj1.intValue()를 호출한다.
     Integer obj2 = 200; // auto-boxing. 즉 내부적으로 Integer.valueOf(200)을 호출한다.
     
-    
   }
 }
 
