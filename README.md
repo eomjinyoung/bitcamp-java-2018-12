@@ -159,6 +159,15 @@
 - 클래스 필드와 인스턴스 필드의 비교
 - 인스턴스 멤버들: 인스턴스 필드, 인스턴스 블록, 생성자, 인스턴스 메서드
 - 인스턴스 필드를 초기화시켜야 하는 이유와 초기화시키는 다양한 방법 
+- 생성자 문법
 
 ## 12일 
 - 과제 풀이
+- 생성자 활용 : String, java.util.Date, java.util.Calendar
+- 디자인 패턴 : Singleton, Factory Method
+- String 클래스 사용법 
+- Immutable과 Mutable : String과 StringBuffer
+
+## 13일 
+- 과제 풀이 : 14번
+-

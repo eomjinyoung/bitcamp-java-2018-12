@@ -11,34 +11,29 @@ public class App {
 
   public static void main(String[] args) {
     
-    // 외부로 분리한 클래스에서 사용할 keyboard를 주입한다.
-    LessonHandler.keyboard = keyboard;
-    MemberHandler.keyboard = keyboard;
+    LessonHandler lessonHandler = new LessonHandler(keyboard);
+    MemberHandler memberHandler = new MemberHandler(keyboard);
     
-    BoardHandler board1 = new BoardHandler();
-    board1.keyboard = keyboard;
-    
-    BoardHandler board2 = new BoardHandler();
-    board2.keyboard = keyboard;
-    
-    BoardHandler board3 = new BoardHandler();
-    board3.keyboard = keyboard;
+    // BoardHandler를 사용하려면 반드시 Scanner 객체를 주입해야 한다.
+    BoardHandler board1 = new BoardHandler(keyboard);
+    BoardHandler board2 = new BoardHandler(keyboard);
+    BoardHandler board3 = new BoardHandler(keyboard);
     
     
     while (true) {
       String command = prompt();
 
       if (command.equals("/lesson/add")) {
-        LessonHandler.addLesson();
+        lessonHandler.addLesson();
         
       } else if (command.equals("/lesson/list")) {
-        LessonHandler.listLesson();
+        lessonHandler.listLesson();
       
       } else if (command.equals("/member/add")) {
-        MemberHandler.addMember();
+        memberHandler.addMember();
         
       } else if (command.equals("/member/list")) {
-        MemberHandler.listMember();
+        memberHandler.listMember();
         
       } else if (command.equals("/board/add")) {
         board1.addBoard();
