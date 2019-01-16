@@ -6,8 +6,13 @@ public class Score {
   private int kor;
   private int eng;
   private int math;
-  private int sum;
-  private float aver;
+  
+  // 서브 클래스에서 사용할 필드는 protected로 접근을 풀어 준다.
+  // => 접근 범위를 넓히는 것은 기존 코드에 영향을 미치지 않는다.
+  // => 접근 범위를 좁히게 되면 기존 코드에서 직접 접근하던 코드가 동작이 안될 수 있다.
+  //    접근 범위를 좁히게 되면 기존 코드에 영향을 준다.
+  protected int sum;
+  protected float aver;
   
   public String getName() {
     return this.name;
@@ -54,7 +59,8 @@ public class Score {
     return this.aver;
   }
   
-  private void compute() {
+  // 서브 클래스에서 사용할 수 있도록 접근 범위를 넓힌다.
+  protected void compute() {
     this.sum = this.kor + this.eng + this.math;
     this.aver = this.sum / 3f;
   }

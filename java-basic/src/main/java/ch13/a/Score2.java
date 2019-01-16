@@ -7,6 +7,8 @@ public class Score2 {
   private int eng;
   private int math;
   private int sum;
+  private int music;
+  private int art;
   private float aver;
   
   public String getName() {
@@ -46,6 +48,26 @@ public class Score2 {
     }
   }
   
+  public int getMusic() {
+    return this.music;
+  }
+  public void setMusic(int music) {
+    if (music >= 0 && music <= 100) {// 유효한 점수인 경우에만 저장한다.
+      this.music = music;
+      this.compute(); // 유효한 값이라면 다시 합계와 평균을 계산한다.
+    }
+  }
+  
+  public int getArt() {
+    return this.art;
+  }
+  public void setArt(int art) {
+    if (art >= 0 && art <= 100) {// 유효한 점수인 경우에만 저장한다.
+      this.art = art;
+      this.compute(); // 유효한 값이라면 다시 합계와 평균을 계산한다.
+    }
+  }
+  
   public int getSum() {
     return this.sum;
   }
@@ -55,8 +77,8 @@ public class Score2 {
   }
   
   private void compute() {
-    this.sum = this.kor + this.eng + this.math;
-    this.aver = this.sum / 3f;
+    this.sum = this.kor + this.eng + this.math + this.music + this.art;
+    this.aver = this.sum / 5f;
   }
 }
 
