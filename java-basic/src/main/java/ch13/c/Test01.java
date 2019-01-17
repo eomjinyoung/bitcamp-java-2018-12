@@ -1,3 +1,4 @@
+// 상속의 실제적인 의미
 package ch13.c;
 
 public class Test01 {
