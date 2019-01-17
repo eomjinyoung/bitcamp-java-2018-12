@@ -19,8 +19,8 @@ public class MemberHandler {
   public void listMember() {
     for (int j = 0; j < this.memberIdx; j++) {
       System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
-          members[j].no, members[j].name, members[j].email, 
-          members[j].tel, members[j].registeredDate);
+          members[j].getNo(), members[j].getName(), members[j].getEmail(), 
+          members[j].getTel(), members[j].getRegisteredDate());
     }
   }
 
@@ -28,24 +28,24 @@ public class MemberHandler {
     Member member = new Member();
     
     System.out.print("번호? ");
-    member.no = Integer.parseInt(keyboard.nextLine());
+    member.setNo(Integer.parseInt(keyboard.nextLine()));
     
     System.out.print("이름? ");
-    member.name = keyboard.nextLine();
+    member.setName(keyboard.nextLine());
     
     System.out.print("이메일? ");
-    member.email = keyboard.nextLine();
+    member.setEmail(keyboard.nextLine());
     
     System.out.print("암호? ");
-    member.password = keyboard.nextLine();
+    member.setPassword(keyboard.nextLine());
   
     System.out.print("사진? ");
-    member.photo = keyboard.nextLine();
+    member.setPhoto(keyboard.nextLine());
   
     System.out.print("전화? ");
-    member.tel = keyboard.nextLine();
+    member.setTel(keyboard.nextLine());
   
-    member.registeredDate = new Date(System.currentTimeMillis()); 
+    member.setRegisteredDate( new Date(System.currentTimeMillis())); 
     
     members[memberIdx] = member;
     memberIdx++;

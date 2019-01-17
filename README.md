@@ -178,3 +178,6 @@
 - 접근 제한자(modifier): private, (default), protected, public
 - 기능을 확장하는 다양한 방법: 기존 코드 변경, 기존 코드 복제
 - 상속을 이용한 기능 확장의 이점
+
+## 14일 
+- 과제 풀이 
