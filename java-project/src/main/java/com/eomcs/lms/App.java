@@ -13,8 +13,6 @@ public class App {
     
     LessonHandler lessonHandler = new LessonHandler(keyboard);
     MemberHandler memberHandler = new MemberHandler(keyboard);
-    
-    // BoardHandler를 사용하려면 반드시 Scanner 객체를 주입해야 한다.
     BoardHandler board1 = new BoardHandler(keyboard);
     BoardHandler board2 = new BoardHandler(keyboard);
     BoardHandler board3 = new BoardHandler(keyboard);
