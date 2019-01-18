@@ -11,11 +11,11 @@ public class LessonHandler {
   
   public LessonHandler(Scanner keyboard) {
     this.keyboard = keyboard;
-    list = new ArrayList<>(new Lesson[] {});
+    list = new ArrayList<>();
   }
   
   public void listLesson() {
-    Lesson[] lessons = list.toArray();
+    Lesson[] lessons = list.toArray(new Lesson[0]);
     for (Lesson lesson : lessons) {
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
           lesson.getNo(), lesson.getTitle(), 

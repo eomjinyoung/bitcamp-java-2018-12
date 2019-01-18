@@ -10,11 +10,11 @@ public class BoardHandler {
   
   public BoardHandler(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.list = new ArrayList<>(new Board[] {});
+    this.list = new ArrayList<>();
   }
   
   public void listBoard() {
-    Board[] boards = list.toArray();
+    Board[] boards = list.toArray(new Board[0]);
     
     for (Board board : boards) {
       System.out.printf("%3d, %-20s, %s, %d\n", 
@@ -41,4 +41,25 @@ public class BoardHandler {
     System.out.println("저장하였습니다.");
   }
 
+  public void detailBoard() {
+    
+  }
+  
+  public void updateBoard() {
+    
+  }
+  
+  public void deleteBoard() {
+    
+  }
 }
+
+
+
+
+
+
+
+
+
+
