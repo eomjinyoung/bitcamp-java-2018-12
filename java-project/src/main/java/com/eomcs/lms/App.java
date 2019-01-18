@@ -7,16 +7,14 @@ import com.eomcs.lms.handler.MemberHandler;
 
 public class App {
 
-  public static Scanner keyboard = new Scanner(System.in);
+  static Scanner keyboard = new Scanner(System.in);
 
   public static void main(String[] args) {
     
     LessonHandler lessonHandler = new LessonHandler(keyboard);
     MemberHandler memberHandler = new MemberHandler(keyboard);
-    BoardHandler board1 = new BoardHandler(keyboard);
-    BoardHandler board2 = new BoardHandler(keyboard);
-    BoardHandler board3 = new BoardHandler(keyboard);
-    
+    BoardHandler boardHandler1 = new BoardHandler(keyboard);
+    BoardHandler boardHandler2 = new BoardHandler(keyboard);
     
     while (true) {
       String command = prompt();
@@ -34,22 +32,16 @@ public class App {
         memberHandler.listMember();
         
       } else if (command.equals("/board/add")) {
-        board1.addBoard();
+        boardHandler1.addBoard();
         
       } else if (command.equals("/board/list")) {
-        board1.listBoard();
+        boardHandler1.listBoard();
         
       } else if (command.equals("/board2/add")) {
-        board2.addBoard();
+        boardHandler2.addBoard();
         
       } else if (command.equals("/board2/list")) {
-        board2.listBoard();
-        
-      } else if (command.equals("/board3/add")) {
-        board3.addBoard();
-        
-      } else if (command.equals("/board3/list")) {
-        board3.listBoard();
+        boardHandler2.listBoard();
         
       } else if (command.equals("quit")) {
         System.out.println("안녕!");
