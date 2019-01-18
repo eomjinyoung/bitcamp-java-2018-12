@@ -78,7 +78,6 @@ public class Test11 {
     Key2 k7 = new Key2("Haha"); 
     System.out.println(map.get(k7));
   }
-
 }
 
 
