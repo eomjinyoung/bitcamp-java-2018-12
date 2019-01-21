@@ -3,6 +3,7 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Lesson;
+import com.eomcs.util.ArrayList;
 
 public class LessonHandler {
 
@@ -51,4 +52,41 @@ public class LessonHandler {
 
     System.out.println("저장하였습니다.");
   }
+
+  public void detailLesson() {
+    System.out.print("번호? ");
+    int no = Integer.parseInt(keyboard.nextLine());
+    
+    Lesson lesson = null;
+    int size = list.size();
+    for (int i = 0; i < size; i++) {
+      Lesson item = list.get(i);
+      if (item.getNo() == no) {
+        lesson = item;
+        break;
+      }
+    }
+    
+    if (lesson == null) {
+      System.out.println("해당 수업을 찾을 수 없습니다.");
+      return;
+    }
+    
+    System.out.printf("수업명: %s\n", lesson.getTitle());
+    System.out.printf("수업내용: %s\n", lesson.getContents());
+    System.out.printf("기간: %s ~ %s\n", lesson.getStartDate(), lesson.getEndDate());
+    System.out.printf("총수업시간: %d\n", lesson.getTotalHours());
+    System.out.printf("일수업시간: %d\n", lesson.getDayHours());
+    
+  }
 }
+
+
+
+
+
+
+
+
+
+

@@ -2,6 +2,7 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
+import com.eomcs.util.ArrayList;
 
 public class BoardHandler {
   

@@ -1,4 +1,4 @@
-package com.eomcs.lms.handler;
+package com.eomcs.util;
 
 import java.util.Arrays;
 
@@ -41,8 +41,10 @@ public class ArrayList<E> {
     list[size++] = obj;
   }
   
+  @SuppressWarnings("unchecked")
   public E get(int index) {
-    // index : 값을 꺼낼 배열의 항목 위치
+    if (index >= 0 && index < size)
+      return (E) list[index];
     return null;
   }
   
@@ -58,6 +60,10 @@ public class ArrayList<E> {
     // 리턴값: 삭제된 이전 값
     // 힌트: System.arraycopy() 참고! 
     return null;
+  }
+
+  public int size() {
+    return this.size;
   }
 }
 

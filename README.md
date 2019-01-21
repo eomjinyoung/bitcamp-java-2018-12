@@ -195,6 +195,13 @@
 ## 15일 
 - 과제 풀이
 - 상속의 종류: generalization과 specialization
-- Object 클래스에 대하여
+- generalization과 추상 클래스, 추상 메서드
+- Object 클래스에 대하여: toString()
+- Hash code와 Hash 알고리즘
+- HashMap과 Key 클래스, hashCode(), equals()
+- 제네릭 사용법
+
+## 16일 
+- 과제 풀이 
 - 추상 메서드와 추상 클래스
 - 정렬 알고리즘: 다형적 변수, 추상 클래스, 추상 메서드 활용
