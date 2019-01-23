@@ -129,6 +129,41 @@ public class LinkedList {
     
     return 0;
   }
+  
+  public Object remove(int index) {
+    if (index < 0 || index >= size)
+      return null;
+    
+    // index 위치에 있는 노드를 찾는다.
+    Node cursor = head;
+    for (int i = 1; i <= index; i++) {
+      cursor = cursor.next;
+    }
+    
+    if (cursor.prev != null) {
+      // 찾은 노드의 이전 노드가 다음 노드를 가리키게 한다.
+      cursor.prev.next = cursor.next;
+    } else {
+      // 맨 처음 노드를 삭제할 때
+      head = cursor.next;
+    }
+    
+    // 찾은 노드의 다음 노드가 이전 노드를 가리키게 한다.
+    cursor.next.prev = cursor.prev;
+    
+    // JVM(Garbage Collection)이 가비지를 효과적으로 계산할 수 있도록 
+    // 가비지가 된 객체는 다른 객체를 가리키지 않도록 한다.
+    Object old = cursor.value;
+    cursor.value = null;
+    cursor.prev = null;
+    cursor.next = null;
+    
+    // 크기를 줄인다.
+    size--;
+    
+    // 호출한 쪽에서 필요하면 사용하라고 삭제된 값을 리턴해 준다.
+    return old;
+  }
 }
 
 

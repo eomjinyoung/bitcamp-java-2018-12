@@ -102,5 +102,35 @@ public class LinkedListTest {
     assertArrayEquals(
         new Object[] {55, 100, 200, 55, 300, 400, 500, 55, 600}, list.toArray());
   }
+  
+  @Test
+  public void testRemove() {
+    LinkedList list = new LinkedList();
+    list.add(100);
+    list.add(200);
+    list.add(300);
+    list.add(400);
+    list.add(500);
+    list.add(600);
+    
+    assertEquals(300, list.remove(2));
+    assertEquals(400, list.remove(2));
+    assertArrayEquals(
+        new Object[] {100, 200, 500, 600}, list.toArray());
+    
+    assertEquals(600, list.remove(3));
+    assertArrayEquals(
+        new Object[] {100, 200, 500}, list.toArray());
+    
+    assertEquals(100, list.remove(0));
+    assertArrayEquals(
+        new Object[] {200, 500}, list.toArray());
+    
+    assertEquals(200, list.remove(0));
+    assertEquals(500, list.remove(0));
+    assertArrayEquals(
+        new Object[] {}, list.toArray());
+    
+  }
 
 }
