@@ -1,9 +1,9 @@
 package algorithm.data_structure.linkedlist;
 
 public class LinkedList {
-  Node head;
-  Node tail;
-  int size;
+  protected Node head;
+  protected Node tail;
+  protected int size;
   
   public LinkedList() {
     head = new Node();
