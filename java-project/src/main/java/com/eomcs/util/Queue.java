@@ -1,6 +1,4 @@
-package algorithm.data_structure.queue;
-
-import algorithm.data_structure.linkedlist.LinkedList;
+package com.eomcs.util;
 
 // 기존 기능을 활용하는 가장 쉬운 방법이 상속이다.
 // 
