@@ -226,7 +226,9 @@
 - non-static nested class의 활용 예 : LinkedList의 인스턴스를 사용하는 Array 중첩 클래스
 - anonymous class : File의 list()에서 사용할 FilenameFilter 구현하기 
 - LinkedList, Stack, Queue 에 중첩 클래스 및 제네릭 적용
-- 과제 풀이 : 
+- 20단계 과제 풀이
+- 21단계 과제 풀이
+ 
 
 
 

@@ -48,7 +48,7 @@ public class LinkedList<E> {
   
   // ArrayList와 달리 해당 인덱스를 찾아 가려면 링크를 따라가야 하기 때문에 
   // 조회 속도가 느리다.
-  public Object get(int index) {
+  public E get(int index) {
     if (index < 0 || index >= size)
       return null;
     
@@ -82,16 +82,25 @@ public class LinkedList<E> {
   // 
   @SuppressWarnings("unchecked")
   public <T> T[] toArray(T[] a) {
-    T[] arr = (T[]) Array.newInstance(
-        a.getClass() // getClass()의 리턴 값은 T 가 아니라 T[] 이다.
-         .getComponentType(), // getComponentType()의 리턴 값은 배열의 항목 타입이다. 즉 T.
-        this.size());
+    
+    T[] arr = null;
+    if (a.length >= size()) { 
+      // 파라미터로 받은 배열의 크기가 리스트의 모든 항목을 담을 만큼 크다면 
+      // 배열을 새로 만들지 않고 그대로 사용한다.
+      arr = a;
+    } else {
+      // 만약 파라미터로 받은 배열의 크기가 리스터의 항목 크기 보다 작다면 새로 배열을 만든다.
+      arr = (T[]) Array.newInstance(
+          a.getClass() // getClass()의 리턴 값은 T 가 아니라 T[] 이다.
+          .getComponentType(), // getComponentType()의 리턴 값은 배열의 항목 타입이다. 즉 T.
+          this.size());
+    }
     
     Node<E> cursor = head;
     
     int i = 0; 
     while (cursor != tail) {
-      arr[i++] = cursor.value;
+      arr[i++] = (T) cursor.value;
       cursor = cursor.next;
     }
     

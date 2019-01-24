@@ -15,7 +15,8 @@ public class BoardHandler {
   }
   
   public void listBoard() {
-    Board[] boards = list.toArray(new Board[] {});
+    Board[] boards = new Board[list.size()];
+    list.toArray(boards);
     for (Board board : boards) {
       System.out.printf("%3d, %-20s, %s, %d\n", 
           board.getNo(), board.getContents(), 

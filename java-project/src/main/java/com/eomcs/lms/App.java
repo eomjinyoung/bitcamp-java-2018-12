@@ -4,10 +4,14 @@ import java.util.Scanner;
 import com.eomcs.lms.handler.BoardHandler;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
+import com.eomcs.util.Stack;
 
 public class App {
 
   static Scanner keyboard = new Scanner(System.in);
+
+  // 사용자가 입력한 명령을 보관할 스택 준비
+  static Stack<String> commandHistory = new Stack<>();
 
   public static void main(String[] args) {
     
@@ -19,6 +23,9 @@ public class App {
     while (true) {
       String command = prompt();
 
+      // 사용자가 입력한 명령을 스택에 보관한다.
+      commandHistory.push(command);
+      
       if (command.equals("/lesson/add")) {
         lessonHandler.addLesson();
         
@@ -83,6 +90,9 @@ public class App {
         System.out.println("안녕!");
         break;
         
+      } else if (command.equals("history")) {
+        printCommandHistory();
+        
       } else {
         System.out.println("실행할 수 없는 명령입니다.");
       }
@@ -91,6 +101,14 @@ public class App {
     }
 
     keyboard.close();
+  }
+
+  private static void printCommandHistory() {
+    
+    while (!commandHistory.empty()) {
+      System.out.println(commandHistory.pop());
+    }
+    
   }
 
   private static String prompt() {
