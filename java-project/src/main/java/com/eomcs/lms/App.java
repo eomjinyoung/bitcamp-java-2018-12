@@ -104,11 +104,15 @@ public class App {
   }
 
   private static void printCommandHistory() {
-    
-    while (!commandHistory.empty()) {
-      System.out.println(commandHistory.pop());
+    try {
+      // 명령어가 보관된 스택에서 명령어를 꺼내기 전에 복제한다.
+      Stack<String> temp = commandHistory.clone();
+      while (!temp.empty()) {
+        System.out.println(temp.pop());
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
-    
   }
 
   private static String prompt() {

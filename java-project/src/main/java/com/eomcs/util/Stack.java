@@ -1,6 +1,7 @@
 package com.eomcs.util;
 
-public class Stack<E> {
+// 스택에 복제 기능 활성화시키기
+public class Stack<E> implements Cloneable {
   
   public static final int DEFAULT_SIZE = 5;
   
@@ -38,4 +39,20 @@ public class Stack<E> {
   public int size() {
     return this.size;
   }
+  
+  @SuppressWarnings("unchecked")
+  @Override
+  public Stack<E> clone() throws CloneNotSupportedException {
+    return (Stack<E>) super.clone();
+  }
 }
+
+
+
+
+
+
+
+
+
+
