@@ -1,4 +1,4 @@
-package com.eomcs.util;
+package algorithm.data_structure.stack2;
 
 public class Stack<E> {
   

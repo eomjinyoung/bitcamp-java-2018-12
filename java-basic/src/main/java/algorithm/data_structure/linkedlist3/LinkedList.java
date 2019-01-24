@@ -1,7 +1,5 @@
 // 제네릭 적용하기
-package com.eomcs.util;
-
-import java.lang.reflect.Array;
+package algorithm.data_structure.linkedlist3;
 
 // LinkedList에 보관되는 값의 타입을 E 라고 가정한다.
 // => E 타입이라고 가정하고 코드를 작성한다.
@@ -66,26 +64,6 @@ public class LinkedList<E> {
   
   public Object[] toArray() {
     Object[] arr = new Object[size()];
-    
-    Node<E> cursor = head;
-    
-    int i = 0; 
-    while (cursor != tail) {
-      arr[i++] = cursor.value;
-      cursor = cursor.next;
-    }
-    
-    return arr;
-  }
-  
-  // T 라는 타입이 있다고 가정하자!
-  // 
-  @SuppressWarnings("unchecked")
-  public <T> T[] toArray(T[] a) {
-    T[] arr = (T[]) Array.newInstance(
-        a.getClass() // getClass()의 리턴 값은 T 가 아니라 T[] 이다.
-         .getComponentType(), // getComponentType()의 리턴 값은 배열의 항목 타입이다. 즉 T.
-        this.size());
     
     Node<E> cursor = head;
     
