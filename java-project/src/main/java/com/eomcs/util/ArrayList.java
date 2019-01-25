@@ -1,8 +1,9 @@
+// List 사용 규칙에 따라 ArrayList를 만든다.
 package com.eomcs.util;
 
 import java.util.Arrays;
 
-public class ArrayList<E> {
+public class ArrayList<E> implements List<E> {
   private static final int DEFAULT_CAPACITY = 10;
   private Object[] list;
   private int size = 0;
@@ -18,10 +19,16 @@ public class ArrayList<E> {
       list = new Object[DEFAULT_CAPACITY];
   }
   
+  public Object[] toArray() {
+    Object[] temp = new Object[this.size];
+    System.arraycopy(list, 0, temp, 0, size);
+    return temp;
+  }
+  
   @SuppressWarnings("unchecked")
-  public E[] toArray(E[] a) {
+  public <T> T[] toArray(T[] a) {
     if (a.length < size) {
-      return (E[]) Arrays.copyOf(list, size, a.getClass());
+      return (T[]) Arrays.copyOf(list, size, a.getClass());
     }
     System.arraycopy(list, 0, a, 0, size);
     if (a.length > size)

@@ -4,6 +4,8 @@ import java.util.Scanner;
 import com.eomcs.lms.handler.BoardHandler;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
+import com.eomcs.util.ArrayList;
+import com.eomcs.util.LinkedList;
 import com.eomcs.util.Queue;
 import com.eomcs.util.Stack;
 
@@ -17,10 +19,13 @@ public class App {
 
   public static void main(String[] args) {
     
-    LessonHandler lessonHandler = new LessonHandler(keyboard);
-    MemberHandler memberHandler = new MemberHandler(keyboard);
-    BoardHandler boardHandler1 = new BoardHandler(keyboard);
-    BoardHandler boardHandler2 = new BoardHandler(keyboard);
+    // 핸들러가 필요로 하는 의존 객체를 이 클래스에서 만들어 주입해 준다.
+    // => "의존 객체 주입(Dependency Injection; DI)"이라 한다.
+    //
+    LessonHandler lessonHandler = new LessonHandler(keyboard, new ArrayList<>());
+    MemberHandler memberHandler = new MemberHandler(keyboard, new ArrayList<>());
+    BoardHandler boardHandler1 = new BoardHandler(keyboard, new LinkedList<>());
+    BoardHandler boardHandler2 = new BoardHandler(keyboard, new LinkedList<>());
     
     while (true) {
       String command = prompt();
