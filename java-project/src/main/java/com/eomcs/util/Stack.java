@@ -29,7 +29,12 @@ public class Stack<E> implements Cloneable {
     if (size == 0)
       return null;
     
-    return (E) list[--size];
+    size--;
+    
+    E value = (E) list[size];
+    list[size] = null;
+    
+    return value;
   }
   
   public boolean empty() {

@@ -7,7 +7,7 @@ import java.lang.reflect.Array;
 // => E 타입이라고 가정하고 코드를 작성한다.
 // => E가 무슨 타입인지는 LinkedList를 사용할 때 결정된다.
 //
-public class LinkedList<E> {
+public class LinkedList<E> implements Cloneable {
   
   protected Node<E> head;
   protected Node<E> tail;
