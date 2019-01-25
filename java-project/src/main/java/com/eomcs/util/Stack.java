@@ -61,6 +61,28 @@ public class Stack<E> implements Cloneable {
     }
     return temp;
   }
+  
+  // 자신이 보유한 데이터를 대신 꺼내주는 일을 하는 객체를 리턴한다.
+  public Iterator<E> iterator() {
+    return new Iterator<E>() {
+      // 이 클래스는 Stack의 값을 꺼내는 일을 전문적으로 한다.
+      // => 이런 일을 하는 객체를 "Iterator"라 부른다.
+      //
+      int index = 0;
+      
+      @Override
+      public boolean hasNext() {
+        return index < size();
+      }
+
+      @SuppressWarnings("unchecked")
+      @Override
+      public E next() {
+        int lastIndex = size - 1;
+        return (E) list[lastIndex - (index++)];
+      }
+    };
+  }  
 }
 
 

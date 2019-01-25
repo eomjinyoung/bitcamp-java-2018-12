@@ -5,6 +5,7 @@ import com.eomcs.lms.handler.BoardHandler;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
 import com.eomcs.util.ArrayList;
+import com.eomcs.util.Iterator;
 import com.eomcs.util.LinkedList;
 import com.eomcs.util.Queue;
 import com.eomcs.util.Stack;
@@ -101,10 +102,10 @@ public class App {
         break;
         
       } else if (command.equals("history")) {
-        printCommandHistory();
+        printCommandHistory(commandHistory.iterator());
         
       } else if (command.equals("history2")) {
-        printCommandHistory2();
+        printCommandHistory(commandHistory2.iterator());
         
       } else {
         System.out.println("실행할 수 없는 명령입니다.");
@@ -116,13 +117,11 @@ public class App {
     keyboard.close();
   }
 
-  private static void printCommandHistory() {
+  private static void printCommandHistory(Iterator<String> iterator) {
     try {
-      // 명령어가 보관된 스택에서 명령어를 꺼내기 전에 복제한다.
-      Stack<String> temp = commandHistory.clone();
       int count = 0;
-      while (!temp.empty()) {
-        System.out.println(temp.pop());
+      while (iterator.hasNext()) {
+        System.out.println(iterator.next());
         if (++count % 5 == 0) {
           System.out.print(":");
           String input = keyboard.nextLine();
@@ -135,25 +134,6 @@ public class App {
     }
   }
   
-  private static void printCommandHistory2() {
-    try {
-      // 명령어가 보관된 스택에서 명령어를 꺼내기 전에 복제한다.
-      Queue<String> temp = commandHistory2.clone();
-      int count = 0;
-      while (!temp.empty()) {
-        System.out.println(temp.poll());
-        if (++count % 5 == 0) {
-          System.out.print(":");
-          String input = keyboard.nextLine();
-          if (input.equalsIgnoreCase("q"))
-            break;
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
   private static String prompt() {
     System.out.print("명령> ");
     return keyboard.nextLine().toLowerCase();

@@ -190,8 +190,25 @@ public class LinkedList<E> {
   
   // 자신이 보유한 데이터를 대신 꺼내주는 일을 하는 객체를 리턴한다.
   public Iterator<E> iterator() {
-    return new LinkedListIterator<>(this);
+    return new Iterator<E>() {
+      // 이 클래스는 LinkedList에서 값을 꺼내주는 일을 전문적으로 한다.
+      // => 이런 일을 하는 객체를 "Iterator"라 부른다.
+      //
+      int index = 0;
+      
+      @Override
+      public boolean hasNext() {
+        return index < size();
+      }
+
+      @Override
+      public E next() {
+        return (E) get(index++);
+      }
+    };
   }
+  
+  
 }
 
 
