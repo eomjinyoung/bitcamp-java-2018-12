@@ -1,14 +1,14 @@
 package com.eomcs.lms;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Stack;
 import com.eomcs.lms.handler.BoardHandler;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
-import com.eomcs.util.ArrayList;
-import com.eomcs.util.Iterator;
-import com.eomcs.util.LinkedList;
-import com.eomcs.util.Queue;
-import com.eomcs.util.Stack;
 
 public class App {
 
@@ -16,7 +16,7 @@ public class App {
 
   // 사용자가 입력한 명령을 보관할 스택 준비
   static Stack<String> commandHistory = new Stack<>();
-  static Queue<String> commandHistory2 = new Queue<>();
+  static ArrayDeque<String> commandHistory2 = new ArrayDeque<>();
 
   public static void main(String[] args) {
     
@@ -102,7 +102,19 @@ public class App {
         break;
         
       } else if (command.equals("history")) {
-        printCommandHistory(commandHistory.iterator());
+        printCommandHistory(new Iterator<String>() {
+          int index = commandHistory.size() - 1;
+          
+          @Override
+          public boolean hasNext() {
+            return index >= 0; 
+          }
+
+          @Override
+          public String next() {
+            return commandHistory.get(index--);
+          }
+        });
         
       } else if (command.equals("history2")) {
         printCommandHistory(commandHistory2.iterator());

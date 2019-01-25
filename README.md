@@ -231,11 +231,16 @@
 - 인스턴스 복제 : java.lang.Cloneable 인터페이스와 Object.clone() 메서드 
  
 ## 20일 
-- 22단계 과제 풀이
+- 22단계 과제 풀이: Queue 사용
 - deep clone 개념과 구현
-- 23단계 과제 풀이 
+- 23단계 과제 풀이: List 인터페이스 적용  
 - Iterator 디자인 패턴
-- 24단계 과제 풀이
+- 24단계 과제 풀이: Iterator 디자인 패턴 적용
+- 25단계 과제 풀이: Java Collection API로 교체
+
+## 21일 
+- 자바 컬렉션 API 사용법
+
 
 
 
