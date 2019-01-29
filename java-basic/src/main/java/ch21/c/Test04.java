@@ -9,6 +9,8 @@ public class Test04 {
   public static void main(String[] args) 
       // throws 문장도 catch 블록처럼 공통 수퍼 클래스 한 개로 보고할 수 있다.
       // => "이 메서드에서는 Exception 예외가 발생합니다"라는 의미다. 
+      // => throws 절에는 java.lang.Throwable 클래스만 선언할 수 있다.
+      //    Object 클래스와 같은 것은 선언할 수 없다.
       throws Exception { // 여러 예외를 퉁쳐서 하나로 표현할 수 있다.
       /*
       throws ClassNotFoundException, // 이 메서드에서 발생하는 예외의 목록을 지정한다.

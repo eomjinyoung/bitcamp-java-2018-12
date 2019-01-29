@@ -1,9 +1,9 @@
-// 애플리케이션 예외의 종류: RuntimeException 계열의 예외 처리
+// 애플리케이션 예외의 종류: RuntimeException 계열의 예외 처리 II
 package ch21.c;
 
 import java.util.ArrayList;
 
-public class Test05 {
+public class Test06 {
 
   public static void main(String[] args) { 
     
@@ -24,15 +24,18 @@ public class Test05 {
     // 2) try ~ catch를 사용할 수 있다.
     // 3) throws 문장을 선언할 수 있다.
     // 
-    // '방법1' 적용
-    // => 그냥 두기!
-    System.out.println(list.get(0));
-    System.out.println(list.get(1));
-    System.out.println(list.get(2));
-    System.out.println(list.get(3)); // 예외가 발생하면 즉시 실행을 중지하고 호출자에게 보고한다.
-    // main() 메서드의 호출자는 JVM이다.
-    // JVM은 예외를 보고 받으면 예외 상세 정보를 출력한 후 즉시 실행을 종료한다.
-    // 따라서 다음 코드는 실행되지 않는다.
+    // '방법2' 적용
+    // => try ~ catch 적용
+    try {
+      System.out.println(list.get(0));
+      System.out.println(list.get(1));
+      System.out.println(list.get(2));
+      System.out.println(list.get(3)); // 예외가 발생하면 catch 블록에서 예외를 받는다.
+      
+    } catch (RuntimeException e) {
+      // 여기서 예외를 처리했기 때문에 main() 호출자에게 따로 보고하지 않는다.
+      System.out.println("실행 중 오류 밸생!");
+    }
     
     System.out.println("종료!");
   }

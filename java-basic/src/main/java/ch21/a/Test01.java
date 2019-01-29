@@ -55,3 +55,28 @@ public class Test01 {
     return value + sum(value - 1);
   }
 }
+
+// 예외 클래스 계층도
+// 
+// java.lang.Throwable
+//     ㄴ java.lang.Error : 시스템 예외 
+//     ㄴ java.lang.Exception : 애플리케이션 예외
+// 
+// => catch 블록의 파라미터는 반드시 Throwable 타입이어야 한다.
+// => 메서드 선언부에 붙이는 throws 의 클래스도 반드시 Throwable 타입이어야 한다.
+// => 예외를 던질 때 사용하는 throw의 객체도 반드시 Throwable 타입이어야 한다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
