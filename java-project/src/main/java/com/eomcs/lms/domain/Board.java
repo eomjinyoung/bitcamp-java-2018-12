@@ -6,7 +6,7 @@ public class Board implements Cloneable {
   private String contents;
   private Date createdDate;
   private int viewCount;
-   
+  
   @Override
   public Board clone() throws CloneNotSupportedException {
     return (Board) super.clone();

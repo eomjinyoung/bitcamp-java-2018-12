@@ -4,9 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
 
-// 명령어를 처리하는 객체는 일관성 있는 사용을 위해 Command 규칙에 따라 작성되어야 한다.
 public class BoardAddCommand implements Command {
-   
+  
   Scanner keyboard;
   List<Board> list;
   
@@ -14,7 +13,8 @@ public class BoardAddCommand implements Command {
     this.keyboard = keyboard;
     this.list = list;
   }
-
+  
+  @Override
   public void execute() {
     Board board = new Board();
     
@@ -32,5 +32,4 @@ public class BoardAddCommand implements Command {
     
     System.out.println("저장하였습니다.");
   }
-
 }
