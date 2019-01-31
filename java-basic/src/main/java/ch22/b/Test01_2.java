@@ -4,7 +4,7 @@ package ch22.b;
 
 import java.io.FileInputStream;
 
-public class Test02 {
+public class Test01_2 {
   public static void main(String[] args) {
     
     // 파일의 바이너리 데이터 읽기
@@ -20,6 +20,11 @@ public class Test02 {
       //    byte는 -128 ~ 127까지의 값만 저장한다.
       // => 여러 바이트를 읽을 때는 바이트 배열을 사용한다.
       int b; 
+      
+      // read() 의 리턴 값은 int 타입이다.
+      // => 그렇다고 4바이트를 읽어 리턴하는 것이 아니다.
+      // => 1바이트를 읽어 리턴한다.
+      // 
       /*
       while (true) {
         b = in.read();
