@@ -251,6 +251,10 @@
 - Decorator 디자인 패턴 
 - Composite 디자인 패턴
 
+## 24일
+- File 클래스 사용법
+- Lambda 문법 다루기
+- 
 
 
 
