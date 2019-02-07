@@ -37,21 +37,5 @@ public class Board implements Cloneable {
     this.viewCount = viewCount;
   }
   
-  /**
-   * 
-   * @param csv "번호,내용,등록일(yyyy-MM-dd),조회수"
-   * @return
-   */
-  public static Board valueOf(String csv) {
-    
-    String[] values = csv.split(",");
-    
-    Board board = new Board();
-    board.setNo(Integer.parseInt(values[0]));
-    board.setContents(values[1]);
-    board.setCreatedDate(Date.valueOf(values[2]));
-    board.setViewCount(Integer.parseInt(values[3]));
-    
-    return board;
-  }
+  
 }

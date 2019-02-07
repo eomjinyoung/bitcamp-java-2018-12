@@ -1,13 +1,15 @@
 package com.eomcs.lms;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
@@ -42,7 +44,6 @@ public class App {
   
   public static void main(String[] args) {
     
-    // 데이터 로딩
     loadLessonData();
     loadMemberData();
     loadBoardData();
@@ -82,13 +83,10 @@ public class App {
         try {
           commandHandler.execute();
         } catch (Exception e) {
-          // 예외가 발생하면 다음 문장을 실행한다.
-          // 그리고 계속 프로그램을 실행한다.
-          System.out.printf("작업 중 오류 발생: %s\n", e.toString());
+          System.out.println("명령어 실행 중 오류 발생 : " + e.toString());
         }
-        
       } else if (command.equals("quit")) {
-        quit();
+        System.out.println("안녕!");
         break;
         
       } else if (command.equals("history")) {
@@ -105,6 +103,10 @@ public class App {
     }
 
     keyboard.close();
+    
+    saveLessonData();
+    saveMemberData();
+    saveBoardData();
   }
 
   @SuppressWarnings("unchecked")
@@ -130,127 +132,146 @@ public class App {
     return keyboard.nextLine().toLowerCase();
   }
   
-  private static void quit() {
-    saveLessonData();
-    saveMemberData();
-    saveBoardData();
-    System.out.println("안녕!");
-  }
-  
   private static void loadLessonData() {
-    try (FileReader in = new FileReader("lesson.csv");
-        Scanner in2 = new Scanner(in)) {
+    try (DataInputStream in = new DataInputStream(
+          new BufferedInputStream(
+              new FileInputStream("lesson.data")))) {
       
-      while (true) {
-        // 번호,제목,내용,시작일,종료일,총강의시간,일강의시간
-        lessonList.add(Lesson.valueOf(in2.nextLine()));
+      int len = in.readInt();
+      
+      for (int i = 0; i < len; i++) {
+        Lesson lesson = new Lesson();
+        lesson.setNo(in.readInt());
+        lesson.setTitle(in.readUTF());
+        lesson.setContents(in.readUTF());
+        lesson.setStartDate(Date.valueOf(in.readUTF()));
+        lesson.setEndDate(Date.valueOf(in.readUTF()));
+        lesson.setTotalHours(in.readInt());
+        lesson.setDayHours(in.readInt());
+        
+        lessonList.add(lesson);
       }
       
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
+    } catch (Exception e) {
+      System.out.println("수업 데이터를 읽는 중 오류 발생: " + e.toString());
       
-    } catch (IOException e) {
-      e.printStackTrace();
-      
-    } catch (NoSuchElementException e) {
-      System.out.println("수업 데이터 로딩 완료!");
     }
   }
   
   private static void saveLessonData() {
-    try (FileWriter out = new FileWriter("lesson.csv");) {
-      for (Lesson lesson : lessonList) {
-        out.write(String.format("%d,%s,%s,%s,%s,%d,%d\n", 
-            lesson.getNo(),
-            lesson.getTitle(),
-            lesson.getContents(),
-            lesson.getStartDate(),
-            lesson.getEndDate(),
-            lesson.getTotalHours(),
-            lesson.getDayHours()));
+    try (DataOutputStream out = new DataOutputStream(
+            new BufferedOutputStream(
+                new FileOutputStream("lesson.data")))) {
+      
+      // 파일 형식: 번호,수업명,설명,시작일,종료일,총수업시간,일수업시간
+      out.writeInt(lessonList.size());
+      
+      for (Lesson l : lessonList) {
+        out.writeInt(l.getNo());
+        out.writeUTF(l.getTitle());
+        out.writeUTF(l.getContents());
+        out.writeUTF(l.getStartDate().toString());
+        out.writeUTF(l.getEndDate().toString());
+        out.writeInt(l.getTotalHours());
+        out.writeInt(l.getDayHours());
       }
-    } catch (IOException e) {
-      e.printStackTrace();
+      
+    } catch (Exception e) {
+      System.out.println("수업 데이터를 쓰는 중 오류 발생: " + e.toString());
     }
   }
+  
   private static void loadMemberData() {
-    try (FileReader in = new FileReader("member.csv");
-        Scanner in2 = new Scanner(in)) {
+    try (DataInputStream in = new DataInputStream(
+        new BufferedInputStream(
+            new FileInputStream("member.data")))) {
       
-      while (true) {
-        // 번호,이름,이메일,암호,사진,전화,등록일
-        memberList.add(Member.valueOf(in2.nextLine()));
+             
+      int len = in.readInt();
+      
+      for (int i = 0; i < len; i++) {
+        Member member = new Member();
+        member.setNo(in.readInt());
+        member.setName(in.readUTF());
+        member.setEmail(in.readUTF());
+        member.setPassword(in.readUTF());
+        member.setPhoto(in.readUTF());
+        member.setTel(in.readUTF());
+        member.setRegisteredDate(Date.valueOf(in.readUTF()));
+        
+        memberList.add(member);
       }
       
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
+    } catch (Exception e) {
+      System.out.println("회원 데이터를 읽는 중 오류 발생: " + e.toString());
       
-    } catch (IOException e) {
-      e.printStackTrace();
-      
-    } catch (NoSuchElementException e) {
-      System.out.println("수업 데이터 로딩 완료!");
     }
   }
   
   private static void saveMemberData() {
-    try (FileWriter out = new FileWriter("member.csv");) {
-      for (Member member : memberList) {
-        out.write(String.format("%d,%s,%s,%s,%s,%s,%s\n", 
-            member.getNo(),
-            member.getName(),
-            member.getEmail(),
-            member.getPassword(),
-            member.getPhoto(),
-            member.getTel(),
-            member.getRegisteredDate()));
+    try (DataOutputStream out = new DataOutputStream(
+          new BufferedOutputStream(
+              new FileOutputStream("member.data")))) {
+      
+      // 파일 형식: 번호,이름,이메일,암호,사진,전화,가입일
+      out.writeInt(memberList.size());
+
+      for (Member m : memberList) {
+        out.writeInt(m.getNo());
+        out.writeUTF(m.getName());
+        out.writeUTF(m.getEmail());
+        out.writeUTF(m.getPassword());
+        out.writeUTF(m.getPhoto());
+        out.writeUTF(m.getTel());
+        out.writeUTF(m.getRegisteredDate().toString());
       }
-    } catch (IOException e) {
-      e.printStackTrace();
+      
+    } catch (Exception e) {
+      System.out.println("회원 데이터를 쓰는 중 오류 발생: " + e.toString());
     }
   }
+  
   private static void loadBoardData() {
-    try (FileReader in = new FileReader("board.csv");
-        Scanner in2 = new Scanner(in)) {
+    try (DataInputStream in = new DataInputStream(
+        new BufferedInputStream(
+            new FileInputStream("board.data")))) {
       
-      while (true) {
-        // 번호,제목,내용,시작일,종료일,총강의시간,일강의시간
-        boardList.add(Board.valueOf(in2.nextLine()));
+      int len = in.readInt();
+      
+      for (int i = 0; i < len; i++) {
+        Board board = new Board();
+        board.setNo(in.readInt());
+        board.setContents(in.readUTF());
+        board.setCreatedDate(Date.valueOf(in.readUTF()));
+        board.setViewCount(in.readInt());
+        
+        boardList.add(board);
       }
       
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
+    } catch (Exception e) {
+      System.out.println("게시글 데이터를 읽는 중 오류 발생: " + e.toString());
       
-    } catch (IOException e) {
-      e.printStackTrace();
-      
-    } catch (NoSuchElementException e) {
-      System.out.println("수업 데이터 로딩 완료!");
     }
   }
   
   private static void saveBoardData() {
-    try (FileWriter out = new FileWriter("board.csv");) {
-      for (Board board : boardList) {
-        out.write(String.format("%d,%s,%s,%d\n", 
-            board.getNo(),
-            board.getContents(),
-            board.getCreatedDate(),
-            board.getViewCount()));
+    try (DataOutputStream out = new DataOutputStream(
+        new BufferedOutputStream(
+            new FileOutputStream("board.data")))) {
+    
+      // 파일 형식: 번호,이름,이메일,암호,사진,전화,가입일
+      out.writeInt(boardList.size());
+      
+      // 파일 형식: 번호,내용,등록일,조회수
+      for (Board b : boardList) {
+        out.writeInt(b.getNo());
+        out.writeUTF(b.getContents());
+        out.writeUTF(b.getCreatedDate().toString());
+        out.writeInt(b.getViewCount());
       }
-    } catch (IOException e) {
-      e.printStackTrace();
+      
+    } catch (Exception e) {
+      System.out.println("게시글 데이터를 쓰는 중 오류 발생: " + e.toString());
     }
-  }  
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
