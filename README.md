@@ -263,6 +263,13 @@
 - 데코레이터 클래스 만들기 
 - 문자 데이터 입출력 다루기 
 
+## 26일
+- 인스턴스 출력 과제 해설
+- Serialize/Deserialize 개념
+- Serializable 인터페이스 
+- ObjectInputStream/ObjectOutputStream 사용법
+- transient 한정자의 용도와 사용법
+ 
 
 
 
