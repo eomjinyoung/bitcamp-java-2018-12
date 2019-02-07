@@ -1,7 +1,10 @@
 package com.eomcs.lms.domain;
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Lesson implements Cloneable {
+public class Lesson implements Cloneable, Serializable {
+  private static final long serialVersionUID = 1L;
+  
   private int no;
   private String title;
   private String contents;

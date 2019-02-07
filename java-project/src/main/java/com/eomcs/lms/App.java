@@ -5,6 +5,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +40,7 @@ public class App {
   static Scanner keyboard = new Scanner(System.in);
   static Stack<String> commandHistory = new Stack<>();
   static Queue<String> commandHistory2 = new LinkedList<>();
-  static ArrayList<Lesson> lessonList = new ArrayList<>();
+  static ArrayList<Lesson> lessonList;
   static LinkedList<Member> memberList = new LinkedList<>();
   static ArrayList<Board> boardList = new ArrayList<>();
   
@@ -132,49 +134,26 @@ public class App {
     return keyboard.nextLine().toLowerCase();
   }
   
+  @SuppressWarnings("unchecked")
   private static void loadLessonData() {
-    try (DataInputStream in = new DataInputStream(
+    try (ObjectInputStream in = new ObjectInputStream(
           new BufferedInputStream(
-              new FileInputStream("lesson.data")))) {
+              new FileInputStream("lesson3.data")))) {
       
-      int len = in.readInt();
-      
-      for (int i = 0; i < len; i++) {
-        Lesson lesson = new Lesson();
-        lesson.setNo(in.readInt());
-        lesson.setTitle(in.readUTF());
-        lesson.setContents(in.readUTF());
-        lesson.setStartDate(Date.valueOf(in.readUTF()));
-        lesson.setEndDate(Date.valueOf(in.readUTF()));
-        lesson.setTotalHours(in.readInt());
-        lesson.setDayHours(in.readInt());
-        
-        lessonList.add(lesson);
-      }
+      lessonList = (ArrayList<Lesson>) in.readObject();
       
     } catch (Exception e) {
       System.out.println("수업 데이터를 읽는 중 오류 발생: " + e.toString());
-      
+      lessonList = new ArrayList<>();
     }
   }
   
   private static void saveLessonData() {
-    try (DataOutputStream out = new DataOutputStream(
+    try (ObjectOutputStream out = new ObjectOutputStream(
             new BufferedOutputStream(
-                new FileOutputStream("lesson.data")))) {
+                new FileOutputStream("lesson3.data")))) {
       
-      // 파일 형식: 번호,수업명,설명,시작일,종료일,총수업시간,일수업시간
-      out.writeInt(lessonList.size());
-      
-      for (Lesson l : lessonList) {
-        out.writeInt(l.getNo());
-        out.writeUTF(l.getTitle());
-        out.writeUTF(l.getContents());
-        out.writeUTF(l.getStartDate().toString());
-        out.writeUTF(l.getEndDate().toString());
-        out.writeInt(l.getTotalHours());
-        out.writeInt(l.getDayHours());
-      }
+      out.writeObject(lessonList);
       
     } catch (Exception e) {
       System.out.println("수업 데이터를 쓰는 중 오류 발생: " + e.toString());
