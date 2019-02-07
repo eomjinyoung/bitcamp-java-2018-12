@@ -1,13 +1,10 @@
 package com.eomcs.lms;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -41,8 +38,8 @@ public class App {
   static Stack<String> commandHistory = new Stack<>();
   static Queue<String> commandHistory2 = new LinkedList<>();
   static ArrayList<Lesson> lessonList;
-  static LinkedList<Member> memberList = new LinkedList<>();
-  static ArrayList<Board> boardList = new ArrayList<>();
+  static LinkedList<Member> memberList;
+  static ArrayList<Board> boardList;
   
   public static void main(String[] args) {
     
@@ -160,94 +157,52 @@ public class App {
     }
   }
   
+  @SuppressWarnings("unchecked")
   private static void loadMemberData() {
-    try (DataInputStream in = new DataInputStream(
+    try (ObjectInputStream in = new ObjectInputStream(
         new BufferedInputStream(
-            new FileInputStream("member.data")))) {
+            new FileInputStream("member3.data")))) {
       
-             
-      int len = in.readInt();
-      
-      for (int i = 0; i < len; i++) {
-        Member member = new Member();
-        member.setNo(in.readInt());
-        member.setName(in.readUTF());
-        member.setEmail(in.readUTF());
-        member.setPassword(in.readUTF());
-        member.setPhoto(in.readUTF());
-        member.setTel(in.readUTF());
-        member.setRegisteredDate(Date.valueOf(in.readUTF()));
-        
-        memberList.add(member);
-      }
+      memberList = (LinkedList<Member>) in.readObject();
       
     } catch (Exception e) {
       System.out.println("회원 데이터를 읽는 중 오류 발생: " + e.toString());
-      
+      memberList = new LinkedList<>();
     }
   }
   
   private static void saveMemberData() {
-    try (DataOutputStream out = new DataOutputStream(
+    try (ObjectOutputStream out = new ObjectOutputStream(
           new BufferedOutputStream(
-              new FileOutputStream("member.data")))) {
+              new FileOutputStream("member3.data")))) {
       
-      // 파일 형식: 번호,이름,이메일,암호,사진,전화,가입일
-      out.writeInt(memberList.size());
-
-      for (Member m : memberList) {
-        out.writeInt(m.getNo());
-        out.writeUTF(m.getName());
-        out.writeUTF(m.getEmail());
-        out.writeUTF(m.getPassword());
-        out.writeUTF(m.getPhoto());
-        out.writeUTF(m.getTel());
-        out.writeUTF(m.getRegisteredDate().toString());
-      }
+      out.writeObject(memberList);
       
     } catch (Exception e) {
       System.out.println("회원 데이터를 쓰는 중 오류 발생: " + e.toString());
     }
   }
   
+  @SuppressWarnings("unchecked")
   private static void loadBoardData() {
-    try (DataInputStream in = new DataInputStream(
+    try (ObjectInputStream in = new ObjectInputStream(
         new BufferedInputStream(
-            new FileInputStream("board.data")))) {
+            new FileInputStream("board3.data")))) {
       
-      int len = in.readInt();
-      
-      for (int i = 0; i < len; i++) {
-        Board board = new Board();
-        board.setNo(in.readInt());
-        board.setContents(in.readUTF());
-        board.setCreatedDate(Date.valueOf(in.readUTF()));
-        board.setViewCount(in.readInt());
-        
-        boardList.add(board);
-      }
+      boardList = (ArrayList<Board>) in.readObject();
       
     } catch (Exception e) {
       System.out.println("게시글 데이터를 읽는 중 오류 발생: " + e.toString());
-      
+      boardList = new ArrayList<>();
     }
   }
   
   private static void saveBoardData() {
-    try (DataOutputStream out = new DataOutputStream(
+    try (ObjectOutputStream out = new ObjectOutputStream(
         new BufferedOutputStream(
-            new FileOutputStream("board.data")))) {
+            new FileOutputStream("board3.data")))) {
     
-      // 파일 형식: 번호,이름,이메일,암호,사진,전화,가입일
-      out.writeInt(boardList.size());
-      
-      // 파일 형식: 번호,내용,등록일,조회수
-      for (Board b : boardList) {
-        out.writeInt(b.getNo());
-        out.writeUTF(b.getContents());
-        out.writeUTF(b.getCreatedDate().toString());
-        out.writeInt(b.getViewCount());
-      }
+      out.writeObject(boardList);
       
     } catch (Exception e) {
       System.out.println("게시글 데이터를 쓰는 중 오류 발생: " + e.toString());
