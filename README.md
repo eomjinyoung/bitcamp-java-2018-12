@@ -269,7 +269,10 @@
 - Serializable 인터페이스 
 - ObjectInputStream/ObjectOutputStream 사용법
 - transient 한정자의 용도와 사용법
- 
+- 29, 30, 31 단계 과제 풀이
+
+## 27일 
+- Observer 디자인 패턴
 
 
 
