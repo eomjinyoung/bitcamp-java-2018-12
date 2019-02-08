@@ -57,6 +57,7 @@ public class Server3 {
         } catch (Exception e){
           out.println("fail");
           out.flush();
+          e.printStackTrace();
         }
         System.out.println("클라인트에게 응답했음.");
       } 
