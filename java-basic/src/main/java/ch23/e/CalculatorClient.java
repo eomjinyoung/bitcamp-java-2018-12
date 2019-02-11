@@ -18,17 +18,15 @@ public class CalculatorClient {
     Scanner keyboard = new Scanner(System.in);
     
     while (true) {
+      // 계산 요청을 할 때 연산자와 값만 넘긴다.
+      // 예) + 2
+      // 예) / 3
+      //
       System.out.print("> ");
       String input = keyboard.nextLine();
       if (input.equalsIgnoreCase("quit"))
         break;
 
-      // 서버에 요청할 때 연결을 하고
-      // 서버로부터 응답을 받으면 연결을 끊는다.
-      // => 매번 요청할 때마다 서버와 연결해야 하기 때문에 실행 시간 중에 연결에 소요되는 시간이 
-      //    일정하게 걸린다.
-      // => 대신 서버로부터 응답을 받은 후에 즉시 연결을 끊기 때문에 
-      //    서버쪽에는 메모리가 낭비되지 않는다.
       try (Socket socket = new Socket("localhost", 8888);
           PrintStream out = new PrintStream(socket.getOutputStream());
           BufferedReader in = new BufferedReader(
