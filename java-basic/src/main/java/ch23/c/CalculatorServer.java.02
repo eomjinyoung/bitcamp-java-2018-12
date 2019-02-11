@@ -1,4 +1,4 @@
-// 계산기 서버 만들기 - 3단계: 연산자 처리
+// 계산기 서버 만들기 - 2단계: 반복문을 적용하여 클라이언트 요청을 계속 처리하게 만들기
 package ch23.c;
 
 import java.io.BufferedReader;
@@ -24,21 +24,8 @@ public class CalculatorServer {
           int a = Integer.parseInt(input[0]);
           String op = input[1];
           int b = Integer.parseInt(input[2]);
-          int result = 0;
           
-          switch (op) {
-            case "+": result = a + b; break;
-            case "-": result = a - b; break;
-            case "*": result = a * b; break;
-            case "/": result = a / b; break;
-            case "%": result = a % b; break;
-            default:
-              out.printf("%s 연산자를 지원하지 않습니다.\n", op);
-              out.flush();
-              continue;
-          }
-          
-          out.printf("결과는 %d 입니다.\n", result);
+          out.printf("결과는 %d 입니다.\n", a + b);
           out.flush();
         }
       }
