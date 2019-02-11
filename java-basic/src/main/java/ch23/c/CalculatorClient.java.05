@@ -37,13 +37,6 @@ public class CalculatorClient {
             new InputStreamReader(socket.getInputStream()))) {
       
       while (true) {
-        String input = in.readLine();
-        System.out.println(input);
-        if (input.length() == 0)
-          break;
-      }
-      
-      while (true) {
         System.out.print("> ");
         String input = keyboard.nextLine();
         
