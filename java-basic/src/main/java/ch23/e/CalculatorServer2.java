@@ -1,4 +1,4 @@
-// Stateful 서버 만들기
+// Stateful 응용 - 클라이언트의 계산 결과를 서버에 유지하기
 package ch23.e;
 
 import java.io.BufferedReader;
@@ -13,9 +13,8 @@ public class CalculatorServer2 {
     try (ServerSocket serverSocket = new ServerSocket(8888)) {
       System.out.println("서버 실행 중...");
       
-      // 서버의 Stateful 통신 방법
-      // => 먼저 클라이언트와 연결된 후 클라이언트 요청을 처리한다.
-      // => 클라이언트에서 연결을 끊기 전까지는 계속 연결을 유지한다.
+      // 서버의 Stateful 응용
+      // => 작업 결과를 변수에 저장하여 연결을 끊을 때까지 계속 유지한다.
       //
       while (true) {
         
@@ -26,25 +25,27 @@ public class CalculatorServer2 {
           
           System.out.println("클라이언트와 연결됨!");
           
+          // 클라이언트의 요청에 대한 계산 결과를 유지할 변수 선언
+          int result = 0;
+          
           while (true) {
             String request = in.readLine();
             System.out.println("요청 처리함.");
             
             if (request.equalsIgnoreCase("quit")) {
-              out.println("종료합니다!");
+              out.printf("최종 계산 결과는 %d 입니다.\n", result);
               out.flush();
               break;
             }
             
             String[] input = request.split(" ");
             
-            int a = 0, b = 0, result = 0;
+            int b = 0;
             String op = null;
              
             try { 
-              a = Integer.parseInt(input[0]);
-              op = input[1];
-              b = Integer.parseInt(input[2]);
+              op = input[0];
+              b = Integer.parseInt(input[1]);
             } catch (Exception e) {
               out.println("식의 형식이 바르지 않습니다.");
               out.flush();
@@ -52,18 +53,18 @@ public class CalculatorServer2 {
             }
             
             switch (op) {
-              case "+": result = a + b; break;
-              case "-": result = a - b; break;
-              case "*": result = a * b; break;
-              case "/": result = a / b; break;
-              case "%": result = a % b; break;
+              case "+": result += b; break;
+              case "-": result -= b; break;
+              case "*": result *= b; break;
+              case "/": result /= b; break;
+              case "%": result %= b; break;
               default:
                 out.printf("%s 연산자를 지원하지 않습니다.\n", op);
                 out.flush();
                 continue;
             }
             
-            out.printf("결과는 %d 입니다.\n", result);
+            out.printf("현재까지 계산 결과는 %d 입니다.\n", result);
             out.flush();
             
           } // while

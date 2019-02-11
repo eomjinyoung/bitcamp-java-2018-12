@@ -280,6 +280,9 @@
 
 ## 28일(2019-2-11)
 - "계산기 클라이언트/서버 만들기" 과제 풀이
-- 
+- connectionful/connectionless 방식 비교
+- stateful/stateless 통신 구현 : 계산기 클라이언트/서버 만들기
+- stateful 응용 : 계산 결과 유지하기
+- 과제) stateless 응용 : 계산 결과 유지하기
 
 

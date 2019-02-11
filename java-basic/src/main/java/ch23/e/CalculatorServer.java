@@ -1,4 +1,4 @@
-// Stateless 서버 만들기
+// Stateless 응용 - 서버에서 계산 결과 유지하기
 package ch23.e;
 
 import java.io.BufferedReader;
@@ -13,10 +13,8 @@ public class CalculatorServer {
     try (ServerSocket serverSocket = new ServerSocket(8888)) {
       System.out.println("서버 실행 중...");
       
-      // 서버의 Stateless 통신 방법
-      // => 클라이언트 요청이 들어오면 작업을 수행하고 응답을 한다.
-      //    응답한 후에 즉시 연결을 끊는다.
-      //
+      // 서버의 Stateless 통신 방법에서 클라이언트를 구분하여 각 클라이언트의 계산 결과를 유지하려면?
+      // => 커피숍에서는 고객의 쿠폰 포인트를 어떻게 관리할까?
       while (true) {
         
         try (Socket socket = serverSocket.accept();
