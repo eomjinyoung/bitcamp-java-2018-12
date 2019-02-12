@@ -292,5 +292,5 @@
 - HTTP 클라이언트와 서버 만들기
 - URL과 URLConnection 다루기
 - apache.org의 HttpClient 라이브러리 사용
-
+- 과제: java-project에서 데이터처리 부분을 분리하여 서버로 만들라.
 
