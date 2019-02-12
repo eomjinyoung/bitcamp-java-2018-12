@@ -287,5 +287,10 @@
 
 ## 29일(2019-2-12)
 - 과제 풀이: stateless 응용 계산기 서버 만들기
+- Connection-Oriented와 Connectionless 비교
+- DatagramSocket과 DatagramPacket을 이용하여 connectionless 통신 구현하기
+- HTTP 클라이언트와 서버 만들기
+- URL과 URLConnection 다루기
+- apache.org의 HttpClient 라이브러리 사용
 
 
