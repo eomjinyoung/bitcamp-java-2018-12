@@ -1,21 +1,21 @@
 // 8단계: 클라이언트 요청을 처리하는 클래스에 대해 리팩토링 수행
-package com.eomcs.lms;
+package com.eomcs.lms.service;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.domain.Board;
 
-//클라이언트의 요청을 처리하는 클래스라는 의미로 
-//클래스명을 *Service로 변경한다.
-public class LessonService {
+// 클라이언트의 요청을 처리하는 클래스라는 의미로 
+// 클래스명을 *Service로 변경한다.
+public class BoardService {
 
-  ArrayList<Lesson> lessons = new ArrayList<>();
+  ArrayList<Board> boards = new ArrayList<>();
 
   ObjectInputStream in;
   ObjectOutputStream out;
 
-  public LessonService(ObjectInputStream in, ObjectOutputStream out) {
+  public BoardService(ObjectInputStream in, ObjectOutputStream out) {
     this.in = in;
     this.out = out;
   }
@@ -23,19 +23,19 @@ public class LessonService {
   public void execute(String request) throws Exception {
 
     switch (request) {
-      case "/lesson/add":
+      case "/board/add":
         add();
         break;
-      case "/lesson/list":
+      case "/board/list":
         list();
         break;
-      case "/lesson/detail":
+      case "/board/detail":
         detail();
         break;
-      case "/lesson/update":
+      case "/board/update":
         update();
         break;
-      case "/lesson/delete":
+      case "/board/delete":
         delete();
         break;  
       default:
@@ -47,7 +47,7 @@ public class LessonService {
   private void add() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    lessons.add((Lesson)in.readObject());
+    boards.add((Board)in.readObject());
     out.writeUTF("OK");
   }
 
@@ -55,7 +55,7 @@ public class LessonService {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
-    out.writeObject(lessons);
+    out.writeObject(boards);
   }
 
   private void detail() throws Exception {
@@ -63,10 +63,10 @@ public class LessonService {
     out.flush();
     int no = in.readInt();
 
-    for (Lesson l : lessons) {
-      if (l.getNo() == no) {
+    for (Board b : boards) {
+      if (b.getNo() == no) {
         out.writeUTF("OK");
-        out.writeObject(l);
+        out.writeObject(b);
         return;
       }
     }
@@ -77,12 +77,12 @@ public class LessonService {
   private void update() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    Lesson lesson = (Lesson) in.readObject();
+    Board board = (Board) in.readObject();
 
     int index = 0;
-    for (Lesson l : lessons) {
-      if (l.getNo() == lesson.getNo()) {
-        lessons.set(index, lesson);
+    for (Board b : boards) {
+      if (b.getNo() == board.getNo()) {
+        boards.set(index, board);
         out.writeUTF("OK");
         return;
       }
@@ -98,9 +98,9 @@ public class LessonService {
     int no = in.readInt();
 
     int index = 0;
-    for (Lesson l : lessons) {
-      if (l.getNo() == no) {
-        lessons.remove(index);
+    for (Board b : boards) {
+      if (b.getNo() == no) {
+        boards.remove(index);
         out.writeUTF("OK");
         return;
       }

@@ -1,5 +1,5 @@
 // 8단계: 클라이언트 요청을 처리하는 클래스에 대해 리팩토링 수행
-package com.eomcs.lms;
+package com.eomcs.lms.service;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
