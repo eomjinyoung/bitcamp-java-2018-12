@@ -6,11 +6,16 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.Member;
 
 public class ServerApp {
 
   static ArrayList<Member> members = new ArrayList<>();
+  static ArrayList<Lesson> lessons = new ArrayList<>();
+  static ArrayList<Board> boards = new ArrayList<>();
+  
   static ObjectInputStream in;
   static ObjectOutputStream out;
   
@@ -30,32 +35,34 @@ public class ServerApp {
           ServerApp.in = in;
           ServerApp.out = out;
           
+          MemberCommand.in = in;
+          MemberCommand.out = out;
+          
+          LessonCommand.in = in;
+          LessonCommand.out = out;
+          
+          BoardCommand.in = in;
+          BoardCommand.out = out;
           
           loop: while (true) {
               String request = in.readUTF();
               System.out.println(request);
               
-              switch (request) {
-                case "quit":
-                  quit();
-                  break loop;
-                case "/member/add":
-                  add();
-                  break;
-                case "/member/list":
-                  list();
-                  break;
-                case "/member/detail":
-                  detail();
-                  break;
-                case "/member/update":
-                  update();
-                  break;
-                case "/member/delete":
-                  delete();
-                  break;  
-                default:
-                  out.writeUTF("이 명령을 처리할 수 없음!");
+              if (request.startsWith("/member/")) {
+                MemberCommand.service(request);
+                
+              } else if (request.startsWith("/lesson/")) {
+                LessonCommand.service(request);
+                
+              } else if (request.startsWith("/board/")) {
+                BoardCommand.service(request);
+                
+              } else if (request.equals("quit")) {
+                quit();
+                break loop;
+                
+              } else {
+                out.writeUTF("FAIL");
               }
               out.flush();
           }
@@ -74,63 +81,6 @@ public class ServerApp {
     out.writeUTF("종료함!");
     out.flush();
   }
-  
-  static void add() throws Exception {
-    members.add((Member)in.readObject());
-    out.writeUTF("OK");
-  }
-  
-  static void list() throws Exception {
-    out.writeUTF("OK");
-    out.writeObject(members);
-  }
-  
-  static void detail() throws Exception {
-    int no = in.readInt();
-    
-    for (Member m : members) {
-      if (m.getNo() == no) {
-        out.writeUTF("OK");
-        out.writeObject(m);
-        return;
-      }
-    }
-    
-    out.writeUTF("FAIL");
-  }
-  
-  static void update() throws Exception {
-    Member member = (Member) in.readObject();
-    
-    int index = 0;
-    for (Member m : members) {
-      if (m.getNo() == member.getNo()) {
-        members.set(index, member);
-        out.writeUTF("OK");
-        return;
-      }
-      index++;
-    }
-    
-    out.writeUTF("FAIL");
-  }
-
-  static void delete() throws Exception {
-    int no = in.readInt();
-    
-    int index = 0;
-    for (Member m : members) {
-      if (m.getNo() == no) {
-        members.remove(index);
-        out.writeUTF("OK");
-        return;
-      }
-      index++;
-    }
-    
-    out.writeUTF("FAIL");    
-  }
-
 }
 
 

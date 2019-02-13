@@ -10,14 +10,6 @@ public class Board implements Cloneable, Serializable {
   private Date createdDate;
   private int viewCount;
   
-  public Board() {
-  }
-  
-  public Board(int no, String contents) {
-    this.no = no;
-    this.contents = contents;
-  }
-  
   @Override
   public Board clone() throws CloneNotSupportedException {
     return (Board) super.clone();
