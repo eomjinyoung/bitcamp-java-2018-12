@@ -1,28 +1,28 @@
-// 8단계: 서버 실행 테스트
+// 7단계: 서버 실행 테스트
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
-import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.domain.Member;
 
-public class BoardTest {
+public class MemberTest {
 
   ObjectOutputStream out;
   ObjectInputStream in;
   
-  public BoardTest(ObjectOutputStream out, ObjectInputStream in) {
+  public MemberTest(ObjectOutputStream out, ObjectInputStream in) {
     this.out = out;
     this.in = in;
   }
   
   public void test() throws Exception {
-    add(new Board(1, "내용내용"));
-    add(new Board(2, "내용입니다."));
+    add(new Member(1, "홍길동"));
+    add(new Member(2, "임꺽정"));
     
     detail(1);
     
-    update(new Board(1, "내용내용222"));
+    update(new Member(1, "홍길동x"));
     
     detail(1);
     
@@ -31,13 +31,13 @@ public class BoardTest {
     list();
   }
   
-  private void add(Board board) throws Exception {
-    out.writeUTF("/board/add"); 
+  private void add(Member member) throws Exception {
+    out.writeUTF("/member/add"); 
     out.flush();
     if (!in.readUTF().equals("OK"))
       return;
     
-    out.writeObject(board);
+    out.writeObject(member);
     out.flush();
     
     String status = in.readUTF();
@@ -49,7 +49,7 @@ public class BoardTest {
   }
   
   private void list() throws Exception {
-    out.writeUTF("/board/list"); 
+    out.writeUTF("/member/list"); 
     out.flush();
     if (!in.readUTF().equals("OK"))
       return;
@@ -62,14 +62,14 @@ public class BoardTest {
     }
     
     @SuppressWarnings("unchecked")
-    List<Board> boards = (List<Board>) in.readObject();
-    for (Board b : boards) {
-      System.out.println(b);
+    List<Member> members = (List<Member>) in.readObject();
+    for (Member m : members) {
+      System.out.println(m);
     }
   }
   
   private void detail(int no) throws Exception {
-    out.writeUTF("/board/detail");
+    out.writeUTF("/member/detail");
     out.flush();
     if (!in.readUTF().equals("OK"))
       return;
@@ -84,17 +84,17 @@ public class BoardTest {
       return;
     }
     
-    Board board = (Board) in.readObject();
-    System.out.println(board);
+    Member member = (Member) in.readObject();
+    System.out.println(member);
   }
   
-  private void update(Board board) throws Exception {
-    out.writeUTF("/board/update");
+  private void update(Member member) throws Exception {
+    out.writeUTF("/member/update");
     out.flush();
     if (!in.readUTF().equals("OK"))
       return;
     
-    out.writeObject(board);
+    out.writeObject(member);
     out.flush();
     
     String status = in.readUTF();
@@ -106,7 +106,7 @@ public class BoardTest {
   }
   
   private void delete(int no) throws Exception {
-    out.writeUTF("/board/delete");
+    out.writeUTF("/member/delete");
     out.flush();
     if (!in.readUTF().equals("OK"))
       return;

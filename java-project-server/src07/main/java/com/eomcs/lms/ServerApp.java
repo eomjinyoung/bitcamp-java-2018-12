@@ -1,4 +1,4 @@
-// 8단계: 클라이언트 요청을 처리하는 클래스에 대해 리팩토링 수행
+// 7단계: 클라이언트의 연결을 승인한다.
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
@@ -35,22 +35,27 @@ public class ServerApp {
           ServerApp.in = in;
           ServerApp.out = out;
           
-          MemberService memberService = new MemberService(in, out);
-          LessonService lessonService = new LessonService(in, out);
-          BoardService boardService = new BoardService(in, out); 
+          MemberCommand.in = in;
+          MemberCommand.out = out;
+          
+          LessonCommand.in = in;
+          LessonCommand.out = out;
+          
+          BoardCommand.in = in;
+          BoardCommand.out = out;
           
           loop: while (true) {
               String request = in.readUTF();
               System.out.println(request);
               
               if (request.startsWith("/member/")) {
-                memberService.execute(request);
+                MemberCommand.service(request);
                 
               } else if (request.startsWith("/lesson/")) {
-                lessonService.execute(request);
+                LessonCommand.service(request);
                 
               } else if (request.startsWith("/board/")) {
-                boardService.execute(request);
+                BoardCommand.service(request);
                 
               } else if (request.equals("quit")) {
                 quit();
