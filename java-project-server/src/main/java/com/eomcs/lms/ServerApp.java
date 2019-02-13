@@ -39,12 +39,21 @@ public class ServerApp {
                 case "quit":
                   quit();
                   break loop;
-                case "add":
+                case "/member/add":
                   add();
                   break;
-                case "list":
+                case "/member/list":
                   list();
                   break;
+                case "/member/detail":
+                  detail();
+                  break;
+                case "/member/update":
+                  update();
+                  break;
+                case "/member/delete":
+                  delete();
+                  break;  
                 default:
                   out.writeUTF("이 명령을 처리할 수 없음!");
               }
@@ -72,7 +81,54 @@ public class ServerApp {
   }
   
   static void list() throws Exception {
+    out.writeUTF("OK");
     out.writeObject(members);
+  }
+  
+  static void detail() throws Exception {
+    int no = in.readInt();
+    
+    for (Member m : members) {
+      if (m.getNo() == no) {
+        out.writeUTF("OK");
+        out.writeObject(m);
+        return;
+      }
+    }
+    
+    out.writeUTF("FAIL");
+  }
+  
+  static void update() throws Exception {
+    Member member = (Member) in.readObject();
+    
+    int index = 0;
+    for (Member m : members) {
+      if (m.getNo() == member.getNo()) {
+        members.set(index, member);
+        out.writeUTF("OK");
+        return;
+      }
+      index++;
+    }
+    
+    out.writeUTF("FAIL");
+  }
+
+  static void delete() throws Exception {
+    int no = in.readInt();
+    
+    int index = 0;
+    for (Member m : members) {
+      if (m.getNo() == no) {
+        members.remove(index);
+        out.writeUTF("OK");
+        return;
+      }
+      index++;
+    }
+    
+    out.writeUTF("FAIL");    
   }
 
 }
