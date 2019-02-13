@@ -1,4 +1,4 @@
-// 10단계: 데이터를 파일로 관리한다.
+// 11단계: 서비스 클래스의 일반화(상속)를 수행한다.
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;

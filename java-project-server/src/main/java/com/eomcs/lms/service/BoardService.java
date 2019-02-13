@@ -1,57 +1,10 @@
-// 10단계: 데이터를 파일로 관리한다.
+// 11단계: AbstractService 상속 받기
 package com.eomcs.lms.service;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import com.eomcs.lms.domain.Board;
 
-public class BoardService {
+public class BoardService extends AbstractService<Board> {
 
-  List<Board> boards;
-
-  ObjectInputStream in;
-  ObjectOutputStream out;
-  String filepath;
-
-  public void init(ObjectInputStream in, ObjectOutputStream out) {
-    this.in = in;
-    this.out = out;
-  }
-  
-  @SuppressWarnings("unchecked")
-  public void loadData(String filepath) {
-    this.filepath = filepath;
-    
-    try (ObjectInputStream in = new ObjectInputStream(
-        new BufferedInputStream(
-            new FileInputStream(this.filepath)))) {
-      
-      boards = (List<Board>) in.readObject();
-      
-    } catch (Exception e) {
-      boards = new ArrayList<Board>();
-      throw new RuntimeException("게시글 파일 로딩 오류!", e);
-    }
-  }
-  
-  public void saveData() throws Exception {
-    try (ObjectOutputStream out = new ObjectOutputStream(
-        new BufferedOutputStream(
-            new FileOutputStream(this.filepath)))) {
-    
-      out.writeObject(boards);
-      
-    } catch (Exception e) {
-      throw new Exception("게시글 파일 저장 오류!", e);
-    }
-  }
-  
   public void execute(String request) throws Exception {
 
     switch (request) {
@@ -79,7 +32,7 @@ public class BoardService {
   private void add() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    boards.add((Board)in.readObject());
+    list.add((Board)in.readObject());
     out.writeUTF("OK");
   }
 
@@ -87,7 +40,7 @@ public class BoardService {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
-    out.writeObject(boards);
+    out.writeObject(list);
   }
 
   private void detail() throws Exception {
@@ -95,7 +48,7 @@ public class BoardService {
     out.flush();
     int no = in.readInt();
 
-    for (Board b : boards) {
+    for (Board b : list) {
       if (b.getNo() == no) {
         out.writeUTF("OK");
         out.writeObject(b);
@@ -112,9 +65,9 @@ public class BoardService {
     Board board = (Board) in.readObject();
 
     int index = 0;
-    for (Board b : boards) {
+    for (Board b : list) {
       if (b.getNo() == board.getNo()) {
-        boards.set(index, board);
+        list.set(index, board);
         out.writeUTF("OK");
         return;
       }
@@ -130,9 +83,9 @@ public class BoardService {
     int no = in.readInt();
 
     int index = 0;
-    for (Board b : boards) {
+    for (Board b : list) {
       if (b.getNo() == no) {
-        boards.remove(index);
+        list.remove(index);
         out.writeUTF("OK");
         return;
       }
