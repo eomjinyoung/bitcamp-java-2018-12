@@ -1,4 +1,4 @@
-// 9단계: 클라이언트 요청을 처리하는 서비스 클래스를 별도의 패키지로 분류하기
+// 10단계: 데이터를 파일로 관리한다.
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
@@ -22,11 +22,37 @@ public class ServerApp {
   static ObjectInputStream in;
   static ObjectOutputStream out;
   
+  static MemberService memberService = null;
+  static LessonService lessonService = null;
+  static BoardService boardService = null;
+
   public static void main(String[] args) {
-    
     
     try (ServerSocket serverSocket = new ServerSocket(8888)) {
       System.out.println("서버 시작!");
+      
+      try {
+        memberService = new MemberService(in, out);
+      } catch (Exception e) {
+        System.out.println("회원 데이터 로딩 중 오류 발생!");
+        e.printStackTrace();
+      }
+      
+      try {
+        lessonService = new LessonService(in, out);
+      } catch (Exception e) {
+        System.out.println("수업 데이터 로딩 중 오류 발생!");
+        e.printStackTrace();
+      }
+      
+      try {
+        boardService = new BoardService(in, out); 
+        boardService.loadData("board.bin");
+        
+      } catch (Exception e) {
+        System.out.println("게시물 데이터 로딩 중 오류 발생!");
+        e.printStackTrace();
+      }
       
       while (true) {
         try (Socket socket = serverSocket.accept();
@@ -37,10 +63,6 @@ public class ServerApp {
           members.clear();
           ServerApp.in = in;
           ServerApp.out = out;
-          
-          MemberService memberService = new MemberService(in, out);
-          LessonService lessonService = new LessonService(in, out);
-          BoardService boardService = new BoardService(in, out); 
           
           loop: while (true) {
               String request = in.readUTF();
@@ -76,6 +98,12 @@ public class ServerApp {
   }
   
   static void quit() throws Exception {
+    try {
+      boardService.saveData();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      e.printStackTrace();
+    }
     out.writeUTF("종료함!");
     out.flush();
   }

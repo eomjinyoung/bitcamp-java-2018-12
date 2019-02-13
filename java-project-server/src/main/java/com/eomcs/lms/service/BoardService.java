@@ -1,23 +1,55 @@
-// 8단계: 클라이언트 요청을 처리하는 클래스에 대해 리팩토링 수행
+// 10단계: 데이터를 파일로 관리한다.
 package com.eomcs.lms.service;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import com.eomcs.lms.domain.Board;
 
-// 클라이언트의 요청을 처리하는 클래스라는 의미로 
-// 클래스명을 *Service로 변경한다.
 public class BoardService {
 
-  ArrayList<Board> boards = new ArrayList<>();
+  List<Board> boards;
 
   ObjectInputStream in;
   ObjectOutputStream out;
+  String filepath;
 
   public BoardService(ObjectInputStream in, ObjectOutputStream out) {
     this.in = in;
     this.out = out;
+  }
+  
+  @SuppressWarnings("unchecked")
+  public void loadData(String filepath) {
+    this.filepath = filepath;
+    
+    try (ObjectInputStream in = new ObjectInputStream(
+        new BufferedInputStream(
+            new FileInputStream(this.filepath)))) {
+      
+      boards = (List<Board>) in.readObject();
+      
+    } catch (Exception e) {
+      boards = new ArrayList<Board>();
+      throw new RuntimeException("게시글 파일 로딩 오류!", e);
+    }
+  }
+  
+  public void saveData() throws Exception {
+    try (ObjectOutputStream out = new ObjectOutputStream(
+        new BufferedOutputStream(
+            new FileOutputStream(this.filepath)))) {
+    
+      out.writeObject(boards);
+      
+    } catch (Exception e) {
+      throw new Exception("게시글 파일 저장 오류!", e);
+    }
   }
   
   public void execute(String request) throws Exception {
