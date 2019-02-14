@@ -5,56 +5,36 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.domain.Lesson;
-import com.eomcs.lms.domain.Member;
+import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.service.BoardService;
 import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.MemberService;
 
 public class ServerApp {
 
-  static ArrayList<Member> members = new ArrayList<>();
-  static ArrayList<Lesson> lessons = new ArrayList<>();
-  static ArrayList<Board> boards = new ArrayList<>();
-  
   static ObjectInputStream in;
   static ObjectOutputStream out;
   
   static MemberService memberService = null;
   static LessonService lessonService = null;
-  static BoardService boardService = null;
+
+  static BoardDao boardDao = null; 
 
   public static void main(String[] args) {
     
+    try {
+      boardDao = new BoardDao("board.bin");
+      boardDao.loadData();
+    } catch (Exception e) {
+      System.out.println("게시물 데이터 로딩 중 오류 발생!");
+    }
+    
+    BoardService boardService = new BoardService(boardDao); 
+    //memberService = new MemberService();
+    //lessonService = new LessonService();
+    
     try (ServerSocket serverSocket = new ServerSocket(8888)) {
       System.out.println("서버 시작!");
-      
-      try {
-        memberService = new MemberService();
-        memberService.loadData("member.bin");
-      } catch (Exception e) {
-        System.out.println("회원 데이터 로딩 중 오류 발생!");
-        //e.printStackTrace();
-      }
-      
-      try {
-        lessonService = new LessonService();
-        lessonService.loadData("lesson.bin");
-      } catch (Exception e) {
-        System.out.println("수업 데이터 로딩 중 오류 발생!");
-        //e.printStackTrace();
-      }
-      
-      try {
-        boardService = new BoardService(); 
-        boardService.loadData("board.bin");
-        
-      } catch (Exception e) {
-        System.out.println("게시물 데이터 로딩 중 오류 발생!");
-        //e.printStackTrace();
-      }
       
       while (true) {
         try (Socket socket = serverSocket.accept();
@@ -62,11 +42,10 @@ public class ServerApp {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
           
           boardService.init(in, out);
-          memberService.init(in, out);
-          lessonService.init(in, out);
+          //memberService.init(in, out);
+          //lessonService.init(in, out);
           
           System.out.println("클라이언트와 연결되었음.");
-          members.clear();
           ServerApp.in = in;
           ServerApp.out = out;
           
@@ -75,10 +54,10 @@ public class ServerApp {
               System.out.println(request);
               
               if (request.startsWith("/member/")) {
-                memberService.execute(request);
+                //memberService.execute(request);
                 
               } else if (request.startsWith("/lesson/")) {
-                lessonService.execute(request);
+                //lessonService.execute(request);
                 
               } else if (request.startsWith("/board/")) {
                 boardService.execute(request);
@@ -105,21 +84,21 @@ public class ServerApp {
   
   static void quit() throws Exception {
     try {
-      boardService.saveData();
+      boardDao.saveData();
     } catch (Exception e) {
       System.out.println(e.getMessage());
       //e.printStackTrace();
     }
     
     try {
-      memberService.saveData();
+      //memberService.saveData();
     } catch (Exception e) {
       System.out.println(e.getMessage());
       //e.printStackTrace();
     }
     
     try {
-      lessonService.saveData();
+      //lessonService.saveData();
     } catch (Exception e) {
       System.out.println(e.getMessage());
       //e.printStackTrace();
