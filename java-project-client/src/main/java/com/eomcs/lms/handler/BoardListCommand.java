@@ -28,7 +28,7 @@ public class BoardListCommand implements Command {
 
       @SuppressWarnings("unchecked")
       List<Board> boards = (List<Board>) in.readObject();
-      
+      System.out.println(boards.size());
       for (Board board : boards) {
         System.out.printf("%3d, %-20s, %s, %d\n", 
             board.getNo(), board.getContents(), 
