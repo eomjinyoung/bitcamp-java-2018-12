@@ -14,6 +14,16 @@ import com.eomcs.lms.handler.BoardDetailCommand;
 import com.eomcs.lms.handler.BoardListCommand;
 import com.eomcs.lms.handler.BoardUpdateCommand;
 import com.eomcs.lms.handler.Command;
+import com.eomcs.lms.handler.LessonAddCommand;
+import com.eomcs.lms.handler.LessonDeleteCommand;
+import com.eomcs.lms.handler.LessonDetailCommand;
+import com.eomcs.lms.handler.LessonListCommand;
+import com.eomcs.lms.handler.LessonUpdateCommand;
+import com.eomcs.lms.handler.MemberAddCommand;
+import com.eomcs.lms.handler.MemberDeleteCommand;
+import com.eomcs.lms.handler.MemberDetailCommand;
+import com.eomcs.lms.handler.MemberListCommand;
+import com.eomcs.lms.handler.MemberUpdateCommand;
 
 public class App {
 
@@ -21,24 +31,21 @@ public class App {
   Stack<String> commandHistory = new Stack<>();
   Queue<String> commandHistory2 = new LinkedList<>();
 
-  @SuppressWarnings("unchecked")
   public void service() {
 
     Map<String,Command> commandMap = new HashMap<>();
 
-    /*
-    commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonList));
-    commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonList));
-    commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonList));
-    commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonList));
-    commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonList));
+    commandMap.put("/lesson/add", new LessonAddCommand(keyboard));
+    commandMap.put("/lesson/list", new LessonListCommand(keyboard));
+    commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard));
+    commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard));
+    commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard));
 
-    commandMap.put("/member/add", new MemberAddCommand(keyboard, memberList));
-    commandMap.put("/member/list", new MemberListCommand(keyboard, memberList));
-    commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberList));
-    commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberList));
-    commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberList));
-     */
+    commandMap.put("/member/add", new MemberAddCommand(keyboard));
+    commandMap.put("/member/list", new MemberListCommand(keyboard));
+    commandMap.put("/member/detail", new MemberDetailCommand(keyboard));
+    commandMap.put("/member/update", new MemberUpdateCommand(keyboard));
+    commandMap.put("/member/delete", new MemberDeleteCommand(keyboard));
 
     commandMap.put("/board/add", new BoardAddCommand(keyboard));
     commandMap.put("/board/list", new BoardListCommand(keyboard));

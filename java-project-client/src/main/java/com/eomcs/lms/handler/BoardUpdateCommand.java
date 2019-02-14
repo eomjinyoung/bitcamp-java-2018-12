@@ -29,7 +29,7 @@ public class BoardUpdateCommand implements Command {
       String status = in.readUTF();
       
       if (!status.equals("OK")) 
-        throw new Exception("서버에서 게시글 가져오기 실패!");
+        throw new Exception("서버의 데이터 가져오기 실패!");
       
       Board board = (Board) in.readObject();
     
@@ -51,12 +51,12 @@ public class BoardUpdateCommand implements Command {
       
       status = in.readUTF();
       if (!status.equals("OK")) 
-        throw new Exception("서버에서 게시글 변경하기 실패!");
+        throw new Exception("서버의 데이터 데이터 변경 실패!");
       
-      System.out.println("게시글을 변경했습니다.");
+      System.out.println("변경했습니다.");
       
     } catch (Exception e) {
-      System.out.println("변경 중 오류 발생!");
+      System.out.printf("실행 오류! : %s\n", e.getMessage());
     }
   }
 }

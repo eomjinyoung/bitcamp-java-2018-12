@@ -1,21 +1,20 @@
 package com.eomcs.lms.handler;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Date;
-import java.util.List;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Member;
 
 public class MemberAddCommand implements Command {
   
   Scanner keyboard;
-  List<Member> list;
   
-  public MemberAddCommand(Scanner keyboard, List<Member> list) {
+  public MemberAddCommand(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.list = list;
   }
   
   @Override
-  public void execute() {
+  public void execute(ObjectInputStream in, ObjectOutputStream out) {
     Member member = new Member();
     
     System.out.print("번호? ");
@@ -38,8 +37,24 @@ public class MemberAddCommand implements Command {
   
     member.setRegisteredDate(new Date(System.currentTimeMillis())); 
     
-    list.add(member);
-    
-    System.out.println("저장하였습니다.");
+    try {
+      out.writeUTF("/member/add"); 
+      out.flush();
+      if (!in.readUTF().equals("OK"))
+        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
+      
+      out.writeObject(member);
+      out.flush();
+      
+      String status = in.readUTF();
+      
+      if (!status.equals("OK"))
+        throw new Exception("서버에서 저장 실패!");
+
+      System.out.println("저장하였습니다.");
+      
+    } catch (Exception e) {
+      System.out.printf("실행 오류! : %s\n", e.getMessage());
+    }
   }
 }

@@ -40,7 +40,8 @@ public class LessonService extends AbstractService<Lesson> {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
-    out.writeObject(list);
+    //out.writeObject(list);
+    out.writeUnshared(list);
   }
 
   private void detail() throws Exception {

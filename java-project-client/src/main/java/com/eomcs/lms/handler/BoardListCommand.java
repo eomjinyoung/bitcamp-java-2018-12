@@ -24,11 +24,10 @@ public class BoardListCommand implements Command {
       String status = in.readUTF();
 
       if (!status.equals("OK")) 
-        throw new Exception("서버에서 게시글 목록 가져오기 실패!");
+        throw new Exception("서버의 데이터 목록 가져오기 실패!");
 
       @SuppressWarnings("unchecked")
       List<Board> boards = (List<Board>) in.readObject();
-      System.out.println(boards.size());
       for (Board board : boards) {
         System.out.printf("%3d, %-20s, %s, %d\n", 
             board.getNo(), board.getContents(), 
@@ -36,7 +35,7 @@ public class BoardListCommand implements Command {
       }
       
     } catch (Exception e) {
-      System.out.printf("게시글 목록 출력 오류! : %s\n", e.getMessage());
+      System.out.printf("실행 오류! : %s\n", e.getMessage());
     }
   }
 
