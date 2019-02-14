@@ -1,3 +1,4 @@
+// Command 객체에서 데이터 통신 관련 코드를 별도의 클래스(*Agent)로 분리 
 package com.eomcs.lms;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

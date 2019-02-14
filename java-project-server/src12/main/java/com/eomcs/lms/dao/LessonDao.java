@@ -2,24 +2,24 @@
 package com.eomcs.lms.dao;
 
 import java.util.List;
-import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.domain.Lesson;
 
-public class BoardDao extends AbstractDao<Board> {
+public class LessonDao extends AbstractDao<Lesson> {
 
-  public BoardDao(String filepath) {
+  public LessonDao(String filepath) {
     this.filepath = filepath;
   }
   
-  public void insert(Board board) {
-    list.add(board);
+  public void insert(Lesson lesson) {
+    list.add(lesson);
   }
 
-  public List<Board> findAll() {
+  public List<Lesson> findAll() {
     return list;
   }
 
-  public Board findByNo(int no) {
-    for (Board obj : list) {
+  public Lesson findByNo(int no) {
+    for (Lesson obj : list) {
       if (obj.getNo() == no) {
         return obj;
       }
@@ -27,11 +27,11 @@ public class BoardDao extends AbstractDao<Board> {
     return null;
   }
 
-  public int update(Board board) {
+  public int update(Lesson lesson) {
     int index = 0;
-    for (Board obj : list) {
-      if (obj.getNo() == board.getNo()) {
-        list.set(index, board);
+    for (Lesson obj : list) {
+      if (obj.getNo() == lesson.getNo()) {
+        list.set(index, lesson);
         return 1;
       }
       index++;
@@ -41,7 +41,7 @@ public class BoardDao extends AbstractDao<Board> {
 
   public int delete(int no) {
     int index = 0;
-    for (Board obj : list) {
+    for (Lesson obj : list) {
       if (obj.getNo() == no) {
         list.remove(index);
         return 1;
