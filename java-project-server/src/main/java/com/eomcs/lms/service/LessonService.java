@@ -1,9 +1,11 @@
 package com.eomcs.lms.service;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
-public class LessonService extends AbstractService<Lesson> {
+public class LessonService implements Service {
 
   LessonDao lessonDao;
   
@@ -11,23 +13,23 @@ public class LessonService extends AbstractService<Lesson> {
     this.lessonDao = lessonDao;
   }
   
-  public void execute(String request) throws Exception {
+  public void execute(String request, ObjectInputStream in, ObjectOutputStream out) throws Exception {
 
     switch (request) {
       case "/lesson/add":
-        add();
+        add(in, out);
         break;
       case "/lesson/list":
-        list();
+        list(in, out);
         break;
       case "/lesson/detail":
-        detail();
+        detail(in, out);
         break;
       case "/lesson/update":
-        update();
+        update(in, out);
         break;
       case "/lesson/delete":
-        delete();
+        delete(in, out);
         break;  
       default:
         out.writeUTF("FAIL");
@@ -35,21 +37,21 @@ public class LessonService extends AbstractService<Lesson> {
     out.flush();
   }
 
-  private void add() throws Exception {
+  private void add(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     lessonDao.insert((Lesson)in.readObject());
     out.writeUTF("OK");
   }
 
-  private void list() throws Exception {
+  private void list(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
     out.writeUnshared(lessonDao.findAll());
   }
 
-  private void detail() throws Exception {
+  private void detail(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     int no = in.readInt();
@@ -64,7 +66,7 @@ public class LessonService extends AbstractService<Lesson> {
     out.writeObject(obj);
   }
 
-  private void update() throws Exception {
+  private void update(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     Lesson lesson = (Lesson) in.readObject();
@@ -77,7 +79,7 @@ public class LessonService extends AbstractService<Lesson> {
     out.writeUTF("OK");
   }
 
-  private void delete() throws Exception {
+  private void delete(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     int no = in.readInt();

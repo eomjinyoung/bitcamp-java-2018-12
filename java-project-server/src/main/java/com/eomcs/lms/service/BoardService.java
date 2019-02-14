@@ -1,9 +1,11 @@
 package com.eomcs.lms.service;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-public class BoardService extends AbstractService<Board> {
+public class BoardService implements Service {
 
   // BoardService가 작업을 수행할 때 사용할 객체(의존 객체; dependency)
   BoardDao boardDao;
@@ -12,23 +14,23 @@ public class BoardService extends AbstractService<Board> {
     this.boardDao = boardDao;
   }
   
-  public void execute(String request) throws Exception {
-
+  public void execute(String request, ObjectInputStream in, ObjectOutputStream out) throws Exception {
+    
     switch (request) {
       case "/board/add":
-        add();
+        add(in, out);
         break;
       case "/board/list":
-        list();
+        list(in, out);
         break;
       case "/board/detail":
-        detail();
+        detail(in, out);
         break;
       case "/board/update":
-        update();
+        update(in, out);
         break;
       case "/board/delete":
-        delete();
+        delete(in, out);
         break;  
       default:
         out.writeUTF("FAIL");
@@ -36,21 +38,21 @@ public class BoardService extends AbstractService<Board> {
     out.flush();
   }
 
-  private void add() throws Exception {
+  private void add(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     boardDao.insert((Board)in.readObject());
     out.writeUTF("OK");
   }
 
-  private void list() throws Exception {
+  private void list(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
     out.writeUnshared(boardDao.findAll());
   }
 
-  private void detail() throws Exception {
+  private void detail(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     int no = in.readInt();
@@ -65,7 +67,7 @@ public class BoardService extends AbstractService<Board> {
     out.writeObject(obj);
   }
 
-  private void update() throws Exception {
+  private void update(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     Board board = (Board) in.readObject();
@@ -78,7 +80,7 @@ public class BoardService extends AbstractService<Board> {
     out.writeUTF("OK");
   }
 
-  private void delete() throws Exception {
+  private void delete(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     int no = in.readInt();

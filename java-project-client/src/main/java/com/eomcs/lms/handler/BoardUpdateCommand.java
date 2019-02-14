@@ -1,6 +1,4 @@
 package com.eomcs.lms.handler;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Scanner;
 import com.eomcs.lms.agent.BoardAgent;
 import com.eomcs.lms.domain.Board;
@@ -8,18 +6,20 @@ import com.eomcs.lms.domain.Board;
 public class BoardUpdateCommand implements Command {
   
   Scanner keyboard;
+  BoardAgent boardAgent;
   
-  public BoardUpdateCommand(Scanner keyboard) {
+  public BoardUpdateCommand(Scanner keyboard, BoardAgent boardAgent) {
     this.keyboard = keyboard;
+    this.boardAgent = boardAgent;
   }
   
   @Override
-  public void execute(ObjectInputStream in, ObjectOutputStream out) {
+  public void execute() {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
 
     try {
-      Board board = BoardAgent.get(no, in, out);
+      Board board = boardAgent.get(no);
     
       // 기존 값 복제
       Board temp = board.clone();
@@ -29,7 +29,7 @@ public class BoardUpdateCommand implements Command {
       if (input.length() > 0) 
         temp.setContents(input);
       
-      BoardAgent.update(temp, in, out);
+      boardAgent.update(temp);
       
       System.out.println("변경했습니다.");
       
