@@ -13,31 +13,14 @@ import java.net.Socket;
 //
 public class CalculatorClient {
 
-  public int plus(int a, int b) throws Exception {
+  public int compute(int a, int b, String op) throws Exception {
     try (Socket s = new Socket("localhost", 8888);
         DataOutputStream out = new DataOutputStream(s.getOutputStream());
         DataInputStream in = new DataInputStream(s.getInputStream())) {
 
       out.writeInt(a);
       out.writeInt(b);
-      out.writeUTF("+");
-      
-      if (in.readUTF().equalsIgnoreCase("OK")) {
-        return in.readInt();
-      } else {
-        throw new RuntimeException(in.readUTF());
-      }
-    }
-  }
-  
-  public int minus(int a, int b) throws Exception {
-    try (Socket s = new Socket("localhost", 8888);
-        DataOutputStream out = new DataOutputStream(s.getOutputStream());
-        DataInputStream in = new DataInputStream(s.getInputStream())) {
-
-      out.writeInt(a);
-      out.writeInt(b);
-      out.writeUTF("-");
+      out.writeUTF(op);
       
       if (in.readUTF().equalsIgnoreCase("OK")) {
         return in.readInt();
