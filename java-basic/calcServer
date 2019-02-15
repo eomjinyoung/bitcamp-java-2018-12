@@ -1,0 +1,4 @@
+java -cp bin/main\
+ -Djava.rmi.server.codebase=file:/Users/eomjinyoung/git/bitcamp-java-2018-12/java-basic/bin/main\
+ -Djava.rmi.server.hostname=study.bitcamp.co.kr\
+ design_pattern.proxy.rmi.server.RemoteObjectServer
