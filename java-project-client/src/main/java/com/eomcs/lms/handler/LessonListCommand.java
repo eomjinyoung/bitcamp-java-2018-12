@@ -2,8 +2,8 @@ package com.eomcs.lms.handler;
 
 import java.util.List;
 import java.util.Scanner;
-import com.eomcs.lms.agent.LessonAgent;
 import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.proxy.LessonAgent;
 
 public class LessonListCommand implements Command {
   

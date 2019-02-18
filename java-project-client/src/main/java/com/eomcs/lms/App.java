@@ -6,9 +6,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
-import com.eomcs.lms.agent.BoardAgent;
-import com.eomcs.lms.agent.LessonAgent;
-import com.eomcs.lms.agent.MemberAgent;
 import com.eomcs.lms.handler.BoardAddCommand;
 import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
@@ -25,6 +22,9 @@ import com.eomcs.lms.handler.MemberDeleteCommand;
 import com.eomcs.lms.handler.MemberDetailCommand;
 import com.eomcs.lms.handler.MemberListCommand;
 import com.eomcs.lms.handler.MemberUpdateCommand;
+import com.eomcs.lms.proxy.BoardDaoProxy;
+import com.eomcs.lms.proxy.LessonAgent;
+import com.eomcs.lms.proxy.MemberAgent;
 
 public class App {
 
@@ -50,7 +50,7 @@ public class App {
     commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberAgent));
     commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberAgent));
 
-    BoardAgent boardAgent = new BoardAgent("localhost", 8888, "/board");
+    BoardDaoProxy boardAgent = new BoardDaoProxy("localhost", 8888, "/board");
     commandMap.put("/board/add", new BoardAddCommand(keyboard, boardAgent));
     commandMap.put("/board/list", new BoardListCommand(keyboard, boardAgent));
     commandMap.put("/board/detail", new BoardDetailCommand(keyboard, boardAgent));

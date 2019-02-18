@@ -1,15 +1,15 @@
 package com.eomcs.lms.handler;
 import java.util.Scanner;
-import com.eomcs.lms.agent.BoardAgent;
+import com.eomcs.lms.proxy.BoardDaoProxy;
 
 public class BoardDeleteCommand implements Command {
   
   Scanner keyboard;
-  BoardAgent boardAgent;
+  BoardDaoProxy boardDao;
   
-  public BoardDeleteCommand(Scanner keyboard, BoardAgent boardAgent) {
+  public BoardDeleteCommand(Scanner keyboard, BoardDaoProxy boardAgent) {
     this.keyboard = keyboard;
-    this.boardAgent = boardAgent;
+    this.boardDao = boardAgent;
   }
 
   @Override
@@ -18,7 +18,7 @@ public class BoardDeleteCommand implements Command {
     int no = Integer.parseInt(keyboard.nextLine());
 
     try {
-      boardAgent.delete(no);
+      boardDao.delete(no);
       System.out.println("삭제했습니다.");
       
     } catch (Exception e) {

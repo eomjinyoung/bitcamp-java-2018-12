@@ -1,4 +1,4 @@
-package com.eomcs.lms.agent;
+package com.eomcs.lms.proxy;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

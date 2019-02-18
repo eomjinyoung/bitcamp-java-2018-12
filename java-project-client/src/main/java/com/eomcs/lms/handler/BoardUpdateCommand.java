@@ -1,16 +1,16 @@
 package com.eomcs.lms.handler;
 import java.util.Scanner;
-import com.eomcs.lms.agent.BoardAgent;
 import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.proxy.BoardDaoProxy;
 
 public class BoardUpdateCommand implements Command {
   
   Scanner keyboard;
-  BoardAgent boardAgent;
+  BoardDaoProxy boardDao;
   
-  public BoardUpdateCommand(Scanner keyboard, BoardAgent boardAgent) {
+  public BoardUpdateCommand(Scanner keyboard, BoardDaoProxy boardAgent) {
     this.keyboard = keyboard;
-    this.boardAgent = boardAgent;
+    this.boardDao = boardAgent;
   }
   
   @Override
@@ -19,7 +19,7 @@ public class BoardUpdateCommand implements Command {
     int no = Integer.parseInt(keyboard.nextLine());
 
     try {
-      Board board = boardAgent.get(no);
+      Board board = boardDao.findByNo(no);
     
       // 기존 값 복제
       Board temp = board.clone();
@@ -29,7 +29,7 @@ public class BoardUpdateCommand implements Command {
       if (input.length() > 0) 
         temp.setContents(input);
       
-      boardAgent.update(temp);
+      boardDao.update(temp);
       
       System.out.println("변경했습니다.");
       

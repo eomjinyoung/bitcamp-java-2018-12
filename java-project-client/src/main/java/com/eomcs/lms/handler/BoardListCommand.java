@@ -1,23 +1,23 @@
 package com.eomcs.lms.handler;
 import java.util.List;
 import java.util.Scanner;
-import com.eomcs.lms.agent.BoardAgent;
 import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.proxy.BoardDaoProxy;
 
 public class BoardListCommand implements Command {
 
   Scanner keyboard;
-  BoardAgent boardAgent;
+  BoardDaoProxy boardDao;
   
-  public BoardListCommand(Scanner keyboard, BoardAgent boardAgent) {
+  public BoardListCommand(Scanner keyboard, BoardDaoProxy boardAgent) {
     this.keyboard = keyboard;
-    this.boardAgent = boardAgent;
+    this.boardDao = boardAgent;
   }
 
   @Override
   public void execute() {
     try {
-      List<Board> boards = boardAgent.list();
+      List<Board> boards = boardDao.findAll();
       
       for (Board board : boards) {
         System.out.printf("%3d, %-20s, %s, %d\n", 

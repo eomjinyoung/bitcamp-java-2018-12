@@ -1,6 +1,6 @@
 package com.eomcs.lms.handler;
 import java.util.Scanner;
-import com.eomcs.lms.agent.MemberAgent;
+import com.eomcs.lms.proxy.MemberAgent;
 
 public class MemberDeleteCommand implements Command {
   

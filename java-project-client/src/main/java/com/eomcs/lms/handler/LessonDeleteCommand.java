@@ -1,6 +1,6 @@
 package com.eomcs.lms.handler;
 import java.util.Scanner;
-import com.eomcs.lms.agent.LessonAgent;
+import com.eomcs.lms.proxy.LessonAgent;
 
 public class LessonDeleteCommand implements Command {
 
