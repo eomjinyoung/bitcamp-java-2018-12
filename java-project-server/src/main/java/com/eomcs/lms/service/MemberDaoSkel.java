@@ -5,11 +5,11 @@ import java.io.ObjectOutputStream;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
-public class MemberService implements Service {
+public class MemberDaoSkel implements Service {
 
   MemberDao memberDao;
   
-  public MemberService(MemberDao memberDao) {
+  public MemberDaoSkel(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
   
