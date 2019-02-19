@@ -32,6 +32,7 @@ public class ServerApp {
   static HashMap<String,Service> serviceMap;
   static Set<String> serviceKeySet;
   
+
   public static void main(String[] args) {
     
     try {
@@ -86,7 +87,9 @@ public class ServerApp {
     Socket socket;
     
     public RequestProcessorThread(Socket socket) {
+      super();
       this.socket = socket;
+      System.out.printf("[%s] 스레드가 생성됨\n", this.getName());
     }
     
     // 독립적으로 수행할 코드를 run() 메서드에 작성한다.
@@ -96,10 +99,10 @@ public class ServerApp {
           ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
           ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
         
-        System.out.println("클라이언트와 연결되었음.");
+        System.out.printf("[%s] 클라이언트와 연결되었음.\n", this.getName());
         
         String request = in.readUTF();
-        System.out.println(request);
+        System.out.printf("[%s] %s\n", this.getName(), request);
         
         Service service = getService(request);
         
@@ -114,7 +117,7 @@ public class ServerApp {
       } catch (Exception e) {
         e.printStackTrace();
       }
-      System.out.println("클라이언트와의 연결을 끊었음.");
+      System.out.printf("[%s] 클라이언트와의 연결을 끊었음.\n", this.getName());
     }
     
     static Service getService(String request) {

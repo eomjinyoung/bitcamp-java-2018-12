@@ -9,7 +9,6 @@ public class ATM extends Thread {
     this.account = account;
   }
   
-  @Override
   public void run() {
     double sum = 0;
     while (true) {
