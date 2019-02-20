@@ -1,4 +1,4 @@
-// java.sql.Statement 객체 - SQL을 DBMS 서버에 전달한다. 
+// java.sql.Statement 객체 - insert SQL을 DBMS 서버에 전달한다. 
 package ch25.a;
 
 import java.sql.Connection;
