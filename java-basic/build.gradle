@@ -16,6 +16,10 @@ dependencies {
     // 여기에 지정한 라이브러리를 위의 저장소에 자동으로 다운로드 받는다.
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.7'
     
+    // MariaDB JDBC Driver
+    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
+    
+    
     implementation 'com.google.guava:guava:26.0-jre'
     testImplementation 'junit:junit:4.12'
 }
