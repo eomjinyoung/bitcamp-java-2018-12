@@ -1,4 +1,4 @@
-// DBMS에 연결하기 - java.sql.Driver 구현체 자동 등록
+// java.sql.Driver 구현체 자동 등록
 package ch25.a;
 
 import java.sql.Connection;
