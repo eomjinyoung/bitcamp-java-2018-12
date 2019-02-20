@@ -327,6 +327,15 @@
 - MariaDB 사용자 및 데이터베이스 생성
 
 ## 35일(2019-2-20)
-- 
+- JDBC 드라이버 준비 및 프로젝트에 등록
+- 연습용 게시판 테이블 생성
+- CRUD 기본 SQL : select, insert, update, delete
+- JDBC 프로그래밍
+    - java.sql.Driver 구현체 등록하기
+    - DBMS 연결하기, java.sql.Connection 구현체
+    - java.sql.Statement 구현체 사용법
+    - CRUD JDBC 코드 구현
+
+
 
 
