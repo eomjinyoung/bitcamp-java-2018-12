@@ -38,8 +38,7 @@ public class BoardInsertApp {
       }
     }
     
-    try (Scanner keyboard = new Scanner(System.in);
-        Connection con = DriverManager.getConnection(
+    try (Connection con = DriverManager.getConnection(
         "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111")) {
       
       try (Statement stmt = con.createStatement()) {
