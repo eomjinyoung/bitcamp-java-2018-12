@@ -1,7 +1,7 @@
 package com.eomcs.lms.handler;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public interface Command {
   default void execute() {
@@ -10,7 +10,7 @@ public interface Command {
     // 기존 규칙도 default로 선언한다.
   }
   
-  default void execute(BufferedReader in, PrintWriter out) {
+  default void execute(ObjectInputStream in, ObjectOutputStream out) {
     // 이 규칙은 새로 추가한 규칙이다.
     // 그러나 기존 클래스에 영향을 끼치지 않기 위해 default로 선언한다.
   }
