@@ -22,11 +22,7 @@ public class LessonUpdateCommand implements Command {
 
     try {
       Lesson lesson = lessonDao.findByNo(no);
-      if (lesson == null) {
-        System.out.println("해당 번호의 수업이 없습니다.");
-        return;
-      }
-      
+    
       Lesson temp = lesson.clone();
       
       System.out.printf("수업명(%s)? ", lesson.getTitle());
@@ -55,7 +51,6 @@ public class LessonUpdateCommand implements Command {
         temp.setDayHours(Integer.parseInt(input));
       
       lessonDao.update(temp);
-       
       System.out.println("변경했습니다.");
       
     } catch (Exception e) {

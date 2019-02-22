@@ -1,0 +1,25 @@
+// Gradle에 플러그인 추가한다. 
+plugins {
+    id 'java'   // 자바 빌드 명령을 사용할 수 있다.
+    id 'application'  // 자바 애플리케이션을 실행할 수 있다.
+    id 'eclipse'  // 이클립스 설정 파일을 생성할 수 있다.
+}
+
+// 자바 프로그램에서 사용하는 외부 라이브러리의 저장소 
+repositories {
+    jcenter()  // jcenter에서 라이브러리를 다운로드 받는다.
+}
+
+
+// 프로젝트에서 사용할 외부 라이브러리 정보 
+dependencies {
+    // MariaDB JDBC Driver
+    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
+    
+    implementation 'com.google.guava:guava:26.0-jre'
+    testImplementation 'junit:junit:4.12'
+}
+
+// 만약 Gradle을 사용하여 프로젝트를 실행한다면 다음 클래스가 실행될 것이다.
+// $ gradle run
+mainClassName = 'com.eomcs.lms.App'

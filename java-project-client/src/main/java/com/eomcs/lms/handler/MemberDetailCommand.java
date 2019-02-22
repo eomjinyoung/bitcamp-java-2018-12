@@ -20,13 +20,9 @@ public class MemberDetailCommand implements Command {
 
     try {
       Member member = memberDao.findByNo(no);
-      if (member == null) {
-        System.out.println("해당 번호의 회원이 없습니다.");
-        return;
-      }
-      
       System.out.printf("이름: %s\n", member.getName());
       System.out.printf("이메일: %s\n", member.getEmail());
+      System.out.printf("암호: %s\n", member.getPassword());
       System.out.printf("사진: %s\n", member.getPhoto());
       System.out.printf("전화: %s\n", member.getTel());
       System.out.printf("가입일: %s\n", member.getRegisteredDate());

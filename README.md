@@ -337,10 +337,12 @@
     - CRUD JDBC 코드 구현
 
 ## 36일(2019-2-21)
-- 36단계 과제 풀이(src16): DAO에 데이터베이스 적용
-- 36단계 과제 풀이(src17): Connection 공유
-- 36단계 과제 풀이(src18): Observer 패턴 적용
+- 36단계 과제 풀이(java-project2/src01): DAO에 데이터베이스 적용
+- 36단계 과제 풀이(java-project2/src02): Connection 공유
+- 36단계 과제 풀이(java-project2/src03): Observer 패턴 적용
 
+## 37일(2019-2-22)
+- 37단계 과제풀이(java-project2-client, java-project2-server): Application Server 도입하기
 
 
 
