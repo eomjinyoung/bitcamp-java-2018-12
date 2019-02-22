@@ -1,39 +1,39 @@
 package com.eomcs.lms.handler;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
 public class LessonDetailCommand implements Command {
 
-  Scanner keyboard;
   LessonDao lessonDao;
   
-  public LessonDetailCommand(Scanner keyboard, LessonDao lessonDao) {
-    this.keyboard = keyboard;
+  public LessonDetailCommand(LessonDao lessonDao) {
     this.lessonDao = lessonDao;
   }
   
 
   @Override
-  public void execute() {
-    System.out.print("번호? ");
-    int no = Integer.parseInt(keyboard.nextLine());
-
+  public void execute(BufferedReader in, PrintWriter out) {
     try {
+      out.println("번호?\n!{}!");
+      out.flush();
+      int no = Integer.parseInt(in.readLine());
+
       Lesson lesson = lessonDao.findByNo(no);
       if (lesson == null) {
-        System.out.println("해당 번호의 수업이 없습니다.");
+        out.println("해당 번호의 수업이 없습니다.");
         return;
       }
       
-      System.out.printf("수업명: %s\n", lesson.getTitle());
-      System.out.printf("설명: %s\n", lesson.getContents());
-      System.out.printf("기간: %s ~ %s\n", lesson.getStartDate(), lesson.getEndDate());
-      System.out.printf("총수업시간: %d\n", lesson.getTotalHours());
-      System.out.printf("일수업시간: %d\n", lesson.getDayHours());
+      out.printf("수업명: %s\n", lesson.getTitle());
+      out.printf("설명: %s\n", lesson.getContents());
+      out.printf("기간: %s ~ %s\n", lesson.getStartDate(), lesson.getEndDate());
+      out.printf("총수업시간: %d\n", lesson.getTotalHours());
+      out.printf("일수업시간: %d\n", lesson.getDayHours());
       
     } catch (Exception e) {
-      System.out.printf("실행 오류! : %s\n", e.getMessage());
+      out.printf("실행 오류! : %s\n", e.getMessage());
     }
 
   }

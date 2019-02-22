@@ -1,48 +1,53 @@
 package com.eomcs.lms.handler;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 import java.sql.Date;
-import java.util.Scanner;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
 public class LessonAddCommand implements Command {
 
-  Scanner keyboard;
   LessonDao lessonDao;
   
-  public LessonAddCommand(Scanner keyboard, LessonDao lessonDao) {
-    this.keyboard = keyboard;
+  public LessonAddCommand(LessonDao lessonDao) {
     this.lessonDao = lessonDao;
   }
   
 
   @Override
-  public void execute() {
-    Lesson lesson = new Lesson();
-
-    System.out.print("수업명? ");
-    lesson.setTitle(keyboard.nextLine());
-
-    System.out.print("설명? ");
-    lesson.setContents(keyboard.nextLine());
-
-    System.out.print("시작일? ");
-    lesson.setStartDate(Date.valueOf(keyboard.nextLine()));
-
-    System.out.print("종료일? ");
-    lesson.setEndDate(Date.valueOf(keyboard.nextLine()));
-
-    System.out.print("총수업시간? ");
-    lesson.setTotalHours(Integer.parseInt(keyboard.nextLine()));
-
-    System.out.print("일수업시간? ");
-    lesson.setDayHours(Integer.parseInt(keyboard.nextLine()));
-
+  public void execute(BufferedReader in, PrintWriter out) {
     try {
+      Lesson lesson = new Lesson();
+      
+      out.println("수업명?\n!{}!");
+      out.flush();
+      lesson.setTitle(in.readLine());
+      
+      out.println("설명?\n!{}!");
+      out.flush();
+      lesson.setContents(in.readLine());
+      
+      out.println("시작일?\n!{}!");
+      out.flush();
+      lesson.setStartDate(Date.valueOf(in.readLine()));
+      
+      out.println("종료일?\n!{}!");
+      out.flush();
+      lesson.setEndDate(Date.valueOf(in.readLine()));
+      
+      out.println("총수업시간?\n!{}!");
+      out.flush();
+      lesson.setTotalHours(Integer.parseInt(in.readLine()));
+      
+      out.println("일수업시간?\n!{}!");
+      out.flush();
+      lesson.setDayHours(Integer.parseInt(in.readLine()));
+      
       lessonDao.insert(lesson);
-      System.out.println("저장하였습니다.");
+      out.println("저장하였습니다.");
       
     } catch (Exception e) {
-      System.out.printf("실행 오류! : %s\n", e.getMessage());
+      out.printf("실행 오류! : %s\n", e.getMessage());
     }
   }
   

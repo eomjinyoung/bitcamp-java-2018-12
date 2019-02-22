@@ -1,58 +1,62 @@
 package com.eomcs.lms.handler;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
 public class MemberUpdateCommand implements Command {
   
-  Scanner keyboard;
   MemberDao memberDao;
   
-  public MemberUpdateCommand(Scanner keyboard, MemberDao memberDao) {
-    this.keyboard = keyboard;
+  public MemberUpdateCommand(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
   
   @Override
-  public void execute() {
-    System.out.print("번호? ");
-    int no = Integer.parseInt(keyboard.nextLine());
-
+  public void execute(BufferedReader in, PrintWriter out) {
     try {
+      out.println("번호?\n!{}!");
+      out.flush();
+      int no = Integer.parseInt(in.readLine());
+
       Member member = memberDao.findByNo(no);
       if (member == null) {
-        System.out.println("해당 번호의 회원이 없습니다.");
+        out.println("해당 번호의 회원이 없습니다.");
         return;
       }
       
       Member temp = member.clone();
       
-      System.out.printf("이름(%s)? ", member.getName());
-      String input = keyboard.nextLine();
+      out.printf("이름(%s)?\n!{}!\n", member.getName());
+      out.flush();
+      String input = in.readLine();
       if (input.length() > 0) 
         temp.setName(input);
       
-      System.out.printf("이메일(%s)? ", member.getEmail());
-      if ((input = keyboard.nextLine()).length() > 0)
+      out.printf("이메일(%s)?\n!{}!\n", member.getEmail());
+      out.flush();
+      if ((input = in.readLine()).length() > 0)
         temp.setEmail(input);
       
-      System.out.printf("암호(********)? ");
-      if ((input = keyboard.nextLine()).length() > 0)
-        temp.setPassword(input);
+      out.printf("암호(새 암호를 입력하세요)?\n!{}!\n");
+      out.flush();
+      temp.setPassword(in.readLine());
       
-      System.out.printf("사진(%s)? ", member.getPhoto());
-      if ((input = keyboard.nextLine()).length() > 0)
+      out.printf("사진(%s)?\n!{}!\n", member.getPhoto());
+      out.flush();
+      if ((input = in.readLine()).length() > 0)
         temp.setPhoto(input);
       
-      System.out.printf("전화(%s)? ", member.getTel());
-      if ((input = keyboard.nextLine()).length() > 0)
+      out.printf("전화(%s)?\n!{}!\n", member.getTel());
+      out.flush();
+      if ((input = in.readLine()).length() > 0)
         temp.setTel(input);
       
       memberDao.update(temp);
-      System.out.println("변경했습니다.");
+      out.println("변경했습니다.");
       
     } catch (Exception e) {
-      System.out.printf("실행 오류! : %s\n", e.getMessage());
+      out.printf("실행 오류! : %s\n", e.getMessage());
     }
   }
 }

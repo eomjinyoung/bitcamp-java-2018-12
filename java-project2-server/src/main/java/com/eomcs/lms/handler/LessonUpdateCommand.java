@@ -1,65 +1,71 @@
 package com.eomcs.lms.handler;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 import java.sql.Date;
-import java.util.Scanner;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
 public class LessonUpdateCommand implements Command {
 
-  Scanner keyboard;
   LessonDao lessonDao;
   
-  public LessonUpdateCommand(Scanner keyboard, LessonDao lessonDao) {
-    this.keyboard = keyboard;
+  public LessonUpdateCommand(LessonDao lessonDao) {
     this.lessonDao = lessonDao;
   }
   
 
   @Override
-  public void execute() {
-    System.out.print("번호? ");
-    int no = Integer.parseInt(keyboard.nextLine());
-
+  public void execute(BufferedReader in, PrintWriter out) {
     try {
+      out.println("번호?\n!{}!");
+      out.flush();
+      int no = Integer.parseInt(in.readLine());
+      
       Lesson lesson = lessonDao.findByNo(no);
       if (lesson == null) {
-        System.out.println("해당 번호의 수업이 없습니다.");
+        out.println("해당 번호의 수업이 없습니다.");
         return;
       }
       
       Lesson temp = lesson.clone();
       
-      System.out.printf("수업명(%s)? ", lesson.getTitle());
-      String input = keyboard.nextLine();
+      out.printf("수업명(%s)?\n!{}!\n", lesson.getTitle());
+      out.flush();
+      String input = in.readLine();
       if (input.length() > 0) 
         temp.setTitle(input);
       
-      System.out.printf("설명(%s)? ", lesson.getContents());
-      if ((input = keyboard.nextLine()).length() > 0)
+      out.printf("설명(%s)?\n!{}!\n", lesson.getContents());
+      out.flush();
+      if ((input = in.readLine()).length() > 0)
         temp.setContents(input);
       
-      System.out.printf("시작일(%s)? ", lesson.getStartDate());
-      if ((input = keyboard.nextLine()).length() > 0)
+      out.printf("시작일(%s)?\n!{}!\n", lesson.getStartDate());
+      out.flush();
+      if ((input = in.readLine()).length() > 0)
         temp.setStartDate(Date.valueOf(input));
       
-      System.out.printf("종료일(%s)? ", lesson.getEndDate());
-      if ((input = keyboard.nextLine()).length() > 0)
+      out.printf("종료일(%s)?\n!{}!\n", lesson.getEndDate());
+      out.flush();
+      if ((input = in.readLine()).length() > 0)
         temp.setEndDate(Date.valueOf(input));
       
-      System.out.printf("총수업시간(%d)? ", lesson.getTotalHours());
-      if ((input = keyboard.nextLine()).length() > 0)
+      out.printf("총수업시간(%d)?\n!{}!\n", lesson.getTotalHours());
+      out.flush();
+      if ((input = in.readLine()).length() > 0)
         temp.setTotalHours(Integer.parseInt(input));
       
-      System.out.printf("일수업시간(%d)? ", lesson.getDayHours());
-      if ((input = keyboard.nextLine()).length() > 0)
+      out.printf("일수업시간(%d)?\n!{}!\n", lesson.getDayHours());
+      out.flush();
+      if ((input = in.readLine()).length() > 0)
         temp.setDayHours(Integer.parseInt(input));
       
       lessonDao.update(temp);
        
-      System.out.println("변경했습니다.");
+      out.println("변경했습니다.");
       
     } catch (Exception e) {
-      System.out.printf("실행 오류! : %s\n", e.getMessage());
+      out.printf("실행 오류! : %s\n", e.getMessage());
     }
   }
 }

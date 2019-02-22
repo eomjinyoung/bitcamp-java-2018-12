@@ -3,7 +3,6 @@ package com.eomcs.lms;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Map;
-import java.util.Scanner;
 import com.eomcs.lms.context.ApplicationContextException;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
@@ -43,21 +42,18 @@ public class ApplicationInitializer implements ApplicationContextListener {
       MemberDaoImpl memberDao = new MemberDaoImpl(con);
       BoardDaoImpl boardDao = new BoardDaoImpl(con);
       
-      // Command 객체 준비
-      Scanner keyboard = (Scanner) context.get("keyboard");
-      
-      context.put("/lesson/add", new LessonAddCommand(keyboard, lessonDao));
-      context.put("/lesson/list", new LessonListCommand(keyboard, lessonDao));
-      context.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonDao));
-      context.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonDao));
-      context.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonDao));
+      context.put("/lesson/add", new LessonAddCommand(lessonDao));
+      context.put("/lesson/list", new LessonListCommand(lessonDao));
+      context.put("/lesson/detail", new LessonDetailCommand(lessonDao));
+      context.put("/lesson/update", new LessonUpdateCommand(lessonDao));
+      context.put("/lesson/delete", new LessonDeleteCommand(lessonDao));
 
       
-      context.put("/member/add", new MemberAddCommand(keyboard, memberDao));
+      context.put("/member/add", new MemberAddCommand(memberDao));
       context.put("/member/list", new MemberListCommand(memberDao));
-      context.put("/member/detail", new MemberDetailCommand(keyboard, memberDao));
-      context.put("/member/update", new MemberUpdateCommand(keyboard, memberDao));
-      context.put("/member/delete", new MemberDeleteCommand(keyboard, memberDao));
+      context.put("/member/detail", new MemberDetailCommand(memberDao));
+      context.put("/member/update", new MemberUpdateCommand(memberDao));
+      context.put("/member/delete", new MemberDeleteCommand(memberDao));
       
       context.put("/board/add", new BoardAddCommand(boardDao));
       context.put("/board/list", new BoardListCommand(boardDao));
