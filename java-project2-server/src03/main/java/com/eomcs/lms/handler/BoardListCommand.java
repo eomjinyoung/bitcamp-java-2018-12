@@ -1,9 +1,11 @@
 package com.eomcs.lms.handler;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 import java.util.List;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-public class BoardListCommand extends AbstractCommand {
+public class BoardListCommand implements Command {
 
   BoardDao boardDao;
   
@@ -12,19 +14,18 @@ public class BoardListCommand extends AbstractCommand {
   }
 
   @Override
-  public void execute(Response response) {
+  public void execute(BufferedReader in, PrintWriter out) {
     try {
       List<Board> boards = boardDao.findAll();
       
       for (Board board : boards) {
-        response.println(
-            String.format("%3d, %-20s, %s, %d", 
-              board.getNo(), board.getContents(), 
-              board.getCreatedDate(), board.getViewCount()));
+        out.printf("%3d, %-20s, %s, %d\n", 
+            board.getNo(), board.getContents(), 
+            board.getCreatedDate(), board.getViewCount());
       }
       
     } catch (Exception e) {
-      response.println(String.format("실행 오류! : %s", e.getMessage()));
+      out.printf("실행 오류! : %s\n", e.getMessage());
     }
   }
 

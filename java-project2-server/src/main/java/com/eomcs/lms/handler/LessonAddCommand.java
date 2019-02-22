@@ -1,11 +1,8 @@
 package com.eomcs.lms.handler;
-import java.io.BufferedReader;
-import java.io.PrintWriter;
-import java.sql.Date;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
-public class LessonAddCommand implements Command {
+public class LessonAddCommand extends AbstractCommand {
 
   LessonDao lessonDao;
   
@@ -15,39 +12,21 @@ public class LessonAddCommand implements Command {
   
 
   @Override
-  public void execute(BufferedReader in, PrintWriter out) {
+  public void execute(Response response) {
     try {
       Lesson lesson = new Lesson();
-      
-      out.println("수업명?\n!{}!");
-      out.flush();
-      lesson.setTitle(in.readLine());
-      
-      out.println("설명?\n!{}!");
-      out.flush();
-      lesson.setContents(in.readLine());
-      
-      out.println("시작일?\n!{}!");
-      out.flush();
-      lesson.setStartDate(Date.valueOf(in.readLine()));
-      
-      out.println("종료일?\n!{}!");
-      out.flush();
-      lesson.setEndDate(Date.valueOf(in.readLine()));
-      
-      out.println("총수업시간?\n!{}!");
-      out.flush();
-      lesson.setTotalHours(Integer.parseInt(in.readLine()));
-      
-      out.println("일수업시간?\n!{}!");
-      out.flush();
-      lesson.setDayHours(Integer.parseInt(in.readLine()));
+      lesson.setTitle(response.requestString("수업명?"));
+      lesson.setContents(response.requestString("설명?"));
+      lesson.setStartDate(response.requestDate("시작일?"));
+      lesson.setEndDate(response.requestDate("종료일?"));
+      lesson.setTotalHours(response.requestInt("총수업시간?"));
+      lesson.setDayHours(response.requestInt("일수업시간?"));
       
       lessonDao.insert(lesson);
-      out.println("저장하였습니다.");
+      response.println("저장하였습니다.");
       
     } catch (Exception e) {
-      out.printf("실행 오류! : %s\n", e.getMessage());
+      response.println(String.format("실행 오류! : %s\n", e.getMessage()));
     }
   }
   
