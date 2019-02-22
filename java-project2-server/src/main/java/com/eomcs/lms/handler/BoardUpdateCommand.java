@@ -1,39 +1,44 @@
 package com.eomcs.lms.handler;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
 public class BoardUpdateCommand implements Command {
   
-  Scanner keyboard;
   BoardDao boardDao;
   
-  public BoardUpdateCommand(Scanner keyboard, BoardDao boardDao) {
-    this.keyboard = keyboard;
+  public BoardUpdateCommand(BoardDao boardDao) {
     this.boardDao = boardDao;
   }
   
   @Override
-  public void execute() {
+  public void execute(BufferedReader in, PrintWriter out) {
 
     try {
       Board board = new Board();
 
-      System.out.print("번호? ");
-      board.setNo(Integer.parseInt(keyboard.nextLine()));
+      out.println("번호?");
+      out.println("!{}!");
+      out.flush();
       
-      System.out.printf("내용? ");
-      board.setContents(keyboard.nextLine());
+      board.setNo(Integer.parseInt(in.readLine()));
+      
+      out.println("내용?");
+      out.println("!{}!");
+      out.flush();
+      
+      board.setContents(in.readLine());
       
       if (boardDao.update(board) == 0) {
-        System.out.println("해당 번호의 게시물이 없습니다.");
+        out.println("해당 번호의 게시물이 없습니다.");
         return;
       }
       
-      System.out.println("변경했습니다.");
+      out.println("변경했습니다.");
       
     } catch (Exception e) {
-      System.out.printf("실행 오류! : %s\n", e.getMessage());
+      out.printf("실행 오류! : %s\n", e.getMessage());
     }
   }
 }

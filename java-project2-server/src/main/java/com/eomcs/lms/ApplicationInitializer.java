@@ -62,8 +62,8 @@ public class ApplicationInitializer implements ApplicationContextListener {
       context.put("/board/add", new BoardAddCommand(boardDao));
       context.put("/board/list", new BoardListCommand(boardDao));
       context.put("/board/detail", new BoardDetailCommand(boardDao));
-      context.put("/board/update", new BoardUpdateCommand(keyboard, boardDao));
-      context.put("/board/delete", new BoardDeleteCommand(keyboard, boardDao));
+      context.put("/board/update", new BoardUpdateCommand(boardDao));
+      context.put("/board/delete", new BoardDeleteCommand(boardDao));
       
     } catch (Exception e) {
       throw new ApplicationContextException(e);
