@@ -7,6 +7,9 @@ drop table if exists lms_member;
 -- 게시판 테이블 삭제 
 drop table if exists lms_board;
 
+-- 사진 게시판 테이블 삭제
+drop table if exists lms_photo;
+
 -- 수업 테이블 생성
 create table lms_lesson (
   lesson_id int not null auto_increment primary key comment '수업 데이터 식별 번호', 
@@ -37,7 +40,17 @@ create table lms_board (
   vw_cnt int default 0 comment '조회수' 
 ) comment '게시물';
 
-
+-- 사진 게시물 테이블 생성
+create table lms_photo (
+  photo_id int not null auto_increment primary key comment '사진 게시물 번호',
+  lesson_id int not null comment '수업 번호',
+  titl varchar(255) not null comment '제목',
+  cdt datetime default now() comment '생성일',
+  vw_cnt int default 0 comment '조회수',
+  -- lesson_id에 저장되는 값은 lms_lesson 테이블의 lesson_id 값으로 제한하는 조건을 추가한다.
+  constraint fk_photo_to_lesson foreign key (lesson_id)
+    references lms_lesson (lesson_id)
+) comment '사진게시물';
 
 
 

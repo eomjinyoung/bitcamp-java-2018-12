@@ -343,6 +343,11 @@
 
 ## 37일(2019-2-22)
 - 37단계 과제풀이(java-project2-client, java-project2-server): Application Server 도입하기
+- Application Server 아키텍처의 특징
+- Observer 패턴 적용
+- 캡슐화 응용 : 응답 기능을 별도의 클래스로 정의 
+
+## 38일(2019-2-25)
 - 
 
 
