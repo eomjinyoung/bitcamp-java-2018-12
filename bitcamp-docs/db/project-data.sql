@@ -26,15 +26,15 @@ insert into lms_board(board_id, conts) values(4, '내용4');
 insert into lms_board(board_id, conts) values(5, '내용5');
 
 -- 수업 사진 게시물 예제 데이터
-insert into lms_photo(photo_id,lesson_id,title) 
+insert into lms_photo(photo_id, lesson_id, titl) 
   values(1, 101, '자바 컴파일러 구동 원리');
-insert into lms_photo(photo_id,lesson_id,title) 
+insert into lms_photo(photo_id, lesson_id, titl) 
   values(2, 101, '자바 클래스 실행하는 방법');
-insert into lms_photo(photo_id,lesson_id,title) 
+insert into lms_photo(photo_id, lesson_id, titl) 
   values(3, 101, '옵저버 패턴 클래스 다이어그램');
-insert into lms_photo(photo_id,lesson_id,title) 
+insert into lms_photo(photo_id, lesson_id, titl) 
   values(4, 104, 'HTML/CSS/JavaScript 관계');
-insert into lms_photo(photo_id,lesson_id,title) 
+insert into lms_photo(photo_id, lesson_id, titl) 
   values(5, 104, '자바 스크립트 구동 원리');
 
 -- 수업 사진 게시물 첨부 파일 예제 데이터
