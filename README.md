@@ -383,6 +383,7 @@
     - update 사용법
     - delete 사용법
     - transcation 다루기: commit과 rollback
-    
+    - join의 종류와 사용법
+
 
 
