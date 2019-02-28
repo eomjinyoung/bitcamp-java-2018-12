@@ -208,7 +208,8 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
 
 > create table test1(
   c1 char(1),
-  c2 int
+  c2 int,
+  c3 boolean
   );
 
 
@@ -220,6 +221,16 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
 > insert into test1(c1) values('0'); /* false */
 > insert into test1(c2) values(1); /* true */
 > insert into test1(c2) values(0); /* false */
+
+> insert into test1(c3) values('Y'); /* error */
+> insert into test1(c3) values('N'); /* error */
+> insert into test1(c3) values('T'); /* error */
+> insert into test1(c3) values('F'); /* error */
+
+> insert into test1(c3) values('1'); /* true */
+> insert into test1(c3) values('0'); /* false */
+> insert into test1(c3) values(1); /* true */
+> insert into test1(c3) values(0); /* false */
 
 
 ### 키 컬럼 지정 
@@ -395,6 +406,10 @@ alter table test1
 
 alter table test1
   add column age int;  
+  
+alter table test1
+  add column no2 int,
+  add column age2 int;   
 ```
 
 - PK 컬럼 지정, UNIQUE 컬럼 지정, INDEX 컬럼 지정
@@ -444,7 +459,7 @@ create table test1(
 );
 ``` 
 
-- 특정 컬럼의 값을 자동으로 증가되게 선언한다.
+- 특정 컬럼의 값을 자동으로 증가하게 선언한다.
 - 단 반드시 primary key여야 한다.
 ```
 alter table test1
@@ -468,6 +483,7 @@ insert into test1(name) values('eee');
 
 ## 뷰(view)
 - 조회 결과를 테이블처럼 사용하는 문법
+- select 문장이 복잡할 때 뷰로 정의해 놓고 사용하면 편리하다.
 
 ```
 create table test1 (
