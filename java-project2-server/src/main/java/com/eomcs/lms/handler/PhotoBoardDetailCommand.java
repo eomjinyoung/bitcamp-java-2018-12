@@ -1,26 +1,32 @@
 package com.eomcs.lms.handler;
-import com.eomcs.lms.dao.BoardDao;
-import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.dao.PhotoBoardDao;
+import com.eomcs.lms.domain.PhotoBoard;
 
 public class PhotoBoardDetailCommand extends AbstractCommand {
   
-  BoardDao boardDao;
+  PhotoBoardDao photoBoardDao;
   
-  public PhotoBoardDetailCommand(BoardDao boardDao) {
-    this.boardDao = boardDao;
+  public PhotoBoardDetailCommand(PhotoBoardDao photoBoardDao) {
+    this.photoBoardDao = photoBoardDao;
   }
 
   @Override
   public void execute(Response response) throws Exception {
     int no = response.requestInt("번호?");
     
-    Board board = boardDao.findByNo(no);
+    PhotoBoard board = photoBoardDao.findByNo(no);
     if (board == null) {
-      response.println("해당 번호의 게시물이 없습니다.");
+      response.println("해당 사진을 찾을 수 없습니다.");
       return;
     }
-    response.println(String.format("내용: %s\n", board.getContents()));
-    response.println(String.format("작성일: %s\n", board.getCreatedDate()));
-    response.println(String.format("조회수: %d\n", board.getViewCount()));
+    response.println(String.format("제목: %s", board.getTitle()));
+    response.println(String.format("작성일: %s", board.getCreatedDate()));
+    response.println(String.format("조회수: %d", board.getViewCount()));
+    response.println(String.format("수업: %d", board.getLessonNo()));
   }
 }
+
+
+
+
+

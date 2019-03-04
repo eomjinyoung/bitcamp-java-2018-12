@@ -1,20 +1,21 @@
 package com.eomcs.lms.handler;
-import com.eomcs.lms.dao.BoardDao;
-import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.dao.PhotoBoardDao;
+import com.eomcs.lms.domain.PhotoBoard;
 
 public class PhotoBoardAddCommand extends AbstractCommand {
   
-  BoardDao boardDao; // 서버의 BoardDaoImpl 객체를 대행하는 프록시 객체이다.
+  PhotoBoardDao photoBoardDao; 
   
-  public PhotoBoardAddCommand(BoardDao boardDao) {
-    this.boardDao = boardDao;
+  public PhotoBoardAddCommand(PhotoBoardDao photoBoardDao) {
+    this.photoBoardDao = photoBoardDao;
   }
   
   @Override
   public void execute(Response response) throws Exception {
-    Board board = new Board();
-    board.setContents(response.requestString("내용?"));
-    boardDao.insert(board);
+    PhotoBoard board = new PhotoBoard();
+    board.setTitle(response.requestString("제목?"));
+    board.setLessonNo(response.requestInt("수업?"));
+    photoBoardDao.insert(board);
     
     response.println("저장하였습니다.");
   }

@@ -42,13 +42,16 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
       throw new RuntimeException(e);
     }
   }
-/*
+
+  @Override
   public void insert(PhotoBoard photoBoard) {
     try (PreparedStatement stmt = con.prepareStatement(
-        "insert into lms_photoBoard(conts) values(?)")) {
+        "insert into lms_photo(titl,lesson_id) values(?,?)")) {
 
-      stmt.setString(1, photoBoard.getContents());
+      stmt.setString(1, photoBoard.getTitle());
+      stmt.setInt(2, photoBoard.getLessonNo());
       stmt.executeUpdate();
+      
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -58,13 +61,14 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
     try {
       // 조회수 증가시키기
       try (PreparedStatement stmt = con.prepareStatement(
-          "update lms_photoBoard set vw_cnt = vw_cnt + 1 where photoBoard_id = ?")) {
+          "update lms_photo set vw_cnt = vw_cnt + 1 where photo_id = ?")) {
         stmt.setInt(1, no);
         stmt.executeUpdate();
       }
 
       try (PreparedStatement stmt = con.prepareStatement(
-          "select photoBoard_id, conts, cdt, vw_cnt from lms_photoBoard where photoBoard_id = ?")) {
+          "select photo_id, titl, cdt, vw_cnt, lesson_id from lms_photo"
+          + " where photo_id = ?")) {
 
         stmt.setInt(1, no);
 
@@ -72,11 +76,13 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
           if (rs.next()) {
             PhotoBoard photoBoard = new PhotoBoard();
-            photoBoard.setNo(rs.getInt("photoBoard_id"));
-            photoBoard.setContents(rs.getString("conts"));
+            photoBoard.setNo(rs.getInt("photo_id"));
+            photoBoard.setTitle(rs.getString("titl"));
             photoBoard.setCreatedDate(rs.getDate("cdt"));
             photoBoard.setViewCount(rs.getInt("vw_cnt"));
+            photoBoard.setLessonNo(rs.getInt("lesson_id"));
             return photoBoard;
+            
           } else {
             return null;
           }
@@ -86,7 +92,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
       throw new RuntimeException(e);
     }
   }
-
+  /*
   public int update(PhotoBoard photoBoard) {
     try (PreparedStatement stmt = con.prepareStatement(
         "update lms_photoBoard set conts = ? where photoBoard_id = ?")) {
