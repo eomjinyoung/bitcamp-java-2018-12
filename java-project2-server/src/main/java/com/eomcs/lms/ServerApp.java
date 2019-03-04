@@ -1,32 +1,28 @@
-// 7단계: 사진 게시판 첨부 파일 기능 추가
+// 8단계: 사진 게시물을 등록할 때 첨부파일 등록과 함께 묶어 처리하라. 즉 한 트랜잭션으로 만들라!
+// 
+// 트랜잭션 
+// - 여러 데이터 변경 작업을 한 작업으로 묶은 것.
 // 
 // 작업
-// 1) PhotoFile 도메인 클래스 정의
-// 2) 사진 게시물 출력할 때 첨부파일도 함께 출력하기
-// 2.1 PhotoFileDao와 PhotoFileDaoImpl 정의
-//    - findByPhotoBoardNo(int) 메서드 추가
-// 2.2 PhotoBoardDetailCommand 변경
-//    - PhotoFileDao 의존 객체 필드 추가
-// 2.3 ApplicationInitializer에 PhotoFileDao를 등록한다.
-// 3) 사진 게시물 입력할 때 첨부파일도 입력하기
-// 3.1 PhotoFileDao와 PhotoFileDaoImpl 정의
-//    - insert(PhotoFile) 메서드 추가
-// 3.2 PhotoBoardAddCommand 변경
-//    - 첨부파일 입력 추가
-// 3.3 ApplicationInitializer 변경
-//    - PhotoBoardAddCommand의 생성자에 PhotoFileDao 주입
-// 4) 사진 게시물 변경할 때 첨부파일도 변경하기
-// 4.1 PhotoFileDao와 PhotoFileDaoImpl 정의
-//    - deleteByPhotoBoardNo(int) 메서드 추가
-// 4.2 PhotoBoardUpdateCommand 변경
-//    - 첨부파일 입력 추가
-// 4.3 ApplicationInitializer 변경
-//    - PhotoBoardUpdateCommand의 생성자에 PhotoFileDao 주입
-// 5) 사진 게시물 삭제할 때 첨부파일도 변경하기
-// 5.1 PhotoBoardDeleteCommand 변경
-//    - 첨부파일 삭제 추가
-// 5.2 ApplicationInitializer 변경
-//    - PhotoBoardDeleteCommand의 생성자에 PhotoFileDao 주입
+// 1) ApplicationInitializer 변경
+//    - Connection 객체의 Auto Commit을 false로 설정한다. 
+// 2) PhotoBoardAddCommand 변경
+//    - insert를 마친 후 commit()을 호출하여 트랜잭션이 종료되었음을 서버에 알린다.
+// 3) AbstractCommand 변경
+//    - 데이터 변경(insert,update,delete) 작업 중에 오류가 발생했을 때 
+//      원래의 마지막 커밋 상태로 되돌리도록,
+//      즉 현재까지 작업한 결과를 취소하도록
+//      커넥션 객체에 대해 rollback()을 호출하라!
+//    - 데이터 변경 작업 중에 예외가 발생했음에도 불구하고 rollback()을 호출하지 않는다면
+//      예외 발생 전까지 수행했던 모든 데이터 변경 작업이 그대로 임시 DB에 남아있다.
+//    - 만약 동일한 커넥션 객체를 사용한다면 그 임시 DB에 저장된 데이터까지 조회된다.
+//    - 물론 커넥션을 끊으면 임시 DB에 존재하는 작업들이 모두 제거된다.
+//    - 문제는 회사에서 사용하는 애플리케이션은 주로 서버 애플리케이션이고,
+//      서버 애플리케이션은 메모리나 객체 관리를 효율적으로 하기 위해 
+//      한 번 만든 커넥션 객체는 쓰고 버리지 않고, 계속 유지하여 공유한다는 것이다.
+//      따라서 커넥션에서 작업했던 임시 DB에 보관된 데이터가 계속 select 할 때 포함되는 문제가 발생한다.
+//    - 그래서 트랜잭션에 묶인 작업 중 하나가 실패했을 때 commit()을 호출하지 않는 것은 당연하고
+//      명시적으로 rollback()을 호출하여 임시 DB에 보관된 쓰레기를 정리해 주는 것이 반드시 필요하다!!!
 package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

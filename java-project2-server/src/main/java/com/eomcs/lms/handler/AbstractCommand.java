@@ -2,6 +2,8 @@ package com.eomcs.lms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import com.eomcs.lms.ApplicationInitializer;
 
 // 추상 클래스의 목적?
 // => 서브 클래스에게 필드나 메서드를 상속해 주는 용도.
@@ -14,6 +16,13 @@ public abstract class AbstractCommand implements Command {
     try {
       execute(new Response(in, out));
     } catch (Exception e) {
+      // 예외가 발생하면 커넥션을 통해 데이터 변경 작업을 했던 것을 모두 취소한다.
+      try {
+        ApplicationInitializer.con.rollback();
+      } catch (SQLException e1) {
+        // 롤백하다가 발생한 예외는 더이상 처리할게 없다. 그냥 무시한다. 
+      }
+      
       out.printf("실행 오류! : %s\n", e.getMessage());
     }
   }
