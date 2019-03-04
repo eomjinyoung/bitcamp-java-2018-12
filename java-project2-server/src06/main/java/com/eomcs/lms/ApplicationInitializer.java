@@ -9,7 +9,6 @@ import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
 import com.eomcs.lms.dao.mariadb.LessonDaoImpl;
 import com.eomcs.lms.dao.mariadb.MemberDaoImpl;
 import com.eomcs.lms.dao.mariadb.PhotoBoardDaoImpl;
-import com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl;
 import com.eomcs.lms.handler.BoardAddCommand;
 import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
@@ -50,7 +49,6 @@ public class ApplicationInitializer implements ApplicationContextListener {
       MemberDaoImpl memberDao = new MemberDaoImpl(con);
       BoardDaoImpl boardDao = new BoardDaoImpl(con);
       PhotoBoardDaoImpl photoBoardDao = new PhotoBoardDaoImpl(con);
-      PhotoFileDaoImpl photoFileDao = new PhotoFileDaoImpl(con);
       
       context.put("/lesson/add", new LessonAddCommand(lessonDao));
       context.put("/lesson/list", new LessonListCommand(lessonDao));
@@ -71,11 +69,9 @@ public class ApplicationInitializer implements ApplicationContextListener {
       context.put("/board/update", new BoardUpdateCommand(boardDao));
       context.put("/board/delete", new BoardDeleteCommand(boardDao));
       
-      context.put("/photoboard/add", 
-          new PhotoBoardAddCommand(photoBoardDao, photoFileDao));
+      context.put("/photoboard/add", new PhotoBoardAddCommand(photoBoardDao));
       context.put("/photoboard/list", new PhotoBoardListCommand(photoBoardDao));
-      context.put("/photoboard/detail", 
-          new PhotoBoardDetailCommand(photoBoardDao, photoFileDao));
+      context.put("/photoboard/detail", new PhotoBoardDetailCommand(photoBoardDao));
       context.put("/photoboard/update", new PhotoBoardUpdateCommand(photoBoardDao));
       context.put("/photoboard/delete", new PhotoBoardDeleteCommand(photoBoardDao));
       
