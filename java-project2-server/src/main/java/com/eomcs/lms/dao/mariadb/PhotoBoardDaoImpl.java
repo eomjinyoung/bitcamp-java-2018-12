@@ -57,6 +57,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
     }
   }
 
+  @Override
   public PhotoBoard findByNo(int no) {
     try {
       // 조회수 증가시키기
@@ -92,12 +93,13 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
       throw new RuntimeException(e);
     }
   }
-  /*
+  
+  @Override
   public int update(PhotoBoard photoBoard) {
     try (PreparedStatement stmt = con.prepareStatement(
-        "update lms_photoBoard set conts = ? where photoBoard_id = ?")) {
+        "update lms_photo set titl = ? where photo_id = ?")) {
 
-      stmt.setString(1, photoBoard.getContents());
+      stmt.setString(1, photoBoard.getTitle());
       stmt.setInt(2, photoBoard.getNo());
 
       return stmt.executeUpdate();
@@ -105,17 +107,18 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
       throw new RuntimeException(e);
     }
   }
-
+  
+  @Override
   public int delete(int no) {
     try (PreparedStatement stmt = con.prepareStatement(
-        "delete from lms_photoBoard where photoBoard_id = ?")) {
+        "delete from lms_photo where photo_id = ?")) {
 
       stmt.setInt(1, no);
 
       return stmt.executeUpdate();
+      
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
-*/
 }

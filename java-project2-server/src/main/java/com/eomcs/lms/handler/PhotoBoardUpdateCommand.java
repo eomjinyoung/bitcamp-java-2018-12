@@ -1,25 +1,28 @@
 package com.eomcs.lms.handler;
-import com.eomcs.lms.dao.BoardDao;
-import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.dao.PhotoBoardDao;
+import com.eomcs.lms.domain.PhotoBoard;
 
 public class PhotoBoardUpdateCommand extends AbstractCommand {
   
-  BoardDao boardDao;
+  PhotoBoardDao photoBoardDao;
   
-  public PhotoBoardUpdateCommand(BoardDao boardDao) {
-    this.boardDao = boardDao;
+  public PhotoBoardUpdateCommand(PhotoBoardDao photoBoardDao) {
+    this.photoBoardDao = photoBoardDao;
   }
   
   @Override
   public void execute(Response response) throws Exception {
-    Board board = new Board();
+    PhotoBoard board = new PhotoBoard();
     board.setNo(response.requestInt("번호?"));
-    board.setContents(response.requestString("내용?"));
     
-    if (boardDao.update(board) == 0) {
-      response.println("해당 번호의 게시물이 없습니다.");
+    PhotoBoard origin = photoBoardDao.findByNo(board.getNo());
+    if (origin == null) {
+      response.println("해당 번호의 사진이 없습니다.");
       return;
     }
+    
+    board.setTitle(response.requestString(
+        String.format("제목(%s)?", origin.getTitle())));
     
     response.println("변경했습니다.");
   }

@@ -6,7 +6,18 @@
 //    - findAll() 메서드 추가
 // 3) PhotoBoardListCommand 추가
 // 4) ApplicationInitializer에 PhotoBoardListCommand를 등록한다.
-//
+// 5) PhotoBoardDao와 PhotoBoardDaoImpl 변경
+//    - insert() 메서드 추가
+// 6) PhotoBoardAddCommand 추가
+// 7) ApplicationInitializer에 PhotoBoardAddCommand를 등록한다.
+// 8) PhotoBoardDao와 PhotoBoardDaoImpl 변경
+//    - findByNo() 메서드 추가
+// 9) PhotoBoardDetailCommand 추가
+// 10) ApplicationInitializer에 PhotoBoardDetailCommand를 등록한다.
+// 11) PhotoBoardDao와 PhotoBoardDaoImpl 변경
+//    - update(), delete() 메서드 추가
+// 12) PhotoBoardUpdateCommand, PhotoBoardDeleteCommand 추가
+// 13) ApplicationInitializer에 PhotoBoardUpdateCommand, PhotoBoardDeleteCommand를 등록한다.
 package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -26,8 +26,10 @@ import com.eomcs.lms.handler.MemberListCommand;
 import com.eomcs.lms.handler.MemberSearchCommand;
 import com.eomcs.lms.handler.MemberUpdateCommand;
 import com.eomcs.lms.handler.PhotoBoardAddCommand;
+import com.eomcs.lms.handler.PhotoBoardDeleteCommand;
 import com.eomcs.lms.handler.PhotoBoardDetailCommand;
 import com.eomcs.lms.handler.PhotoBoardListCommand;
+import com.eomcs.lms.handler.PhotoBoardUpdateCommand;
 
 // App 객체의 상태가 변경될 때 마다 보고 받는 옵저버가 되려면 
 // ApplicationContextListener 규격에 따라 작성해야 한다.
@@ -70,8 +72,8 @@ public class ApplicationInitializer implements ApplicationContextListener {
       context.put("/photoboard/add", new PhotoBoardAddCommand(photoBoardDao));
       context.put("/photoboard/list", new PhotoBoardListCommand(photoBoardDao));
       context.put("/photoboard/detail", new PhotoBoardDetailCommand(photoBoardDao));
-      //context.put("/photoboard/update", new PhotoBoardUpdateCommand(photoBoardDao));
-      //context.put("/photoboard/delete", new PhotoBoardDeleteCommand(photoBoardDao));
+      context.put("/photoboard/update", new PhotoBoardUpdateCommand(photoBoardDao));
+      context.put("/photoboard/delete", new PhotoBoardDeleteCommand(photoBoardDao));
       
     } catch (Exception e) {
       throw new ApplicationContextException(e);
