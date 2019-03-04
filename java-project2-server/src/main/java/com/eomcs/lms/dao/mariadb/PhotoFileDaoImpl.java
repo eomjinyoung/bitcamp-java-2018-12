@@ -109,13 +109,13 @@ public class PhotoFileDaoImpl implements PhotoFileDao {
       throw new RuntimeException(e);
     }
   }
-  
+*/
   @Override
-  public int delete(int no) {
+  public int deleteByPhotoBoardNo(int photoBoardNo) {
     try (PreparedStatement stmt = con.prepareStatement(
-        "delete from lms_photo where photo_id = ?")) {
+        "delete from lms_photo_file where photo_id = ?")) {
 
-      stmt.setInt(1, no);
+      stmt.setInt(1, photoBoardNo);
 
       return stmt.executeUpdate();
       
@@ -123,5 +123,5 @@ public class PhotoFileDaoImpl implements PhotoFileDao {
       throw new RuntimeException(e);
     }
   }
-*/
+
 }

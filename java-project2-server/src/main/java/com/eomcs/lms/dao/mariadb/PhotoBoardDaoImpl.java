@@ -3,6 +3,7 @@ package com.eomcs.lms.dao.mariadb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.lms.dao.PhotoBoardDao;
@@ -46,11 +47,17 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
   @Override
   public void insert(PhotoBoard photoBoard) {
     try (PreparedStatement stmt = con.prepareStatement(
-        "insert into lms_photo(titl,lesson_id) values(?,?)")) {
+        "insert into lms_photo(titl,lesson_id) values(?,?)",
+        Statement.RETURN_GENERATED_KEYS)) {
 
       stmt.setString(1, photoBoard.getTitle());
       stmt.setInt(2, photoBoard.getLessonNo());
       stmt.executeUpdate();
+      
+      try (ResultSet rs = stmt.getGeneratedKeys()) {
+        rs.next();
+        photoBoard.setNo(rs.getInt(1)); // 자동 생성된 PK 값을 파라미터로 받은 객체에 보관한다.
+      }
       
     } catch (Exception e) {
       throw new RuntimeException(e);

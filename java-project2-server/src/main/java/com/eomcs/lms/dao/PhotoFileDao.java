@@ -8,5 +8,5 @@ public interface PhotoFileDao {
   List<PhotoFile> findByPhotoBoardNo(int photoBoardNo);
 //  PhotoBoard findByNo(int no);
 //  int update(PhotoBoard photoBoard);
-//  int delete(int no);
+  int deleteByPhotoBoardNo(int photoBoardNo);
 }
