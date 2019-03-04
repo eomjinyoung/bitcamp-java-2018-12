@@ -8,6 +8,7 @@ import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
 import com.eomcs.lms.dao.mariadb.LessonDaoImpl;
 import com.eomcs.lms.dao.mariadb.MemberDaoImpl;
+import com.eomcs.lms.dao.mariadb.PhotoBoardDaoImpl;
 import com.eomcs.lms.handler.BoardAddCommand;
 import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
@@ -24,6 +25,7 @@ import com.eomcs.lms.handler.MemberDetailCommand;
 import com.eomcs.lms.handler.MemberListCommand;
 import com.eomcs.lms.handler.MemberSearchCommand;
 import com.eomcs.lms.handler.MemberUpdateCommand;
+import com.eomcs.lms.handler.PhotoBoardListCommand;
 
 // App 객체의 상태가 변경될 때 마다 보고 받는 옵저버가 되려면 
 // ApplicationContextListener 규격에 따라 작성해야 한다.
@@ -42,13 +44,13 @@ public class ApplicationInitializer implements ApplicationContextListener {
       LessonDaoImpl lessonDao = new LessonDaoImpl(con);
       MemberDaoImpl memberDao = new MemberDaoImpl(con);
       BoardDaoImpl boardDao = new BoardDaoImpl(con);
+      PhotoBoardDaoImpl photoBoardDao = new PhotoBoardDaoImpl(con);
       
       context.put("/lesson/add", new LessonAddCommand(lessonDao));
       context.put("/lesson/list", new LessonListCommand(lessonDao));
       context.put("/lesson/detail", new LessonDetailCommand(lessonDao));
       context.put("/lesson/update", new LessonUpdateCommand(lessonDao));
       context.put("/lesson/delete", new LessonDeleteCommand(lessonDao));
-
       
       context.put("/member/add", new MemberAddCommand(memberDao));
       context.put("/member/list", new MemberListCommand(memberDao));
@@ -62,6 +64,12 @@ public class ApplicationInitializer implements ApplicationContextListener {
       context.put("/board/detail", new BoardDetailCommand(boardDao));
       context.put("/board/update", new BoardUpdateCommand(boardDao));
       context.put("/board/delete", new BoardDeleteCommand(boardDao));
+      
+      //context.put("/photoboard/add", new PhotoBoardAddCommand(photoBoardDao));
+      context.put("/photoboard/list", new PhotoBoardListCommand(photoBoardDao));
+      //context.put("/photoboard/detail", new PhotoBoardDetailCommand(photoBoardDao));
+      //context.put("/photoboard/update", new PhotoBoardUpdateCommand(photoBoardDao));
+      //context.put("/photoboard/delete", new PhotoBoardDeleteCommand(photoBoardDao));
       
     } catch (Exception e) {
       throw new ApplicationContextException(e);

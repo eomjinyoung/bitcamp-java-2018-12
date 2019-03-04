@@ -385,5 +385,6 @@
     - transcation 다루기: commit과 rollback
     - join의 종류와 사용법
 
-
+## 42일(2019-3-4)
+- 
 
