@@ -20,13 +20,6 @@ public class BoardListCommand extends AbstractCommand {
           String.format("%3d, %-20s, %s, %d", 
             board.getNo(), board.getContents(), 
             board.getCreatedDate(), board.getViewCount()));
-      
-      // 싱글 스레드의 문제를 직접 확인하기 위해 출력할 때 시간을 끌어보자!
-      try {
-        Thread.currentThread().sleep(3000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
     }
   }
 
