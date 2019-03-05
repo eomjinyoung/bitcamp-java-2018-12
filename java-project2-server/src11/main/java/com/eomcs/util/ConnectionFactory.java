@@ -3,7 +3,7 @@ package com.eomcs.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-// 커넥션을 빌려주고 리턴 받는 일을 한다.
+// 커넥션을 만들어주는 역할을 한다.
 public class ConnectionFactory {
   
   // 커넥션 객체를 현재 스레드에 보관할 수 있도록 보자기를 준비한다.

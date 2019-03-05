@@ -1,4 +1,3 @@
-// DBMS 적용
 package com.eomcs.lms.dao.mariadb;
 
 import java.sql.Connection;
@@ -8,12 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
-import com.eomcs.util.ConnectionFactory;
+import com.eomcs.util.DataSource;
 
 public class LessonDaoImpl implements LessonDao {
 
+  // DataSource 의존 객체 선언
+  DataSource dataSource;
+  
+  public LessonDaoImpl(DataSource dataSource) {
+    this.dataSource = dataSource;
+  }
+  
   public List<Lesson> findAll() {
-    Connection con = ConnectionFactory.create();
+    Connection con = dataSource.getConnection();
     
     try (PreparedStatement stmt = con.prepareStatement(
         "select lesson_id, titl, sdt, edt, tot_hr from lms_lesson"
@@ -40,7 +46,7 @@ public class LessonDaoImpl implements LessonDao {
   }
 
   public void insert(Lesson lesson) {
-    Connection con = ConnectionFactory.create();
+    Connection con = dataSource.getConnection();
     
     try (PreparedStatement stmt = con.prepareStatement(
         "insert into lms_lesson(titl,conts,sdt,edt,tot_hr,day_hr)"
@@ -61,7 +67,7 @@ public class LessonDaoImpl implements LessonDao {
   }
 
   public Lesson findByNo(int no) {
-    Connection con = ConnectionFactory.create();
+    Connection con = dataSource.getConnection();
     
     try (PreparedStatement stmt = con.prepareStatement(
         "select lesson_id, titl, conts, sdt, edt, tot_hr, day_hr"
@@ -93,7 +99,7 @@ public class LessonDaoImpl implements LessonDao {
   }
 
   public int update(Lesson lesson) {
-    Connection con = ConnectionFactory.create();
+    Connection con = dataSource.getConnection();
     
     try (PreparedStatement stmt = con.prepareStatement(
         "update lms_lesson set"
@@ -120,7 +126,7 @@ public class LessonDaoImpl implements LessonDao {
   }
 
   public int delete(int no) {
-    Connection con = ConnectionFactory.create();
+    Connection con = dataSource.getConnection();
     
     try (PreparedStatement stmt = con.prepareStatement(
         "delete from lms_lesson where lesson_id = ?")) {
