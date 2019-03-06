@@ -11,18 +11,36 @@
   
 <!-- mybatis 설정 파일의 루트 엘리먼트 -->  
 <configuration>
+
+  <!-- DBMS 접속 정보 목록 -->
   <environments default="development">
+  
+    <!-- 한 개의 DBMS 접속 정보  -->
     <environment id="development">
+    
+      <!-- 트랜잭션 관리 방법 -->
       <transactionManager type="JDBC"/>
+      
+      <!-- 커넥션풀 설정 -->
       <dataSource type="POOLED">
-        <property name="driver" value="${driver}"/>
-        <property name="url" value="${url}"/>
-        <property name="username" value="${username}"/>
-        <property name="password" value="${password}"/>
+        <property name="driver" value="org.mariadb.jdbc.Driver"/>
+        <property name="url" value="jdbc:mariadb://localhost/bitcampdb"/>
+        <property name="username" value="bitcamp"/>
+        <property name="password" value="1111"/>
       </dataSource>
     </environment>
   </environments>
+  
+  <!-- SQL이 보관된 파일의 목록 -->
   <mappers>
-    <mapper resource="org/mybatis/example/BlogMapper.xml"/>
+  
+    <!-- SQL이 보관된 파일의 경로 -->
+    <mapper resource="ch26/a/BoardMapper.xml"/>
   </mappers>
 </configuration>
+
+
+
+
+
+
