@@ -32,7 +32,29 @@
   <select id="select2" resultMap="boardMap" parameterType="int">
     select * from x_board where board_id = #{amuguna}
   </select>
+
+  <select id="select3" resultMap="boardMap" parameterType="string">
+    select * from x_board where title like concat('%', #{value}, '%')
+  </select>  
   
+<!-- insert 문을 작성할 때는 insert 엘리먼트에 작성한다.
+     그러나 update, delete 엘리먼트에 작성해도 문제없다.
+     하지만 insert 문은 insert 엘리먼트에 작성하는 것이 유지보수에 좋지 않을까? 
+     파라미터 타입이 일반 클래스일 때 
+     in-parameter의 이름은 그 클래스의 프로퍼티 이름으로 지정한다.
+     #{프로퍼티명}
+     -->
+  <insert id="insert1" parameterType="board">
+    insert into x_board(title,contents) 
+    values(#{title},#{contents})
+  </insert>
+
+<!-- 파라미터 타입의 map인 경우,
+     in-parameter를 지정할 때 #{key} 로 사용하면 된다. -->
+  <insert id="insert2" parameterType="map">
+    insert into x_board(title,contents) 
+    values(#{title},#{contents})
+  </insert>
 </mapper>
 
 

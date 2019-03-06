@@ -68,6 +68,20 @@ SQL 매퍼 파일에서는 그 별명을 사용할 수 있다.
   <select id="select5" resultMap="board2Map">
     select * from x_board where board_id = 5
   </select>
+  
+<!-- select의 row 값을 담을 클래스를 지정할 때 Map 구현체를 지정해도 된다.
+     그러면 Map 구현체를 생성하여 그 맵 객체에 컬럼 값을 담을 것이다. 
+     컬럼의 이름이 맵 객체의 key로 사용된다.-->
+  <select id="select6" resultType="map">
+    select * from x_board where board_id = 5
+  </select>
+  
+<!-- select의 row가 여러 개일 경우, 
+     각 row의 값은 Map 객체에 저장되고,
+     Map 객체는 List 객체에 추가된다.  -->
+  <select id="select7" resultType="map">
+    select * from x_board
+  </select>
 </mapper>
 
 

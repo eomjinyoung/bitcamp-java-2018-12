@@ -32,6 +32,14 @@ public class Test01 {
     //    자바 원시 타입의 값을 지정하면 자동으로 오토 박싱되어 mybatis에 전달된다.
     Board board = sqlSession.selectOne("board.select2", 5);
     System.out.println(board);
+    System.out.println("-------------------------------");
+    
+    // in-parameter에 String 값 넘기기
+    List<Board> boards2 = sqlSession.selectList("board.select3", "aa");
+    for (Board b : boards2) {
+      System.out.println(b);
+    }
+    System.out.println("-------------------------------");
   }
 
 }
