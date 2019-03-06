@@ -6,6 +6,13 @@ public class Engine {
   int cylinder;
   int valve;
   
+  public Engine(String model, String cc, int cylinder, int valve) {
+    this.model = model;
+    this.cc = cc;
+    this.cylinder = cylinder;
+    this.valve = valve;
+  }
+  
   @Override
   public String toString() {
     return "Engine [model=" + model + ", cc=" + cc + ", cylinder=" + cylinder + ", valve=" + valve

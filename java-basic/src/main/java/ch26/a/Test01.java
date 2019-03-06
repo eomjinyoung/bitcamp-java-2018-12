@@ -23,6 +23,7 @@ package ch26.a;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.List;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -65,8 +66,25 @@ public class Test01 {
     SqlSessionFactory sqlSessionFactory =
       new SqlSessionFactoryBuilder().build(inputStream);
 
-    // 팩토리 메서드를 통해 객체를 생성한다.
+    // 3) 팩토리 메서드를 통해 객체를 생성한다.
     SqlSession sqlSession = sqlSessionFactory.openSession();
+    
+    // 4) SQL 매퍼 파일에 보관된 SQL 문을 찾아 실행한다.
+    // => 파라미터 값은 SQL 문의 id 이다.
+    // => SQL 매퍼 파일의 namespace 값과 SQL ID 값을 결합해서 지정한다.
+    // => selectList()의 리턴 값은 SQL 매퍼 파일의 resultType에 지정된 객체를 담고 있는 
+    //    List 객체이다.
+    List<Board> list = sqlSession.selectList("board.select1");
+    
+    // 5) 출력!
+    for (Board b : list) {
+      System.out.printf("%d, %s, %s, %s, %d\n", 
+          b.getBoard_id(),
+          b.getTitle(),
+          b.getContents(),
+          b.getCreated_date(),
+          b.getView_count());
+    }
   }
 
 }
