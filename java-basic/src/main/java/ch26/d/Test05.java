@@ -32,7 +32,13 @@ public class Test05 {
     
     List<Map<?,?>> list = sqlSession.selectList("board.select7");
     for (Map<?,?> m : list) {
-      System.out.println(m);
+      //System.out.println(m);
+      System.out.printf("%s, %s, %s, %s, %s\n", 
+          m.get("board_id"),
+          m.get("title"),
+          m.get("contents"),
+          m.get("created_date"),
+          m.get("view_count"));
     }
   }
 

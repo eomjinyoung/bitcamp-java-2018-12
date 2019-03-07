@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+  <resultMap type="board" id="boardMap">
+    <id column="board_id"         property="no"/>
+    <result column="created_date" property="createdDate"/>
+    <result column="view_count"   property="viewCount"/>
+    <!-- 나머지 컬럼은 같은 이름을 갖는 프로퍼티에 저장하라는 의미! -->
+  </resultMap>
+
+
+<!-- 조건문 만들기 
+=> <if test="조건">
+=> 조건은 true/false를 리턴하는 계산식이어야 한다.
+=> 파라미터 타입이 자바 원시 타입, String, 래퍼 클래스의 경우
+   값을 꺼낼 때 프로퍼티 이름은 #{아무이름} 이 가능했다.
+   그러나 <if> 태그의 test 속성 안에서 프로퍼티명을 지정할 때는
+   value 이름을 사용해야 한다.
+=> 
+-->
+  <select id="select1" resultMap="boardMap" parameterType="int">
+    select * 
+    from x_board
+    <if test="value != null"> <!-- test 속성 안에서는 okok 안된다. value라고 해야 한다. -->
+    where 
+      board_id = #{okok} <!-- 값을 꺼낼 때는 프로퍼티 이름으로 아무거나 가능하다. -->
+    </if>
+  </select>
+
+  <select id="select2" resultMap="boardMap" parameterType="string">
+    select * 
+    from x_board
+    <if test="null">
+    where 
+      title like concat('%', #{value}, '%')
+      or contents like concat('%', #{value}, '%')
+    order by 
+      board_id desc
+    </if>
+  </select>
+</mapper>
+
+
+
+
+
