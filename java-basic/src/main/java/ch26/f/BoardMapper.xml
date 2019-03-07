@@ -167,6 +167,31 @@
         ${column} ${sort}
       </if>
   </select>
+
+<!-- udpate를 실행할 때 
+     값을 변경하는 컬럼에 대해서만 update를 수행하게 할 수 있다. 
+     <set>과 <if> 태그를 조합하면 된다.
+     -->
+  <update id="update1" parameterType="map">
+    update x_board 
+      <set>
+        <if test="title != null">title = #{title},</if>
+        <if test="contents != null">contents = #{contents}</if>
+      </set>
+    where
+      board_id = #{no}
+  </update>
+  
+<!-- Array 또는 Interable 객체를 사용하여 값을 반복적으로 꺼내기 -->  
+  <select id="select9" resultMap="boardMap" parameterType="map">
+    select *
+    from x_board
+    where 
+      board_id in /*(10, 12, 15, 28, 39)*/
+        <foreach collection="noList" item="value" open="(" close=")" separator=",">
+          #{value}
+        </foreach>
+  </select>
 </mapper>
 
 
