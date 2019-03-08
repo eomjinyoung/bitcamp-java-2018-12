@@ -23,5 +23,7 @@
   </environments>
   <mappers>
     <mapper resource="com/eomcs/lms/mapper/LessonMapper.xml"/>
+    <mapper resource="com/eomcs/lms/mapper/BoardMapper.xml"/>
+    <mapper resource="com/eomcs/lms/mapper/MemberMapper.xml"/>
   </mappers>
 </configuration>

@@ -58,8 +58,8 @@ public class ApplicationInitializer implements ApplicationContextListener {
       
       // DAO 객체 준비
       LessonDaoImpl lessonDao = new LessonDaoImpl(sqlSessionFactory);
-      MemberDaoImpl memberDao = new MemberDaoImpl(dataSource);
-      BoardDaoImpl boardDao = new BoardDaoImpl(dataSource);
+      MemberDaoImpl memberDao = new MemberDaoImpl(sqlSessionFactory);
+      BoardDaoImpl boardDao = new BoardDaoImpl(sqlSessionFactory);
       PhotoBoardDaoImpl photoBoardDao = new PhotoBoardDaoImpl(dataSource);
       PhotoFileDaoImpl photoFileDao = new PhotoFileDaoImpl(dataSource);
       

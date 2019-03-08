@@ -20,7 +20,8 @@ public class MemberUpdateCommand extends AbstractCommand {
       return;
     }
 
-    Member temp = member.clone();
+    Member temp = new Member();
+    temp.setNo(no);
 
     String input = response.requestString(String.format(
         "이름(%s)?", member.getName()));
@@ -33,7 +34,8 @@ public class MemberUpdateCommand extends AbstractCommand {
       temp.setEmail(input);
 
     input = response.requestString("암호(새 암호를 입력하세요)?");
-    temp.setPassword(input);
+    if (input.length() > 0)
+      temp.setPassword(input);
 
     input = response.requestString(String.format(
         "사진(%s)?", member.getPhoto()));
@@ -44,8 +46,18 @@ public class MemberUpdateCommand extends AbstractCommand {
         "전화(%s)?", member.getTel()));
     if (input.length() > 0)
       temp.setTel(input);
-
-    memberDao.update(temp);
-    response.println("변경했습니다.");
+    
+    if (temp.getName() != null
+        || temp.getEmail() != null
+        || temp.getPassword() != null
+        || temp.getPhoto() != null
+        || temp.getTel() != null) {
+      
+      memberDao.update(temp);
+      response.println("변경했습니다.");
+      
+    } else {
+      response.println("변경 취소했습니다.");
+    }
   }
 }

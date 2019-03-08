@@ -28,7 +28,9 @@ public class ClientApp {
       if (input.equals("quit")) {
         System.out.println("클라이언트를 종료합니다.");
         return;
-      } 
+      } else if (input.length() == 0) { // 아무것도 입력하지 않으면
+        continue;
+      }
       
       commandHistory.push(input);
       commandHistory2.offer(input);
