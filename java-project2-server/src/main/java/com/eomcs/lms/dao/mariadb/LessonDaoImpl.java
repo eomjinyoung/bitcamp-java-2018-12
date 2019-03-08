@@ -3,8 +3,9 @@ package com.eomcs.lms.dao.mariadb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.util.DataSource;
@@ -14,34 +15,16 @@ public class LessonDaoImpl implements LessonDao {
   // DataSource 의존 객체 선언
   DataSource dataSource;
   
-  public LessonDaoImpl(DataSource dataSource) {
-    this.dataSource = dataSource;
+  // Mybatis 의존 객체 선언
+  SqlSessionFactory sqlSessionFactory;
+  
+  public LessonDaoImpl(SqlSessionFactory sqlSessionFactory) {
+    this.sqlSessionFactory = sqlSessionFactory;
   }
   
   public List<Lesson> findAll() {
-    Connection con = dataSource.getConnection();
-    
-    try (PreparedStatement stmt = con.prepareStatement(
-        "select lesson_id, titl, sdt, edt, tot_hr from lms_lesson"
-        + " order by lesson_id desc")) {
-      
-      try (ResultSet rs = stmt.executeQuery()) {
-        
-        ArrayList<Lesson> list = new ArrayList<>();
-        while (rs.next()) {
-          Lesson lesson = new Lesson();
-          lesson.setNo(rs.getInt("lesson_id"));
-          lesson.setTitle(rs.getString("titl"));
-          lesson.setStartDate(rs.getDate("sdt"));
-          lesson.setEndDate(rs.getDate("edt"));
-          lesson.setTotalHours(rs.getInt("tot_hr"));
-          
-          list.add(lesson);
-        }
-        return list;
-      }
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.selectList("LessonMapper.findAll");
     }
   }
 

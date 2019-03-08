@@ -1,6 +1,9 @@
 package com.eomcs.lms;
 
 import java.util.Map;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.eomcs.lms.context.ApplicationContextException;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
@@ -38,6 +41,11 @@ public class ApplicationInitializer implements ApplicationContextListener {
   @Override
   public void contextInitialized(Map<String, Object> context) {
     try {
+      // Mybatis의 SqlSessionFactory 준비
+      SqlSessionFactory sqlSessionFactory =
+        new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream(
+            "com/eomcs/lms/conf/mybatis-config.xml"));
+      
       // 커넥션풀(DataSource) 객체 준비 
       DataSource dataSource = new DataSource(
           "org.mariadb.jdbc.Driver",
@@ -49,7 +57,7 @@ public class ApplicationInitializer implements ApplicationContextListener {
       context.put("dataSource", dataSource);
       
       // DAO 객체 준비
-      LessonDaoImpl lessonDao = new LessonDaoImpl(dataSource);
+      LessonDaoImpl lessonDao = new LessonDaoImpl(sqlSessionFactory);
       MemberDaoImpl memberDao = new MemberDaoImpl(dataSource);
       BoardDaoImpl boardDao = new BoardDaoImpl(dataSource);
       PhotoBoardDaoImpl photoBoardDao = new PhotoBoardDaoImpl(dataSource);

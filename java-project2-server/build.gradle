@@ -13,6 +13,9 @@ repositories {
 
 // 프로젝트에서 사용할 외부 라이브러리 정보 
 dependencies {
+    //mybatis persistence framework
+    compile group: 'org.mybatis', name: 'mybatis', version: '3.5.0'
+
     // MariaDB JDBC Driver
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
     
