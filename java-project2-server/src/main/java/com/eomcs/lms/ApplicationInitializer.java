@@ -56,7 +56,8 @@ public class ApplicationInitializer implements ApplicationContextListener {
       context.put("/lesson/list", new LessonListCommand(lessonDao));
       context.put("/lesson/detail", new LessonDetailCommand(lessonDao));
       context.put("/lesson/update", new LessonUpdateCommand(lessonDao));
-      context.put("/lesson/delete", new LessonDeleteCommand(lessonDao));
+      context.put("/lesson/delete", new LessonDeleteCommand(
+          lessonDao, photoBoardDao, photoFileDao));
       
       context.put("/member/add", new MemberAddCommand(memberDao));
       context.put("/member/list", new MemberListCommand(memberDao));

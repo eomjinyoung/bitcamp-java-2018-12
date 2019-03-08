@@ -1,6 +1,7 @@
 package com.eomcs.lms.dao.mariadb;
 
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.dao.PhotoBoardDao;
@@ -16,9 +17,9 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
   }
   
   @Override
-  public List<PhotoBoard> findAll() {
+  public List<PhotoBoard> findAll(Map<String,Object> params) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      return sqlSession.selectList("PhotoBoardMapper.findAll");
+      return sqlSession.selectList("PhotoBoardMapper.findAll", params);
     }
   }
   

@@ -34,7 +34,8 @@ public class PhotoFileDaoImpl implements PhotoFileDao {
   @Override
   public int deleteByPhotoBoardNo(int photoBoardNo) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      int count = sqlSession.delete("PhotoFileMapper.delete", photoBoardNo);
+      int count = sqlSession.delete(
+          "PhotoFileMapper.deleteByPhotoBoardNo", photoBoardNo);
       sqlSession.commit();
       return count;
     }

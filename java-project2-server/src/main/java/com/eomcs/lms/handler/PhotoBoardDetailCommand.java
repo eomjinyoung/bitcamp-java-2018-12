@@ -33,7 +33,10 @@ public class PhotoBoardDetailCommand extends AbstractCommand {
     response.println(String.format("제목: %s", board.getTitle()));
     response.println(String.format("작성일: %s", board.getCreatedDate()));
     response.println(String.format("조회수: %d", board.getViewCount()));
-    response.println(String.format("수업: %d", board.getLessonNo()));
+    response.println(String.format("수업: %s(%s ~ %s)", 
+        board.getLesson().getTitle(),
+        board.getLesson().getStartDate(),
+        board.getLesson().getEndDate()));
     
     response.println("사진파일:");
     List<PhotoFile> files = board.getFiles();

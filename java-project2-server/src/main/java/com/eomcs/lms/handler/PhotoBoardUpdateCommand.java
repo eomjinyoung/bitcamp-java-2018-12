@@ -28,10 +28,13 @@ public class PhotoBoardUpdateCommand extends AbstractCommand {
       return;
     }
     
-    board.setTitle(response.requestString(
-        String.format("제목(%s)?", origin.getTitle())));
+    String input = response.requestString(
+        String.format("제목(%s)?", origin.getTitle()));
     
-    photoBoardDao.update(board); // 사진 게시물 제목 변경
+    if (input.length() > 0) {
+      board.setTitle(input);
+      photoBoardDao.update(board); // 사진 게시물 제목 변경
+    }
     
     // 변경하려면 사진 게시물의 첨부 파일을 출력한다.
     response.println("사진 파일:");
@@ -43,7 +46,7 @@ public class PhotoBoardUpdateCommand extends AbstractCommand {
     
     response.println("사진은 일부만 변경할 수 없습니다.");
     response.println("전체를 새로 등록해야 합니다.");
-    String input = response.requestString("사진을 변경하시겠습니까?(y/N)");
+    input = response.requestString("사진을 변경하시겠습니까?(y/N)");
     if (input.equalsIgnoreCase("y")) {
       // 먼저 기존 첨부 파일을 삭제한다.
       photoFileDao.deleteByPhotoBoardNo(board.getNo());

@@ -14,6 +14,7 @@ public class PhotoBoard implements Serializable {
   private int lessonNo;
   
   // 조인된 자식 테이블의 데이터를 보관할 필드
+  private Lesson lesson;
   private List<PhotoFile> files;
   
   public int getNo() {
@@ -52,4 +53,11 @@ public class PhotoBoard implements Serializable {
   public void setFiles(List<PhotoFile> files) {
     this.files = files;
   }
+  public Lesson getLesson() {
+    return lesson;
+  }
+  public void setLesson(Lesson lesson) {
+    this.lesson = lesson;
+  }
+  
 }
