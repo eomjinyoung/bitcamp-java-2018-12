@@ -2,7 +2,6 @@ package com.eomcs.lms.dao.mariadb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -50,34 +49,8 @@ public class LessonDaoImpl implements LessonDao {
   }
 
   public Lesson findByNo(int no) {
-    Connection con = dataSource.getConnection();
-    
-    try (PreparedStatement stmt = con.prepareStatement(
-        "select lesson_id, titl, conts, sdt, edt, tot_hr, day_hr"
-        + " from lms_lesson"
-        + " where lesson_id = ?")) {
-      
-      stmt.setInt(1, no);
-      
-      try (ResultSet rs = stmt.executeQuery()) {
-      
-        if (rs.next()) {
-          Lesson lesson = new Lesson();
-          lesson.setNo(rs.getInt("lesson_id"));
-          lesson.setTitle(rs.getString("titl"));
-          lesson.setContents(rs.getString("conts"));
-          lesson.setStartDate(rs.getDate("sdt"));
-          lesson.setEndDate(rs.getDate("edt"));
-          lesson.setTotalHours(rs.getInt("tot_hr"));
-          lesson.setDayHours(rs.getInt("day_hr"));
-          return lesson;
-          
-        } else {
-          return null;
-        }
-      }
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.selectOne("LessonMapper.findByNo", no);
     }
   }
 

@@ -29,6 +29,21 @@
       lesson_id desc
   </select>
   
+  <select id="findByNo" resultMap="lessonMap" parameterType="int">
+    select 
+      lesson_id, 
+      titl, 
+      conts, 
+      sdt, 
+      edt, 
+      tot_hr, 
+      day_hr
+    from 
+      lms_lesson
+    where 
+      lesson_id = #{value}
+  </select>
+  
 </mapper>
 
 
