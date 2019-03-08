@@ -61,6 +61,23 @@
       #{dayHours})
   </insert>
   
+  <update id="update" parameterType="lesson">
+    update lms_lesson
+    <set>
+      <if test="title != null">titl = #{title},</if>
+      <if test="contents != null">conts = #{contents},</if>
+      <if test="startDate != null">sdt = #{startDate},</if>
+      <if test="endDate != null">edt = #{endDate},</if>
+      <if test="totalHours > 0">tot_hr = #{totalHours},</if>
+      <if test="dayHours > 0">day_hr = #{dayHours}</if>
+    </set>
+    where lesson_id = #{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from lms_lesson 
+    where lesson_id = #{value}
+  </delete>
 </mapper>
 
 
