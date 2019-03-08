@@ -21,7 +21,11 @@ public class PhotoBoardDetailCommand extends AbstractCommand {
   public void execute(Response response) throws Exception {
     int no = response.requestInt("번호?");
     
-    PhotoBoard board = photoBoardDao.findByNo(no);
+    // lms_photo 테이블의 데이터와 lms_photo_file 테이블의 데이터를 조인하여 결과를 가져온다. 
+    // 그 결과를 PhotoBoard 객체에 저장한다.
+    // 특히 lms_photo_file 데이터는 PhotoFile 객체에 저장되고, 
+    // 그 목록은 PhotoBoard 객체에 포함되어 리턴된다.
+    PhotoBoard board = photoBoardDao.findByNoWithFile(no);
     if (board == null) {
       response.println("해당 사진을 찾을 수 없습니다.");
       return;
@@ -32,7 +36,7 @@ public class PhotoBoardDetailCommand extends AbstractCommand {
     response.println(String.format("수업: %d", board.getLessonNo()));
     
     response.println("사진파일:");
-    List<PhotoFile> files = photoFileDao.findByPhotoBoardNo(no);
+    List<PhotoFile> files = board.getFiles();
     for (PhotoFile file : files) {
       response.println(String.format("> %s", file.getFilePath()));
     }

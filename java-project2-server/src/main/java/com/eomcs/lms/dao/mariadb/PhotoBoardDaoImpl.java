@@ -21,6 +21,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
       return sqlSession.selectList("PhotoBoardMapper.findAll");
     }
   }
+  
 
   @Override
   public void insert(PhotoBoard photoBoard) {
@@ -34,6 +35,19 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
   public PhotoBoard findByNo(int no) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       PhotoBoard photoBoard = sqlSession.selectOne("PhotoBoardMapper.findByNo", no);
+      if (photoBoard != null) {
+        sqlSession.update("PhotoBoardMapper.increaseCount", no);
+        sqlSession.commit();
+      }
+      return photoBoard;
+    }
+  }
+  
+  @Override
+  public PhotoBoard findByNoWithFile(int no) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      PhotoBoard photoBoard = sqlSession.selectOne(
+          "PhotoBoardMapper.findByNoWithFile", no);
       if (photoBoard != null) {
         sqlSession.update("PhotoBoardMapper.increaseCount", no);
         sqlSession.commit();

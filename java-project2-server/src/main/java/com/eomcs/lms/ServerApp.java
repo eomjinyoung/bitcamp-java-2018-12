@@ -110,7 +110,6 @@ public class ServerApp {
         
         try {
           commandHandler.execute(in, out);
-          System.out.println("DB 커넥션에 대해 commit 수행");
         } catch (Exception e) {
           out.printf("실행 오류! : %s\n", e.getMessage());
         }

@@ -14,6 +14,20 @@
     <result column="vw_cnt"     property="viewCount"/>
   </resultMap>
   
+  <resultMap type="photoBoard" id="photoBoardFileMap">
+    <id column="photo_id"       property="no"/>
+    <result column="lesson_id"  property="lessonNo"/>
+    <result column="titl"       property="title"/>
+    <result column="cdt"        property="createdDate"/>
+    <result column="vw_cnt"     property="viewCount"/>
+    
+    <collection property="files" ofType="photoFile">
+      <id column="photo_file_id"    property="no"/>
+      <result column="file_path"    property="filePath"/>
+      <result column="photoBoardNo" property="photoBoardNo"/>
+    </collection>
+  </resultMap>
+  
   <select id="findAll" resultMap="photoBoardMap">
     select 
       photo_id, 
@@ -37,6 +51,23 @@
       lms_photo
     where 
       photo_id = #{value}
+  </select>
+  
+  <select id="findByNoWithFile" resultMap="photoBoardFileMap" parameterType="int">
+    select 
+      p.photo_id, 
+      p.titl, 
+      p.cdt, 
+      p.vw_cnt, 
+      p.lesson_id,
+      f.photo_file_id,
+      f.photo_id as photoBoardNo,
+      f.file_path 
+    from 
+      lms_photo p 
+      left outer join lms_photo_file f on p.photo_id = f.photo_id
+    where 
+      p.photo_id = #{value}
   </select>
   
   <update id="increaseCount" parameterType="int">
