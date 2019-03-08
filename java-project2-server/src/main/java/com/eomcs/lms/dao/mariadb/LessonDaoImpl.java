@@ -28,23 +28,9 @@ public class LessonDaoImpl implements LessonDao {
   }
 
   public void insert(Lesson lesson) {
-    Connection con = dataSource.getConnection();
-    
-    try (PreparedStatement stmt = con.prepareStatement(
-        "insert into lms_lesson(titl,conts,sdt,edt,tot_hr,day_hr)"
-        + " values(?,?,?,?,?,?)")) {
-      
-      stmt.setString(1, lesson.getTitle());
-      stmt.setString(2, lesson.getContents());
-      stmt.setDate(3,lesson.getStartDate());
-      stmt.setDate(4, lesson.getEndDate());
-      stmt.setInt(5, lesson.getTotalHours());
-      stmt.setInt(6, lesson.getDayHours());
-      
-      stmt.executeUpdate();
-      
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      sqlSession.insert("LessonMapper.insert", lesson);
+      sqlSession.commit();
     }
   }
 

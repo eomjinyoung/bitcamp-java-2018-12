@@ -44,6 +44,23 @@
       lesson_id = #{value}
   </select>
   
+  <insert id="insert" parameterType="lesson">
+    insert into lms_lesson(
+      titl, 
+      conts, 
+      sdt, 
+      edt, 
+      tot_hr, 
+      day_hr)
+    values(
+      #{title}, 
+      #{contents}, 
+      #{startDate}, 
+      #{endDate}, 
+      #{totalHours}, 
+      #{dayHours})
+  </insert>
+  
 </mapper>
 
 
