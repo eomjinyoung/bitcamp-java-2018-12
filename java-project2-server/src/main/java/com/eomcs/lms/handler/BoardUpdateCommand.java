@@ -12,15 +12,22 @@ public class BoardUpdateCommand extends AbstractCommand {
   
   @Override
   public void execute(Response response) throws Exception {
-    Board board = new Board();
-    board.setNo(response.requestInt("번호?"));
-    board.setContents(response.requestString("내용?"));
+    Board temp = new Board();
+    temp.setNo(response.requestInt("번호?"));
     
-    if (boardDao.update(board) == 0) {
-      response.println("해당 번호의 게시물이 없습니다.");
-      return;
+    String input = response.requestString("내용?");
+    if (input.length() > 0)
+      temp.setContents(input);
+    
+    if (temp.getContents() != null) {
+      if (boardDao.update(temp) == 0) {
+        response.println("해당 번호의 게시물이 없습니다.");
+        return;
+      }
+      response.println("변경했습니다.");
+      
+    } else {
+      response.println("변경 취소했습니다.");
     }
-    
-    response.println("변경했습니다.");
   }
 }
