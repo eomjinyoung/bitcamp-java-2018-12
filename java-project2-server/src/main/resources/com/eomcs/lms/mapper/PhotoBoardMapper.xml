@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="PhotoBoardMapper">
+  
+  <resultMap type="photoBoard" id="photoBoardMap">
+    <id column="photo_id"       property="no"/>
+    <result column="lesson_id"  property="lessonNo"/>
+    <result column="titl"       property="title"/>
+    <result column="cdt"        property="createdDate"/>
+    <result column="vw_cnt"     property="viewCount"/>
+  </resultMap>
+  
+  <select id="findAll" resultMap="photoBoardMap">
+    select 
+      photo_id, 
+      titl, cdt, 
+      vw_cnt, 
+      lesson_id 
+    from 
+      lms_photo
+    order by 
+      photo_id desc
+  </select>
+  
+  <select id="findByNo" resultMap="photoBoardMap" parameterType="int">
+    select 
+      photo_id, 
+      titl, 
+      cdt, 
+      vw_cnt, 
+      lesson_id 
+    from 
+      lms_photo
+    where 
+      photo_id = #{value}
+  </select>
+  
+  <update id="increaseCount" parameterType="int">
+    update lms_photo 
+    set 
+      vw_cnt = vw_cnt + 1 
+    where photo_id = #{value}
+  </update>
+  
+  <insert id="insert" parameterType="photoBoard"
+          useGeneratedKeys="true" keyColumn="photo_id" keyProperty="no">
+    insert into lms_photo(
+      titl,
+      lesson_id) 
+    values(
+      #{title}, 
+      #{lessonNo})
+  </insert>
+  
+  <update id="update" parameterType="photoBoard">
+    update lms_photo 
+    set 
+      titl = #{title} 
+    where 
+      photo_id = #{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from lms_photo 
+    where photo_id = #{value}
+  </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+

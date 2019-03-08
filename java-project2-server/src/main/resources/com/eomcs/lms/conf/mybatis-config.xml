@@ -25,5 +25,7 @@
     <mapper resource="com/eomcs/lms/mapper/LessonMapper.xml"/>
     <mapper resource="com/eomcs/lms/mapper/BoardMapper.xml"/>
     <mapper resource="com/eomcs/lms/mapper/MemberMapper.xml"/>
+    <mapper resource="com/eomcs/lms/mapper/PhotoBoardMapper.xml"/>
+    <mapper resource="com/eomcs/lms/mapper/PhotoFileMapper.xml"/>
   </mappers>
 </configuration>
