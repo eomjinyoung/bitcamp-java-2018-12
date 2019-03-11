@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="LessonMapper">
+  
+  <resultMap type="lesson" id="lessonMap">
+    <id column="lesson_id" property="no"/>
+    <result column="titl" property="title"/>
+    <result column="conts" property="contents"/>
+    <result column="sdt" property="startDate"/>
+    <result column="edt" property="endDate"/>
+    <result column="tot_hr" property="totalHours"/>
+    <result column="day_hr" property="dayHours"/>
+  </resultMap>
+  
+  <select id="findAll" resultMap="lessonMap">
+    select 
+      lesson_id, 
+      titl, 
+      sdt, 
+      edt, 
+      tot_hr 
+    from 
+      lms_lesson
+    order by 
+      lesson_id desc
+  </select>
+  
+  <select id="findByNo" resultMap="lessonMap" parameterType="int">
+    select 
+      lesson_id, 
+      titl, 
+      conts, 
+      sdt, 
+      edt, 
+      tot_hr, 
+      day_hr
+    from 
+      lms_lesson
+    where 
+      lesson_id = #{value}
+  </select>
+  
+  <insert id="insert" parameterType="lesson">
+    insert into lms_lesson(
+      titl, 
+      conts, 
+      sdt, 
+      edt, 
+      tot_hr, 
+      day_hr)
+    values(
+      #{title}, 
+      #{contents}, 
+      #{startDate}, 
+      #{endDate}, 
+      #{totalHours}, 
+      #{dayHours})
+  </insert>
+  
+  <update id="update" parameterType="lesson">
+    update lms_lesson
+    <set>
+      <if test="title != null">titl = #{title},</if>
+      <if test="contents != null">conts = #{contents},</if>
+      <if test="startDate != null">sdt = #{startDate},</if>
+      <if test="endDate != null">edt = #{endDate},</if>
+      <if test="totalHours > 0">tot_hr = #{totalHours},</if>
+      <if test="dayHours > 0">day_hr = #{dayHours}</if>
+    </set>
+    where lesson_id = #{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from lms_lesson 
+    where lesson_id = #{value}
+  </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
