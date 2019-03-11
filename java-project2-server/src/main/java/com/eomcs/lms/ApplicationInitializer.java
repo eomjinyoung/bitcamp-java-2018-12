@@ -32,6 +32,7 @@ import com.eomcs.lms.handler.PhotoBoardDeleteCommand;
 import com.eomcs.lms.handler.PhotoBoardDetailCommand;
 import com.eomcs.lms.handler.PhotoBoardListCommand;
 import com.eomcs.lms.handler.PhotoBoardUpdateCommand;
+import com.eomcs.mybatis.SqlSessionFactoryProxy;
 
 // App 객체의 상태가 변경될 때 마다 보고 받는 옵저버가 되려면 
 // ApplicationContextListener 규격에 따라 작성해야 한다.
@@ -45,12 +46,16 @@ public class ApplicationInitializer implements ApplicationContextListener {
         new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream(
             "com/eomcs/lms/conf/mybatis-config.xml"));
       
+      // SqlSessionFactory 구현체의 프록시를 만든다.
+      SqlSessionFactoryProxy sqlSessionFactoryProxy = 
+          new SqlSessionFactoryProxy(sqlSessionFactory);
+      
       // DAO 객체 준비
-      LessonDaoImpl lessonDao = new LessonDaoImpl(sqlSessionFactory);
-      MemberDaoImpl memberDao = new MemberDaoImpl(sqlSessionFactory);
-      BoardDaoImpl boardDao = new BoardDaoImpl(sqlSessionFactory);
-      PhotoBoardDaoImpl photoBoardDao = new PhotoBoardDaoImpl(sqlSessionFactory);
-      PhotoFileDaoImpl photoFileDao = new PhotoFileDaoImpl(sqlSessionFactory);
+      LessonDaoImpl lessonDao = new LessonDaoImpl(sqlSessionFactoryProxy);
+      MemberDaoImpl memberDao = new MemberDaoImpl(sqlSessionFactoryProxy);
+      BoardDaoImpl boardDao = new BoardDaoImpl(sqlSessionFactoryProxy);
+      PhotoBoardDaoImpl photoBoardDao = new PhotoBoardDaoImpl(sqlSessionFactoryProxy);
+      PhotoFileDaoImpl photoFileDao = new PhotoFileDaoImpl(sqlSessionFactoryProxy);
       
       context.put("/lesson/add", new LessonAddCommand(lessonDao));
       context.put("/lesson/list", new LessonListCommand(lessonDao));
