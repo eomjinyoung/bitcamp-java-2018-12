@@ -16,12 +16,16 @@
     <result column="photo"  property="photo"/>
   </resultMap>
   
-  <select id="findAll" resultMap="memberMap">
-    select 
+  <sql id="default-columns">
       member_id, 
       name, 
       email, 
-      tel 
+      tel
+  </sql>
+  
+  <select id="findAll" resultMap="memberMap">
+    select 
+      <include refid="default-columns"/>
     from 
       lms_member
     order by 
@@ -30,11 +34,8 @@
   
   <select id="findByNo" resultMap="memberMap" parameterType="int">
     select 
-      member_id, 
-      name, 
-      email, 
+      <include refid="default-columns"/>, 
       cdt, 
-      tel, 
       photo
     from 
       lms_member
@@ -43,17 +44,15 @@
   </select>
   
   <select id="findByKeyword" resultMap="memberMap" parameterType="string">
+    <bind name="pattern1" value="'%' + _parameter + '%'"/>
     select 
-      member_id, 
-      name, 
-      email, 
-      tel 
+      <include refid="default-columns"/> 
     from 
       lms_member
     where 
-      name like concat('%', #{value}, '%')
-      or email like concat('%', #{value}, '%')
-      or tel like concat('%', #{value}, '%')
+      name like #{pattern1}
+      or email like #{pattern1}
+      or tel like #{pattern1}
     order by name asc
   </select>
   

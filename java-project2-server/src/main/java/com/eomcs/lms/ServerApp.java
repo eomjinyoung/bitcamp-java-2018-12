@@ -1,28 +1,12 @@
-// 14단계: Mybatis 퍼시스턴스 프레임워크에 트랜잭션 관리자 도입하기
-// => 트랜잭션 관리자를 도입하여 여러 개의 데이터 변경 작업을 한 단위의 작업으로 묶어 다룬다.
+// 15단계: Mybatis 의 동적 SQL(dynamic sql) 적용하기
+// => 하나의 SQL 문으로 여러 요청을 처리할 수 있도록 mybatis는 동적 SQL 문법을 제공한다.
 // 
 // 작업:
-// 1) SqlSessionFactoryProxy 생성
-//    => Mybatis가 제공하는 SqlSessionFactory 객체를 대행한다.
-//    => 트랜잭션을 위한 SqlSession 객체를 준비하고 해제하는 일을 한다.
-//    => 트랜잭션을 시작하면 스레드 보관소에 SqlSession 객체를 보관한다.
-//       그래서 스레드가 수행하는 모든 데이터 변경 작업을 한 SqlSession 객체가 다루게 한다.
-// 2) SqlSessionProxy 생성
-//    => Mybatis가 제공하는 SqlSession 객체를 대행한다.
-//    => 트랜잭션 중에는 close()를 하지 않는다.
-// 3) TransactionManager 생성 
-//    => 트랜잭션을 시작시키고 완료시키는 일을 한다.
-//    => SqlSession 객체를 통해 데이터 변경 작업들을 commit()하고 rollback()하는 일을 한다.
-// 4) DAO 변경 
-//    => DAO에서 데이터 변경(insert/update/delete) 후에 commit() 하지 말라!
-//    => 트랜잭션을 사용할 때는 DAO에서 commit() 하는 것이 아니다.
-//       왜? 여러 DAO의 작업을 한 단위로 묶어서 commit() 해야 하기 때문이다.
-//    => 트랜잭션을 사용하지 않을 때는 auto commit 이 true인 SqlSession을 사용하기 때문에
-//       아무런 문제가 없다.
-// 5) Command 변경 
-//    => 트랜잭션을 사용해야 하는 Command에 대해서는 TransactionManager를 주입하라!
-//       예) PhotoBoardAddCommand, PhotoBoardDeleteCommand, PhotoBoardUpdateCommand,
-//          LessonDeleteCommand 
+// 1) SQL 매퍼 파일 변경
+//    => BoardMapper.xml, LessonMapper.xml, MemberMapper.xml, PhotoBoardMapper.xml
+//       PhotoFileMapper.xml
+//    => <sql> 태그 사용 : select 문에 공통으로 들어가는 컬럼 목록을 별도로 분리하여 관리한다.
+//    => <bind> 태그 사용 : 파라미터 값을 가지고 SQL을 생성할 때 사용한다.
 package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

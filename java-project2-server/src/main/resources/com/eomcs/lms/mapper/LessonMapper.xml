@@ -16,13 +16,17 @@
     <result column="day_hr" property="dayHours"/>
   </resultMap>
   
-  <select id="findAll" resultMap="lessonMap">
-    select 
+  <sql id="default-columns">
       lesson_id, 
       titl, 
       sdt, 
       edt, 
-      tot_hr 
+      tot_hr
+  </sql>
+  
+  <select id="findAll" resultMap="lessonMap">
+    select 
+      <include refid="default-columns"/> 
     from 
       lms_lesson
     order by 
@@ -31,12 +35,8 @@
   
   <select id="findByNo" resultMap="lessonMap" parameterType="int">
     select 
-      lesson_id, 
-      titl, 
+      <include refid="default-columns"/>,
       conts, 
-      sdt, 
-      edt, 
-      tot_hr, 
       day_hr
     from 
       lms_lesson
