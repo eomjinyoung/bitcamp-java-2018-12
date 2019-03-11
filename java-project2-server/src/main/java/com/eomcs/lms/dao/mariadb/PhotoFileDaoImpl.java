@@ -27,17 +27,14 @@ public class PhotoFileDaoImpl implements PhotoFileDao {
   public void insert(PhotoFile photoFile) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       sqlSession.insert("PhotoFileMapper.insert", photoFile);
-      sqlSession.commit();
     }
   }
 
   @Override
   public int deleteByPhotoBoardNo(int photoBoardNo) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      int count = sqlSession.delete(
+      return sqlSession.delete(
           "PhotoFileMapper.deleteByPhotoBoardNo", photoBoardNo);
-      sqlSession.commit();
-      return count;
     }
   }
 

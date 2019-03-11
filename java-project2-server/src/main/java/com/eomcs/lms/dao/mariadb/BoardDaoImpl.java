@@ -24,7 +24,6 @@ public class BoardDaoImpl implements BoardDao {
   public void insert(Board board) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       sqlSession.insert("BoardMapper.insert", board);
-      sqlSession.commit();
     }
   }
 
@@ -33,7 +32,6 @@ public class BoardDaoImpl implements BoardDao {
       Board board = sqlSession.selectOne("BoardMapper.findByNo", no);
       if (board != null) {
         sqlSession.update("BoardMapper.increaseCount", no);
-        sqlSession.commit();
       }
       return board;
     }
@@ -41,17 +39,13 @@ public class BoardDaoImpl implements BoardDao {
 
   public int update(Board board) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      int count = sqlSession.update("BoardMapper.update", board);
-      sqlSession.commit();
-      return count;
+      return sqlSession.update("BoardMapper.update", board);
     }
   }
 
   public int delete(int no) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      int count = sqlSession.delete("BoardMapper.delete", no);
-      sqlSession.commit();
-      return count;
+      return sqlSession.delete("BoardMapper.delete", no);
     }
   }
 }
