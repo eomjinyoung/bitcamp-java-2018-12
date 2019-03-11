@@ -25,13 +25,26 @@
       photo_file_id asc
   </select>
   
-  <insert id="insert" parameterType="photoFile">
+  <insert id="insert" parameterType="list">
     insert into lms_photo_file(
       file_path,
       photo_id) 
-    values(
-      #{filePath},
-      #{photoBoardNo})
+    values
+    <!-- 
+      collection 속성 :
+        파라미터 타입이 일반 객체나 맵 객체일 경우 => 프로퍼티 이름이나 key 이름을 지정하면 된다. 
+        파라미터 타입이 List 객체일 경우 => "list" 이름을 지정한다.
+      item 속성 : List 객체에서 한 개 꺼낸 객체를 가리키는 이름이다. 아무 이름이나 상관없다.
+      item 객체의 프로퍼티 가리키기 : #{item속성에서지정한이름.객체의프로퍼티명}  
+    -->
+    <foreach collection="list" item="photoFile" separator=",">
+      (#{photoFile.filePath},#{photoFile.photoBoardNo})
+    </foreach>
+    <!-- 위의 foreach 태그를 자바 코드로 표현하면,
+    for (PhotoFile photoFile : list) {
+      (photoFile.getFilePath(), photoFile.getPhotoBoardNo())
+    }
+       -->
   </insert>
   
   <delete id="deleteByPhotoBoardNo" parameterType="int">
