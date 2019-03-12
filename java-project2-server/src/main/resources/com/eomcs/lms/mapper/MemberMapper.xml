@@ -4,7 +4,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="MemberMapper">
+<mapper namespace="com.eomcs.lms.dao.MemberDao">
   
   <resultMap type="member" id="memberMap">
     <id column="member_id"  property="no"/>

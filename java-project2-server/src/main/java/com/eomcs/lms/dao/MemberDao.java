@@ -5,7 +5,7 @@ import java.util.List;
 import com.eomcs.lms.domain.Member;
 
 public interface MemberDao {
-  void insert(Member member);
+  int insert(Member member);
   List<Member> findAll();
   List<Member> findByKeyword(String keyword);
   Member findByNo(int no);

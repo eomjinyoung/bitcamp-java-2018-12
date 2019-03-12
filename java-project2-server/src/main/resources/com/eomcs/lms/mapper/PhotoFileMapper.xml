@@ -4,7 +4,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="PhotoFileMapper">
+<mapper namespace="com.eomcs.lms.dao.PhotoFileDao">
   
   <resultMap type="photoFile" id="photoFileMap">
     <id column="photo_file_id"  property="no"/>
