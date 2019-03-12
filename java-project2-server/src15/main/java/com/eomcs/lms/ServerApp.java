@@ -1,10 +1,12 @@
-// 16단계: DAO 구현체 자동 생성하기
-// => java.lang.reflect.Proxy 를 이용하여 DAO 인터페이스를 구현한 객체를 자동으로 생성한다.
+// 15단계: Mybatis 의 동적 SQL(dynamic sql) 적용하기
+// => 하나의 SQL 문으로 여러 요청을 처리할 수 있도록 mybatis는 동적 SQL 문법을 제공한다.
 // 
 // 작업:
-// 1) DaoInvocationHandler 생성
-//    => 실제 DAO 작업을 수행할 InvocationHandler 구현체를 만든다.
-// 
+// 1) SQL 매퍼 파일 변경
+//    => BoardMapper.xml, LessonMapper.xml, MemberMapper.xml, PhotoBoardMapper.xml
+//       PhotoFileMapper.xml
+//    => <sql> 태그 사용 : select 문에 공통으로 들어가는 컬럼 목록을 별도로 분리하여 관리한다.
+//    => <bind> 태그 사용 : 파라미터 값을 가지고 SQL을 생성할 때 사용한다.
 package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

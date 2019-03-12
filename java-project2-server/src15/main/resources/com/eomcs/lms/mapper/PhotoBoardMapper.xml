@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="PhotoBoardMapper">
+  
+  <resultMap type="photoBoard" id="photoBoardMap">
+    <id column="photo_id"       property="no"/>
+    <result column="lesson_id"  property="lessonNo"/>
+    <result column="titl"       property="title"/>
+    <result column="cdt"        property="createdDate"/>
+    <result column="vw_cnt"     property="viewCount"/>
+  </resultMap>
+  
+  <resultMap type="photoBoard" id="photoBoardFileMap">
+    <id column="photo_id"       property="no"/>
+    <result column="lesson_id"  property="lessonNo"/>
+    <result column="titl"       property="title"/>
+    <result column="cdt"        property="createdDate"/>
+    <result column="vw_cnt"     property="viewCount"/>
+    
+    <association property="lesson" javaType="lesson">
+      <id column="lesson_id"        property="no"/>
+      <result column="lessonTitle"  property="title"/>
+      <result column="sdt"          property="startDate"/>
+      <result column="edt"          property="endDate"/>
+    </association>
+    
+    <collection property="files" ofType="photoFile">
+      <id column="photo_file_id"    property="no"/>
+      <result column="file_path"    property="filePath"/>
+      <result column="photoBoardNo" property="photoBoardNo"/>
+    </collection>
+  </resultMap>
+  
+  <sql id="select1">
+    select 
+      photo_id, 
+      titl, 
+      cdt, 
+      vw_cnt, 
+      lesson_id 
+    from 
+      lms_photo
+  </sql>
+  
+  <select id="findAll" resultMap="photoBoardMap" parameterType="map">
+    <if test="keyword != null">
+      <bind name="pattern1" value="'%' + keyword + '%'"/>
+    </if>
+    <include refid="select1"/>
+    <where>
+      <if test="lessonNo != null">or lesson_id = #{lessonNo}</if>
+      <!-- mybatis에서 검색 패턴을 만든 경ㅇ, 다음과 같이 mybatis에서 만든 bind를 사용한다. -->
+      <if test="pattern1 != null">or titl like #{pattern1}</if>
+      
+      <!-- 자바에서 검색 패턴을 만든 경우, 다음과 같이 그냥 keyword 값을 사용하면 된다. -->
+      <!--  
+      <if test="keyword != null">or titl like #{keyword}</if>
+      -->
+    </where>
+    order by 
+      photo_id desc
+  </select>
+  
+  <select id="findByNo" resultMap="photoBoardMap" parameterType="int">
+    <include refid="select1"/>
+    where 
+      photo_id = #{value}
+  </select>
+  
+  <select id="findByNoWithFile" resultMap="photoBoardFileMap" parameterType="int">
+    select 
+      p.photo_id, 
+      p.titl, 
+      p.cdt, 
+      p.vw_cnt, 
+      l.lesson_id,
+      l.titl as lessonTitle,
+      l.sdt,
+      l.edt,
+      f.photo_file_id,
+      f.photo_id as photoBoardNo,
+      f.file_path 
+    from 
+      lms_photo p
+      left outer join lms_lesson l on p.lesson_id = l.lesson_id 
+      left outer join lms_photo_file f on p.photo_id = f.photo_id
+    where 
+      p.photo_id = #{value}
+  </select>
+  
+  <update id="increaseCount" parameterType="int">
+    update lms_photo 
+    set 
+      vw_cnt = vw_cnt + 1 
+    where photo_id = #{value}
+  </update>
+  
+  <insert id="insert" parameterType="photoBoard"
+          useGeneratedKeys="true" keyColumn="photo_id" keyProperty="no">
+    insert into lms_photo(
+      titl,
+      lesson_id) 
+    values(
+      #{title}, 
+      #{lessonNo})
+  </insert>
+  
+  <update id="update" parameterType="photoBoard">
+    update lms_photo 
+    set 
+      titl = #{title} 
+    where 
+      photo_id = #{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from lms_photo 
+    where photo_id = #{value}
+  </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+

@@ -429,4 +429,5 @@
   - sql, bind, foreach 태그 사용하기
 
 ## 48일(2019-3-12)
--  
+- java.lang.reflect.Proxy.newProxyInstance() 를 사용하여 인터페이스 구현체 자동 생성하는 방법
+- 45 단계 과제풀이: DAO 구현체 자동생성하기 
