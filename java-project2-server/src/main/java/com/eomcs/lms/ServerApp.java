@@ -105,6 +105,7 @@ public class ServerApp {
           commandHandler.execute(in, out);
         } catch (Exception e) {
           out.printf("실행 오류! : %s\n", e.getMessage());
+          e.printStackTrace();
         }
         
         out.println("!end!");

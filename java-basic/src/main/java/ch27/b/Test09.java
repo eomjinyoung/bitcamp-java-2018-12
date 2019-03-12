@@ -7,10 +7,8 @@ public class Test09 {
     
     Class<?> clazz = String.class;
     
-    Class<?>[] interfaces = clazz.getInterfaces();
-    for (Class<?> c : interfaces) {
-      System.out.println(c.getName());
-    }
+    Class<?> superClass = clazz.getSuperclass();
+    System.out.println(superClass.getName());
   }
 
 }

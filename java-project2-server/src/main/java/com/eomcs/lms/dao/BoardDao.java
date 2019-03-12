@@ -7,6 +7,7 @@ public interface BoardDao {
   void insert(Board board);
   List<Board> findAll();
   Board findByNo(int no);
+  void increaseCount(int no);
   int update(Board board);
   int delete(int no);
 }
