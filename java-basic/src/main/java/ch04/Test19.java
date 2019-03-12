@@ -53,6 +53,23 @@ public class Test19 {
     System.out.printf("Go        : %b\n", (d2 & 0x0200) == 0x0200);
     System.out.printf("SQL       : %b\n", (d2 & 0x0400) == 0x0400);
     System.out.printf("R         : %b\n", (d2 & 0x0800) == 0x0800);
+    
+    System.out.println("------------------------------");
+    // 값이 같지 않으면 어차피 결과는 0이다.
+    // 그래서 다음과 같이 검사해도 된다.
+    System.out.printf("Java      : %b\n", (d2 & 0x0001) != 0);
+    System.out.printf("C         : %b\n", (d2 & 0x0002) != 0);
+    System.out.printf("C++       : %b\n", (d2 & 0x0004) != 0);
+    System.out.printf("Python    : %b\n", (d2 & 0x0008) != 0);
+    System.out.printf("PHP       : %b\n", (d2 & 0x0010) != 0);
+    System.out.printf("Kotlin    : %b\n", (d2 & 0x0020) != 0);
+    System.out.printf("Groovy    : %b\n", (d2 & 0x0040) != 0);
+    System.out.printf("JavaScript: %b\n", (d2 & 0x0080) != 0);
+    System.out.printf("TypeScript: %b\n", (d2 & 0x0100) != 0);
+    System.out.printf("Go        : %b\n", (d2 & 0x0200) != 0);
+    System.out.printf("SQL       : %b\n", (d2 & 0x0400) != 0);
+    System.out.printf("R         : %b\n", (d2 & 0x0800) != 0);
+    
   }
 }
 
