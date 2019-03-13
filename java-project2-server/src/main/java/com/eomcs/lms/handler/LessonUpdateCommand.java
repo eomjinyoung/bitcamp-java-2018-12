@@ -9,6 +9,7 @@ public class LessonUpdateCommand extends AbstractCommand {
   
   public LessonUpdateCommand(LessonDao lessonDao) {
     this.lessonDao = lessonDao;
+    this.name = "/lesson/update";
   }
   
 

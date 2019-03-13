@@ -6,8 +6,16 @@
 //    => 생성자에 패키지를 지정하면 해당 패키지와 그 하위 패키지를 모두 뒤져서 
 //       Command 인터페이스를 구현한 클래스를 찾는다.
 //    => 그리고 Command 구현체의 인스턴스를 생성한다.
-//
-//
+// 2) Command 구현체 변경
+//    => 각 커맨드 객체에 이름을 부여한다.
+//    => ApplicationContext는 그 이름을 사용하여 객체를 보관할 것이다.
+// 3) ServerApp 변경 
+//    => Command 객체를 꺼낼 때 ApplicationContext에서 꺼낸다.
+// 
+// 객체를 자동으로 생성했을 때의 이점!
+// => /hello 라는 요청을 했을 때 "안녕하세요!" 인사를 하는 기능을 추가하라!
+// => 1) AbstractCommand 을 상속 받아서 HelloCommand를 만든다.
+//    2) 끝!
 package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,6 +24,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import com.eomcs.lms.context.ApplicationContext;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.handler.Command;
 
@@ -27,6 +36,9 @@ public class ServerApp {
   // 공용 객체를 보관하는 저장소
   HashMap<String,Object> context = new HashMap<>();
 
+  // Command 객체와 그와 관련된 객체를 보관하고 있는 빈 컨테이너
+  ApplicationContext beanContainer;
+  
   public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
   }
@@ -41,6 +53,9 @@ public class ServerApp {
         listener.contextInitialized(context);
       }
 
+      // ApplicationInitializer가 준비한 ApplicationContext를 꺼낸다.
+      beanContainer = (ApplicationContext) context.get("applicationContext");
+      
       System.out.println("서버 실행 중...");
       
       while (true) {
@@ -95,7 +110,8 @@ public class ServerApp {
         String request = in.readLine();
         
         // 클라이언트에게 응답하기
-        Command commandHandler = (Command) context.get(request);
+        // => 클라이언트 요청을 처리할 객체는 빈 컨테이너에서 꺼낸다.
+        Command commandHandler = (Command) beanContainer.getBean(request);
         
         if (commandHandler == null) {
           out.println("실행할 수 없는 명령입니다.");

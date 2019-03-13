@@ -7,6 +7,7 @@ public class MemberDeleteCommand extends AbstractCommand {
 
   public MemberDeleteCommand(MemberDao memberDao) {
     this.memberDao = memberDao;
+    this.name = "/member/delete";
   }
 
   @Override

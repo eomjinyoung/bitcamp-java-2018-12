@@ -8,6 +8,7 @@ public class MemberUpdateCommand extends AbstractCommand {
 
   public MemberUpdateCommand(MemberDao memberDao) {
     this.memberDao = memberDao;
+    this.name = "/member/update";
   }
 
   @Override

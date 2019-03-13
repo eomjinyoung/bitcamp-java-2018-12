@@ -2,6 +2,7 @@ package com.eomcs.lms.context;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,6 +59,11 @@ public class ApplicationContext {
     if (name == null || name.length() == 0 || bean == null)
       return;
     beanContainer.put(name, bean);
+  }
+  
+  // 저장소에 보관된 인스턴스를 꺼낸다.
+  public Object getBean(String name) {
+    return beanContainer.get(name);
   }
   
   private void findClasses(File dir, String packageName) throws Exception {
@@ -117,8 +123,12 @@ public class ApplicationContext {
           // Command 인터페이스의 구현체인 경우 해당 클래스의 인스턴스를 생성한다.
           Object obj = createInstance(clazz);
           if (obj != null) { // 제대로 생성했으면 빈컨테이너에 저장한다.
-            // 빈컨테이너에 Command 객체를 저장할 때 key 값은 클래스명을 사용한다.
-            addBean(obj.getClass().getName(), obj);
+            // 빈컨테이너에 Command 객체를 저장할 때 key 값은 name 필드 값으로 한다.
+            // => 클래스에서 getName() 메서드를 알아낸다.
+            Method getName = clazz.getMethod("getName");
+            addBean(
+                (String) getName.invoke(obj), // getName()을 호출하여 리턴 값을 키로 사용한다.
+                obj);
           }
           break;
         }

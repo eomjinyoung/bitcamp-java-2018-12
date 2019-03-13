@@ -7,6 +7,7 @@ public class BoardDeleteCommand extends AbstractCommand {
   
   public BoardDeleteCommand(BoardDao boardDao) {
     this.boardDao = boardDao;
+    this.name = "/board/delete";
   }
 
   @Override

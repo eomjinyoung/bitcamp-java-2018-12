@@ -19,6 +19,7 @@ public class PhotoBoardAddCommand extends AbstractCommand {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
     this.txManager = txManager;
+    this.name = "/photoboard/add";
   }
   
   @Override
