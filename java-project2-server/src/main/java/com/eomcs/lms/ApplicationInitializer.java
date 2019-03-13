@@ -1,9 +1,11 @@
 package com.eomcs.lms;
 
+import java.util.HashMap;
 import java.util.Map;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import com.eomcs.lms.context.ApplicationContext;
 import com.eomcs.lms.context.ApplicationContextException;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.dao.BoardDao;
@@ -64,6 +66,20 @@ public class ApplicationInitializer implements ApplicationContextListener {
       MemberDao memberDao = daoFactory.create(MemberDao.class);
       PhotoBoardDao photoBoardDao = daoFactory.create(PhotoBoardDao.class);
       PhotoFileDao photoFileDao = daoFactory.create(PhotoFileDao.class);
+      
+      // ServerApp이 사용할 객체를 객체 보관소인 ApplicationContext 에 담아서 리턴한다.
+      // => Command 객체가 사용할 DAO 구현체를 준비한다.
+      HashMap<String,Object> beans = new HashMap<>();
+      beans.put("boardDao", boardDao);
+      beans.put("lessonDao", lessonDao);
+      beans.put("memberDao", memberDao);
+      beans.put("photoBoardDao", photoBoardDao);
+      beans.put("photoFileDao", photoFileDao);
+      beans.put("txManager", txManager);
+      
+      // => 이 클래스에서 준비한 인스턴스 목록과 
+      //    ApplicationContext에서 준비할 인스턴스 패키지 이름을 넘긴다.
+      ApplicationContext appCtx = new ApplicationContext("com.eomcs.lms", beans);
       
       context.put("/lesson/add", new LessonAddCommand(lessonDao));
       context.put("/lesson/list", new LessonListCommand(lessonDao));
