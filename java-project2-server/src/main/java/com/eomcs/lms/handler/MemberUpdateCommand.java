@@ -1,75 +1,63 @@
 package com.eomcs.lms.handler;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
 public class MemberUpdateCommand extends AbstractCommand {
 
-  SqlSessionFactory sqlSessionFactory;
+  MemberDao memberDao;
 
-  public MemberUpdateCommand(SqlSessionFactory sqlSessionFactory) {
-    this.sqlSessionFactory = sqlSessionFactory;
+  public MemberUpdateCommand(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
   @Override
   public void execute(Response response) throws Exception {
-    // SqlSession 객체를 준비한다.
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    int no = response.requestInt("번호?");
 
-      // SqlSession으로부터 DAO 구현체를 얻는다.
-      // => getMapper(DAO 인터페이스 타입 정보)
-      MemberDao memberDao = sqlSession.getMapper(MemberDao.class);
+    Member member = memberDao.findByNo(no);
+    if (member == null) {
+      response.println("해당 번호의 회원이 없습니다.");
+      return;
+    }
 
-      int no = response.requestInt("번호?");
+    Member temp = new Member();
+    temp.setNo(no);
 
-      Member member = memberDao.findByNo(no);
-      if (member == null) {
-        response.println("해당 번호의 회원이 없습니다.");
-        return;
-      }
+    String input = response.requestString(String.format(
+        "이름(%s)?", member.getName()));
+    if (input.length() > 0) 
+      temp.setName(input);
 
-      Member temp = new Member();
-      temp.setNo(no);
+    input = response.requestString(String.format(
+        "이메일(%s)?", member.getEmail()));
+    if (input.length() > 0)
+      temp.setEmail(input);
 
-      String input = response.requestString(String.format(
-          "이름(%s)?", member.getName()));
-      if (input.length() > 0) 
-        temp.setName(input);
+    input = response.requestString("암호(새 암호를 입력하세요)?");
+    if (input.length() > 0)
+      temp.setPassword(input);
 
-      input = response.requestString(String.format(
-          "이메일(%s)?", member.getEmail()));
-      if (input.length() > 0)
-        temp.setEmail(input);
+    input = response.requestString(String.format(
+        "사진(%s)?", member.getPhoto()));
+    if (input.length() > 0)
+      temp.setPhoto(input);
 
-      input = response.requestString("암호(새 암호를 입력하세요)?");
-      if (input.length() > 0)
-        temp.setPassword(input);
-
-      input = response.requestString(String.format(
-          "사진(%s)?", member.getPhoto()));
-      if (input.length() > 0)
-        temp.setPhoto(input);
-
-      input = response.requestString(String.format(
-          "전화(%s)?", member.getTel()));
-      if (input.length() > 0)
-        temp.setTel(input);
-
-      if (temp.getName() != null
-          || temp.getEmail() != null
-          || temp.getPassword() != null
-          || temp.getPhoto() != null
-          || temp.getTel() != null) {
-
-        memberDao.update(temp);
-        sqlSession.commit();
-        
-        response.println("변경했습니다.");
-
-      } else {
-        response.println("변경 취소했습니다.");
-      }
+    input = response.requestString(String.format(
+        "전화(%s)?", member.getTel()));
+    if (input.length() > 0)
+      temp.setTel(input);
+    
+    if (temp.getName() != null
+        || temp.getEmail() != null
+        || temp.getPassword() != null
+        || temp.getPhoto() != null
+        || temp.getTel() != null) {
+      
+      memberDao.update(temp);
+      response.println("변경했습니다.");
+      
+    } else {
+      response.println("변경 취소했습니다.");
     }
   }
 }

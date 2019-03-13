@@ -4,9 +4,13 @@ import java.util.Map;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import com.eomcs.lms.context.ApplicationContext;
 import com.eomcs.lms.context.ApplicationContextException;
 import com.eomcs.lms.context.ApplicationContextListener;
+import com.eomcs.lms.dao.BoardDao;
+import com.eomcs.lms.dao.LessonDao;
+import com.eomcs.lms.dao.MemberDao;
+import com.eomcs.lms.dao.PhotoBoardDao;
+import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.handler.BoardAddCommand;
 import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
@@ -29,6 +33,9 @@ import com.eomcs.lms.handler.PhotoBoardDetailCommand;
 import com.eomcs.lms.handler.PhotoBoardListCommand;
 import com.eomcs.lms.handler.PhotoBoardSearchCommand;
 import com.eomcs.lms.handler.PhotoBoardUpdateCommand;
+import com.eomcs.mybatis.DaoFactory;
+import com.eomcs.mybatis.SqlSessionFactoryProxy;
+import com.eomcs.mybatis.TransactionManager;
 
 // App 객체의 상태가 변경될 때 마다 보고 받는 옵저버가 되려면 
 // ApplicationContextListener 규격에 따라 작성해야 한다.
@@ -42,33 +49,53 @@ public class ApplicationInitializer implements ApplicationContextListener {
         new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream(
             "com/eomcs/lms/conf/mybatis-config.xml"));
       
-      ApplicationContext appCtx = new ApplicationContext("com.eomcs.lms");
+      // SqlSessionFactory 구현체의 프록시를 만든다.
+      SqlSessionFactoryProxy sqlSessionFactoryProxy = 
+          new SqlSessionFactoryProxy(sqlSessionFactory);
       
-      context.put("/lesson/add", new LessonAddCommand(sqlSessionFactory));
-      context.put("/lesson/list", new LessonListCommand(sqlSessionFactory));
-      context.put("/lesson/detail", new LessonDetailCommand(sqlSessionFactory));
-      context.put("/lesson/update", new LessonUpdateCommand(sqlSessionFactory));
-      context.put("/lesson/delete", new LessonDeleteCommand(sqlSessionFactory));
+      // 트랜잭션 매지저 준비
+      TransactionManager txManager = new TransactionManager(sqlSessionFactoryProxy);
       
-      context.put("/member/add", new MemberAddCommand(sqlSessionFactory));
-      context.put("/member/list", new MemberListCommand(sqlSessionFactory));
-      context.put("/member/detail", new MemberDetailCommand(sqlSessionFactory));
-      context.put("/member/update", new MemberUpdateCommand(sqlSessionFactory));
-      context.put("/member/delete", new MemberDeleteCommand(sqlSessionFactory));
-      context.put("/member/search", new MemberSearchCommand(sqlSessionFactory));
+      // DAO 인터페이스의 구현체를 자동으로 생성하기
+      DaoFactory daoFactory = new DaoFactory(sqlSessionFactoryProxy);
       
-      context.put("/board/add", new BoardAddCommand(sqlSessionFactory));
-      context.put("/board/list", new BoardListCommand(sqlSessionFactory));
-      context.put("/board/detail", new BoardDetailCommand(sqlSessionFactory));
-      context.put("/board/update", new BoardUpdateCommand(sqlSessionFactory));
-      context.put("/board/delete", new BoardDeleteCommand(sqlSessionFactory));
+      BoardDao boardDao = daoFactory.create(BoardDao.class);
+      LessonDao lessonDao = daoFactory.create(LessonDao.class);
+      MemberDao memberDao = daoFactory.create(MemberDao.class);
+      PhotoBoardDao photoBoardDao = daoFactory.create(PhotoBoardDao.class);
+      PhotoFileDao photoFileDao = daoFactory.create(PhotoFileDao.class);
       
-      context.put("/photoboard/add", new PhotoBoardAddCommand(sqlSessionFactory));
-      context.put("/photoboard/list", new PhotoBoardListCommand(sqlSessionFactory));
-      context.put("/photoboard/detail", new PhotoBoardDetailCommand(sqlSessionFactory));
-      context.put("/photoboard/update", new PhotoBoardUpdateCommand(sqlSessionFactory));
-      context.put("/photoboard/delete", new PhotoBoardDeleteCommand(sqlSessionFactory));
-      context.put("/photoboard/search", new PhotoBoardSearchCommand(sqlSessionFactory));
+      context.put("/lesson/add", new LessonAddCommand(lessonDao));
+      context.put("/lesson/list", new LessonListCommand(lessonDao));
+      context.put("/lesson/detail", new LessonDetailCommand(lessonDao));
+      context.put("/lesson/update", new LessonUpdateCommand(lessonDao));
+      context.put("/lesson/delete", new LessonDeleteCommand(
+          lessonDao, photoBoardDao, photoFileDao, txManager));
+      
+      context.put("/member/add", new MemberAddCommand(memberDao));
+      context.put("/member/list", new MemberListCommand(memberDao));
+      context.put("/member/detail", new MemberDetailCommand(memberDao));
+      context.put("/member/update", new MemberUpdateCommand(memberDao));
+      context.put("/member/delete", new MemberDeleteCommand(memberDao));
+      context.put("/member/search", new MemberSearchCommand(memberDao));
+      
+      context.put("/board/add", new BoardAddCommand(boardDao));
+      context.put("/board/list", new BoardListCommand(boardDao));
+      context.put("/board/detail", new BoardDetailCommand(boardDao));
+      context.put("/board/update", new BoardUpdateCommand(boardDao));
+      context.put("/board/delete", new BoardDeleteCommand(boardDao));
+      
+      context.put("/photoboard/add", 
+          new PhotoBoardAddCommand(photoBoardDao, photoFileDao, txManager));
+      context.put("/photoboard/list", new PhotoBoardListCommand(photoBoardDao));
+      context.put("/photoboard/detail", 
+          new PhotoBoardDetailCommand(photoBoardDao, photoFileDao));
+      context.put("/photoboard/update", 
+          new PhotoBoardUpdateCommand(photoBoardDao, photoFileDao, txManager));
+      context.put("/photoboard/delete", 
+          new PhotoBoardDeleteCommand(photoBoardDao, photoFileDao, txManager));
+      context.put("/photoboard/search", 
+          new PhotoBoardSearchCommand(photoBoardDao));
       
     } catch (Exception e) {
       throw new ApplicationContextException(e);

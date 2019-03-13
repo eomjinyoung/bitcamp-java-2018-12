@@ -1,19 +1,33 @@
 package com.eomcs.lms.context;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.apache.ibatis.io.Resources;
 import com.eomcs.lms.handler.Command;
 
 // Command 객체를 자동 생성하는 역할을 수행한다.
 public class ApplicationContext {
   
+  // 인스턴스를 생성할 클래스 정보
   ArrayList<Class<?>> classes = new ArrayList<>();
   
-  public ApplicationContext(String packageName) throws Exception {
+  // 생성한 인스턴스를 보관하는 저장소
+  HashMap<String,Object> beans = new HashMap<>();
+  
+  public ApplicationContext(String packageName, Map<String,Object> beans) throws Exception {
+    
+    // 외부에서 생성한 인스턴스가 파라미터로 넘어온다면 먼저 저장소에 보관한다.
+    if (beans != null && beans.size() > 0) {
+      Set<String> names = beans.keySet();
+      for (String name : names) {
+        addBean(name, beans.get(name));
+      }
+    }
     
     // 1) 패키지명으로 디렉토리 경로를 알아낸다.
     File packageDir = Resources.getResourceAsFile(packageName.replace(".", "/"));
@@ -25,6 +39,15 @@ public class ApplicationContext {
     
     // 3) Command 인터페이스를 구현한 클래스만 찾아서 인스턴스를 생성한다.
     prepareCommand();
+  }
+  
+  // 인스턴스를 추가할 때 호출한다.
+  // 빈(bean) == 인스턴스 == 객체 
+  //
+  private void addBean(String name, Object bean) {
+    if (name == null || name.length() == 0 || bean == null)
+      return;
+    beans.put(name, bean);
   }
   
   private void findClasses(File dir, String packageName) throws Exception {

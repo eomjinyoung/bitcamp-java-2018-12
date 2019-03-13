@@ -1,28 +1,27 @@
 package com.eomcs.lms.handler;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
+import com.eomcs.mybatis.TransactionManager;
 
 public class PhotoBoardDeleteCommand extends AbstractCommand {
   
-  SqlSessionFactory sqlSessionFactory;
-
-  public PhotoBoardDeleteCommand(SqlSessionFactory sqlSessionFactory) {
-    this.sqlSessionFactory = sqlSessionFactory;
+  PhotoBoardDao photoBoardDao;
+  PhotoFileDao photoFileDao;
+  TransactionManager txManager;
+  
+  public PhotoBoardDeleteCommand(
+      PhotoBoardDao photoBoardDao,
+      PhotoFileDao photoFileDao,
+      TransactionManager txManager) {
+    this.photoBoardDao = photoBoardDao;
+    this.photoFileDao = photoFileDao;
+    this.txManager = txManager;
   }
 
   @Override
   public void execute(Response response) throws Exception {
-    // SqlSession 객체를 준비한다.
-    SqlSession sqlSession = sqlSessionFactory.openSession();
-
+    txManager.beginTransaction();
     try {
-      // SqlSession으로부터 DAO 구현체를 얻는다.
-      // => getMapper(DAO 인터페이스 타입 정보)
-      PhotoBoardDao photoBoardDao = sqlSession.getMapper(PhotoBoardDao.class);
-      PhotoFileDao photoFileDao = sqlSession.getMapper(PhotoFileDao.class);
-      
       int no = response.requestInt("번호?");
   
       // 데이터를 지울 때는 자식 테이블의 데이터부터 지워야 한다.
@@ -33,14 +32,11 @@ public class PhotoBoardDeleteCommand extends AbstractCommand {
         return;
       }
       response.println("삭제했습니다.");
-      sqlSession.commit();
+      txManager.commit();
       
     } catch (Exception e) {
-      sqlSession.rollback();
+      txManager.rollback();
       response.println("삭제 중 오류 발생.");
-      
-    } finally {
-      sqlSession.close();
     }
   }
 }
