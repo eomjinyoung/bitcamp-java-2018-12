@@ -1,17 +1,17 @@
-// 16단계: DAO 구현체 자동 생성하기
-// => java.lang.reflect.Proxy 를 이용하여 DAO 인터페이스를 구현한 객체를 자동으로 생성한다.
+// 17단계: Mybatis의 SqlSession을 이용하여 DAO 구현체 자동 생성하기
+// => SqlSession에는 DAO 인터페이스 구현체를 자동으로 생성해주는 메서드가 있다.
+// => 이 기능을 사용하여 DAO 구현체를 생성하여 사용한다.
+// => 단점:
+//    - 자바 코드가 mybatis에 종속되는 문제가 있다.
+//    - 다른 퍼시스턴스 프레임워크로 교체하면 전체 코드를 뜯어 고쳐야 한다.
 // 
 // 작업:
-// 1) DaoInvocationHandler 생성
-//    => 실제 DAO 작업을 수행할 InvocationHandler 구현체를 만든다.
-// 2) ApplicationInitializer 변경
-//    => 기존에 생성한 DAO 구현체 대신 Proxy.newProxyInstance()가 생성한 DAO 구현체를 사용한다.
-// 3) 매퍼 파일 변경
-//    => namespace 이름을 DAO 인터페이스 이름(패키지명 포함)으로 변경한다.
-//    => SQL ID 는 반드시 메서드명과 일치시킨다.
-// 4) DaoFactory 생성
-//    => DAO 구현체를 생성해주는 역할 수행.
-//    => DaoInvocationHandler를 DaoFactory의 inner 클래스로 전환한다.
+// 1) Command 변경
+//    => Command에 DAO를 직접 주입하는 대신에 SqlSessionFactory를 주입한다.
+//    => DB 작업은 SqlSession으로부터 얻은 DAO 구현체를 사용한다.
+// 2) DaoFactory 삭제
+//    => 기존에 사용했던 DAO 구현체 자동 생성기를 제거한다.
+// 
 package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

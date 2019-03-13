@@ -59,7 +59,6 @@ public class ApplicationInitializer implements ApplicationContextListener {
       // DAO 인터페이스의 구현체를 자동으로 생성하기
       DaoFactory daoFactory = new DaoFactory(sqlSessionFactoryProxy);
       
-      BoardDao boardDao = daoFactory.create(BoardDao.class);
       LessonDao lessonDao = daoFactory.create(LessonDao.class);
       MemberDao memberDao = daoFactory.create(MemberDao.class);
       PhotoBoardDao photoBoardDao = daoFactory.create(PhotoBoardDao.class);
@@ -79,17 +78,15 @@ public class ApplicationInitializer implements ApplicationContextListener {
       context.put("/member/delete", new MemberDeleteCommand(memberDao));
       context.put("/member/search", new MemberSearchCommand(memberDao));
       
-      context.put("/board/add", new BoardAddCommand(boardDao));
-      context.put("/board/list", new BoardListCommand(boardDao));
-      context.put("/board/detail", new BoardDetailCommand(boardDao));
-      context.put("/board/update", new BoardUpdateCommand(boardDao));
-      context.put("/board/delete", new BoardDeleteCommand(boardDao));
+      context.put("/board/add", new BoardAddCommand(sqlSessionFactory));
+      context.put("/board/list", new BoardListCommand(sqlSessionFactory));
+      context.put("/board/detail", new BoardDetailCommand(sqlSessionFactory));
+      context.put("/board/update", new BoardUpdateCommand(sqlSessionFactory));
+      context.put("/board/delete", new BoardDeleteCommand(sqlSessionFactory));
       
-      context.put("/photoboard/add", 
-          new PhotoBoardAddCommand(photoBoardDao, photoFileDao, txManager));
-      context.put("/photoboard/list", new PhotoBoardListCommand(photoBoardDao));
-      context.put("/photoboard/detail", 
-          new PhotoBoardDetailCommand(photoBoardDao, photoFileDao));
+      context.put("/photoboard/add", new PhotoBoardAddCommand(sqlSessionFactory));
+      context.put("/photoboard/list", new PhotoBoardListCommand(sqlSessionFactory));
+      context.put("/photoboard/detail", new PhotoBoardDetailCommand(sqlSessionFactory));
       context.put("/photoboard/update", 
           new PhotoBoardUpdateCommand(photoBoardDao, photoFileDao, txManager));
       context.put("/photoboard/delete", 

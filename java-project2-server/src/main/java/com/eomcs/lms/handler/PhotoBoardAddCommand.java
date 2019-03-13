@@ -1,31 +1,32 @@
 package com.eomcs.lms.handler;
 import java.util.ArrayList;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
-import com.eomcs.mybatis.TransactionManager;
 
 public class PhotoBoardAddCommand extends AbstractCommand {
   
-  TransactionManager txManager;
-  PhotoBoardDao photoBoardDao; 
-  PhotoFileDao photoFileDao;
-  
-  public PhotoBoardAddCommand(
-      PhotoBoardDao photoBoardDao,
-      PhotoFileDao photoFileDao,
-      TransactionManager txManager) {
-    this.photoBoardDao = photoBoardDao;
-    this.photoFileDao = photoFileDao;
-    this.txManager = txManager;
+  SqlSessionFactory sqlSessionFactory;
+
+  public PhotoBoardAddCommand(SqlSessionFactory sqlSessionFactory) {
+    this.sqlSessionFactory = sqlSessionFactory;
   }
-  
+
   @Override
   public void execute(Response response) throws Exception {
-    txManager.beginTransaction();
     
+    // SqlSession 객체를 준비한다.
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+
     try {
+      // SqlSession으로부터 DAO 구현체를 얻는다.
+      // => getMapper(DAO 인터페이스 타입 정보)
+      PhotoBoardDao photoBoardDao = sqlSession.getMapper(PhotoBoardDao.class);
+      PhotoFileDao photoFileDao = sqlSession.getMapper(PhotoFileDao.class);
+      
       PhotoBoard board = new PhotoBoard();
       board.setTitle(response.requestString("사진 제목?"));
       board.setLessonNo(response.requestInt("수업?"));
@@ -55,13 +56,15 @@ public class PhotoBoardAddCommand extends AbstractCommand {
       photoFileDao.insert(files);
       
       response.println("저장하였습니다.");
-      txManager.commit();
+      sqlSession.commit();
       
     } catch (Exception e) {
       e.printStackTrace();
       response.println("저장 중 오류가 발생.");
-      txManager.rollback();
+      sqlSession.rollback();
       
+    } finally {
+      sqlSession.close();
     }
   }
 }
