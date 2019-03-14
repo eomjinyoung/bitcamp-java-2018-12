@@ -16,7 +16,7 @@ public class PhotoBoardSearchCommand extends AbstractCommand {
   public void execute(Response response) {
     HashMap<String,Object> params = new HashMap<>();
     try {
-      int lessonNo = response.requestInt("사진 파일 번호?");
+      int lessonNo = response.requestInt("수업 번호?");
       params.put("lessonNo", lessonNo);
     } catch (Exception e) {
     }
