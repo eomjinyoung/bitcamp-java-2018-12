@@ -10,8 +10,18 @@
 //    => value 프로퍼티는 명령을 저장한다.
 // 2) RequestMappingHandler 정의
 //    => RequestMapping 애노테이션이 붙은 메서드의 정보를 저장하는 클래스
-// 2) RequestMappingHandlerMapping 정의 
-//    => 
+//    => RequestMappingHandlerMapping의 스태틱 중첩 클래스로 정의한다. 
+// 3) RequestMappingHandlerMapping 정의 
+//    => 클라이언트가 보낸 명령을 처리할 메서드에 대한 정보(RequestMappingHandler)를 관리한다.
+// 4) Command 변경 
+//    => CRUD 관련 커맨드를 한 클래스로 합쳐서 XxxCommand로 만든다.
+//       예) BoardAddCommand, BoardListCommand, ... --> BoardCommand
+// 5) ApplicationContext 변경
+//    => 인스턴스를 모두 생성한 후 RequestMappingHandler을 찾아 
+//       RequestMappingHandlerMapping에 보관한다.
+// 6) ServerApp 변경 
+//    => 클라이언트 요청이 들어왔을 때 RequestMappingHandlerMapping에서 메서드를 찾아 실행한다.
+//
 package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -22,7 +32,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import com.eomcs.lms.context.ApplicationContext;
 import com.eomcs.lms.context.ApplicationContextListener;
-import com.eomcs.lms.handler.Command;
+import com.eomcs.lms.context.RequestMappingHandlerMapping;
+import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
+import com.eomcs.lms.handler.Response;
 
 public class ServerApp {
 
@@ -34,6 +46,9 @@ public class ServerApp {
 
   // Command 객체와 그와 관련된 객체를 보관하고 있는 빈 컨테이너
   ApplicationContext beanContainer;
+  
+  // 클라이언트 요청을 처리할 메서드 정보가 들어 있는 객체
+  RequestMappingHandlerMapping handlerMapping;
   
   public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
@@ -51,6 +66,11 @@ public class ServerApp {
 
       // ApplicationInitializer가 준비한 ApplicationContext를 꺼낸다.
       beanContainer = (ApplicationContext) context.get("applicationContext");
+      
+      // 빈 컨테이너에서 RequestMappingHandlerMapping 객체를 꺼낸다.
+      // 이 객체에 클라이언트 요청을 처리할 메서드 정보가 들어 있다.
+      handlerMapping = 
+          (RequestMappingHandlerMapping) beanContainer.getBean("handlerMapping");
       
       System.out.println("서버 실행 중...");
       
@@ -106,10 +126,10 @@ public class ServerApp {
         String request = in.readLine();
         
         // 클라이언트에게 응답하기
-        // => 클라이언트 요청을 처리할 객체는 빈 컨테이너에서 꺼낸다.
-        Command commandHandler = (Command) beanContainer.getBean(request);
+        // => 클라이언트 요청을 처리할 메서드를 꺼낸다.
+        RequestMappingHandler requestHandler = handlerMapping.get(request);
         
-        if (commandHandler == null) {
+        if (requestHandler == null) {
           out.println("실행할 수 없는 명령입니다.");
           out.println("!end!");
           out.flush();
@@ -117,7 +137,11 @@ public class ServerApp {
         }
         
         try {
-          commandHandler.execute(in, out);
+          // 클라이언트 요청을 처리할 메서드를 찾았다면 호출한다.
+          requestHandler.method.invoke(
+              requestHandler.bean, // 메서드를 호출할 때 사용할 인스턴스 
+              new Response(in, out)); // 메서드 파라미터 값
+          
         } catch (Exception e) {
           out.printf("실행 오류! : %s\n", e.getMessage());
           e.printStackTrace();
