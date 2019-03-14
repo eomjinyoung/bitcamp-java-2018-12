@@ -1,21 +1,39 @@
-// 18단계: Command 구현체를 자동 생성하는 IoC 컨테이너 도입하기
-// => ApplicationInitializer의 Command 객체 생성 작업을 ApplicationContext에 위임한다. 
+// 19단계: 애노테이션 적용
+// => IoC 컨테이너가 객체를 만들 때 클래스의 애노테이션에서 객체 이름을 추출하기
 // 
-// 작업:
-// 1) ApplicationContext 정의
-//    => 생성자에 패키지를 지정하면 해당 패키지와 그 하위 패키지를 모두 뒤져서 
-//       Command 인터페이스를 구현한 클래스를 찾는다.
-//    => 그리고 Command 구현체의 인스턴스를 생성한다.
-// 2) Command 구현체 변경
-//    => 각 커맨드 객체에 이름을 부여한다.
-//    => ApplicationContext는 그 이름을 사용하여 객체를 보관할 것이다.
-// 3) ServerApp 변경 
-//    => Command 객체를 꺼낼 때 ApplicationContext에서 꺼낸다.
+// IoC (Inversion of Control)
+// => 제어의 역전, 제어의 역행, 역제어 등으로 표현한다.
+//
+// IoC의 대표적인 예:
+// 1) DI(Dependency Injection)
+//    - 의존 객체 주입 
+//    - 사용할 객체를 직접 만들지 않고 외부에서 주입 받아 사용하는 방식
+//    - 외부에서 객체를 주입하기 때문에 주입하는 객체를 쉽게 교체할 수 있다.
+//    - 예를 들어 Command 구현체를 테스트할 때 진짜 DAO를 주입하지 않고 
+//      테스트용 DAO를 주입할 수 있다. 
+//      그래서 단위 테스트하기가 쉽다.
+// 2) event listener
+//    - 보통 코드를 실행할 때 작성된 순서대로 위에서 아래로 실행한다. 
+//      메서드 호출 코드가 있다면 해당 메서드를 호출한다.
+//      그리고 호출이 끝나면 원래 위치로 이동하여 다음 코드를 실행한다.
+//    - 어떤 메서드는 "키보드 클릭", "마우스 클릭" 등 특정 상태에 놓여지면  
+//      자동으로 호출된다. 
+//    - 이런 메서드를 보통 리스너(listener)라 부르고, 
+//      이렇게 순차적으로 실행되지 않고
+//      특정 상황에 놓일 때 흐름에 역행하여 호출된다.
+//    - 이런 메서드(리스너)도 IoC의 한 예이다.
+//    - 직접 호출하는 것이 아니라 내부에 의해 호출되는 메서드라는 의미로 
+//      "콜백 메서드(callback method)"라 부르기도 한다.
+//      보통 줄여서 cb(특히 JavaScript에서 함수 레퍼런스를 선언할 때) 라고 할 때가 있다.
 // 
-// 객체를 자동으로 생성했을 때의 이점!
-// => /hello 라는 요청을 했을 때 "안녕하세요!" 인사를 하는 기능을 추가하라!
-// => 1) AbstractCommand 을 상속 받아서 HelloCommand를 만든다.
-//    2) 끝!
+// 작업
+// 1) Component 애노테이션 정의
+// 2) Command 변경
+//    => Component 애노테이션 적용
+// 3) ApplicationContext 변경
+//    => Component 애노테이션이 붙은 클래스에 대해 객체를 생성한다.
+//    => Component에 지정된 이름으로 객체를 저장한다.
+//       
 package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
