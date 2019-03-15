@@ -7,6 +7,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.ibatis.io.Resources;
@@ -20,6 +21,28 @@ public class ApplicationContext {
   
   // 생성한 인스턴스를 보관하는 저장소
   HashMap<String,Object> beanContainer = new HashMap<>();
+  
+  public ApplicationContext(Class<?> configClass) throws Exception {
+    // IoC 컨테이너와 관련된 설정 정보를 갖고 있는 클래스 정보를 받아서 초기화를 수행한다.
+    
+    // 1) 설정 정보를 갖고 있는 클래스의 인스턴스를 생성한다.
+    Constructor<?> c = configClass.getConstructor();
+    Object config = c.newInstance();
+    
+    // 2) Bean 애노테이션이 붙은 메서드를 모두 찾는다.
+    ArrayList<Method> factoryMethods = new ArrayList<>();
+    
+    Method[] methods = configClass.getMethods();
+    for (Method m : methods) {
+      if (m.getAnnotation(Bean.class) != null) 
+        factoryMethods.add(m);
+    }
+    
+    // 3) 팩토리 메서드를 호출하여 그 리턴 값을 빈 컨테이너에 보관한다.
+    for (Method m : factoryMethods) {
+      callFactoryMethod(m, factoryMethods);
+    }
+  }
   
   public ApplicationContext(String packageName, Map<String,Object> beans) throws Exception {
     
@@ -222,6 +245,18 @@ public class ApplicationContext {
     // ServerApp에서 꺼낼 수 있도록 RequestMappingHandlerMapping 객체를 
     // 빈 컨테이너에 저장해 둔다.
     beanContainer.put("handlerMapping", handlerMapping);
+  }
+  
+  private boolean callFactoryMethod(Method m, List<Method> factoryMethods) {
+    // 1) m 메서드에서 호출할 때 사용할 파라미터 정보를 알아낸다.
+    // 2) 빈 컨테이너에서 파라미터에 해당하는 값을 꺼낸다.
+    // 3) 만약 빈 컨테이너에 파라미터에 해당하는 값이 없다면, 
+    //    팩토리 메서드를 뒤져서 그 타입의 값을 리턴하는 메서드를 찾아 호출한다.
+    // 4) 만약 해당 파라미터 타입의 팩토리 메서드를 찾지 못했다면 
+    //    m 메서드 호출을 포기한다.
+    // 5) m 메서드 호출에 필요한 모든 파라미터 값이 준비되었다면 메서드를 호출한다.
+    //  
+    return true;
   }
 }
 
