@@ -14,27 +14,6 @@ import com.eomcs.mybatis.TransactionManager;
 
 public class AppConfig {
   
-  // SqlSessionFactoryProxy 객체를 만들어 주는 메서드
-  @Bean
-  public SqlSessionFactoryProxy sqlSessionFactoryProxy() throws Exception {
-    return new SqlSessionFactoryProxy(
-        new SqlSessionFactoryBuilder().build(
-            Resources.getResourceAsStream("com/eomcs/lms/conf/mybatis-config.xml")));
-  }
-  
-  // TransactionManager 객체를 만들어 주는 메서드 
-  @Bean
-  public TransactionManager transactionManager(
-      SqlSessionFactoryProxy sqlSessionFactoryProxy) {
-    return new TransactionManager(sqlSessionFactoryProxy);
-  }
-  
-  // DaoFactory 객체를 만들어 주는 메서드
-  @Bean
-  public DaoFactory daoFactory(SqlSessionFactoryProxy sqlSessionFactoryProxy) {
-    return new DaoFactory(sqlSessionFactoryProxy);
-  }
-  
   // BoardDao 객체를 만들어 주는 메서드
   @Bean
   public BoardDao boardDao(DaoFactory daoFactory) {
@@ -64,9 +43,30 @@ public class AppConfig {
   public PhotoFileDao photoFileDao(DaoFactory daoFactory) {
     return daoFactory.create(PhotoFileDao.class);
   }
+
   
+  // SqlSessionFactoryProxy 객체를 만들어 주는 메서드
+  @Bean
+  public SqlSessionFactoryProxy sqlSessionFactoryProxy() throws Exception {
+    return new SqlSessionFactoryProxy(
+        new SqlSessionFactoryBuilder().build(
+            Resources.getResourceAsStream("com/eomcs/lms/conf/mybatis-config.xml")));
+  }
   
+  // TransactionManager 객체를 만들어 주는 메서드 
+  @Bean
+  public TransactionManager transactionManager(
+      SqlSessionFactoryProxy sqlSessionFactoryProxy) {
+    return new TransactionManager(sqlSessionFactoryProxy);
+  }
   
+  // DaoFactory 객체를 만들어 주는 메서드
+  @Bean
+  public DaoFactory daoFactory(SqlSessionFactoryProxy sqlSessionFactoryProxy) {
+    return new DaoFactory(sqlSessionFactoryProxy);
+  }
+  
+
 }
 
 
