@@ -13,13 +13,13 @@
 //    => Spring의 jdbc 관련 spring-jdbc 라이브러리 추가.
 //       트랜잭션 관련 라이브러리도 자동으로 추가된다.
 // 3) AppConfig 변경
-//    => mybatis 관련 객체를 생성한다.
 //    => mybatis-config.xml 삭제한다.
 //    => SqlSessionFactoryProxy, SqlSessionProxy, TransactionManager 삭제한다.
 //    => DaoFactory 삭제한다.
+//    => mybatis 관련 객체를 생성한다.
 // 4) LessonCommand, PhotoBoardCommand 변경
 //    => Spring 프레임워크에서 제공해주는 트랜잭션 관리자로 교체한다.
-//
+// 
 package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -96,18 +96,6 @@ public class AppConfig {
     return factoryBean.getObject();
   }
   
-  // DAO 구현체 자동 생성하기 방법2:
-  // => MapperScannerConfigurer 객체를 통해 DAO 구현체 자동 생성
-  /*
-  @Bean
-  public MapperScannerConfigurer mapperScannerConfigurer() {
-    MapperScannerConfigurer mapperConfig = new MapperScannerConfigurer();
-    mapperConfig.setSqlSessionTemplateBeanName("sqlSessionFactory");
-    mapperConfig.setBasePackage("com.eomcs.lms.dao");
-    return mapperConfig;
-  }
-  */
-  
   /*
   // DAO 구현체 자동 생성하기 방법1:
   // => mybatis에서 Spring과 함께 사용하라고 제공해주는 SqlSessionTemplate을 사용한다.
