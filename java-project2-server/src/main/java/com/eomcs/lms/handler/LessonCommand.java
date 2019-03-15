@@ -4,13 +4,13 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.PlatformTransactionManager;
 import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
-import com.eomcs.mybatis.TransactionManager;
 
 @Component
 public class LessonCommand {
@@ -18,13 +18,13 @@ public class LessonCommand {
   LessonDao lessonDao;
   PhotoBoardDao photoBoardDao;
   PhotoFileDao photoFileDao;
-  TransactionManager txManager;
+  PlatformTransactionManager txManager;
   
   public LessonCommand(
       LessonDao lessonDao,
       PhotoBoardDao photoBoardDao,
       PhotoFileDao photoFileDao,
-      TransactionManager txManager) {
+      PlatformTransactionManager txManager) {
     this.lessonDao = lessonDao;
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
@@ -135,7 +135,7 @@ public class LessonCommand {
   
   @RequestMapping("/lesson/delete")
   public void delete(Response response) throws Exception {
-    txManager.beginTransaction();
+    //txManager.beginTransaction();
     try {
       int no = response.requestInt("번호?");
       
@@ -153,10 +153,10 @@ public class LessonCommand {
         return;
       }
       response.println("삭제했습니다.");
-      txManager.commit();
+      //txManager.commit();
       
     } catch (Exception e) {
-      txManager.rollback();
+      //txManager.rollback();
       response.println("삭제 중 오류 발생.");
     }
   }
