@@ -1,4 +1,4 @@
-package ch29.c;
+package ch29.d;
 
 public class Car {
   private String maker;
