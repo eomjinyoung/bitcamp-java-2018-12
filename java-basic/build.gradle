@@ -22,6 +22,8 @@ dependencies {
     // MariaDB JDBC Driver
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
     
+    // Spring IoC 컨테이너
+    compile group: 'org.springframework', name: 'spring-context', version: '5.1.5.RELEASE'
     
     implementation 'com.google.guava:guava:26.0-jre'
     testImplementation 'junit:junit:4.12'
