@@ -8,7 +8,7 @@ public class Car2 {
   private boolean auto;
   
   public Car2() {
-    System.out.println("Car2()");
+    System.out.println("ch29.b.Car2()");
   }
   
   public String getMaker() {

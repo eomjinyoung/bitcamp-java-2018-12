@@ -23,7 +23,11 @@
        다른 문자는 안된다.-->
   <bean name="c9,c10,c11" class="ch29.b.Car"/>
   <bean name="c12;c13;c14" class="ch29.b.Car"/>
-  <bean name="c12:c13:c14" class="ch29.b.Car"/>
+  <bean name="c15:c16:c17" class="ch29.b.Car"/>
+  
+  <!-- id와 name이 모두 있으면, 
+       id는 빈의 이름으로 사용하고 name에 설정된 값은 모두 별명으로 사용한다.-->
+  <bean id="c20" name="c21 c22 c23" class="ch29.b.Car"/>     
 </beans>
 
 

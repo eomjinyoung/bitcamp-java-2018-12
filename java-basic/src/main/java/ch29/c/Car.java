@@ -1,16 +1,36 @@
-package ch29.b;
+package ch29.c;
 
-public class Car3 {
+public class Car {
   private String maker;
   private String model;
   private int cc;
   private int valve;
   private boolean auto;
   
-  public Car3() {
-    System.out.println("ch29.b.Car3()");
+  public Car(int valve, String maker) {
+    System.out.println("ch29.c.Car(int,String)");
+    this.maker = maker;
+    this.valve = valve;
+  }
+
+  public Car(String model, int cc) {
+    System.out.println("ch29.c.Car(String,int)");
+    this.model = model;
+    this.cc = cc;
+  }
+
+  public Car(String maker, String model) {
+    System.out.println("ch29.c.Car(String,String)");
+    this.maker = maker;
+    this.model = model;
   }
   
+  @Override
+  public String toString() {
+    return "ch29.c.Car [maker=" + maker + ", model=" + model + ", cc=" + cc + ", valve=" + valve
+        + ", auto=" + auto + "]";
+  }
+
   public String getMaker() {
     return maker;
   }
