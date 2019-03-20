@@ -12,7 +12,7 @@ public class Car {
   private int valve;
   private boolean auto;
   private Date createdDate;
-  @Autowired private BlackBox blackBox;
+  @Autowired(required=false) private BlackBox blackBox;
   
   public Car() {
     System.out.println("Car()");
