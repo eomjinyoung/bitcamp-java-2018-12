@@ -458,3 +458,7 @@
 
 ## 54일(2019-3-20)
 - Spring IoC 컨테이너 사용법 III
+- Mybatis-Spring 연동 방법
+
+## 55일(2019-3-21)
+- Spring AOP 다루기

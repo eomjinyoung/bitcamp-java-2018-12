@@ -12,7 +12,10 @@ public class Test01 {
     
     // XML 설정 파일을 사용할 때는 ClassPathXmlApplicationContext 클래스를 이용한다.
     ApplicationContext iocContainer = 
-        new ClassPathXmlApplicationContext("ch29/k2/application-context.xml");
+        new ClassPathXmlApplicationContext(
+              "ch29/k2/application-context.xml",
+              "ch29/k2/database-context.xml",
+              "ch29/k2/mybatis-context.xml");
     
     System.out.println("---------------------------------------");
     
