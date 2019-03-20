@@ -1,30 +1,18 @@
-// Mybatis와 스프링 연동하기 - Java config 사용하여 연동하기
-package ch29.k1;
+// Mybatis와 스프링 연동하기 - XML 사용하여 연동하기
+package ch29.k2;
 
 import java.util.List;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ch29.k1.dao.BoardDao;
-import ch29.k1.vo.Board;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ch29.k2.dao.BoardDao;
+import ch29.k2.vo.Board;
 
 public class Test01 {
   public static void main(String[] args) {
     
-    // java config를 다룰 때는 AnnotationConfigApplicationContext 클래스를 사용한다.
-    // => 다음과 같이 스프링 IoC 컨테이너를 설정하는 모든 Java config 클래스를 지정할 수 있다.
-    //    그러나 이 방법은 Java config 클래스가 추가될 때 마다 
-    //    계속 생성자에 그 클래스 정보를 추가해야 하는 번거로움이 발생한다.
-    /* 
+    // XML 설정 파일을 사용할 때는 ClassPathXmlApplicationContext 클래스를 이용한다.
     ApplicationContext iocContainer = 
-        new AnnotationConfigApplicationContext(
-              AppConfig.class, DatabaseConfig.class, MybatisConfig.class);
-     */
-
-    // => 그래서 실무에서는 보통 main 역할을 하는 Java config 클래스 정보만 넘긴다.
-    //    나머지 Java config 클래스들은 @Configuration을 선언하여 
-    //    자신이 스프링 IoC 컨테이너를 설정하는 클래스임을 알린다.
-    ApplicationContext iocContainer = 
-        new AnnotationConfigApplicationContext(AppConfig.class);
+        new ClassPathXmlApplicationContext("ch29/k2/application-context.xml");
     
     System.out.println("---------------------------------------");
     
