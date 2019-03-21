@@ -2,9 +2,9 @@ package com.eomcs.lms.context;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import org.springframework.stereotype.Component;
 
-@Component
+// RequestMapping이 붙은 메서드와 그 객체를 
+// 지정된 이름으로 맵에 보관하고 관리한다.
 public class RequestMappingHandlerMapping {
   
   HashMap<String,RequestMappingHandler> handlerMappings = new HashMap<>();
