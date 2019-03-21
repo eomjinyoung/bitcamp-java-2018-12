@@ -462,3 +462,9 @@
 
 ## 55일(2019-3-21)
 - Spring AOP 다루기
+- 52 단계 과제풀이 준비 
+  - 스프링 IoC 컨테이너의 Java config 클래스 분리
+  - RequestMapping 애노테이션을 처리하기 위해 BeanPostProcessor 추가
+- 비즈니스 레이어 추가
+
+
