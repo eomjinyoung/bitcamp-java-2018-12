@@ -1,4 +1,4 @@
-package ch30.d;
+package ch30.e;
 
 import org.springframework.stereotype.Component;
 

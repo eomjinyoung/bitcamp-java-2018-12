@@ -4,12 +4,23 @@ package ch30.d;
 // 메서드 호출 전이나 후에 어떤 작업을 수행하는 일을 한다.
 public class MyAdvice {
   
-  // 어떤 메서드의 호출 전/후에 먼저 호출될 메서드이다.
-  public void advice1() {
-    System.out.println("MyAdvice.advice1()");
+  public void doBefore() {
+    System.out.printf("%s.doBefore()\n", this.getClass().getName());
   }
   
-  public void advice2() {
-    System.out.println("MyAdvice.advice2()");
+  public void doAfter() {
+    System.out.printf("%s.doAfter()\n", this.getClass().getName());
+  }
+  
+  public void doAfterReturning() {
+    System.out.printf("%s.doAfterReturning()\n", this.getClass().getName());
+  }
+  
+  public void doAfterThrowing() {
+    System.out.printf("%s.doAfterThrowing()\n", this.getClass().getName());
   }
 }
+
+
+
+

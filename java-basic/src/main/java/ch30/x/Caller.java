@@ -1,4 +1,4 @@
-package ch30.d;
+package ch30.x;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
