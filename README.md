@@ -459,6 +459,7 @@
 ## 54일(2019-3-20)
 - Spring IoC 컨테이너 사용법 III
 - Mybatis-Spring 연동 방법
+- Spring 트랜잭션 관리자 사용하기
 
 ## 55일(2019-3-21)
 - Spring AOP 다루기
@@ -466,5 +467,9 @@
   - 스프링 IoC 컨테이너의 Java config 클래스 분리
   - RequestMapping 애노테이션을 처리하기 위해 BeanPostProcessor 추가
 - 비즈니스 레이어 추가
+  - Command 객체에서 비즈니스 로직을 분리하여 Service 객체를 생성한다.
+
+## 56일(2019-3-22)
+- 52 단계 과제풀이 : 애노테이션을 이용하여 트랜잭션 다루기
 
 
