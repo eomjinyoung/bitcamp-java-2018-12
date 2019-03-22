@@ -25,7 +25,7 @@ public class MybatisConfig {
         appCtx.getResources("classpath:/com/eomcs/lms/mapper/*.xml"));
     
     // Mybatis에서 로그를 다룰 때 사용할 로그 라이브러리를 지정한다.
-    LogFactory.useLog4J2Logging();
+    LogFactory.useLog4JLogging();
     
     return factoryBean.getObject();
   }
