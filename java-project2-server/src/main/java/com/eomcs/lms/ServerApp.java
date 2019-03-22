@@ -1,22 +1,26 @@
-// 27단계: XML 설정으로 트랜잭션 다루기
-// => 애노테이션을 사용할 경우 각 서비스 클래스의 메서드에 대해 애노테이션을 붙여야 한다.
-// => XML 설정을 사용하면 pointcut 규칙으로 트랜잭션을 적용할 메서드를 간단히 지정할 수 있다.
-//    그래서 실무에서 많이 사용한다.
+// 28단계: Log4J 1.x 적용하기
+// => 애플리케이션을 실행하는 중에 내부 상태를 확인할 목적으로 
+//    기록을 남기는 것을 "로깅(logging)"이라 한다.
+// => 로깅은 애플리케이션을 실행하는 콘솔창으로 출력할 수도 있고,
+//    파일이나 네트웍으로도 출력할 수 있다.
+// => 보통 실무에서는 파일로 기록을 남긴다.
+// => 로깅 작업을 도와주는 대표적인 라이브러리가 log4j 이다.
+//    출력 레벨에 따라 로깅을 조절할 수 있어 편리하다.
 // 
 // 작업
-// 1) 트랜잭션을 설정하는 XML 파일을 준비한다.
-//    => tx-context.xml
-// 2) 기존에 서비스 클래스에 붙인 @Transactional 애노테이션을 모두 제거한다.
-//    => LessonServiceImpl의 delete(),
-//       PhotoBoardServiceImpl의 add(), update(), delete() 에 붙인 애노테이션을 제거한다. 
-// 3) AOP 라이브러리 추가한다.
-//    => PlatformTransactionManager 를 사용하여 트랜잭션을 다룰 때는 
-//       개발자가 해당 메서드에 직접 코드를 삽입하기 때문에 AOP 기술을 사용할 일이 없다.
-//    => @Transcational 애노테이션을 사용하여 트랜잭션을 다룰 때도 
-//       Spring IoC 컨테이너에서 Proxy 생성 기술을 사용하기 때문에 AOP 기술을 사용할 일이 없다.
-//    => 그러나 XML에서 advice를 이용하여 트랜잭션을 다룰 때는
-//       AOP 라이브러리를 사용하기 때문에 프로젝트에 추가해야 한다.
-//    => aspectjweaver 라이브러리를 추가하라.
+// 1) log4j 1.x 라이브러리를 추가한다.
+//    => mvnrepository.com 에서 log4j 검색한다.
+//    => build.gradle에 라이브러리 추가한다.
+//    => '$ gradle eclipse' 실행한다.
+//    => 이클립스 프로젝트 갱신한다.
+// 2) Log4J 설정 파일 준비한다.
+//    => CLASSPATH 루트 패키지에 log4j.properties 파일을 생성한다.
+//       예) src/main/resources/log4j.properties
+// 3) Mybatis에서 사용할 로깅 라이브러리 지정하기
+//    => SqlSessionFactory 객체를 생성할 때 어떤 로깅 라이브러리를 사용할 지 지정한다.
+//    => MybatisConfig.java 에서 SqlSessionFactory 생성하는 메서드 안에 다음 코드 추가한다. 
+//         LogFactory.useLog4JLogging();  
+//    
 //
 package com.eomcs.lms;
 import java.io.BufferedReader;
