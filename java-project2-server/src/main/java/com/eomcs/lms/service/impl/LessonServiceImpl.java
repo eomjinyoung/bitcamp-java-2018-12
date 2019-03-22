@@ -4,9 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
@@ -59,34 +58,21 @@ public class LessonServiceImpl implements LessonService {
   }
   
   @Override
+  @Transactional(propagation=Propagation.REQUIRED)
   public int delete(int no) {
-    // 트랜잭션 동작 방식을 설정한다.
-    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-    def.setName("tx1");
-    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("lessonNo", no);
     
-    // 트랜잭션을 준비한다.
-    TransactionStatus status = txManager.getTransaction(def);
-    
-    try {
-      HashMap<String,Object> params = new HashMap<>();
-      params.put("lessonNo", no);
-      
-      List<PhotoBoard> boards = photoBoardDao.findAll(params);
-      for (PhotoBoard board : boards) {
-        photoFileDao.deleteByPhotoBoardNo(board.getNo());
-        photoBoardDao.delete(board.getNo());
-      }
-      
-      int count = lessonDao.delete(no);
-      txManager.commit(status);
-      
-      return count;
-      
-    } catch (RuntimeException e) {
-      txManager.rollback(status);
-      throw e;
+    List<PhotoBoard> boards = photoBoardDao.findAll(params);
+    for (PhotoBoard board : boards) {
+      photoFileDao.deleteByPhotoBoardNo(board.getNo());
+      photoBoardDao.delete(board.getNo());
     }
+    
+    int count = lessonDao.delete(no);
+    
+    
+    return count;
   }
 }
 

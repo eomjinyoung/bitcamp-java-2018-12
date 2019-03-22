@@ -1,20 +1,18 @@
-// 25단계: business layer 추가 
-// => 커맨드 객체에서 비즈니스 로직을 분리하여 별도의 클래스로 정의한다.
-// => 이런 구조로 바꾸면 비즈니스 로직의 재사용성을 높일 수 있다.
+// 26단계: 애노테이션으로 트랜잭션 다루기
+// => @Transactional 애노테이션을 이용하여 트랜잭션을 사용할 수 있다.
 // 
 // 작업
-// 1) BoardCommand 에서 비즈니스 로직 분리
-//    => BoardService 인터페이스 생성 
-//    => BoardServiceImpl 구현체 생성
-// 2) PhotoBoardCommand 에서 비즈니스 로직 분리
-//    => PhotoBoardService 인터페이스 생성
-//    => PhotoBoardServiceImpl 구현체 생성
-// 3) LessonCommand 에서 비즈니스 로직 분리
-//    => LessonService 인터페이스 생성
-//    => LessonServiceImpl 구현체 생성 
-// 4) MemberCommand 에서 비즈니스 로직 분리
-//    => MemberService 인터페이스 생성
-//    => MemberServiceImpl 구현체 생성
+// 1) @Transactional 애노테이션을 처리할 객체를 스프링 IoC 컨테이너 설정에 등록한다.
+//    => Java config 클래스에 @EnableTransactionManagement 애노테이션을 붙인다.
+// 2) 트랜잭션을 적용할 서비스 클래스의 메서드에 @Transactional을 붙인다.
+//    => 왜? DAO에 메서드에 안 붙이고 서비스 클래스의 메서드에 붙이는가?
+//       - DAO 메서드들은 업무에 따라 단독으로 실행될 때가 있고,
+//         다른 DB 작업과 묶여서 실행될 때가 있기 때문이다.
+//       - 예를 들어 PhotoBoardDao의 delete() 메서드를 보라.
+//         이 메서드는 단독으로 실행할 수도 있지만,
+//         보통 PhotoFileDao의 delete()과 묶여서 실행될 때가 있다.
+//       - 즉 DAO의 메서드는 업무에 따라 다른 DAO의 데이터 변경 메서드와 묶일 수 있기 때문이다.
+//
 //
 package com.eomcs.lms;
 import java.io.BufferedReader;
@@ -24,6 +22,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.eomcs.lms.context.RequestMappingHandlerMapping;
 import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
 import com.eomcs.lms.handler.Response;
@@ -42,6 +41,7 @@ public class ServerApp {
 
       // Spring IoC 컨테이너 준비
       iocContainer = new AnnotationConfigApplicationContext(AppConfig.class);
+      printBeans();
       
       // 스프링 IoC 컨테이너에서 RequestMappingHandlerMapping 객체를 꺼낸다.
       // 이 객체에 클라이언트 요청을 처리할 메서드 정보가 들어 있다.
@@ -123,7 +123,15 @@ public class ServerApp {
     }
   }
   
-  
+  private void printBeans() {
+    System.out.println("---------------------------------------------------"); 
+    String[] names = iocContainer.getBeanDefinitionNames();
+    for (String name : names) {
+      System.out.printf("%s ===> %s\n", name, 
+          iocContainer.getBean(name).getClass().getName());
+    }
+    System.out.println("---------------------------------------------------"); 
+  }
   
 }
 
