@@ -7,7 +7,7 @@ import com.eomcs.lms.service.BoardService;
 
 @Component
 public class BoardCommand {
-
+  
   BoardService boardService;
   
   public BoardCommand(BoardService boardService) {
