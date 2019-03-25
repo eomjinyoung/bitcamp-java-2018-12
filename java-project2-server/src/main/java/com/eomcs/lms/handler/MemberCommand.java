@@ -111,6 +111,11 @@ public class MemberCommand {
       out.printf("  <td><input type='text' name='tel' value='%s'></td>\n",
           member.getTel());
       out.println("</tr>");
+      out.println("<tr>");
+      out.println("  <th>가입일</th>");
+      out.printf("  <td>%s</td>\n",
+          member.getRegisteredDate());
+      out.println("</tr>");
       out.println("</table>");
       out.println("<p><a href='/member/list'>목록</a>"
           + " <a href='/member/delete?no=" + member.getNo() + "'>삭제</a>"

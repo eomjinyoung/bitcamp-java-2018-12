@@ -20,7 +20,8 @@
       member_id, 
       name, 
       email, 
-      tel
+      tel,
+      cdt
   </sql>
   
   <select id="findAll" resultMap="memberMap">
@@ -35,7 +36,6 @@
   <select id="findByNo" resultMap="memberMap" parameterType="int">
     select 
       <include refid="default-columns"/>, 
-      cdt, 
       photo
     from 
       lms_member
