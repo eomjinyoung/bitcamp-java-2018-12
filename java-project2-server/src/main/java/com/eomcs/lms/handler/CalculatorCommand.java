@@ -7,7 +7,7 @@ import com.eomcs.lms.context.RequestMapping;
 public class CalculatorCommand {
 
   @RequestMapping("/calculator")
-  public void execute(Response response) {
+  public void execute(ServletResponse response) {
     try {
       String[] str = response.requestString("계산식? ").split(" ");
       int a = Integer.parseInt(str[0]);

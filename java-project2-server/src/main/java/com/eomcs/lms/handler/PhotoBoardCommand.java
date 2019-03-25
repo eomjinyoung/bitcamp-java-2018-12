@@ -17,7 +17,7 @@ public class PhotoBoardCommand {
   }
 
   @RequestMapping("/photoboard/list")
-  public void list(Response response) {
+  public void list(ServletResponse response) {
     List<PhotoBoard> boards = photoBoardService.list(0, null);
     
     for (PhotoBoard board : boards) {
@@ -32,7 +32,7 @@ public class PhotoBoardCommand {
   }
   
   @RequestMapping("/photoboard/add")
-  public void add(Response response) {
+  public void add(ServletResponse response) {
     try {
       PhotoBoard board = new PhotoBoard();
       board.setTitle(response.requestString("사진 제목?"));
@@ -70,7 +70,7 @@ public class PhotoBoardCommand {
   }
   
   @RequestMapping("/photoboard/detail")
-  public void detail(Response response) throws Exception {
+  public void detail(ServletResponse response) throws Exception {
     int no = response.requestInt("번호?");
     
     PhotoBoard board = photoBoardService.get(no);
@@ -95,7 +95,7 @@ public class PhotoBoardCommand {
   }
   
   @RequestMapping("/photoboard/update")
-  public void update(Response response) throws Exception {
+  public void update(ServletResponse response) throws Exception {
     
     try {
       PhotoBoard board = new PhotoBoard();
@@ -160,7 +160,7 @@ public class PhotoBoardCommand {
   }
 
   @RequestMapping("/photoboard/delete")
-  public void delete(Response response) throws Exception {
+  public void delete(ServletResponse response) throws Exception {
     try {
       int no = response.requestInt("번호?");
       if (photoBoardService.delete(no) == 0) {
@@ -175,7 +175,7 @@ public class PhotoBoardCommand {
   }
   
   @RequestMapping("/photoboard/search")
-  public void search(Response response) {
+  public void search(ServletResponse response) {
     int lessonNo = 0;
     try {
       lessonNo = response.requestInt("수업 번호?");

@@ -4,12 +4,12 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.sql.Date;
 
-public class Response {
+public class ServletResponse {
   
   BufferedReader in;
   PrintWriter out;
   
-  public Response(BufferedReader in, PrintWriter out) {
+  public ServletResponse(BufferedReader in, PrintWriter out) {
     this.in = in;
     this.out = out;
   }

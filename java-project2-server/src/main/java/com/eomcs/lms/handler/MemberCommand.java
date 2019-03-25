@@ -15,7 +15,7 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/list")
-  public void list(Response response) throws Exception {
+  public void list(ServletResponse response) throws Exception {
     List<Member> members = memberService.list(null);
     for (Member member : members) {
       response.println(String.format("%3d, %-4s, %-20s, %-15s, %s", 
@@ -25,7 +25,7 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/add")
-  public void add(Response response) throws Exception {
+  public void add(ServletResponse response) throws Exception {
     Member member = new Member();
     member.setName(response.requestString("이름?"));
     member.setEmail(response.requestString("이메일?"));
@@ -38,7 +38,7 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/detail")
-  public void detail(Response response) throws Exception {
+  public void detail(ServletResponse response) throws Exception {
     int no = response.requestInt("번호?");
 
     Member member = memberService.get(no);
@@ -55,7 +55,7 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/update")
-  public void update(Response response) throws Exception {
+  public void update(ServletResponse response) throws Exception {
     int no = response.requestInt("번호?");
 
     Member member = memberService.get(no);
@@ -106,7 +106,7 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/delete")
-  public void delete(Response response) throws Exception {
+  public void delete(ServletResponse response) throws Exception {
     int no = response.requestInt("번호?");
 
     if (memberService.delete(no) == 0) {
@@ -117,7 +117,7 @@ public class MemberCommand {
   }
   
   @RequestMapping("/member/search")
-  public void search(Response response) throws Exception {
+  public void search(ServletResponse response) throws Exception {
     
     String keyword = response.requestString("검색어?");
     List<Member> members = memberService.list(keyword);
