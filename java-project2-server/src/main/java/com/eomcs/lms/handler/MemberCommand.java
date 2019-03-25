@@ -79,7 +79,6 @@ public class MemberCommand {
     
     if (member == null) {
       out.println("<p>해당 번호의 회원이 없습니다.</p>");
-      return;
     } else {
       out.println("<form action='/member/update'>");
       out.println("<table border='1'>");

@@ -67,30 +67,30 @@ public class BoardCommand {
     
     if (board == null) {
       out.println("<p>해당 번호의 게시물이 없습니다.</p>");
-      return;
+      
+    } else {
+      out.println("<form action='/board/update'>");
+      out.println("<table border='1'>");
+      out.printf("<tr>"
+          + "<th>번호</th>"
+          + "<td><input type='text' name='no' value='%d' readonly></td>"
+          + "</tr>\n", no);
+      out.println(String.format(
+          "<tr> <th>내용</th> "
+          + "<td><textarea name='contents' rows='3' cols='50'>%s</textarea></td> "
+          + "</tr>", board.getContents()));
+      out.println(String.format(
+          "<tr> <th>작성일</th> <td>%s</td> </tr>", board.getCreatedDate()));
+      out.println(String.format(
+          "<tr> <th>조회수</th> <td>%d</td> </tr>", board.getViewCount()));
+      
+      out.println("</table>");
+      out.println("<p><a href='/board/list'>목록</a>"
+          + " <a href='/board/delete?no=" + board.getNo() + "'>삭제</a>"
+          + " <button type='submit'>변경</button>"
+          + "<p>");
+      out.println("</form>");
     }
-    
-    out.println("<form action='/board/update'>");
-    out.println("<table border='1'>");
-    out.printf("<tr>"
-        + "<th>번호</th>"
-        + "<td><input type='text' name='no' value='%d' readonly></td>"
-        + "</tr>\n", no);
-    out.println(String.format(
-        "<tr> <th>내용</th> "
-        + "<td><textarea name='contents' rows='3' cols='50'>%s</textarea></td> "
-        + "</tr>", board.getContents()));
-    out.println(String.format(
-        "<tr> <th>작성일</th> <td>%s</td> </tr>", board.getCreatedDate()));
-    out.println(String.format(
-        "<tr> <th>조회수</th> <td>%d</td> </tr>", board.getViewCount()));
-    
-    out.println("</table>");
-    out.println("<p><a href='/board/list'>목록</a>"
-        + " <a href='/board/delete?no=" + board.getNo() + "'>삭제</a>"
-        + " <button type='submit'>변경</button>"
-        + "<p>");
-    out.println("</form>");
     out.println("</body></html>");
   }
   
