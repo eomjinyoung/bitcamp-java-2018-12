@@ -17,12 +17,12 @@ public class BoardCommand {
 
   @RequestMapping("/board/list")
   public void list(ServletRequest request, ServletResponse response) {
-    PrintWriter out = response.getWriter();
     List<Board> boards = boardService.list();
     
+    PrintWriter out = response.getWriter();
     out.println("<html><head><title>게시물 목록</title></head>");
     out.println("<body><h1>게시물 목록</h1>");
-    out.println("<p><a href='/board/form'>새글</a></p>");
+    out.println("<p><a href='/board/form'>새 글</a></p>");
     out.println("<table border='1'>");
     out.println("<tr> <th>번호</th> <th>제목</th> <th>등록일</th> <th>조회수</th> </tr>");
     for (Board board : boards) {
