@@ -1,4 +1,5 @@
 package com.eomcs.lms.handler;
+import java.io.PrintWriter;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.context.RequestMapping;
@@ -16,19 +17,22 @@ public class BoardCommand {
 
   @RequestMapping("/board/list")
   public void list(Response response) {
+    PrintWriter out = response.getWriter();
     List<Board> boards = boardService.list();
     
-    response.println("<html><head><title>게시물 목록</title></head>");
-    response.println("<body><h1>게시물 목록</h1>");
-    response.println("<table border='1'>");
-    response.println("<tr> <th>번호</th> <th>제목</th> <th>등록일</th> <th>조회수</th> </tr>");
+    out.println("<html><head><title>게시물 목록</title></head>");
+    out.println("<body><h1>게시물 목록</h1>");
+    out.println("<table border='1'>");
+    out.println("<tr> <th>번호</th> <th>제목</th> <th>등록일</th> <th>조회수</th> </tr>");
     for (Board board : boards) {
-      response.println(String.format(
-          "<tr><td>%3d</td> <td>%-20s</td> <td>%s</td> <td>%d</td></tr>", 
-            board.getNo(), board.getContents(), 
-            board.getCreatedDate(), board.getViewCount()));
+      out.println(String.format(
+          "<tr><td>%d</td> <td><a href='/board/detail?no=%1$d'>%s</a></td> <td>%s</td> <td>%d</td></tr>", 
+            board.getNo(), 
+            board.getContents(), 
+            board.getCreatedDate(), 
+            board.getViewCount()));
     }
-    response.println("</table></body></html>");
+    out.println("</table></body></html>");
   }
   
   @RequestMapping("/board/add")

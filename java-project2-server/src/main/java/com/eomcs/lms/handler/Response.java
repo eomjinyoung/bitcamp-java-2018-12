@@ -14,6 +14,10 @@ public class Response {
     this.out = out;
   }
   
+  public PrintWriter getWriter() {
+    return out;
+  }
+  
   public void println(String message) {
     out.println(message);
     out.flush();
