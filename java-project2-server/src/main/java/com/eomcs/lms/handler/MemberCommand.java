@@ -93,12 +93,12 @@ public class MemberCommand {
       out.println("</tr>");
       out.println("<tr>");
       out.println("  <th>이메일</th>");
-      out.printf("  <td><input type='text' name='email' value='%s'></td>\n",
+      out.printf("  <td><input type='email' name='email' value='%s'></td>\n",
           member.getEmail());
       out.println("</tr>");
       out.println("<tr>");
       out.println("  <th>암호</th>");
-      out.println("  <td><input type='text' name='password'></td>");
+      out.println("  <td><input type='password' name='password'></td>");
       out.println("</tr>");
       out.println("<tr>");
       out.println("  <th>사진</th>");
@@ -203,7 +203,7 @@ public class MemberCommand {
   public void form(ServletRequest request, ServletResponse response) throws Exception {
     PrintWriter out = response.getWriter();
     
-    out.println("<htm>");
+    out.println("<html>");
     out.println("<head><title>새 회원</title></head>");
     out.println("<body>");
     out.println("<h1>새 회원</h1>");
@@ -215,11 +215,11 @@ public class MemberCommand {
     out.println("</tr>");
     out.println("<tr>");
     out.println("  <th>이메일</th>");
-    out.println("  <td><input type='text' name='email'></td>");
+    out.println("  <td><input type='email' name='email'></td>");
     out.println("</tr>");
     out.println("<tr>");
     out.println("  <th>암호</th>");
-    out.println("  <td><input type='text' name='password'></td>");
+    out.println("  <td><input type='password' name='password'></td>");
     out.println("</tr>");
     out.println("<tr>");
     out.println("  <th>사진</th>");

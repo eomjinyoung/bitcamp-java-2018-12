@@ -96,22 +96,22 @@ public class LessonCommand {
       out.println("</tr>");
       out.println("<tr>");
       out.println("  <th>시작일</th>");
-      out.printf("  <td><input type='text' name='startDate' value='%s'></td>\n",
+      out.printf("  <td><input type='date' name='startDate' value='%s'></td>\n",
           lesson.getStartDate());
       out.println("</tr>");
       out.println("<tr>");
       out.println("  <th>종료일</th>");
-      out.printf("  <td><input type='text' name='endDate' value='%s'></td>\n",
+      out.printf("  <td><input type='date' name='endDate' value='%s'></td>\n",
           lesson.getEndDate());
       out.println("</tr>");
       out.println("<tr>");
       out.println("  <th>총 교육시간</th>");
-      out.printf("  <td><input type='text' name='totalHours' value='%d'></td>\n",
+      out.printf("  <td><input type='number' name='totalHours' value='%d'></td>\n",
           lesson.getTotalHours());
       out.println("</tr>");
       out.println("<tr>");
       out.println("  <th>일 교육시간</th>");
-      out.printf("  <td><input type='text' name='dayHours' value='%d'></td>\n",
+      out.printf("  <td><input type='number' name='dayHours' value='%d'></td>\n",
           lesson.getDayHours());
       out.println("</tr>");
       out.println("</tr>");
@@ -193,19 +193,19 @@ public class LessonCommand {
     out.println("</tr>");
     out.println("<tr>");
     out.println("  <th>시작일</th>");
-    out.println("  <td><input type='text' name='startDate'></td>");
+    out.println("  <td><input type='date' name='startDate'></td>");
     out.println("</tr>");
     out.println("<tr>");
     out.println("  <th>종료일</th>");
-    out.println("  <td><input type='text' name='endDate'></td>");
+    out.println("  <td><input type='date' name='endDate'></td>");
     out.println("</tr>");
     out.println("<tr>");
     out.println("  <th>총 교육시간</th>");
-    out.println("  <td><input type='text' name='totalHours'></td>");
+    out.println("  <td><input type='number' name='totalHours'></td>");
     out.println("</tr>");
     out.println("<tr>");
     out.println("  <th>일 교육시간</th>");
-    out.println("  <td><input type='text' name='dayHours'></td>");
+    out.println("  <td><input type='number' name='dayHours'></td>");
     out.println("</tr>");
     out.println("</tr>");
     out.println("</table>");
