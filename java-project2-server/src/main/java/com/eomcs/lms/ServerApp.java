@@ -16,6 +16,10 @@
 // 3) ServletApp 변경
 //    => 'Servlet'이라는 규칙에 따라 클래스를 변경한다.
 //    => 이 규칙에 따라 작성해야만 톰캣 서버가 호출해 줄 것이다.
+//    => ServletRequest와 ServletResponse 클래스를 제거한다.
+// 4) Command 변경
+//    => ServletRequest와 ServletResponse를 
+//       servlet-api 에서 제공하는 인터페이스로 바꾼다.
 // 4) 자바 웹 배포 파일을 생성
 //    => '$ gradle build' 실행
 // 5) 웹 배포 파일을 톰캣 서버에 배치한다.

@@ -27,7 +27,7 @@ public class MemberCommand {
     out.println("<tr><th>번호</th><th>이름</th><th>이메일</th><th>전화</th><th>가입일</th></tr>");
     
     for (Member member : members) {
-      response.println(String.format(
+      out.println(String.format(
           "<tr><td>%d</td><td><a href='/member/detail?no=%1$d'>%s</a></td>"
           + "<td>%s</td><td>%s</td><td>%s</td></tr>", 
           member.getNo(), 
@@ -185,7 +185,7 @@ public class MemberCommand {
     out.println("<tr><th>번호</th><th>이름</th><th>이메일</th><th>전화</th><th>가입일</th></tr>");
     
     for (Member member : members) {
-      response.println(String.format(
+      out.println(String.format(
           "<tr><td>%d</td><td><a href='/member/detail?no=%1$d'>%s</a></td>"
           + "<td>%s</td><td>%s</td><td>%s</td></tr>", 
           member.getNo(), 

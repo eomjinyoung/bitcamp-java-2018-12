@@ -3,6 +3,8 @@ package com.eomcs.lms.handler;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.List;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.Lesson;
@@ -29,7 +31,7 @@ public class LessonCommand {
     out.println("<tr><th>번호</th><th>수업</th><th>기간</th><th>총교육시간</th></tr>");
     
     for (Lesson lesson : lessons) {
-      response.println(String.format(
+      out.println(String.format(
           "<tr><td>%d</td><td><a href='/lesson/detail?no=%1$d'>%s</a></td>"
           + "<td>%s ~ %s</td><td>%d</td></tr>", 
           lesson.getNo(), 

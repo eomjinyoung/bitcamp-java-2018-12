@@ -1,6 +1,8 @@
 package com.eomcs.lms.handler;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.Board;
@@ -16,7 +18,7 @@ public class BoardCommand {
   }
 
   @RequestMapping("/board/list")
-  public void list(ServletRequest request, ServletResponse response) {
+  public void list(ServletRequest request, ServletResponse response) throws Exception {
     List<Board> boards = boardService.list();
     
     PrintWriter out = response.getWriter();

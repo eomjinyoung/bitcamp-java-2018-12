@@ -2,6 +2,8 @@ package com.eomcs.lms.handler;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -18,7 +20,7 @@ public class PhotoBoardCommand {
   }
 
   @RequestMapping("/photoboard/list")
-  public void list(ServletRequest request, ServletResponse response) {
+  public void list(ServletRequest request, ServletResponse response) throws Exception {
     List<PhotoBoard> boards = photoBoardService.list(0, null);
     
     PrintWriter out = response.getWriter();
@@ -50,7 +52,7 @@ public class PhotoBoardCommand {
   }
   
   @RequestMapping("/photoboard/add")
-  public void add(ServletRequest request, ServletResponse response) {
+  public void add(ServletRequest request, ServletResponse response) throws Exception {
     PhotoBoard board = new PhotoBoard();
     board.setTitle(request.getParameter("title"));
     board.setLessonNo(Integer.parseInt(request.getParameter("lessonNo")));
@@ -217,7 +219,7 @@ public class PhotoBoardCommand {
   }
   
   @RequestMapping("/photoboard/search")
-  public void search(ServletRequest request, ServletResponse response) {
+  public void search(ServletRequest request, ServletResponse response) throws Exception {
     int lessonNo = 0;
     try {
       lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
