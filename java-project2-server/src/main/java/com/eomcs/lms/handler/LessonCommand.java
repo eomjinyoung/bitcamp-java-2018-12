@@ -26,13 +26,13 @@ public class LessonCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>수업 목록</title></head>");
     out.println("<body><h1>수업 목록</h1>");
-    out.println("<p><a href='/lesson/form'>새 수업</a></p>");
+    out.println("<p><a href='form'>새 수업</a></p>");
     out.println("<table border='1'>");
     out.println("<tr><th>번호</th><th>수업</th><th>기간</th><th>총교육시간</th></tr>");
     
     for (Lesson lesson : lessons) {
       out.println(String.format(
-          "<tr><td>%d</td><td><a href='/lesson/detail?no=%1$d'>%s</a></td>"
+          "<tr><td>%d</td><td><a href='detail?no=%1$d'>%s</a></td>"
           + "<td>%s ~ %s</td><td>%d</td></tr>", 
           lesson.getNo(), 
           lesson.getTitle(), 
@@ -59,7 +59,7 @@ public class LessonCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>수업 등록</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/lesson/list'>"
+        + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
     out.println("<body><h1>수업 등록</h1>");
     out.println("<p>저장하였습니다.</p>");
@@ -80,7 +80,7 @@ public class LessonCommand {
       out.println("<p>해당 번호의 수입이 없습니다.</p>");
       
     } else {
-      out.println("<form action='/lesson/update'>");
+      out.println("<form action='update'>");
       out.println("<table border='1'>");
       out.println("<tr>");
       out.println("  <th>번호</th>");
@@ -118,8 +118,8 @@ public class LessonCommand {
       out.println("</tr>");
       out.println("</tr>");
       out.println("</table>");
-      out.println("<p><a href='/lesson/list'>목록</a>"
-          + " <a href='/lesson/delete?no=" + lesson.getNo() + "'>삭제</a>"
+      out.println("<p><a href='list'>목록</a>"
+          + " <a href='delete?no=" + lesson.getNo() + "'>삭제</a>"
           + " <button type='submit'>변경</button>"
           + "<p>");
       out.println("</form>");
@@ -142,7 +142,7 @@ public class LessonCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>수업 변경</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/lesson/list'>"
+        + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
     out.println("<body><h1>수업 변경</h1>");
     
@@ -162,7 +162,7 @@ public class LessonCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>수업 삭제</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/lesson/list'>"
+        + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
     out.println("<body><h1>수업 삭제</h1>");
     
@@ -183,7 +183,7 @@ public class LessonCommand {
     out.println("<head><title>새 수업</title></head>");
     out.println("<body>");
     out.println("<h1>새 수업</h1>");
-    out.println("<form action='/lesson/add'>");
+    out.println("<form action='add'>");
     out.println("<table border='1'>");
     out.println("<tr>");
     out.println("  <th>수업</th>");
@@ -213,7 +213,7 @@ public class LessonCommand {
     out.println("</table>");
     out.println("<p>");
     out.println("  <button type='submit'>등록</button>");
-    out.println("  <a href='/lesson/list'>목록</a>");
+    out.println("  <a href='list'>목록</a>");
     out.println("</p>");
     out.println("</form>");
     out.println("</body>");

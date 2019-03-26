@@ -24,13 +24,13 @@ public class MemberCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>회원 목록</title></head>");
     out.println("<body><h1>회원 목록</h1>");
-    out.println("<p><a href='/member/form'>새 회원</a></p>");
+    out.println("<p><a href='form'>새 회원</a></p>");
     out.println("<table border='1'>");
     out.println("<tr><th>번호</th><th>이름</th><th>이메일</th><th>전화</th><th>가입일</th></tr>");
     
     for (Member member : members) {
       out.println(String.format(
-          "<tr><td>%d</td><td><a href='/member/detail?no=%1$d'>%s</a></td>"
+          "<tr><td>%d</td><td><a href='detail?no=%1$d'>%s</a></td>"
           + "<td>%s</td><td>%s</td><td>%s</td></tr>", 
           member.getNo(), 
           member.getName(), 
@@ -40,7 +40,7 @@ public class MemberCommand {
     }
     out.println("</table>");
     
-    out.println("<form action='/member/search'>");
+    out.println("<form action='search'>");
     out.println("<input type='text' name='keyword'> ");
     out.println("<button type='submit'>검색</button>");
     out.println("</form>");
@@ -62,7 +62,7 @@ public class MemberCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>회원 등록</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/member/list'>"
+        + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
     out.println("<body><h1>회원 등록</h1>");
     out.println("<p>저장하였습니다.</p>");
@@ -82,7 +82,7 @@ public class MemberCommand {
     if (member == null) {
       out.println("<p>해당 번호의 회원이 없습니다.</p>");
     } else {
-      out.println("<form action='/member/update'>");
+      out.println("<form action='update'>");
       out.println("<table border='1'>");
       out.println("<tr>");
       out.println("  <th>번호</th>");
@@ -118,8 +118,8 @@ public class MemberCommand {
           member.getRegisteredDate());
       out.println("</tr>");
       out.println("</table>");
-      out.println("<p><a href='/member/list'>목록</a>"
-          + " <a href='/member/delete?no=" + member.getNo() + "'>삭제</a>"
+      out.println("<p><a href='list'>목록</a>"
+          + " <a href='delete?no=" + member.getNo() + "'>삭제</a>"
           + " <button type='submit'>변경</button>"
           + "<p>");
       out.println("</form>");
@@ -142,7 +142,7 @@ public class MemberCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>회원 변경</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/member/list'>"
+        + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
     out.println("<body><h1>회원 변경</h1>");
     
@@ -162,7 +162,7 @@ public class MemberCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>회원 삭제</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/member/list'>"
+        + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
     out.println("<body><h1>회원 삭제</h1>");
     
@@ -188,7 +188,7 @@ public class MemberCommand {
     
     for (Member member : members) {
       out.println(String.format(
-          "<tr><td>%d</td><td><a href='/member/detail?no=%1$d'>%s</a></td>"
+          "<tr><td>%d</td><td><a href='detail?no=%1$d'>%s</a></td>"
           + "<td>%s</td><td>%s</td><td>%s</td></tr>", 
           member.getNo(), 
           member.getName(), 
@@ -197,7 +197,7 @@ public class MemberCommand {
           member.getRegisteredDate()));
     }
     out.println("</table>");
-    out.println("<p><a href='/member/list'>목록</a></p>");
+    out.println("<p><a href='list'>목록</a></p>");
     out.println("</body></html>");
   }
   
@@ -209,7 +209,7 @@ public class MemberCommand {
     out.println("<head><title>새 회원</title></head>");
     out.println("<body>");
     out.println("<h1>새 회원</h1>");
-    out.println("<form action='/member/add'>");
+    out.println("<form action='add'>");
     out.println("<table border='1'>");
     out.println("<tr>");
     out.println("  <th>이름</th>");
@@ -234,7 +234,7 @@ public class MemberCommand {
     out.println("</table>");
     out.println("<p>");
     out.println("  <button type='submit'>등록</button>");
-    out.println("  <a href='/member/list'>목록</a>");
+    out.println("  <a href='list'>목록</a>");
     out.println("</p>");
     out.println("</form>");
     out.println("</body>");
