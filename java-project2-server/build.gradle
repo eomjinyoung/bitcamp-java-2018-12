@@ -1,8 +1,10 @@
 // Gradle에 플러그인 추가한다. 
 plugins {
     id 'java'   // 자바 빌드 명령을 사용할 수 있다.
-    id 'application'  // 자바 애플리케이션을 실행할 수 있다.
-    id 'eclipse'  // 이클립스 설정 파일을 생성할 수 있다.
+    //id 'application'  // 자바 애플리케이션을 실행할 수 있다.
+    //id 'eclipse'  // 이클립스 설정 파일을 생성할 수 있다.
+    id 'eclipse-wtp' // 자바 웹 프로젝트 플러그인
+    id 'war' // 웹 아키이브 파일(.war)을 다루는 플러그인
 }
 
 // 자바 프로그램에서 사용하는 외부 라이브러리의 저장소 
@@ -13,6 +15,11 @@ repositories {
 
 // 프로젝트에서 사용할 외부 라이브러리 정보 
 dependencies {
+    // servlet-api
+    // => 프로젝트를 컴파일 할 때만 사용할 라이브러리라면 providedCompile 메서드를 사용하라.
+    // => 이 메서드로 지정된 라이브러리는 배포할 때 배포 파일(.war, .jar 등)에 포함되지 않는다. 
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+
     //mybatis persistence framework
     compile group: 'org.mybatis', name: 'mybatis', version: '3.5.0'
 
@@ -44,7 +51,7 @@ dependencies {
 // 만약 Gradle을 사용하여 프로젝트를 실행한다면 다음 클래스가 실행될 것이다.
 // '$ gradle build'   를 수행한 후,
 // '$ gradle run'   을 실행하면 다음에서 설정한 ServerApp 클래스를 실행한다.
-mainClassName = 'com.eomcs.lms.ServerApp'
+//mainClassName = 'com.eomcs.lms.ServerApp'
 
 
 
