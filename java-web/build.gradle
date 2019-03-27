@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+    id 'eclipse-wtp'
+    id 'war'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    // Servlet API 라이브러리
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+
+    testImplementation 'junit:junit:4.12'
+}
