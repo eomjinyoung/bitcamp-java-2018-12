@@ -3,7 +3,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-  version="4.0" metadata-complete="true">
+  version="4.0" metadata-complete="false">
 
   <description>
     웹 애플리케이션에 대한 설명이 이 태그에 넣는다.
@@ -16,6 +16,14 @@
   <servlet>
     <servlet-name>Servlet01</servlet-name>
     <servlet-class>bitcamp.ex01.Servlet01</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Servlet02</servlet-name>
+    <servlet-class>bitcamp.ex01.Servlet02</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Servlet03</servlet-name>
+    <servlet-class>bitcamp.ex01.Servlet03</servlet-class>
   </servlet>
   
   <!-- 서블릿에 URL을 지정한다.
@@ -31,6 +39,16 @@
          반드시 루트 / 로 시작한다. -->
     <url-pattern>/ex01/s01</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Servlet02</servlet-name>
+    <url-pattern>/ex01/s02</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Servlet03</servlet-name>
+    <url-pattern>/ex01/s03</url-pattern>
+  </servlet-mapping>
+  
+  
 </web-app>
 
 
