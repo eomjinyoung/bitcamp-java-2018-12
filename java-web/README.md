@@ -25,4 +25,10 @@
     - 이클립스워크스페이스폴더/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/java-web 디렉토리 확인
 - 웹 브라우저에서 톰캣 서버 접속 확인
     - http://localhost:8080/java-web 주소를 입력한 후 결과 확인
-    
+
+## src01
+- Servlet 인터페이스와 서블릿 클래스 만들기
+- web.xml에 서블릿 배치 정보 설정
+- 서블릿 실행 과정
+
+ 
