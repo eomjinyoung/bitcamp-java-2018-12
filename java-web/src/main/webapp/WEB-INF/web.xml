@@ -11,6 +11,27 @@
 
   <display-name>웹 애플리케이션의 이름</display-name>
 
+  <!-- 필터 배치 정보 -->
+  <filter>
+    <filter-name>f1</filter-name>
+    <filter-class>bitcamp.ex02.Filter01</filter-class>
+  </filter>
+  <filter>
+    <filter-name>f2</filter-name>
+    <filter-class>bitcamp.ex02.Filter02</filter-class>
+  </filter>
+  
+  <!-- 필터를 언제 실행할 지 결정하기 위해 URL을 지정한다. -->
+  <filter-mapping>
+    <filter-name>f1</filter-name>
+    <url-pattern>/ex02/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>f2</filter-name>
+    <url-pattern>/ex02/a/s2</url-pattern>
+  </filter-mapping>
+
+
   <!-- 서블릿 배치 정보 설정
        => 웹 애플리케이션에 어떤 서블릿이 있는지 지정한다. -->
   <servlet>
