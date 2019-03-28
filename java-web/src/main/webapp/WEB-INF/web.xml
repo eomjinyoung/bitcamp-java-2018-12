@@ -11,6 +11,15 @@
 
   <display-name>웹 애플리케이션의 이름</display-name>
 
+  <!-- 리스너 배치 정보 -->
+  <listener>
+    <listener-class>bitcamp.ex02.Listener01</listener-class>
+  </listener>
+  <listener>
+    <listener-class>bitcamp.ex02.Listener02</listener-class>
+  </listener>
+
+
   <!-- 필터 배치 정보 -->
   <filter>
     <filter-name>f1</filter-name>

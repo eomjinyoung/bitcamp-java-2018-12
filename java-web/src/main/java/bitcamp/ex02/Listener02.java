@@ -1,11 +1,7 @@
 package bitcamp.ex02;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
-// 서블릿 컨테이너가 관리하는 컴포넌트
-// => 서블릿, 필터, 리스너
-// 
+import javax.servlet.ServletRequestEvent;
+import javax.servlet.ServletRequestListener;
 // 리스너 만들기
 // => 서블릿 컨테이너 또는 서블릿, 세션 등의 객체 상태가 변경되었을 때 보고 받는 옵저버
 // => "Observer" 디자인 패턴이 적용된 것이다.
@@ -31,18 +27,18 @@ import javax.servlet.ServletContextListener;
 //    - 요청이 들어 올 때 로그 남기기
 //    
 //
-public class Listener01 implements ServletContextListener {
+public class Listener02 implements ServletRequestListener {
   
   @Override
-  public void contextInitialized(ServletContextEvent sce) {
-    // 웹 애플리케이션이 시작될 때 호출된다.
-    System.out.println("Listener01.contextInitialized()");
+  public void requestInitialized(ServletRequestEvent sre) {
+    // 요청이 들어 왔을 때 호출된다.
+    System.out.println("Listener02.requestInitialized()");
   }
   
   @Override
-  public void contextDestroyed(ServletContextEvent sce) {
-    // 웹 애플리케이션이 종료될 때 호출된다.
-    System.out.println("Listener01.contextDestroyed()");
+  public void requestDestroyed(ServletRequestEvent sre) {
+    // 요청 처리를 완료할 때 호출된다.
+    System.out.println("Listener02.requestDestroyed()");
   }
 }
 
