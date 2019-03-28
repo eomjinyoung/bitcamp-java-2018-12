@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>test03</title>
+</head>
+<body>
+<h1>POST 요청 - 파일 업로드</h1>
+<p>
+'파일 선택(Browse)' 버튼을 클릭하여 사진 파일을 선택한 후 '전송' 버튼을 누른다.
+</p>
+<form action="http://localhost:8080/java-web/ex04/s3" method="post">
+  이름: <input type="text" name="name"><br>
+  나이: <input type="number" name="age"><br>
+  사진: <input type="file" name="photo"><br>
+  <input type="submit" value="전송">
+</form>
+<p>
+현재 form의 데이터 인코딩 형식은 "application/x-www-form-urlencoded"이다.
+즉 "이름=값&이름=값&이름=값" 형식으로 서버에 데이터를 보낸다.
+문제는 첨부한 파일의 데이터를 보내지 못한다.
+</p>
+</body>
+</html>
+
+
+
+
+
