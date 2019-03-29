@@ -31,7 +31,7 @@ public class BoardListServlet extends HttpServlet {
     
     out.println("<html><head><title>게시물 목록</title></head>");
     out.println("<body><h1>게시물 목록</h1>");
-    out.println("<p><a href='form'>새 글</a></p>");
+    out.println("<p><a href='add'>새 글</a></p>");
     out.println("<table border='1'>");
     out.println("<tr> <th>번호</th> <th>제목</th> <th>등록일</th> <th>조회수</th> </tr>");
     for (Board board : boards) {
