@@ -1,0 +1,47 @@
+// Gradle에 플러그인 추가한다. 
+plugins {
+    id 'java'   // 자바 빌드 명령을 사용할 수 있다.
+    id 'eclipse-wtp' // 자바 웹 프로젝트 플러그인
+    id 'war' // 웹 아키이브 파일(.war)을 다루는 플러그인
+}
+
+// 자바 프로그램에서 사용하는 외부 라이브러리의 저장소 
+repositories {
+    jcenter()  // jcenter에서 라이브러리를 다운로드 받는다.
+}
+
+
+// 프로젝트에서 사용할 외부 라이브러리 정보 
+dependencies {
+    // servlet-api
+    // => 프로젝트를 컴파일 할 때만 사용할 라이브러리라면 providedCompile 메서드를 사용하라.
+    // => 이 메서드로 지정된 라이브러리는 배포할 때 배포 파일(.war, .jar 등)에 포함되지 않는다. 
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+
+    //mybatis persistence framework
+    compile group: 'org.mybatis', name: 'mybatis', version: '3.5.0'
+
+    // MariaDB JDBC Driver
+    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
+    
+    // Spring IoC 컨테이너 라이브러리
+    compile group: 'org.springframework', name: 'spring-context', version: '5.1.5.RELEASE'
+    
+    // Mybatis를 Spring과 연동시키는 라이브러리
+    compile group: 'org.mybatis', name: 'mybatis-spring', version: '2.0.0'
+    
+    // DataSource(DB 커넥션풀) 라이브러리 
+    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.6.0'
+    
+    // Spring JDBC 관련 라이브러리(트랜잭션 라이브러리를 자동으로 추가한다)
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '5.1.5.RELEASE'
+    
+    // AOP 관련 라이브러리
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.2'
+    
+    // log4j 2.x 라이브러리
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
+    
+    implementation 'com.google.guava:guava:26.0-jre'
+    testImplementation 'junit:junit:4.12'
+}
