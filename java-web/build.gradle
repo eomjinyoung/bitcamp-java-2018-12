@@ -12,5 +12,8 @@ dependencies {
     // Servlet API 라이브러리
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 
+    // 멀티파트 형식의 데이터 처리 라이브러리
+    compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+
     testImplementation 'junit:junit:4.12'
 }
