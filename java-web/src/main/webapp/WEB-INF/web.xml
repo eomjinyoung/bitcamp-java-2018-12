@@ -11,6 +11,28 @@
 
   <display-name>웹 애플리케이션의 이름</display-name>
 
+<!-- 컨텍스트 초기화 파라미터 정보 -->
+  <context-param>
+    <param-name>jdbc.driver</param-name>
+    <param-value>org.mariadb.jdbc.Driver</param-value>
+  </context-param>
+  <context-param>
+    <param-name>jdbc.url</param-name>
+    <param-value>jdbc:mariadb://localhost/bitcampdb</param-value>
+  </context-param>
+  <context-param>
+    <param-name>jdbc.username</param-name>
+    <param-value>bitcamp</param-value>
+  </context-param>
+  <context-param>
+    <param-name>jdbc.password</param-name>
+    <param-value>1111</param-value>
+  </context-param>
+  <context-param>
+    <param-name>encoding</param-name>
+    <param-value>UTF-8</param-value>
+  </context-param>
+
   <!-- 리스너 배치 정보 -->
   <listener>
     <listener-class>bitcamp.ex02.Listener01</listener-class>
@@ -29,6 +51,14 @@
     <filter-name>f2</filter-name>
     <filter-class>bitcamp.ex02.Filter02</filter-class>
   </filter>
+  <filter>
+    <filter-name>ex06 Filter01</filter-name>
+    <filter-class>bitcamp.ex06.Filter01</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
   
   <!-- 필터를 언제 실행할 지 결정하기 위해 URL을 지정한다. -->
   <filter-mapping>
@@ -38,6 +68,10 @@
   <filter-mapping>
     <filter-name>f2</filter-name>
     <url-pattern>/ex02/a/s2</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>ex06 Filter01</filter-name>
+    <url-pattern>/ex06/*</url-pattern>
   </filter-mapping>
 
 
@@ -68,6 +102,26 @@
     <servlet-class>bitcamp.ex06.Servlet02</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  <servlet>
+    <servlet-name>bitcamp.ex06.Servlet04</servlet-name>
+    <servlet-class>bitcamp.ex06.Servlet04</servlet-class>
+    <init-param>
+      <param-name>jdbc.driver</param-name>
+      <param-value>org.mariadb.jdbc.Driver</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jdbc.url</param-name>
+      <param-value>jdbc:mariadb://localhost/bitcampdb</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jdbc.username</param-name>
+      <param-value>bitcamp</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jdbc.password</param-name>
+      <param-value>1111</param-value>
+    </init-param>
+  </servlet>
   
   <!-- 서블릿에 URL을 지정한다.
        => URL이 지정된 서블릿은 웹브라우저 쪽에서 그 URL로 실행을 요청할 수 있다.
@@ -93,6 +147,10 @@
   <servlet-mapping>
     <servlet-name>bitcamp.ex04.Servlet05</servlet-name>
     <url-pattern>/ex04/s5</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>bitcamp.ex06.Servlet04</servlet-name>
+    <url-pattern>/ex06/s4</url-pattern>
   </servlet-mapping>
   
   
