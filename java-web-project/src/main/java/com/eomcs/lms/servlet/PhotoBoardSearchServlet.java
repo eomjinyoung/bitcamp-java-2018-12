@@ -23,7 +23,6 @@ public class PhotoBoardSearchServlet extends HttpServlet {
     PhotoBoardService photoBoardService = 
         InitServlet.iocContainer.getBean(PhotoBoardService.class);
 
-    request.setCharacterEncoding("UTF-8");
     int lessonNo = 0;
     try {
       lessonNo = Integer.parseInt(request.getParameter("lessonNo"));

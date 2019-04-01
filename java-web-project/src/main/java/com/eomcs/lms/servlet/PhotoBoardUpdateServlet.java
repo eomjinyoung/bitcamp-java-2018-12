@@ -34,7 +34,6 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     
-    request.setCharacterEncoding("UTF-8");
     PhotoBoardService photoBoardService = InitServlet.iocContainer.getBean(PhotoBoardService.class);
 
     response.setContentType("text/html;charset=UTF-8");

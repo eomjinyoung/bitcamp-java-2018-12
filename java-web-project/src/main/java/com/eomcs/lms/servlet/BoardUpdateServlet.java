@@ -20,8 +20,6 @@ public class BoardUpdateServlet extends HttpServlet {
       HttpServletResponse response)
       throws ServletException, IOException {
     
-    request.setCharacterEncoding("UTF-8");
-    
     BoardService boardService = InitServlet.iocContainer.getBean(BoardService.class);
 
     Board board = new Board();

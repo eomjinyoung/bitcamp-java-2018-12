@@ -22,9 +22,7 @@ public class MemberUpdateServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    request.setCharacterEncoding("UTF-8");
     MemberService memberService = InitServlet.iocContainer.getBean(MemberService.class);
-
 
     Member member = new Member();
     member.setNo(Integer.parseInt(request.getParameter("no")));
