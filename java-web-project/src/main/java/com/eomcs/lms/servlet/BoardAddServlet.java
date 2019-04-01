@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.ServerApp;
+import com.eomcs.lms.InitServlet;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 
@@ -51,7 +51,7 @@ public class BoardAddServlet extends HttpServlet {
     
     // Spring IoC 컨테이너에서 BoardService 객체를 꺼낸다.
     BoardService boardService = 
-        ServerApp.iocContainer.getBean(BoardService.class);
+        InitServlet.iocContainer.getBean(BoardService.class);
     
     Board board = new Board();
     board.setContents(request.getParameter("contents")

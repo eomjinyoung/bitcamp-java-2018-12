@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.ServerApp;
+import com.eomcs.lms.InitServlet;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 
@@ -21,7 +21,7 @@ public class BoardDetailServlet extends HttpServlet {
     
     // Spring IoC 컨테이너에서 BoardService 객체를 꺼낸다.
     BoardService boardService = 
-        ServerApp.iocContainer.getBean(BoardService.class);
+        InitServlet.iocContainer.getBean(BoardService.class);
     
     int no = Integer.parseInt(request.getParameter("no"));
     
@@ -37,7 +37,7 @@ public class BoardDetailServlet extends HttpServlet {
       out.println("<p>해당 번호의 게시물이 없습니다.</p>");
       
     } else {
-      out.println("<form action='update'>");
+      out.println("<form action='update' method='post'>");
       out.println("<table border='1'>");
       out.printf("<tr>"
           + "<th>번호</th>"

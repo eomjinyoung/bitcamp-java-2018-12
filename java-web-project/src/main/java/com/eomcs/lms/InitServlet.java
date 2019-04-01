@@ -17,10 +17,10 @@ import com.eomcs.lms.context.RequestMappingHandlerMapping;
 @WebServlet(
     urlPatterns = "/init",
     loadOnStartup = 1)
-public class ServerApp extends HttpServlet {
+public class InitServlet extends HttpServlet {
    
   // 보통 클래스에서 사용할 로그 출력 객체는 클래스의 스태틱 멤버로 선언한다.
-  final static Logger logger = LogManager.getLogger(ServerApp.class);
+  final static Logger logger = LogManager.getLogger(InitServlet.class);
 
   // Command 객체와 그와 관련된 객체를 보관하고 있는 빈 컨테이너
   public static ApplicationContext iocContainer;
