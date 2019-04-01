@@ -38,7 +38,7 @@ public class PhotoBoardDetailServlet extends HttpServlet {
       out.println("<p>해당 사진을 찾을 수 없습니다.</p>");
 
     } else {
-      out.println("<form action='update' method='post'>");
+      out.println("<form action='update' method='post' enctype='multipart/form-data'>");
       out.println("<table border='1'>");
       out.println("<tr>");
       out.println("  <th>번호</th>");
@@ -66,16 +66,33 @@ public class PhotoBoardDetailServlet extends HttpServlet {
       out.println("  <td colspan='2'>최소 한 개의 사진 파일을 등록해야 합니다.</td>");
       out.println("</tr>");
       out.println("<tr>");
-      out.println("  <th>사진 파일</th>");
+      out.println("  <th>사진1</th>");
+      out.println("  <td><input type='file' name='photo'></td>");
+      out.println("</tr>");
+      out.println("<tr>");
+      out.println("  <th>사진2</th>");
+      out.println("  <td><input type='file' name='photo'></td>");
+      out.println("</tr>");
+      out.println("<tr>");
+      out.println("  <th>사진3</th>");
+      out.println("  <td><input type='file' name='photo'></td>");
+      out.println("</tr>");
+      out.println("<tr>");
+      out.println("  <th>사진4</th>");
+      out.println("  <td><input type='file' name='photo'></td>");
+      out.println("</tr>");
+      out.println("<tr>");
+      out.println("  <th>사진5</th>");
+      out.println("  <td><input type='file' name='photo'></td>");
+      out.println("</tr>");
+      out.println("<tr>");
+      out.println("  <th>사진</th>");
       out.println("  <td>");
       List<PhotoFile> files = board.getFiles();
-      for (int i = 0; i < 5; i++) {
-        if (i < files.size()) {
-          out.printf("<input type='text' name='photo%d' value='%s'><br>\n", i,
-              files.get(i).getFilePath());
-        } else {
-          out.printf("<input type='text' name='photo%d'><br>\n", i);
-        }
+      for (PhotoFile file : files) {
+        out.printf(
+            "<img src='../upload/photoboard/%s' style='height:80px'>\n", 
+            file.getFilePath());
       }
       out.println("</td></tr>");
       out.println("</table>");

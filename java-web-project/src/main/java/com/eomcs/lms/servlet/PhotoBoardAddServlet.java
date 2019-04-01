@@ -98,8 +98,9 @@ public class PhotoBoardAddServlet extends HttpServlet {
 
     ArrayList<PhotoFile> files = new ArrayList<>();
     Collection<Part> photos = request.getParts();
+    
     for (Part photo : photos) {
-      if (photo.getSize() == 0) 
+      if (photo.getSize() == 0 || !photo.getName().equals("photo")) 
         continue;
       
       String filename = UUID.randomUUID().toString();
