@@ -63,6 +63,11 @@
       <max-file-size>10000000</max-file-size>
     </multipart-config>
   </servlet>
+  <servlet>
+    <servlet-name>bitcamp.ex06.Servlet02</servlet-name>
+    <servlet-class>bitcamp.ex06.Servlet02</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
   
   <!-- 서블릿에 URL을 지정한다.
        => URL이 지정된 서블릿은 웹브라우저 쪽에서 그 URL로 실행을 요청할 수 있다.
