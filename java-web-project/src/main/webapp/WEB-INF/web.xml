@@ -11,6 +11,12 @@
 
   <display-name>java-web-project</display-name>
 
+<!-- 리스너 선언 -->
+  <listener>
+    <listener-class>com.eomcs.lms.listener.ContextLoaderListener</listener-class>
+  </listener>
+  
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

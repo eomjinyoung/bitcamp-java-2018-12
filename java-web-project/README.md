@@ -20,4 +20,9 @@
   - MemberAddServlet, MemberUpdateServlet, MemberDeleteServlet
   - PhotoBoardAddServlet, PhotoBoardUpdateServlet, PhotoBoardDeleteServlet
 
-## src03 : 
+## src03 : ServletContext, HttpSession, ServletRequest 보관소 사용
+- InitServlet 에서 하던 일을 ContextLoaderListener에 맡긴다.
+- ContextLoaderListener(ServletContextListener의 구현체)
+    - 웹 애플리케이션이 시작될 때 스프링 IoC 컨테이너를 준비한다.
+    - ServletContext 보관소에 저장한다.
+- 

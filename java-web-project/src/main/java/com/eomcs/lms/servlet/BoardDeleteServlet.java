@@ -1,12 +1,13 @@
 package com.eomcs.lms.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.InitServlet;
+import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.service.BoardService;
 
 @SuppressWarnings("serial")
@@ -19,7 +20,10 @@ public class BoardDeleteServlet extends HttpServlet {
       HttpServletResponse response)
       throws ServletException, IOException {
     
-    BoardService boardService = InitServlet.iocContainer.getBean(BoardService.class);
+    ServletContext sc = this.getServletContext();
+    ApplicationContext iocContainer = 
+        (ApplicationContext) sc.getAttribute("iocContainer");
+    BoardService boardService = iocContainer.getBean(BoardService.class);
 
     int no = Integer.parseInt(request.getParameter("no"));
 
