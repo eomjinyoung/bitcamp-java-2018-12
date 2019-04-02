@@ -1,4 +1,4 @@
-package com.eomcs.lms.servlet;
+package com.eomcs.lms.servlet3;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -7,43 +7,48 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.eomcs.lms.InitServlet;
-import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 
 @SuppressWarnings("serial")
-@WebServlet("/board/update")
-public class BoardUpdateServlet extends HttpServlet {
-
+@WebServlet("/board3/delete")
+public class BoardDeleteServlet extends HttpServlet {
+  
   @Override
-  protected void doPost(
+  protected void doGet(
       HttpServletRequest request, 
       HttpServletResponse response)
       throws ServletException, IOException {
     
     BoardService boardService = InitServlet.iocContainer.getBean(BoardService.class);
 
-    Board board = new Board();
-    board.setNo(Integer.parseInt(request.getParameter("no")));
-    board.setContents(request.getParameter("contents"));
-    
-    if (boardService.update(board) > 0) {
-      response.sendRedirect("list");
-      return;
-    }
-    
-    response.setHeader("Refresh", "2;url=list");
-    
+    int no = Integer.parseInt(request.getParameter("no"));
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     
     out.println("<html><head>"
-        + "<title>게시물 변경</title>"
+        + "<title>게시물 삭제</title>"
+        + "<meta http-equiv='Refresh' content='1;url=list'>"
         + "</head>");
-    out.println("<body><h1>게시물 변경</h1>");
-    out.println("<p>해당 번호의 게시물이 없습니다.</p>");
+    
+    out.println("<body>");
+    
+    request.getRequestDispatcher("/board3/header").include(request, response);
+    
+    out.println("<h1>게시물 삭제</h1>");
+    
+    if (boardService.delete(no) == 0) {
+      out.println("<p>해당 번호의 게시물이 없습니다.</p>");
+    } else { 
+      out.println("<p>삭제했습니다.</p>");
+    }
+    
+    request.getRequestDispatcher("/board3/footer").include(request, response);
+    
     out.println("</body></html>");
   }
- 
+
+
 }
 
 

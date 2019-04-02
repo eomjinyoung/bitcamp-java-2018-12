@@ -1,4 +1,4 @@
-package com.eomcs.lms.servlet;
+package com.eomcs.lms.servlet3;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -11,7 +11,7 @@ import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 
 @SuppressWarnings("serial")
-@WebServlet("/board/add")
+@WebServlet("/board3/add")
 public class BoardAddServlet extends HttpServlet {
   
   @Override
@@ -25,6 +25,9 @@ public class BoardAddServlet extends HttpServlet {
     out.println("<htm>");
     out.println("<head><title>새 글</title></head>");
     out.println("<body>");
+    
+    request.getRequestDispatcher("/board3/header").include(request, response);
+    
     out.println("<h1>새 글</h1>");
     out.println("<form action='add' method='post'>");
     out.println("<table border='1'>");
@@ -38,6 +41,9 @@ public class BoardAddServlet extends HttpServlet {
     out.println("  <a href='list'>목록</a>");
     out.println("</p>");
     out.println("</form>");
+    
+    request.getRequestDispatcher("/board3/footer").include(request, response);
+    
     out.println("</body>");
     out.println("</html>");
   }
@@ -57,7 +63,24 @@ public class BoardAddServlet extends HttpServlet {
     
     boardService.add(board);
     
-    response.sendRedirect("list");
+    response.setContentType("text/html;charset=UTF-8");
+    PrintWriter out = response.getWriter();
+    out.println("<html><head>"
+        + "<title>게시물 등록</title>"
+        + "<meta http-equiv='Refresh' content='1;url=list'>"
+        + "</head>");
+    
+    out.println("<body>");
+    
+    request.getRequestDispatcher("/board3/header").include(request, response);
+    
+    out.println("<h1>게시물 등록</h1>");
+    out.println("<p>저장하였습니다.</p>");
+    
+    request.getRequestDispatcher("/board3/footer").include(request, response);
+    
+    out.println("</body></html>");
+    
   }
 }
 
