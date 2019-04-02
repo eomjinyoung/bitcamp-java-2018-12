@@ -25,4 +25,3 @@
 - ContextLoaderListener(ServletContextListener의 구현체)
     - 웹 애플리케이션이 시작될 때 스프링 IoC 컨테이너를 준비한다.
     - ServletContext 보관소에 저장한다.
-- 
