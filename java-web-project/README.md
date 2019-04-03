@@ -25,3 +25,8 @@
 - ContextLoaderListener(ServletContextListener의 구현체)
     - 웹 애플리케이션이 시작될 때 스프링 IoC 컨테이너를 준비한다.
     - ServletContext 보관소에 저장한다.
+
+## src04 : Cookie와 HttpSession을 활용하여 로그인 처리
+- LoginServlet 
+    - 로그인 폼 출력과 로그인을 처리하는 역할
+- LogoutServlet
