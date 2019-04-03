@@ -16,6 +16,20 @@
     <listener-class>com.eomcs.lms.listener.ContextLoaderListener</listener-class>
   </listener>
   
+<!-- 필터 선언 -->
+  <filter>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <filter-class>com.eomcs.lms.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>  
   
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

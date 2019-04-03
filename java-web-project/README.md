@@ -27,6 +27,10 @@
     - ServletContext 보관소에 저장한다.
 
 ## src04 : Cookie와 HttpSession을 활용하여 로그인 처리
-- LoginServlet 
+- LoginServlet 추가 
     - 로그인 폼 출력과 로그인을 처리하는 역할
-- LogoutServlet
+- LogoutServlet 추가 
+- AuthFilter 추가 
+    - */add, */update, */delete URL 요청에 대해 로그인 되지 않았을 경우 로그인 폼으로 보낸다.
+- CharacterEncodingFilter 변경
+    - 인코딩 문자표를 소스 코드에 직접 입력하는 대신에 web.xml에서 읽어오기
