@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/ex10/s22")
+@WebServlet("/ex10/a/b/c/s23")
 @SuppressWarnings("serial")
-public class Servlet22 extends HttpServlet {
+public class Servlet23 extends HttpServlet {
   
   @Override
   protected void service(
@@ -21,7 +21,7 @@ public class Servlet22 extends HttpServlet {
       throws ServletException, IOException {
     
     // 테스트 방법:
-    // => http://localhost:8080/java-web/ex10/s22
+    // => http://localhost:8080/java-web/ex10/a/b/c/s23
     //
     
     Cookie[] cookies = request.getCookies();
