@@ -538,6 +538,10 @@
     - ServletContextListener에서 스프링 IoC 컨테이너 준비하기
     - ServletContext 보관소 이용하여 스프링 IoC 컨테이너 보관하기
 
+## 64일(2019-4-3)
+- 쿠키 다루기
+- 세션을 식별하는 원리
+
 
 
 
