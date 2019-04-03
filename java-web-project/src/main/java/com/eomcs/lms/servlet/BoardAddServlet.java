@@ -26,6 +26,10 @@ public class BoardAddServlet extends HttpServlet {
     out.println("<htm>");
     out.println("<head><title>새 글</title></head>");
     out.println("<body>");
+    
+    // 헤더를 출력한다.
+    request.getRequestDispatcher("/header").include(request, response);
+    
     out.println("<h1>새 글</h1>");
     out.println("<form action='add' method='post'>");
     out.println("<table border='1'>");
