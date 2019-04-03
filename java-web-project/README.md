@@ -39,3 +39,5 @@
     - 인코딩 문자표를 소스 코드에 직접 입력하는 대신에 web.xml에서 읽어오기
 - HeaderServlet
     - 비트캠프 로고와 로그인 정보를 출력하는 서블릿이다.
+- *AddServlet, *DetailServlet, *ListServlet
+    - 화면 상단에 로그인 정보 출력하도록 HeaderServlet을 include한다.
