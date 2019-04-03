@@ -31,7 +31,12 @@ public class MemberDetailServlet extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>회원 조회</title></head>");
-    out.println("<body><h1>회원 조회</h1>");
+    out.println("<body>");
+    
+    // 헤더를 출력한다.
+    request.getRequestDispatcher("/header").include(request, response);
+    
+    out.println("<h1>회원 조회</h1>");
 
     if (member == null) {
       out.println("<p>해당 번호의 회원이 없습니다.</p>");

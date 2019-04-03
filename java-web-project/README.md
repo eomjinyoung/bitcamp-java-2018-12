@@ -37,3 +37,5 @@
     - */add, */update, */delete URL 요청에 대해 로그인 되지 않았을 경우 로그인 폼으로 보낸다.
 - CharacterEncodingFilter 변경
     - 인코딩 문자표를 소스 코드에 직접 입력하는 대신에 web.xml에서 읽어오기
+- HeaderServlet
+    - 비트캠프 로고와 로그인 정보를 출력하는 서블릿이다.
