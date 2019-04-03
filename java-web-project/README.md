@@ -29,7 +29,10 @@
 ## src04 : Cookie와 HttpSession을 활용하여 로그인 처리
 - LoginServlet 추가 
     - 로그인 폼 출력과 로그인을 처리하는 역할
+    - Referer HTTP 요청 헤더를 이용하여 로그인 후 이전 페이지로 이동시킨다.
+    - 쿠키를 활용하여 로그인 폼에서 이메일을 자동 저장하게 한다.
 - LogoutServlet 추가 
+    - 세션을 무효화시킨다.
 - AuthFilter 추가 
     - */add, */update, */delete URL 요청에 대해 로그인 되지 않았을 경우 로그인 폼으로 보낸다.
 - CharacterEncodingFilter 변경
