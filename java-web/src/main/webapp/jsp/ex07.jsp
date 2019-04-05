@@ -8,9 +8,7 @@
     trimDirectiveWhitespaces="true"
     buffer="8kb"
     autoFlush="false"%>
-    
 <%@ page import="java.sql.Connection"%>
-
 <%@ page import="java.sql.Statement"%>
 <!DOCTYPE html>
 <html>
