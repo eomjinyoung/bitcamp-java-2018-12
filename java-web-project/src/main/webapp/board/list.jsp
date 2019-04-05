@@ -14,9 +14,9 @@ List<Board> list = (List<Board>)request.getAttribute("list");
   <title>게시물 목록</title>
 </head>
 <body>
-<%
-request.getRequestDispatcher("/header").include(request, response);
-%>
+
+<jsp:include page="/header.jsp"/>
+
 <h1>게시물 목록(JSP)</h1>
 <p><a href='add'>새 글</a></p>
 <table border='1'>

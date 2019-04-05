@@ -43,3 +43,6 @@
     - 화면 상단에 로그인 정보 출력하도록 HeaderServlet을 include한다.
 
 ## src05 : JSP 도입
+- /header.jsp 추가
+    - HeaderServlet을 /header.jsp 로 전환한다.
+    

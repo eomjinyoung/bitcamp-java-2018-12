@@ -10,9 +10,9 @@ Board board = (Board)request.getAttribute("board");
 <title>게시물 조회</title>
 </head>
 <body>
-<%
-  request.getRequestDispatcher("/header").include(request, response);
-%>
+
+<jsp:include page="/header.jsp"/>
+
   <h1>게시물 조회(JSP)</h1>
   
 <%if (board == null) {%>
