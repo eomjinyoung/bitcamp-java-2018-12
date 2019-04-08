@@ -45,4 +45,11 @@
 ## src05 : JSP 도입
 - /header.jsp 추가
     - HeaderServlet을 /header.jsp 로 전환한다.
-    
+- /board/list.jsp, /board/detail.jsp, /board/form.jsp 추가 
+    - BoardXxxServlet 클래스에 JSP 적용
+- /lesson/list.jsp, /lesson/detail.jsp, /lesson/form.jsp 추가 
+    - LessonXxxServlet 클래스에 JSP 적용
+- /member/list.jsp, /member/detail.jsp, /member/form.jsp 추가 
+    - MemberXxxServlet 클래스에 JSP 적용
+- /photoboard/list.jsp, /photoboard/detail.jsp, /photoboard/form.jsp 추가 
+    - PhotoBoardXxxServlet 클래스에 JSP 적용

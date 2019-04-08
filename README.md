@@ -553,6 +553,11 @@
 
 ## 66일(2019-4-5)
 - JSP 사용법 I
+    - JSP 주석, scriptlet/expression/declaration/directive element 사용법
 - 웹 프로젝트 5단계 과제
     - JSP를 도입하여 MVC 아키텍처로 변경
 
+## 66일(2019-4-5)
+- JSP 사용법 II
+- 웹 프로젝트 6단계 과제
+    - 
