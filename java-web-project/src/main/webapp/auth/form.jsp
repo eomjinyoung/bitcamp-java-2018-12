@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-String email = (String) request.getAttribute("email");
-%>
+<jsp:useBean scope="request" id="email" class="java.lang.String"/>
 <!DOCTYPE html>
 <html>
 <head><title>로그인</title></head>

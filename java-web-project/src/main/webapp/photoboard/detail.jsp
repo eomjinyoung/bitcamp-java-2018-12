@@ -1,14 +1,7 @@
 <%@page import="com.eomcs.lms.domain.PhotoFile"%>
 <%@page import="com.eomcs.lms.domain.Lesson"%>
-<%@page import="java.util.List"%>
-<%@page import="com.eomcs.lms.domain.PhotoBoard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
-<%
-  PhotoBoard board = (PhotoBoard) request.getAttribute("board");
-  List<Lesson> lessons = (List<Lesson>)request.getAttribute("lessons");
-  List<PhotoFile> files = board.getFiles();
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +11,8 @@
 
   <jsp:include page="/header.jsp" />
 
-  <h1>사진 조회</h1>
-
+  <h1>사진 조회(JSP2)</h1>
+<jsp:useBean scope="request" id="board" type="com.eomcs.lms.domain.PhotoBoard"/>
   <%if (board == null) { %>
   <p>해당 사진을 찾을 수 없습니다.</p>
   <%} else { %>
@@ -44,7 +37,7 @@
       <tr>
         <th>수업</th>
         <td><select name='lessonNo'>
-
+<jsp:useBean scope="request" id="lessons" type="java.util.List<Lesson>"/>
             <%for (Lesson lesson : lessons) { %>
             <option value='<%=lesson.getNo() %>'
               <%=board.getLessonNo() == lesson.getNo() ? "selected" : ""%>><%=lesson.getTitle() %>(<%=lesson.getStartDate() %>
@@ -81,6 +74,7 @@
       <tr>
         <th>사진</th>
         <td>
+<jsp:useBean scope="request" id="files" type="java.util.List<PhotoFile>"/>        
           <%for (PhotoFile file : files) {%> 
             <img src='../upload/photoboard/<%=file.getFilePath()%>' style='height: 80px'> 
           <%} %>

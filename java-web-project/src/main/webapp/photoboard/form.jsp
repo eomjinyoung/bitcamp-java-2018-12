@@ -3,9 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%
-List<Lesson> lessons = (List<Lesson>)request.getAttribute("lessons");
-%>
 <html>
     <head><title>새 사진</title></head>
     <body>
@@ -17,7 +14,7 @@ List<Lesson> lessons = (List<Lesson>)request.getAttribute("lessons");
       <th>수업</th>
       <td><select name='lessonNo'>
           <option value='0'>수업을 선택하세요</option>
-    
+<jsp:useBean scope="request" id="lessons" type="java.util.List<Lesson>"/> 
     <%for (Lesson lesson : lessons) { %>
       <option value=<%=lesson.getNo()%>><%=lesson.getTitle() %></option>
     <%} %>

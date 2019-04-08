@@ -1,10 +1,6 @@
 <%@page import="com.eomcs.lms.domain.PhotoBoard"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
-<%
-  List<PhotoBoard> boards = (List<PhotoBoard>) request.getAttribute("list");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +8,7 @@
 </head>
 <body>
   <jsp:include page="/header.jsp" />
-  <h1>사진 목록(JSP)</h1>
+  <h1>사진 목록(JSP2)</h1>
   <p>
     <a href='add'>새 사진</a>
   </p>
@@ -24,8 +20,8 @@
       <th>조회수</th>
       <th>수업</th>
     </tr>
- 
-    <%for (PhotoBoard board : boards) {%>
+<jsp:useBean scope="request" id="list" type="java.util.List<PhotoBoard>"/> 
+    <%for (PhotoBoard board : list) {%>
     <tr>
       <td><%=board.getNo() %></td>
       <td><a href='detail?no=<%=board.getNo()%>'><%=board.getTitle() %></a></td>

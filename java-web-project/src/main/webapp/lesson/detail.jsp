@@ -1,9 +1,5 @@
-<%@page import="com.eomcs.lms.domain.Lesson"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
-<%
-  Lesson lesson = (Lesson) request.getAttribute("lesson");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +9,9 @@
 
   <jsp:include page="/header.jsp" />
 
-  <h1>수업 조회(JSP)</h1>
+  <h1>수업 조회(JSP2)</h1>
 
+<jsp:useBean scope="request" id="lesson" type="com.eomcs.lms.domain.Lesson"/>
   <%
     if (lesson == null) {
   %>

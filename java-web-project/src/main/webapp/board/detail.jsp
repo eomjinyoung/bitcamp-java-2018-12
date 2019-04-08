@@ -1,9 +1,5 @@
-<%@page import="com.eomcs.lms.domain.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
-<%
-Board board = (Board)request.getAttribute("board");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +9,8 @@ Board board = (Board)request.getAttribute("board");
 
 <jsp:include page="/header.jsp"/>
 
-  <h1>게시물 조회(JSP)</h1>
-  
+  <h1>게시물 조회(JSP2)</h1>
+<jsp:useBean scope="request" id="board" type="com.eomcs.lms.domain.Board"/>  
 <%if (board == null) {%>
   <p>해당 게시물이 없습니다</p>
 <%} else {%>

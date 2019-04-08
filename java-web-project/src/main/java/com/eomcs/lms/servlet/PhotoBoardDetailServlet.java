@@ -36,6 +36,7 @@ public class PhotoBoardDetailServlet extends HttpServlet {
     PhotoBoard board = photoBoardService.get(no);
     List<Lesson> lessons = lessonService.list();
     request.setAttribute("board", board);
+    request.setAttribute("files", board.getFiles());
     request.setAttribute("lessons", lessons);
     
     response.setContentType("text/html;charset=UTF-8");
