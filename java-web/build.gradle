@@ -18,5 +18,8 @@ dependencies {
     // 썸네일 이미지 생성 라이브러리
     compile group: 'net.coobird', name: 'thumbnailator', version: '0.4.8'
     
+    // JSTL 명세를 구현한 라이브러리
+    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+    
     testImplementation 'junit:junit:4.12'
 }
