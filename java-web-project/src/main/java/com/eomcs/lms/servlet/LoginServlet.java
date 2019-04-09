@@ -50,7 +50,9 @@ public class LoginServlet extends HttpServlet {
     }
     
     // 인클루딩 서블릿 쪽에서 쿠키를 추가할 수 없다.
-    // 추가는 프론트 컨트롤러에게 맡긴다.
+    //response.addCookie(cookie); // 동작 안함!
+
+    // 쿠키를 응답 헤더에 추가하는 것은 프론트 컨트롤러에게 맡긴다.
     ArrayList<Cookie> cookies = new ArrayList<>();
     cookies.add(cookie);
     request.setAttribute("cookies", cookies);
