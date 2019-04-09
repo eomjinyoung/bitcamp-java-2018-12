@@ -53,3 +53,19 @@
     - MemberXxxServlet 클래스에 JSP 적용
 - /photoboard/list.jsp, /photoboard/detail.jsp, /photoboard/form.jsp 추가 
     - PhotoBoardXxxServlet 클래스에 JSP 적용
+
+## src06 : JSP 액션 태그 적용 
+- /webapp/../*.jsp 변경
+    - JSP 액션 태그 적용
+
+## src07 : EL 적용
+- /webapp/../*.jsp 변경
+    - EL 적용
+
+## src08 : JSTL 적용
+- /webapp/../*.jsp 변경
+    - JSTL 태그 적용
+
+## src09 : 프론트 컨트롤러 적용
+- DispatcherServlet 추가
+    - 프론트 컨트롤러 역할을 수행하는 서블릿
