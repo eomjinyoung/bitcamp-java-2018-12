@@ -29,7 +29,6 @@ public class BoardDeleteServlet extends HttpServlet {
     if (boardService.delete(no) > 0) {
       // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
       request.setAttribute("viewUrl", "redirect:list");
-      return;
       
     } else {
       // 오류 내용을 출력하는 JSP로 포워딩한다.
