@@ -1,12 +1,16 @@
 package com.eomcs.lms.servlet;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@MultipartConfig(maxFileSize = 1024 * 1024 * 5)
 @WebServlet("/app/*")
 @SuppressWarnings("serial")
 public class DispatcherServlet extends HttpServlet {
@@ -25,6 +29,16 @@ public class DispatcherServlet extends HttpServlet {
       request.getRequestDispatcher("/error.jsp").forward(request, response);
       return;
     }
+    
+    // 페이지 컨트롤러에서 쿠키를 저장했으면 응답 헤더에 추가한다.
+    @SuppressWarnings("unchecked")
+    List<Cookie> cookies = (List<Cookie>) request.getAttribute("cookies");
+    if (cookies != null) {
+      for (Cookie cookie : cookies) {
+        response.addCookie(cookie);
+      }
+    }
+       
     
     // ServletRequest 보관소에 저장된 view 컴포넌트 URL을 꺼낸다.
     String viewUrl = (String) request.getAttribute("viewUrl");

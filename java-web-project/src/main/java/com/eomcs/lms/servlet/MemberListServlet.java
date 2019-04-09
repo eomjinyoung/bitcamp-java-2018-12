@@ -24,13 +24,10 @@ public class MemberListServlet extends HttpServlet {
     MemberService memberService = iocContainer.getBean(MemberService.class);
 
     List<Member> members = memberService.list(null);
-
     request.setAttribute("list", members);
     
-    response.setContentType("text/html;charset=UTF-8");
-    
-    request.getRequestDispatcher("/member/list.jsp").include(request, response);
-    
+    // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
+    request.setAttribute("viewUrl", "/member/list.jsp");
   }
 
 

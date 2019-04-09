@@ -35,15 +35,13 @@ public class LessonUpdateServlet extends HttpServlet {
     lesson.setDayHours(Integer.parseInt(request.getParameter("dayHours")));
 
     if (lessonService.update(lesson) > 0) {
-      response.sendRedirect("list");
-      return;
+      // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
+      request.setAttribute("viewUrl", "redirect:list");
+    } else {
+      // 오류 내용을 출력하는 JSP로 포워딩한다.
+      request.setAttribute("error.title", "수업 변경");
+      request.setAttribute("error.content", "해당 번호의 수업이 없습니다.");
     }
-    
-    // 오류 내용을 출력하는 JSP로 포워딩한다.
-    request.setAttribute("error.title", "수업 변경");
-    request.setAttribute("error.content", "해당 번호의 수업이 없습니다.");
-    
-    request.getRequestDispatcher("/error.jsp").forward(request, response);
   }
 
 }

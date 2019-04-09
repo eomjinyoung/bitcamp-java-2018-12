@@ -24,12 +24,12 @@ public class MemberDeleteServlet extends HttpServlet {
     int no = Integer.parseInt(request.getParameter("no"));
 
     if (memberService.delete(no) > 0) {
-      response.sendRedirect("list");
-      return;
+      // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
+      request.setAttribute("viewUrl", "redirect:list");
+      
+    } else {
+      request.setAttribute("error.title", "회원 삭제");
+      request.setAttribute("error.content", "해당 번호의 회원이 없습니다.");
     }
-    request.setAttribute("error.title", "회원 삭제");
-    request.setAttribute("error.content", "해당 번호의 회원이 없습니다.");
-    
-    request.getRequestDispatcher("/error.jsp").forward(request, response);
   }
 }

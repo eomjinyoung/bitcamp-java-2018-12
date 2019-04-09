@@ -18,8 +18,8 @@ public class LogoutServlet extends HttpServlet {
     // 세션을 무효화시킨다.
     request.getSession().invalidate();
     
-    // 메인 화면으로 보낸다.
-    response.sendRedirect(getServletContext().getContextPath());
+    // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
+    request.setAttribute("viewUrl", "redirect:" + getServletContext().getContextPath());
   }
 }
 
