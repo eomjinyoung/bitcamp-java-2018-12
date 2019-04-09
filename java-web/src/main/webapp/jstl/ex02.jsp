@@ -11,11 +11,11 @@
 </head>
 <body>
 <h1>JSTL - c:out</h1>
-<pre>
+<%--
 - 출력문을 만드는 태그이다.
-  &lt;c:out value="출력될 값" default="기본 값"/>
-  &lt;c:out value="출력될 값>기본값&lt;c:out>
-</pre>
+  <c:out value="출력될 값" default="기본 값"/>
+  <c:out value="출력될 값>기본값<c:out>
+--%>
 
 <c:out value="임꺽정"/><br>
 <c:out value="${null}" default="홍길동"/><br>
