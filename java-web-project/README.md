@@ -73,3 +73,6 @@
     - JSP 인클루드와 리다이렉트 코드를 프론트 컨틀롤러에게 위임
 - LoginServlet 쿠키 처리
     - 프론트 컨트롤러에서 쿠키를 처리하도록 코드 변경
+- /member/detail.jsp, /photoboard/detail.jsp
+    - /image, /upload 폴더를 상대 경로 대신 컨텍스트 루트 절대 경로로 지정
+    
