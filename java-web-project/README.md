@@ -75,4 +75,5 @@
     - 프론트 컨트롤러에서 쿠키를 처리하도록 코드 변경
 - /member/detail.jsp, /photoboard/detail.jsp
     - /image, /upload 폴더를 상대 경로 대신 컨텍스트 루트 절대 경로로 지정
-    
+- AuthFilter 변경
+    - /app/* 에 대해서 적용

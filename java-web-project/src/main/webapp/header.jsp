@@ -5,12 +5,12 @@
 <header>
   <img src="http://bitcamp.co.kr/img/logo.jpg" style="height:50px;">
 <c:if test="${empty loginUser}">
-  <a href='${contextRootPath}/auth/login'>로그인</a>
+  <a href='${contextRootPath}/app/auth/login'>로그인</a>
 </c:if>
 <c:if test="${not empty loginUser}">
   <img src='${contextRootPath}/upload/member/${loginUser.photo}' 
        style='height:20px;'>${loginUser.name}
-  <a href='${contextRootPath}/auth/logout'>로그아웃</a> 
+  <a href='${contextRootPath}/app/auth/logout'>로그아웃</a> 
 </c:if>
 </header>
 

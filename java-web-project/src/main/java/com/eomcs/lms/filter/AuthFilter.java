@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.eomcs.lms.domain.Member;
 
-@WebFilter("/*")
+@WebFilter("/app/*")
 public class AuthFilter implements Filter {
   
   FilterConfig filterConfig;
@@ -35,11 +35,13 @@ public class AuthFilter implements Filter {
     HttpServletRequest httpReq = (HttpServletRequest) request;
     HttpServletResponse httpResp = (HttpServletResponse) response;
     
-    String servletPath = httpReq.getServletPath();
+    // /app/* URL에 대해서 적용하기 때문에 서블릿 경로를 검사해서는 안된다.
+    //String servletPath = httpReq.getServletPath(); // "/app"
+    String pathInfo = httpReq.getPathInfo(); // ex) "/board/list"
     
-    if (servletPath.endsWith("add")
-        || servletPath.endsWith("update")
-        || servletPath.endsWith("delete")) {
+    if (pathInfo.endsWith("add")
+        || pathInfo.endsWith("update")
+        || pathInfo.endsWith("delete")) {
       // 로그인 되어 있어야 한다.
       Member loginUser = (Member) httpReq.getSession().getAttribute("loginUser");
       if (loginUser == null) {
@@ -47,7 +49,7 @@ public class AuthFilter implements Filter {
         // 막연히 상대경로로 로그인 폼의 URL을 지정할 수 없다.
         // 절대 경로로 정확하게 지정하라.
         
-        httpResp.sendRedirect(contextRootPath + "/auth/login");
+        httpResp.sendRedirect(contextRootPath + "/app/auth/login");
         return;
       }
     }
