@@ -4,17 +4,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 
 // 페이지 컨트롤러는 Spring IoC 컨테이너에서 관리해야 한다.
 // 클래스에 @Controller 애노테이션을 붙여라!
-@Controller("/board/list")
-public class BoardListController implements PageController {
+@Controller
+public class BoardListController {
   
   @Autowired BoardService boardService;
   
-  @Override
+  @RequestMapping("/board/list")
   public String execute(
       HttpServletRequest request, 
       HttpServletResponse response) throws Exception {

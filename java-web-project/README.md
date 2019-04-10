@@ -86,3 +86,17 @@
 - XxxServlet 클래스를 XxxController 클래스로 변환
 - DispatcherServlet 변경
     - 페이지 컨트롤러를 Spring IoC 컨테이너에서 꺼낸다.
+
+## src11 : 페이지 컨트롤러에 @RequestMapping 애노테이션 적용하기
+- RequestMapping 애노테이션 추가
+    - 클라이언트에서 요청이 들어왔을 때 호출될 메서드에 붙이는 애노테이션이다.
+- RequestMappingHandlerMapping 클래스 추가
+    - 클라이언트의 요청에 대해 호출될 메서드 목록을 유지한다.
+- RequestMappingAnnotationBeanPostProcessor 클래스 추가
+    - Spring IoC 컨테이너가 객체를 생성할 때 마다 보고 받는다.
+    - 생성한 객체에서 RequestMapping 애노테이션이 붙은 메서드를 찾아 RequestMappingHandlerMapping 객체에 보관한다.
+- XxxController 클래스 변경 
+    - PageController 인터페이스 구현을 제거한다.
+    - execute() 메서드에 @RequestMapping을 붙인다.
+- DispatcherServlet 클래스 변경
+    - 클라이언트 요청을 처리하기 위해 RequestMappingHandlerMapping 객체에서 메서드를 꺼내 호출한다.

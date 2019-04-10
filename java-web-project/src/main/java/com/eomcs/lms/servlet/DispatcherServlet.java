@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
-import com.eomcs.lms.controller.PageController;
+import com.eomcs.lms.context.RequestMappingHandlerMapping;
+import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 5)
 @WebServlet("/app/*")
@@ -27,14 +28,21 @@ public class DispatcherServlet extends HttpServlet {
     ServletContext sc = this.getServletContext();
     ApplicationContext iocContainer = 
         (ApplicationContext) sc.getAttribute("iocContainer");
-
+    RequestMappingHandlerMapping handlerMapping = 
+        (RequestMappingHandlerMapping) iocContainer.getBean(
+            RequestMappingHandlerMapping.class);
     try {
-      // => Spring IoC 컨테이너에서 클라이언트가 요청한 URL을 처리할 페이지 컨트롤러를 꺼낸다.
-      PageController pageController = 
-          (PageController) iocContainer.getBean(pageControllerPath);
+      // => RequestMappingHandlerMapping 객체에서
+      //    클라이언트가 요청한 URL을 처리할 메서드 정보를 꺼낸다.
+      RequestMappingHandler requestHandler = 
+          handlerMapping.get(pageControllerPath);
 
-      // => 페이지 컨트롤러를 실행한다.
-      String viewUrl = pageController.execute(request, response);
+      if (requestHandler == null)
+        throw new Exception("해당 URL의 요청을 처리할 수 있습니다.");
+      
+      // => 요청 핸들러(요청이 들어왔을 때 호출되는 메서드)를 실행한다.
+      String viewUrl = (String) requestHandler.method.invoke(
+          requestHandler.bean, request, response);
 
       if (viewUrl.startsWith("redirect:")) {
         response.sendRedirect(viewUrl.substring(9)); // ex) redirect:list

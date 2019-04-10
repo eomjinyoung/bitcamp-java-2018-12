@@ -6,17 +6,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
-@Controller("/auth/login")
-public class LoginController implements PageController {
+@Controller
+public class LoginController {
 
   static final String REFERER_URL = "refererUrl";
 
   @Autowired MemberService memberService;
 
-  @Override
+  @RequestMapping("/auth/login")
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     if (request.getMethod().equals("GET")) {

@@ -577,3 +577,11 @@
 
 ## 68일(2019-4-10)
 - 페이지 컨트롤러를 POJO 클래스 전환
+    - PageController 인터페이스 추가
+    - 페이지 컨트롤러는 PageController 인터페이스 구현
+    - 웹 프로젝트 10단계 과제 수행
+- @RequestMapping 애노테이션 도입
+    - PageController 인터페이스 제거
+    - 메서드에 @RequestMapping 애노테이션을 붙인다.
+    - 웹 프로젝트 11단계 과제 수행
+
