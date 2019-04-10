@@ -100,3 +100,11 @@
     - execute() 메서드에 @RequestMapping을 붙인다.
 - DispatcherServlet 클래스 변경
     - 클라이언트 요청을 처리하기 위해 RequestMappingHandlerMapping 객체에서 메서드를 꺼내 호출한다.
+
+## src12 : CRUD 클래스는 한 개의 XxxController로 합치기
+- BoardXxxController 클래스들을 BoardController 클래스로 합친다.
+- MemberXxxController 클래스들을 BoardController 클래스로 합친다.
+- LessonXxxController 클래스들을 BoardController 클래스로 합친다.
+- PhotoBoardXxxController 클래스들을 BoardController 클래스로 합친다.
+- LoginController, LogoutController 클래스들을 AuthController 클래스로 합친다.
+

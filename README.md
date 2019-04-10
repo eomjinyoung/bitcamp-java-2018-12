@@ -584,5 +584,9 @@
     - PageController 인터페이스 삭제
     - 메서드에 @RequestMapping 애노테이션을 붙인다.
     - 웹 프로젝트 11단계 과제 수행
-    
+- CRUD 페이지 컨트롤러를 한 개의 클래스로 합친다.
+    - 예) BoardListController + BoardAddController + BoardDetailController + BoardUpdateController + BoardDeleteController = BoardController
+    - 웹 프로젝트 12단계 과제 수행
+
+
 
