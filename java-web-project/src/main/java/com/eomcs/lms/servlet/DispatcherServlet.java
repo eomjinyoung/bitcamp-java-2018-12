@@ -1,12 +1,10 @@
 package com.eomcs.lms.servlet;
 
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,15 +35,6 @@ public class DispatcherServlet extends HttpServlet {
 
       // => 페이지 컨트롤러를 실행한다.
       String viewUrl = pageController.execute(request, response);
-
-      // 페이지 컨트롤러에서 쿠키를 저장했으면 응답 헤더에 추가한다.
-      @SuppressWarnings("unchecked")
-      List<Cookie> cookies = (List<Cookie>) request.getAttribute("cookies");
-      if (cookies != null) {
-        for (Cookie cookie : cookies) {
-          response.addCookie(cookie);
-        }
-      }
 
       if (viewUrl.startsWith("redirect:")) {
         response.sendRedirect(viewUrl.substring(9)); // ex) redirect:list
