@@ -5,7 +5,7 @@
 <header>
   <img src="http://bitcamp.co.kr/img/logo.jpg" style="height:50px;">
 <c:if test="${empty loginUser}">
-  <a href='${contextRootPath}/app/auth/login'>로그인</a>
+  <a href='${contextRootPath}/app/auth/form'>로그인</a>
 </c:if>
 <c:if test="${not empty loginUser}">
   <img src='${contextRootPath}/upload/member/${loginUser.photo}' 

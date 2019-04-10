@@ -12,7 +12,7 @@
 
   <h1>회원 목록(JSP2 + EL + JSTL)</h1>
   <p>
-    <a href='add'>새 회원</a>
+    <a href='form'>새 회원</a>
   </p>
   <table border='1'>
     <tr>

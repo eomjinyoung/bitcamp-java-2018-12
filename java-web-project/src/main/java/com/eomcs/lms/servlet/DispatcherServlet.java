@@ -17,6 +17,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.context.RequestMappingHandlerMapping;
 import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
@@ -121,6 +123,13 @@ public class DispatcherServlet extends HttpServlet {
       } else if (paramType == String.class) {
         RequestParam rq = param.getAnnotation(RequestParam.class);
         paramValues.add(request.getParameter(rq.value()));
+        
+      } else if (paramType == Part.class) {
+        RequestParam rq = param.getAnnotation(RequestParam.class);
+        paramValues.add(request.getPart(rq.value()));
+        
+      } else if (paramType == HttpSession.class) {
+        paramValues.add(request.getSession());
         
       } else {
         paramValues.add(null);

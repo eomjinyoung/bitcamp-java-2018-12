@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.eomcs.lms.context.RequestMapping;
+import com.eomcs.lms.context.RequestParam;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
@@ -16,23 +17,28 @@ public class AuthController {
   static final String REFERER_URL = "refererUrl";
 
   @Autowired MemberService memberService;
-
-  @RequestMapping("/auth/login")
-  public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-    if (request.getMethod().equals("GET")) {
-      HttpSession session = request.getSession();
-      session.setAttribute(REFERER_URL, request.getHeader("Referer"));
-      return "/auth/form.jsp";
-
-    }
-
-    ServletContext sc = request.getServletContext();
+  @Autowired ServletContext servletContext;
+  
+  @RequestMapping("/auth/form")
+  public String form(HttpServletRequest request,
+      HttpSession session) {
     
+    session.setAttribute(REFERER_URL, request.getHeader("Referer"));
+    return "/auth/form.jsp";
+  }
+  
+  @RequestMapping("/auth/login")
+  public String login(
+      @RequestParam("email") String email,
+      @RequestParam("password") String password,
+      @RequestParam("saveEmail") String saveEmail,
+      HttpSession session,
+      HttpServletResponse response) throws Exception {
+
     // 이메일 저장을 처리한다. 
     Cookie cookie;
-    if (request.getParameter("saveEmail") != null) {
-      cookie = new Cookie("email", request.getParameter("email"));
+    if (saveEmail != null) {
+      cookie = new Cookie("email", email);
       cookie.setMaxAge(60 * 60 * 24 * 15); // 15일간 쿠키를 보관한다.
       
     } else {
@@ -45,20 +51,17 @@ public class AuthController {
     // 바로 쿠키를 추가할 수 있다.
     response.addCookie(cookie); 
 
-    Member member = memberService.get(
-        request.getParameter("email"),
-        request.getParameter("password"));
+    Member member = memberService.get(email, password);
 
     if (member == null) {
       return "/auth/fail.jsp";
     }
 
-    HttpSession session = request.getSession();
     session.setAttribute("loginUser", member);
 
     String refererUrl = (String) session.getAttribute(REFERER_URL);
     if (refererUrl == null) {      
-      return "redirect:" + sc.getContextPath();
+      return "redirect:" + servletContext.getContextPath();
       
     } else {
       return "redirect:" + refererUrl;
@@ -66,9 +69,9 @@ public class AuthController {
   }
   
   @RequestMapping("/auth/logout")
-  public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    request.getSession().invalidate();
-    return "redirect:" + request.getServletContext().getContextPath();
+  public String logout(HttpSession session) throws Exception {
+    session.invalidate();
+    return "redirect:" + servletContext.getContextPath();
   }
 }
 
