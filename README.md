@@ -581,7 +581,8 @@
     - 페이지 컨트롤러는 PageController 인터페이스 구현
     - 웹 프로젝트 10단계 과제 수행
 - @RequestMapping 애노테이션 도입
-    - PageController 인터페이스 제거
+    - PageController 인터페이스 삭제
     - 메서드에 @RequestMapping 애노테이션을 붙인다.
     - 웹 프로젝트 11단계 과제 수행
+    
 

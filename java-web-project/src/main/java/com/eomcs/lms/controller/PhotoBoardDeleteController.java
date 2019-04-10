@@ -4,14 +4,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.service.PhotoBoardService;
 
-@Controller("/photoboard/delete")
-public class PhotoBoardDeleteController implements PageController {
+@Controller
+public class PhotoBoardDeleteController {
 
   @Autowired PhotoBoardService photoBoardService;
   
-  @Override
+  @RequestMapping("/photoboard/delete")
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     int no = Integer.parseInt(request.getParameter("no"));

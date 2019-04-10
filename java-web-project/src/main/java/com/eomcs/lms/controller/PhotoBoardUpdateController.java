@@ -8,16 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
 import com.eomcs.lms.service.PhotoBoardService;
 
-@Controller("/photoboard/update")
-public class PhotoBoardUpdateController implements PageController {
+@Controller
+public class PhotoBoardUpdateController {
   
   @Autowired PhotoBoardService photoBoardService;
   
-  @Override
+  @RequestMapping("/photoboard/update")
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     PhotoBoard board = new PhotoBoard();

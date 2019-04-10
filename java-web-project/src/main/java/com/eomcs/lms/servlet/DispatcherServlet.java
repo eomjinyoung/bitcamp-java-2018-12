@@ -54,7 +54,7 @@ public class DispatcherServlet extends HttpServlet {
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("error.title", "요청 처리 오류!");
-      request.setAttribute("error.content", e.getMessage());
+      request.setAttribute("error.content", e.getCause().getMessage());
       request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
   }

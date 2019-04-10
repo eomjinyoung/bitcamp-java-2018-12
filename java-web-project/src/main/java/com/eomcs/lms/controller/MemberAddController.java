@@ -5,15 +5,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
-@Controller("/member/add")
-public class MemberAddController implements PageController {
+@Controller
+public class MemberAddController {
   
   @Autowired MemberService memberService;
   
-  @Override
+  @RequestMapping("/member/add")
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
     if (request.getMethod().equals("GET")) {
       return "/member/form.jsp";

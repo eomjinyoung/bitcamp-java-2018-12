@@ -4,15 +4,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
-@Controller("/member/list")
-public class MemberListController implements PageController {
+@Controller
+public class MemberListController {
   
   @Autowired MemberService memberService;
 
-  @Override
+  @RequestMapping("/member/list")
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     List<Member> members = memberService.list(null);

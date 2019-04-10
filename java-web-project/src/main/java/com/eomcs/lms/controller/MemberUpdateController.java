@@ -5,15 +5,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
-@Controller("/member/update")
-public class MemberUpdateController implements PageController {
+@Controller
+public class MemberUpdateController {
   
   @Autowired MemberService memberService;
 
-  @Override
+  @RequestMapping("/member/update")
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     Member member = new Member();
