@@ -1,7 +1,7 @@
 package com.eomcs.lms.controller;
+
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.eomcs.lms.context.RequestMapping;
@@ -14,16 +14,17 @@ public class BoardController {
   
   @Autowired BoardService boardService;
   
+  @RequestMapping("/board/form")
+  public String form() throws Exception {
+    return "/board/form.jsp";
+  }
+  
   @RequestMapping("/board/add")
-  public String add(HttpServletRequest request) throws Exception {
-    
-    if (request.getMethod().equals("GET")) {
-      return "/board/form.jsp";
-    }
+  public String add(
+      @RequestParam("contents") String contents) throws Exception {
     
     Board board = new Board();
-    board.setContents(request.getParameter("contents")
-        + ":" + request.getRemoteAddr());
+    board.setContents(contents);
     
     boardService.add(board);
     
@@ -31,10 +32,8 @@ public class BoardController {
   }
   
   @RequestMapping("/board/delete")
-  public String delete(HttpServletRequest request) throws Exception {
+  public String delete(@RequestParam("no") int no) throws Exception {
   
-    int no = Integer.parseInt(request.getParameter("no"));
-
     if (boardService.delete(no) == 0) 
       throw new Exception("해당 번호의 게시물이 없습니다.");
     
@@ -64,10 +63,12 @@ public class BoardController {
   }
   
   @RequestMapping("/board/update")
-  public String update(HttpServletRequest request) throws Exception {
+  public String update(
+      @RequestParam("no") int no,
+      @RequestParam("contents") String contents) throws Exception {
     Board board = new Board();
-    board.setNo(Integer.parseInt(request.getParameter("no")));
-    board.setContents(request.getParameter("contents"));
+    board.setNo(no);
+    board.setContents(contents);
     
     if (boardService.update(board) == 0) 
       throw new Exception("해당 번호의 게시물이 없습니다.");

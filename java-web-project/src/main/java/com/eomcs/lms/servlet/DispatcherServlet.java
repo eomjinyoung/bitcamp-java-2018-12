@@ -104,16 +104,24 @@ public class DispatcherServlet extends HttpServlet {
       if (paramType == ServletRequest.class || 
           paramType == HttpServletRequest.class) {
         paramValues.add(request);
+        
       } else if (paramType == ServletResponse.class || 
           paramType == HttpServletResponse.class) {
         paramValues.add(response);
+        
       } else if (paramType == Map.class) {
         paramValues.add(model);
+        
       } else if (paramType == int.class) {
         RequestParam requestParam = param.getAnnotation(RequestParam.class);
         String paramName = requestParam.value();
         int value = Integer.parseInt(request.getParameter(paramName));
         paramValues.add(value);
+        
+      } else if (paramType == String.class) {
+        RequestParam rq = param.getAnnotation(RequestParam.class);
+        paramValues.add(request.getParameter(rq.value()));
+        
       } else {
         paramValues.add(null);
       }
