@@ -108,3 +108,8 @@
 - PhotoBoardXxxController 클래스들을 BoardController 클래스로 합친다.
 - LoginController, LogoutController 클래스들을 AuthController 클래스로 합친다.
 
+## src13 : 요청 핸들러의 파라미터 값 주입을 자동화하기
+- DispatcherServlet 변경
+    - 요청 핸들러의 메서드를 호출하기 전에 파라미터 값을 준비한다.
+- 페이지 컨트롤러 변경
+    - 요청 핸들러의 파라미터를 선언할 때 필요한 것만 선언한다.

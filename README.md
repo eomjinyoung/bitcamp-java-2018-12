@@ -587,6 +587,9 @@
 - CRUD 페이지 컨트롤러를 한 개의 클래스로 합친다.
     - 예) BoardListController + BoardAddController + BoardDetailController + BoardUpdateController + BoardDeleteController = BoardController
     - 웹 프로젝트 12단계 과제 수행
-
+- 요청 핸들러의 파라미터 값 준비를 자동화하기
+    - 요청 핸들러의 파라미터 타입을 분석한다.
+    - 분석을 바탕으로 메서드를 호출할 때 값을 넘긴다.
+    - 웹 프로젝트 13단계 과제 수행
 
 
