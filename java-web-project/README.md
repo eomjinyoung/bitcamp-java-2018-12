@@ -79,3 +79,10 @@
     - 로그인, 로그아웃 경로 수정
 - AuthFilter 변경
     - /app/* 에 대해서 적용
+
+## src10 : 페이지 컨트롤러를 POJO 객체로 전환
+- PageController 인터페이스 추가
+    - 프론트 컨트롤러가 사용하는 페이지 컨트롤러의 사용 규칙 정의
+- XxxServlet 클래스를 XxxController 클래스로 변환
+- DispatcherServlet 변경
+    - 페이지 컨트롤러를 Spring IoC 컨테이너에서 꺼낸다.
