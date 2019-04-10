@@ -52,6 +52,7 @@ public class DispatcherServlet extends HttpServlet {
         request.getRequestDispatcher(viewUrl).include(request, response);
       }
     } catch (Exception e) {
+      e.printStackTrace();
       request.setAttribute("error", e);
       request.setAttribute("error.title", "요청 처리 오류!");
       request.setAttribute("error.content", e.getCause().getMessage());

@@ -33,7 +33,7 @@ public class PhotoBoardSearchController {
     List<PhotoBoard> boards = photoBoardService.list(lessonNo, searchWord);
     request.setAttribute("list", boards);
     
-    return "/photoboard/list.jsp";
+    return "/photoboard/search.jsp";
   }
 
 }
