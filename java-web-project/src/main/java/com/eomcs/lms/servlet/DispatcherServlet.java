@@ -3,7 +3,9 @@ package com.eomcs.lms.servlet;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -117,8 +119,12 @@ public class DispatcherServlet extends HttpServlet {
       } else if (paramType == int.class) {
         RequestParam requestParam = param.getAnnotation(RequestParam.class);
         String paramName = requestParam.value();
-        int value = Integer.parseInt(request.getParameter(paramName));
-        paramValues.add(value);
+        try {
+          int value = Integer.parseInt(request.getParameter(paramName));
+          paramValues.add(value);
+        } catch (Exception e) {
+          paramValues.add(0);
+        }
         
       } else if (paramType == String.class) {
         RequestParam rq = param.getAnnotation(RequestParam.class);
@@ -127,9 +133,25 @@ public class DispatcherServlet extends HttpServlet {
       } else if (paramType == Part.class) {
         RequestParam rq = param.getAnnotation(RequestParam.class);
         paramValues.add(request.getPart(rq.value()));
+          
+      }  else if (paramType.getComponentType() == Part.class) {
+        RequestParam rq = param.getAnnotation(RequestParam.class);
+        ArrayList<Part> list = new ArrayList<>(); 
+        Collection<Part> parts = request.getParts();
+        for (Part part : parts) {
+          if (!part.getName().equals(rq.value())) 
+            continue;
+          list.add(part);
+        }
+        paramValues.add(list.toArray(new Part[] {}));
         
       } else if (paramType == HttpSession.class) {
         paramValues.add(request.getSession());
+        
+      } else if (paramType == java.util.Date.class ||
+          paramType == java.sql.Date.class) {
+        RequestParam rq = param.getAnnotation(RequestParam.class);
+        paramValues.add(Date.valueOf(request.getParameter(rq.value())));
         
       } else {
         paramValues.add(null);

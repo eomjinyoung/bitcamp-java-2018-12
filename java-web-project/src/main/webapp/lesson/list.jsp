@@ -12,7 +12,7 @@
 <body>
 <jsp:include page="/header.jsp"/>
 <h1>수업 목록(JSP2 + EL + JSTL)</h1>
-<p><a href='add'>새 수업</a></p>
+<p><a href='form'>새 수업</a></p>
 
 <table border='1'>
   <tr><th>번호</th><th>수업</th><th>기간</th><th>총교육시간</th></tr>
