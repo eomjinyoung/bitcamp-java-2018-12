@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.springframework.context.ApplicationContext;
+import com.eomcs.lms.context.RequestHeader;
 import com.eomcs.lms.context.RequestMappingHandlerMapping;
 import com.eomcs.lms.context.RequestMappingHandlerMapping.RequestMappingHandler;
 import com.eomcs.lms.context.RequestParam;
@@ -104,6 +105,22 @@ public class DispatcherServlet extends HttpServlet {
     
     // 각 파라미터 타입의 값을 준비한다.
     for (Parameter param : params) {
+      // @RequestParam이 붙은 파라미터 값을 준비한다.
+      RequestParam requestParamAnno = param.getAnnotation(RequestParam.class);
+      if (requestParamAnno != null) {
+        paramValues.add(getParameterValue(
+            param, requestParamAnno.value(), request));
+        continue;
+      } 
+      
+      // @RequestHeader가 붙은 파라미터 값을 준비한다.
+      RequestHeader requestHeaderAnno = param.getAnnotation(RequestHeader.class);
+      if (requestHeaderAnno != null) {
+        paramValues.add(request.getHeader(requestHeaderAnno.value()));
+        continue;
+      }
+      
+      // 그 밖의 타입에 대해 값을 준비한다.
       Class<?> paramType = param.getType();
       if (paramType == ServletRequest.class || 
           paramType == HttpServletRequest.class) {
@@ -116,42 +133,8 @@ public class DispatcherServlet extends HttpServlet {
       } else if (paramType == Map.class) {
         paramValues.add(model);
         
-      } else if (paramType == int.class) {
-        RequestParam requestParam = param.getAnnotation(RequestParam.class);
-        String paramName = requestParam.value();
-        try {
-          int value = Integer.parseInt(request.getParameter(paramName));
-          paramValues.add(value);
-        } catch (Exception e) {
-          paramValues.add(0);
-        }
-        
-      } else if (paramType == String.class) {
-        RequestParam rq = param.getAnnotation(RequestParam.class);
-        paramValues.add(request.getParameter(rq.value()));
-        
-      } else if (paramType == Part.class) {
-        RequestParam rq = param.getAnnotation(RequestParam.class);
-        paramValues.add(request.getPart(rq.value()));
-          
-      }  else if (paramType.getComponentType() == Part.class) {
-        RequestParam rq = param.getAnnotation(RequestParam.class);
-        Collection<Part> parts = request.getParts();
-        ArrayList<Part> list = new ArrayList<>(); // Part 객체를 담을 바구니 준비
-        for (Part part : parts) {
-          if (!part.getName().equals(rq.value())) 
-            continue;
-          list.add(part);
-        }
-        paramValues.add(list.toArray(new Part[] {}));
-        
       } else if (paramType == HttpSession.class) {
         paramValues.add(request.getSession());
-        
-      } else if (paramType == java.util.Date.class ||
-          paramType == java.sql.Date.class) {
-        RequestParam rq = param.getAnnotation(RequestParam.class);
-        paramValues.add(Date.valueOf(request.getParameter(rq.value())));
         
       } else {
         paramValues.add(null);
@@ -159,6 +142,51 @@ public class DispatcherServlet extends HttpServlet {
     }
     
     return paramValues.toArray();
+  }
+
+  private Object getParameterValue(
+      Parameter methodParam, 
+      String requestParamName,
+      HttpServletRequest request) throws Exception {
+    
+    Class<?> methodParamType = methodParam.getType();
+    
+    if (methodParamType == int.class) {
+      return Integer.parseInt(request.getParameter(requestParamName));
+      
+    } else if (methodParamType.getComponentType() == int.class) {
+      String[] values = request.getParameterValues(requestParamName);
+      int[] arr = new int[values.length];
+      for (int i = 0; i < arr.length; i++) {
+        arr[i] = Integer.parseInt(values[i]);
+      }
+      return arr;
+      
+    } else if (methodParamType == String.class) {
+      return request.getParameter(requestParamName);
+      
+    } else if (methodParamType.getComponentType() == String.class) {
+      return request.getParameterValues(requestParamName);
+      
+    } else if (methodParamType == Part.class) {
+      return request.getPart(requestParamName);
+        
+    }  else if (methodParamType.getComponentType() == Part.class) {
+      Collection<Part> parts = request.getParts();
+      ArrayList<Part> list = new ArrayList<>(); // Part 객체를 담을 바구니 준비
+      for (Part part : parts) {
+        if (!part.getName().equals(requestParamName)) 
+          continue;
+        list.add(part);
+      }
+      return list.toArray(new Part[] {});
+      
+    } else if (methodParamType == java.util.Date.class ||
+        methodParamType == java.sql.Date.class) {
+      return Date.valueOf(request.getParameter(requestParamName));
+    }
+    
+    return null;
   }
 }
 

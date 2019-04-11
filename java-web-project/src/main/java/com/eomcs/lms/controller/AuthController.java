@@ -1,11 +1,11 @@
 package com.eomcs.lms.controller;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import com.eomcs.lms.context.RequestHeader;
 import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.context.RequestParam;
 import com.eomcs.lms.domain.Member;
@@ -20,10 +20,10 @@ public class AuthController {
   @Autowired ServletContext servletContext;
   
   @RequestMapping("/auth/form")
-  public String form(HttpServletRequest request,
+  public String form(
+      @RequestHeader("Referer") String refererUrl,
       HttpSession session) {
-    
-    session.setAttribute(REFERER_URL, request.getHeader("Referer"));
+    session.setAttribute(REFERER_URL, refererUrl);
     return "/auth/form.jsp";
   }
   
