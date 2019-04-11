@@ -11,32 +11,66 @@
 
   <display-name>java-web-project</display-name>
 
-<!-- 리스너 선언 -->
+  <!-- 컨텍스트 파라미터 선언 -->
+  <context-param>
+    <!-- ContextLoaderListener가 사용할 Spring IoC 컨테이너를 지정한다. 기본은 XmlWebApplicationContext 
+      클래스이다. 이 컨테이너는 XML 파일에서 설정 정보를 읽어 들인다. ConfigurableWebApplicationContext 
+      클래스는 자바 클래스로부터 설정 정보를 읽는다. -->
+    <param-name>contextClass</param-name>
+    <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+  </context-param>
+
+  <context-param>
+    <!-- Spring IoC 컨테이너의 설정 정보를 갖고 있는 XML 파일이나 자바 클래스를 지정한다. -->
+    <param-name>contextConfigLocation</param-name>
+    <param-value>com.eomcs.lms.AppConfig</param-value>
+  </context-param>
+
+  <!-- 리스너 선언 -->
   <listener>
-    <listener-class>com.eomcs.lms.listener.ContextLoaderListener</listener-class>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
-  
-<!-- 필터 선언 -->
+
+  <!-- 필터 선언 -->
   <filter>
     <filter-name>CharacterEncodingFilter</filter-name>
-    <filter-class>com.eomcs.lms.filter.CharacterEncodingFilter</filter-class>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
     <init-param>
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>
     </init-param>
   </filter>
-  
+
   <filter-mapping>
     <filter-name>CharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
-  </filter-mapping>  
-  
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>app</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value></param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+    <multipart-config>
+      <max-file-size>10000000</max-file-size>
+    </multipart-config>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>app</servlet-name>
+    <url-pattern>/app/*</url-pattern>
+  </servlet-mapping>
+
+
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
     <welcome-file>default.htm</welcome-file>
-  </welcome-file-list>  
-  
+  </welcome-file-list>
+
 </web-app>
 
 

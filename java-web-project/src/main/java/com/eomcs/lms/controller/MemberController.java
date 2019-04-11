@@ -6,8 +6,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import com.eomcs.lms.context.RequestMapping;
-import com.eomcs.lms.context.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 

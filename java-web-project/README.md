@@ -117,3 +117,24 @@
     - 요청 핸들러의 파라미터를 선언할 때 필요한 것만 선언한다.
 - ContextLoaderListener 변경
     - Spring IoC 컨테이너에 ServletContext 객체를 보관하도록 처리.
+
+## src14 : Spring WebMVC 프레임워크 적용
+- Spring WebMVC 프레임워크 라이브러리 가져오기
+- 기존의 DispatcherServlet 클래스를 Spring 클래스로 교체한다.
+    - web.xml에 스프링의 프론트 컨트롤러 서블릿을 배치한다.
+    - DispatcherServlet 클래스 삭제
+- 기존의 ContextLoaderListener 클래스를 Spring 클래스로 교체한다.
+    - web.xml에 스프링의 리스너를 배치한다.
+    - ContextLoaderListener 클래스를 삭제
+- @RequestMapping, @RequestParam, @RequestHeader 를 스프링의 애노테이션으로 교체한다.
+    - 페이지 컨트롤러 등에 붙인 애노테이션을 교체.
+    - 기존 애노테이션을 삭제한다.
+- AppConfig 변경
+    - Web MVC와 관련된 애노테이션을 처리하는 객체를 추가한다.
+    - 즉 @Controller, @RequestMapping, @RequestParam, @RequestHeader 등의 애노테이션을 처리할 객체를 추가해야 한다.
+    - 자바 클래스로 설정할 때:
+        - @EnableWebMvc 애노테이션을 붙여라.
+    - XML 파일로 설정할 때:
+        - <mvc:annotation-driven/> 태그를 추가하라.
+- 기존의 CharacterEncodingFilter를 스프링의 필터로 교체한다.
+    - 기존 필터 삭제

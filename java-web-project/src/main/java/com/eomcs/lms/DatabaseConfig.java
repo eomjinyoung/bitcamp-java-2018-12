@@ -2,6 +2,8 @@ package com.eomcs.lms;
 
 import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,10 +17,17 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:/com/eomcs/lms/conf/jdbc.properties")
 @EnableTransactionManagement
 public class DatabaseConfig {
+  
+  final static Logger logger = LogManager.getLogger(DatabaseConfig.class);
 
   @Autowired 
   Environment env;
+  
 
+  public DatabaseConfig() {
+    logger.debug("DatabaseConfig 객체 생성...");
+  }
+  
   @Bean
   public DataSource dataSource() {
     BasicDataSource ds = new BasicDataSource();
