@@ -26,7 +26,7 @@
       </tr>
       <tr>
         <th>사진</th>
-        <td><input type='file' name='photo'></td>
+        <td><input type='file' name='photoFile'></td>
       </tr>
       <tr>
         <th>전화</th>

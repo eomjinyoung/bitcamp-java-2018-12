@@ -109,7 +109,7 @@ public class DispatcherServlet extends HttpServlet {
       RequestParam requestParamAnno = param.getAnnotation(RequestParam.class);
       if (requestParamAnno != null) {
         paramValues.add(getParameterValue(
-            param, requestParamAnno.value(), request));
+            param.getType(), requestParamAnno.value(), request));
         continue;
       } 
       
@@ -122,6 +122,7 @@ public class DispatcherServlet extends HttpServlet {
       
       // 그 밖의 타입에 대해 값을 준비한다.
       Class<?> paramType = param.getType();
+      
       if (paramType == ServletRequest.class || 
           paramType == HttpServletRequest.class) {
         paramValues.add(request);
@@ -137,19 +138,67 @@ public class DispatcherServlet extends HttpServlet {
         paramValues.add(request.getSession());
         
       } else {
-        paramValues.add(null);
+        paramValues.add(getObjectValue(paramType, request));
       }
     }
     
     return paramValues.toArray();
   }
 
+  private Object getObjectValue(
+      Class<?> paramType, HttpServletRequest request) {
+    try {
+      // 파라미터 타입에 대해 값을 저장할 인스턴스를 만든다.
+      // => 만약 paramType이 Member 클래스라면,
+      //    Object obj = new Member();
+      Object obj = paramType.getConstructor().newInstance();
+      
+      // 객체의 프로퍼티 이름과 같은 요청 파라미터 값을 찾아 저장한다.
+      // => obj.setTitle(request.getParameter("title"));
+      // => obj.setPassword(request.getParameter("password"));
+      //
+      Method[] methods = paramType.getMethods();
+      for (Method method : methods) {
+        // 세터 메서드가 아니면 무시한다.
+        if (!method.getName().startsWith("set") ||
+            method.getParameterCount() != 1)
+          continue;
+        
+        // 세터 메서드이면 해당 프로퍼티 이름으로 요청 파라미터 값을 꺼낸다.
+        // => 세터 메서드 이름에서 프로퍼티 이름을 추출한다.
+        //    예) setRegisteredDate() => "r" + "egisteredDate" = registeredDate
+        String propName = method.getName().substring(3,4).toLowerCase() + 
+            method.getName().substring(4);
+        
+        // 프로퍼티 이름으로 요청 파라미터 값을 찾아서 세터를 호출한다.
+        // => 메서드의 파라미터 타입을 알아낸다.
+        Class<?> type = method.getParameterTypes()[0]; // 세터의 파라미터는 오직 한 개이다.
+        
+        // => 요청 파라미터에서 프로퍼티 타입과 이름이 같은 값을 꺼낸다.
+        try { 
+          Object value = getParameterValue(type, propName, request);
+          if (value != null) {
+            // 세터 메서드에 넣을 값이 요청 파라미터에 있다면 세터 메서드를 호출하여 
+            // 객체에 그 값을 저장한다.
+            method.invoke(obj, value);
+          }
+        } catch (Exception e) {
+          // 세터의 값을 찾지 못하거나 파라미터 값을 꺼내는 중에 예외가 발생하면 
+          // 세터 메서드를 무시한다.
+        }
+      }
+      return obj;
+      
+    } catch (Exception e) {
+      // 요청 핸들러가 원하는 객체를 준비하다가 예외가 발생하면 그냥 null을 리턴한다.
+      return null;
+    }
+  }
+
   private Object getParameterValue(
-      Parameter methodParam, 
+      Class<?> methodParamType, 
       String requestParamName,
       HttpServletRequest request) throws Exception {
-    
-    Class<?> methodParamType = methodParam.getType();
     
     if (methodParamType == int.class) {
       return Integer.parseInt(request.getParameter(requestParamName));

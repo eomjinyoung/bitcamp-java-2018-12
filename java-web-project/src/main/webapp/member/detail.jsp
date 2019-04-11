@@ -45,7 +45,7 @@
       <c:if test="${not empty member.photo}">
           <img src='${contextRootPath}/upload/member/${member.photo}' style='height: 80px'><br>
       </c:if>
-        <input type='file' name='photo'></td>
+        <input type='file' name='photoFile'></td>
       </tr>
       <tr>
         <th>전화</th>
