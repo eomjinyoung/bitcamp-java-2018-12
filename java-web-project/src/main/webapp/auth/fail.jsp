@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Refresh" content="2;url=login">
+  <meta http-equiv="Refresh" content="2;url=form">
   <title>로그인 실패</title>
 </head>
 <body>
