@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -110,14 +108,14 @@ public class PhotoBoardController {
   public String search(
       @RequestParam("lessonNo") int lessonNo,
       @RequestParam("keyword") String keyword,
-      HttpServletRequest request, HttpServletResponse response) throws Exception {
+      Map<String,Object> map) throws Exception {
 
     String searchWord = null;
     if (keyword.length() > 0)
       searchWord = keyword;
 
     List<PhotoBoard> boards = photoBoardService.list(lessonNo, searchWord);
-    request.setAttribute("list", boards);
+    map.put("list", boards);
     
     return "/photoboard/search.jsp";
   }

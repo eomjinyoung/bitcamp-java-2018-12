@@ -136,8 +136,8 @@ public class DispatcherServlet extends HttpServlet {
           
       }  else if (paramType.getComponentType() == Part.class) {
         RequestParam rq = param.getAnnotation(RequestParam.class);
-        ArrayList<Part> list = new ArrayList<>(); 
         Collection<Part> parts = request.getParts();
+        ArrayList<Part> list = new ArrayList<>(); // Part 객체를 담을 바구니 준비
         for (Part part : parts) {
           if (!part.getName().equals(rq.value())) 
             continue;
