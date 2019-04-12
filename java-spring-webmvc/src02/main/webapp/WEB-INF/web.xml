@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+  version="4.0" metadata-complete="false">
+
+  <description>
+    스프링 Web MVC 프레임워크 예제 테스트
+  </description>
+
+  <display-name>java-spring-webmvc</display-name>
+
+  <!-- Spring Web MVC의 프론트 컨트롤러 역할을 수행할 서블릿을 지정한다. -->
+  
+  <!-- DispatcherServlet 배치하기 -->
+  
+  <!-- 예1) DispatcherServlet이 사용하는 IoC 컨테이너의 XML 파일을 설정하지 않기 
+        => DispatcherServlet은 자체적으로 IoC 컨테이너를 보유하고 있다.
+        => 이 컨테이너를 설정할 파일을 초기화 파라미터를 사용하여 지정한다.
+           초기화 파라미터명은 반드시 contextConfigLocation 이어야 한다.
+        => 설정하고 싶지 않다면 init-value를 비워둬라. 
+        => 그런데 contextConfigLocation 파라미터를 선언하지 않으면 오류가 발생한다.
+           왜? DispatcherServlet이 다음 경로에서 파일을 찾기 때문이다.
+               /WEB-INF/서블릿명-servlet.xml 
+           설정하고 싶지 않다면 이 파라미터의 값을 비워둬야 하지 
+           파라미터를 차체를 선언하지 않으면 오류가 발생한다.-->
+  <servlet>
+    <servlet-name>app1</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value></param-value>
+    </init-param>
+    <!-- 웹 애플리케이션을 시작할 때 스프링 IoC 컨테이너를 준비하는 것이 좋기 때문에 
+         가능한 다음 태그를 선언하여 클라이언트가 요청하지 않아도 
+         이 프론트 컨트롤러를 미리 초기화 시키도록 하라! -->
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>app1</servlet-name>
+    <url-pattern>/app1/*</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 예2) XML 파일을 지정하기 : 일반 웹 폴더에 두기 
+       => 일반 웹 폴더에 두면 외부에서 직접 볼 수 있기 때문에 바람직하지 않다.-->
+  <servlet>
+    <servlet-name>app2</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/config/application-context.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>app2</servlet-name>
+    <url-pattern>/app2/*</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 예3) XML 파일을 지정하기 : /WEB-INF 폴더에 두기
+       => /WEB-INF 폴더에 있는 파일은 클라이언트에서 볼 수 없기 때문에
+          이 폴더에 두는 것이 좋다. -->
+  <servlet>
+    <servlet-name>app3</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/config/application-context.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>app3</servlet-name>
+    <url-pattern>/app3/*</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 예4) XML 파일을 지정하기 : 생략하기
+       => XML 파일의 위치를 지정하지 않으면 다음 경로에 있는 파일을 찾는다.
+              /WEB-INF/서블릿이름-servlet.xml
+          파일명이 위의 규칙에 맞아야 한다. -->
+  <servlet>
+    <servlet-name>app4</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>app4</servlet-name>
+    <url-pattern>/app4/*</url-pattern>
+  </servlet-mapping>
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+  </welcome-file-list>
+
+</web-app>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

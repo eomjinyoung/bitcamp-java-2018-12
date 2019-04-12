@@ -11,12 +11,7 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
   
-  <context:component-scan base-package="ch30.f"/>
-  
-  <!-- AOP 관련 애노테이션을 처리하라면 그 작업을 수행할 객체를 등록해야 한다.
-       스프링 IoC 컨테이너는 그 클래스가 무엇인지 몰라도 쉽게 등록할 수 있도록 
-       특별한 태그를 제공한다. 위의 <context:component-scan> 처럼!  -->
-  <aop:aspectj-autoproxy/>
+  <context:component-scan base-package="bitcamp"/>
   
 </beans>
 
