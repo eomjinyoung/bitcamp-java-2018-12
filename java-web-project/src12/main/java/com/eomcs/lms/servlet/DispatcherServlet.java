@@ -38,7 +38,7 @@ public class DispatcherServlet extends HttpServlet {
           handlerMapping.get(pageControllerPath);
 
       if (requestHandler == null)
-        throw new Exception("해당 URL의 요청을 처리할 수 있습니다.");
+        throw new Exception("해당 URL의 요청을 처리할 수 없습니다.");
       
       // => 요청 핸들러(요청이 들어왔을 때 호출되는 메서드)를 실행한다.
       String viewUrl = (String) requestHandler.method.invoke(

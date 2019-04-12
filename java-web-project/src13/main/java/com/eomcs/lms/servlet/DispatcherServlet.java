@@ -53,7 +53,7 @@ public class DispatcherServlet extends HttpServlet {
           handlerMapping.get(pageControllerPath);
 
       if (requestHandler == null)
-        throw new Exception("해당 URL의 요청을 처리할 수 있습니다.");
+        throw new Exception("해당 URL의 요청을 처리할 수 없습니다.");
       
       // => 페이지 컨트롤러가 작업한 결과물을 담을 바구니를 준비한다.
       HashMap<String,Object> model = new HashMap<>();

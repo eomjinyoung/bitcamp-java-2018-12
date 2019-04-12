@@ -597,4 +597,8 @@
     - @RequestHeader 처리
     - VO 파라미터 처리
 - Sprint WebMVC 프레임워크 적용
-    
+
+## 71일(2019-42) 
+- Spring WebMVC 프레임워크 사용법 
+    - 프로젝트 생성(java-spring-webmvc)
+    - 1단계: 스프링 Web MVC 설정하기
