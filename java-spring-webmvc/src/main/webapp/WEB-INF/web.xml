@@ -41,6 +41,9 @@
     <url-pattern>/app5/*</url-pattern>
   </servlet-mapping>
   
+  <!-- 예2) WebApplicationInitializer 구현체를 이용하여 DispatcherServlet 설정하기
+       => bitcamp.WebApplicationInitializerImpl1 클래스 참조하라! -->
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

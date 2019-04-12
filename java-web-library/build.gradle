@@ -1,0 +1,18 @@
+plugins {
+    id 'java-library'
+    id 'eclipse'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    // 자바 웹 프로젝트에서 사용할 클래스를 만들 때 
+    // servlet-api를 사용한다면 이 라이브러리를 추가해야 한다.
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+
+    api 'org.apache.commons:commons-math3:3.6.1'
+    implementation 'com.google.guava:guava:27.0.1-jre'
+    testImplementation 'junit:junit:4.12'
+}

@@ -153,6 +153,17 @@
     <url-pattern>/ex06/s4</url-pattern>
   </servlet-mapping>
   
+  <!-- 외부 라이브러리 파일(java-web-library.jar)에 있는 서블릿을 배치한다. -->
+  <servlet>
+    <servlet-name>HelloServlet</servlet-name>
+    <servlet-class>bitcamp.HelloServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>HelloServlet</servlet-name>
+    <url-pattern>/lib/hello</url-pattern>
+  </servlet-mapping>
+  
   <session-config>
     <session-timeout>1</session-timeout>
   </session-config>

@@ -5,10 +5,20 @@ plugins {
 }
 
 repositories {
+    // 로컬 라이브러리 디렉토리 지정하기
+    flatDir {
+      dirs 'lib' // 현재 프로젝트의 lib 디렉토리를 지정한다.
+    }
+    
+    // 원격 서버 - Gradle에 기본으로 설정된 서버를 가리킨다.
     jcenter()
 }
 
 dependencies {
+    // 특정 디렉토리에 있는 라이브러리 파일을 가져오기
+    // => repositories {} 의 flatDir {} 에 지정된 폴더에서 해당 이름의 .jar 파일을 찾는다.
+    compile name: 'java-web-library'
+
     // Servlet API 라이브러리
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 

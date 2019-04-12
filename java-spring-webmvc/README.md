@@ -13,3 +13,4 @@
 ## src03 : Spring Web MVC 설정하기 - Java config 설정
 - DispatcherServlet 이 사용할 IoC 컨테이너를 설정한다.
     - 자바 클래스로 설정하는 방법
+    - WebApplicationInitializer 구현체를 이용하여 설정하는 방법
