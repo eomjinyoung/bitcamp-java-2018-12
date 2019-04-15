@@ -1,6 +1,8 @@
-# 유스케이스 목록
+# 유스케이스
 
 ## Actors
+
+![actors](./diagram/actors.jpg)
 
 ### 비회원
 - 시스템에 로그인 하지 않은 사용자
