@@ -138,4 +138,3 @@
         - <mvc:annotation-driven/> 태그를 추가하라.
 - 기존의 CharacterEncodingFilter를 스프링의 필터로 교체한다.
     - 기존 필터 삭제
- 
