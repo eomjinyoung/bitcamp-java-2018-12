@@ -1,4 +1,4 @@
-// 요청 핸들러의 파라미터 - @RequestParam
+// 요청 핸들러의 아규먼트 - @RequestParam
 package bitcamp.app1;
 
 import java.io.PrintWriter;
@@ -28,7 +28,8 @@ public class Controller04_2 {
       @RequestParam(value="name") String name1,
       @RequestParam(name="name") String name2, // value와 name은 같은 일을 한다.
       @RequestParam("name") String name3, // value 이름을 생략할 수 있다.
-      String name // 파라미터 이름과 아규먼트의 이름이 같다면 애노테이션을 생략해도 된다.
+      String name // 요청 파라미터 이름과 메서드 파라미터(아규먼트)의 이름이 같다면
+                  // 애노테이션을 생략해도 된다.
       ) {
     
     out.printf("name=%s\n", request.getParameter("name"));

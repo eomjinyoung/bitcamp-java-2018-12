@@ -1,4 +1,4 @@
-// 요청 핸들러의 파라미터 - 프론트 컨트롤러로부터 받을 수 있는 파라미터 값
+// 요청 핸들러의 아규먼트 - 프론트 컨트롤러로부터 받을 수 있는 파라미터 값
 package bitcamp.app1;
 
 import java.io.PrintWriter;
