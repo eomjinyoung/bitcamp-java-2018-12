@@ -598,7 +598,27 @@
     - VO 파라미터 처리
 - Sprint WebMVC 프레임워크 적용
 
-## 71일(2019-42) 
+## 71일(2019-4-12) 
 - Spring WebMVC 프레임워크 사용법 
     - 프로젝트 생성(java-spring-webmvc)
     - 1단계: 스프링 Web MVC 설정하기
+
+## 72일(2019-4-15)
+- 프로젝트 발표
+    - UI 프로토타입 2차 발표
+- Use-case 모델링
+    - Actor 식별법
+    - Use-case 식별법
+    - Use-case 명세서 작성법
+
+## 73일(2019-4-16)
+- git 기본 사용법
+    - add, commit, push 등 다루기
+
+## 74일(2019-4-17)
+- git 고급 사용법
+    - branch 다루기
+
+## 75일(2019-4-18)
+- Spring WebMVC 프레임워크 사용법 II
+    

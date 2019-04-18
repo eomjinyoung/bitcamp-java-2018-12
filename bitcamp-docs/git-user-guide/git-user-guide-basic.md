@@ -1,6 +1,6 @@
 # Git 기본 사용법
 
-## **버전 관리 시스템**(VCS; Version Control System)이란? 
+## **버전 관리 시스템**(VCS; Version Control System)이란?
 
 - 개요
   - 파일 변화를 시간에 따라 기록했다가 나중에 특정 시점의 버전을 다시 꺼내올 수 있는 시스템이다.
@@ -17,7 +17,7 @@
     - 만약 서버에 문제가 생기면 모든 변경 내력(history)을 잃는다.
     - 예) CVS, Subversion, Perforce 등
   - 분산 버전 관리 시스템
-    - 저장소 전부를 복제한다. 
+    - 저장소 전부를 복제한다.
     - 변경 내력(history)까지 모두 복제한다.
     - 예) Git, Mercurial, Bazaar, Darcs 등
 
@@ -31,12 +31,12 @@
   - 수천 개의 동시다발적인 브랜치가 가능한 비선형적인 구조
   - 완변한 분산
   - 대형 프로젝트에서도 유용할 것
-  
+
 ### Git의 파일 상태
 
 Git은 다음 세가지 상태로 파일을 관리한다.
 
-- Committed 
+- Committed
   - 로컬 데이터베이스에 안전하게 저장되었다는 뜻이다.
 - Modified
   - 파일이 변경되었지만 아직 로컬 데이터베이스에 저장되지 않았다는 뜻이다.
@@ -44,7 +44,7 @@ Git은 다음 세가지 상태로 파일을 관리한다.
   - 로컬 데이터베이스에 저장할 파일임을 표시했다는 뜻이다.
   - 다음에 커밋을 수행할 때 Staged로 표시된 파일의 변경 내용이 저장될 것이다.
 
-### Git 프로젝트의 단계 
+### Git 프로젝트의 단계
 
 Git 프로젝트는 다음 세 가지 단계로 관리된다.
 
@@ -56,14 +56,14 @@ Git 프로젝트는 다음 세 가지 단계로 관리된다.
   - 특정 버전을 체크아웃(checkout)하면, `.git` 디렉토리에 있는 압축된 데이터베이스에서 파일을 가져와서 작업 디렉토리를 만든다.
 - Staging Area
   - `.git` 디렉토리에 존재하는 단순한 파일이다.
-  - commit 할 파일의 정보(*스냅샷이라 부른다*)를 담고 있다. 
+  - commit 할 파일의 정보(*스냅샷이라 부른다*)를 담고 있다.
   - `git commit`을 실행하면 이 스냅샷에 기록된 파일을 저장소에 보관하는 것이다.
   - 커밋을 한 후에는 Staging Area는 새 스냅샷을 준비한다.
   - Staging Area는 *인덱스*라는 이름으로도 부르지만, *Staging Area* 가 표준 이름으로 사용되는 추세이다.
 
-### Git 파일의 상태 변화 
+### Git 파일의 상태 변화
 
-다음은 Git 명령에 따른 파일의 상태 변화를 보여준다. 
+다음은 Git 명령에 따른 파일의 상태 변화를 보여준다.
 
 ```
          Working Directory         | Staging Area | .git Directory(Repository)
@@ -221,7 +221,7 @@ $ git add .
 
 ### git commit -m '이번 스냅샷을 저장하는 이유'
 
-- Staging Area에 기록된 파일들(스냅샷)을 로컬 저장소에 보관한다. 
+- Staging Area에 기록된 파일들(스냅샷)을 로컬 저장소에 보관한다.
 - 파일을 새로 추가하거나 변경하였다면 반드시 `git add`를 실행하여 Staging Area에 기록해야 한다.
 - 기록되어 있지 않은 파일이나 변경 사항은 저장소에 보관되지 않는다.
 - 커밋 할 때 마다 스냅샷에 대해 새 체크섬(checksum) 값이 부여되고 이 값이 스냅샷을 구분하는 식별자로 사용된다.
@@ -305,7 +305,7 @@ AM src/main/webapp/test06.html
 ```
 예1) 작업 디렉토리에서 변경한 파일과 Staging Area에 등록된 파일과 비교하여
      변경경 전/후를 출력하기
-    
+
 $ git diff
 diff --git a/src/main/webapp/test01.html b/src/main/webapp/test01.html
 index 80ba906..3322e11 100644
@@ -344,7 +344,7 @@ diff --git a/src/main/webapp/test03.html b/src/main/webapp/test03.html
 index 53e43f2..2f411f8 100644
 ...
 diff --git a/src/main/webapp/test05.html b/src/main/webapp/test05.html
-new file mode 100644      <=== 새 파일이 Staging Area에 있는 경우에 이 문구가 붙는다. 
+new file mode 100644      <=== 새 파일이 Staging Area에 있는 경우에 이 문구가 붙는다.
 index 0000000..3081b8d
 ...
 diff --git a/src/main/webapp/test06.html b/src/main/webapp/test06.html
@@ -358,7 +358,7 @@ index 0000000..3081b8d
 
 - 작업 디렉토리의 파일을 변경한 후 변경 전으로 되돌릴 때 사용한다.
 - Staging Area에 마지막으로 기록된 버전으로 되돌린다.
-- `git add`를 수행한 적이 없다면 Staging Area에는 마지막으로 커밋한 파일을 가리킨다. 따라서 마지막으로 커밋된 파일로 되돌릴 것이다. 
+- `git add`를 수행한 적이 없다면 Staging Area에는 마지막으로 커밋한 파일을 가리킨다. 따라서 마지막으로 커밋된 파일로 되돌릴 것이다.
 
 ```
 예) src/main/webapp/index.html 파일을 편집 전으로 되돌리기
@@ -368,8 +368,8 @@ $ git checkout src/main/webapp/index.html
 ### git rm [파일]
 
 - Staging Area의 기록에서 지정된 파일을 뺀다.
-- 작업 디렉토리에 해당 파일이 있다면 그 파일도 자동 삭제된다. 
-- 이전 스냅샷에는 해당 파일이 계속 남아 있다. 
+- 작업 디렉토리에 해당 파일이 있다면 그 파일도 자동 삭제된다.
+- 이전 스냅샷에는 해당 파일이 계속 남아 있다.
 
 ```
 예1) 작업 디렉토리에 있는 파일을 삭제한 후 Git에서도 제거하기
@@ -377,14 +377,14 @@ $ rm test01.html        <=== 작업 디렉토리에서 파일을 삭제한다.
 $ git rm test01.html    <=== Staging Area에 삭제 파일 정보를 등록한다.
                              'rm' 대신 'add'를 사용하여 삭제된 파일을 표시해도 된다.
                              예) git add test01.html
-$ git commit            <=== 저장소에서 Staging Area의 정보에 따라 
+$ git commit            <=== 저장소에서 Staging Area의 정보에 따라
 ```
 
 
 ```
 예2) 변경한 파일이나 Staging Area에 이미 기록된 파일을 강제로 제거하기
-$ git rm -f test01.html <=== 변경된 내용을 버리고 현재 스냅샷에서 빼버린다. 
-                        <=== 변경한 파일이 Staging Area에 기록되었더라도 
+$ git rm -f test01.html <=== 변경된 내용을 버리고 현재 스냅샷에서 빼버린다.
+                        <=== 변경한 파일이 Staging Area에 기록되었더라도
                              변경된 내용을 버리고 스냅샷에서 빼버린다.
 ```
 
@@ -401,7 +401,7 @@ $ git add test02.html
 
 ```
 예2) test01.html 파일의 이름을 test02.html로 변경하기 II
-    위 작업을 좀 더 쉽게 다음과 같이 단축으로 처리할 수 있다. 
+    위 작업을 좀 더 쉽게 다음과 같이 단축으로 처리할 수 있다.
 $ git mv test01.html test02.html
 ```
 
@@ -452,7 +452,7 @@ index 0afb588..c0e04ec 100644
 
 ```
 예3) 저장소에 대한 각 커밋의 통계 정보를 조회한다.
-$ git log ---stat
+$ git log --stat
 ...
 commit c555b1b128453d18ac2a5d3493b79021dce3f470
 Author: Jinyoung Eom <jinyoung.eom@gmail.com>
@@ -460,7 +460,7 @@ Date:   Sun Aug 26 19:54:50 2018 +0900
 
     HTML 내용 변경
 
- src/main/webapp/ex03.html | 6 ++++--              <=== 어떤 파일의 추가되거나 삭제된 줄 수 
+ src/main/webapp/ex03.html | 6 ++++--              <=== 어떤 파일의 추가되거나 삭제된 줄 수
  1 file changed, 4 insertions(+), 2 deletions(-)   <=== 요약 정보
 ...
 ```
@@ -489,13 +489,13 @@ index 0afb588..c0e04ec 100644
 
 ### git commit --amend
 
-- 마지막 커밋을 다시 현재의 Staging Area의 내용으로 덮어쓴다. 
+- 마지막 커밋을 다시 현재의 Staging Area의 내용으로 덮어쓴다.
 - 그래서 커밋 완료 후 빠뜨린 파일이 있거나 제거하지 못한 파일이 있을 경우 사용한다.
 - 마지막 커밋 후에 변경 사항이 없다면 단지 커밋 메시지만 변경한다.
 - 이전 커밋을 덮어쓰는 것이지만 커밋의 체크섬은 새로 발급된다.
 
 ```
-예1) ex03.html을 변경한 후 커밋한다. 그 후에 다시 ex04.html을 변경한 후 이전 커밋과 합친다. 
+예1) ex03.html을 변경한 후 커밋한다. 그 후에 다시 ex04.html을 변경한 후 이전 커밋과 합친다.
 $ git add ex03.html
 $ git commit -m 'ex03 변경'
 $ git add ex04.html
@@ -506,19 +506,19 @@ $ git commit --amend -m 'ex03 및 ex04 변경'
 
 - `git add`를 실행하면 Staging Area에 해당 파일이 기록되어 커밋할 스냅샷으로 묶인다.
 - 스냅샷으로 묶인 파일들은 커밋할 때 저장소에 그 변경 내용이 보관된다.
-- Staging Area의 현재 스냅샷에서 빼고 싶은 파일이 있다면 이 명령을 사용한다. 
+- Staging Area의 현재 스냅샷에서 빼고 싶은 파일이 있다면 이 명령을 사용한다.
 - 이 명령을 수행하면 변경된 상태이지만 아직 Staging Area의 현재 스냅샷에 포함되지 않은 파일이 된다.
 
 ```
-예1) 
+예1)
 'ex03.html'과 'ex04.html' 파일을 변경한 후 Staging Area에 넣기
 $ git add ex03.html ex04.html
 
-Staging Area에 넣은 두 개 파일 중에서 ex03.html은 제외하기 
+Staging Area에 넣은 두 개 파일 중에서 ex03.html은 제외하기
 $ git reset HEAD ex03.html
 ```
 
-### git remote 
+### git remote
 
 - 현재 프로젝트에 등록된 원격 저장소를 확인하거나 추가한다.
 - `git clone [url]`으로 원격 저장소를 복제하면 원격 저장소가 **origin** 이라는 이름으로 자동 등록된다.
@@ -526,7 +526,7 @@ $ git reset HEAD ex03.html
 ```
 예1) 원격 저장소의 이름을 알아내기
 $ git remote
-origin 
+origin
 ```
 
 ```
@@ -556,9 +556,9 @@ $ git remote show origin
   HEAD branch: master
   Remote branch:                           <=== 로컬 저장소와 연결된 원격 저장소의 브랜치
     master tracked                         
-  Local branch configured for 'git pull':  <=== git pull 했을 때 merge 할 
+  Local branch configured for 'git pull':  <=== git pull 했을 때 merge 할
     master merges with remote master            원격 저장소의 브랜치와 로컬 저장소의 브랜치
-  Local ref configured for 'git push':     <=== git push 했을 때 push 할 
+  Local ref configured for 'git push':     <=== git push 했을 때 push 할
     master pushes to master (up to date)        로컬 저장소의 브랜치와 원격 저장소의 브랜치
 ```
 
@@ -574,10 +574,10 @@ eomcs
 ```
 예6) 원격 저장소를 삭제하기
      - 원격 저장소의 서버 정보가 변경되었을 때
-     - 별도의 복제가 필요하지 않을 때 
-     - 기여자가 활동하지 않을 때 
+     - 별도의 복제가 필요하지 않을 때
+     - 기여자가 활동하지 않을 때
 $ git remote rm [원격 저장소의 단축이름]
-$ git remote eomcs
+$ git remote rm eomcs
 $ git remote
 origin
 ```
@@ -595,14 +595,14 @@ $ git fetch origin
 
 ### git pull
 
-- `git pull` = `git fetch origin` + Merge 
-- 즉 원격 저장소의 데이터를 가져온 후에 로컬 파일과 합친다. 
+- `git pull` = `git fetch origin` + Merge
+- 즉 원격 저장소의 데이터를 가져온 후에 로컬 파일과 합친다.
 - 원격 저장소를 clone 하게 되면 로컬 저장소에 master 브랜치가 생긴다.
 - 로컬 저장소의 master 브랜치는 자동으로 원력 저장소의 master 브랜치를 추적한다.
 - 따라서 원격 저장소에서 가져온 데이터를 로컬 저장소의 master 브랜치와 합쳐진다.
 
 ```
-예1) 원격 저장소의 파일을 가져와 로컬 저장소의 파일과 병합하기 
+예1) 원격 저장소의 파일을 가져와 로컬 저장소의 파일과 병합하기
 $ git pull
 ```
 
@@ -611,7 +611,7 @@ $ git pull
 - 로컬 저장소 브랜치를 원격 저장소로 업로드(push) 한다.
 - 전제 조건
   - 원격 저장소에 쓰기 권한이 있어야 한다.
-  - 아직 다른 사람이 push 한 적이 없다. 
+  - 아직 다른 사람이 push 한 적이 없다.
   - 다른 사람이 push 한 적이 있다면, 먼저 원격 저장소의 데이터를 가져와서 merge 한 다음에 push 해야 한다.
 
 ```
@@ -711,7 +711,7 @@ To https://github.com/eomjinyoung/test.git
 $ git show v0.1
 tag v0.1
 Tagger: Jinyoung Eom <jinyoung.eom@gmail.com>   <=== 태그 붙인 사람 정보
-Date:   Mon Aug 27 00:03:56 2018 +0900          <=== 태그 붙인 날짜 
+Date:   Mon Aug 27 00:03:56 2018 +0900          <=== 태그 붙인 날짜
 
 my version 0.1                                  <=== 태그 붙일 때 작성한 메시지
 
