@@ -55,6 +55,20 @@ public class Controller04_4 {
     out.println(car);
   }
   
+  //테스트:
+  //    http://.../c04_4/h3?engine=bitengine,3500,16
+  @GetMapping("h3") 
+  @ResponseBody 
+  public void handler3(
+      PrintWriter out,
+      // 콤마(,)로 구분된 문자열을 Engine 객체로 변환하기?
+      // => String ===> Engine 프로퍼티 에디터를 등록하면 된다.
+      @RequestParam("engine") Engine engine
+      ) {
+    
+    out.println(engine);
+  }
+  
   
   
   // 프로퍼티 에디터를 프론트 컨트롤러에게 적용하기
@@ -89,6 +103,12 @@ public class Controller04_4 {
     binder.registerCustomEditor(
         Car.class, // String을 Car 타입으로 바꾸는 에디터임을 지정한다. 
         new CarPropertyEditor()  // 바꿔주는 일을 하는 프로퍼티 에디터를 등록한다.
+    );
+    
+    // WebDataBinder에 프로퍼티 에디터 등록하기
+    binder.registerCustomEditor(
+        Engine.class, // String을 Engine 타입으로 바꾸는 에디터임을 지정한다. 
+        new EnginePropertyEditor()  // 바꿔주는 일을 하는 프로퍼티 에디터를 등록한다.
     );
   }
 
@@ -153,6 +173,20 @@ public class Controller04_4 {
       car.setCreatedDate(java.sql.Date.valueOf(values[3]));
       
       setValue(car);
+    }
+  }
+  
+  class EnginePropertyEditor extends PropertyEditorSupport {
+    @Override
+    public void setAsText(String text) throws IllegalArgumentException {
+      String[] values = text.split(",");
+      
+      Engine engine = new Engine();
+      engine.setModel(values[0]);
+      engine.setCc(Integer.parseInt(values[1]));
+      engine.setValve(Integer.parseInt(values[1]));
+      
+      setValue(engine);
     }
   }
 }
