@@ -79,10 +79,16 @@ public class Controller04_4 {
     // String ===> Date 프로퍼티 에디터 준비 
     DatePropertyEditor propEditor = new DatePropertyEditor();
     
-    // WebDataBinder에 등록하기
+    // WebDataBinder에 프로퍼티 에디터 등록하기
     binder.registerCustomEditor(
         java.util.Date.class, // String을 Date 타입으로 바꾸는 에디터임을 지정한다. 
         propEditor  // 바꿔주는 일을 하는 프로퍼티 에디터를 등록한다.
+    );
+    
+    // WebDataBinder에 프로퍼티 에디터 등록하기
+    binder.registerCustomEditor(
+        Car.class, // String을 Car 타입으로 바꾸는 에디터임을 지정한다. 
+        new CarPropertyEditor()  // 바꿔주는 일을 하는 프로퍼티 에디터를 등록한다.
     );
   }
 
@@ -134,7 +140,21 @@ public class Controller04_4 {
     }
   }
   
-  
+  // String ===> Car 프로퍼티 에디터 만들기
+  class CarPropertyEditor extends PropertyEditorSupport {
+    @Override
+    public void setAsText(String text) throws IllegalArgumentException {
+      String[] values = text.split(",");
+      
+      Car car = new Car();
+      car.setModel(values[0]);
+      car.setCapacity(Integer.parseInt(values[1]));
+      car.setAuto(Boolean.parseBoolean(values[2]));
+      car.setCreatedDate(java.sql.Date.valueOf(values[3]));
+      
+      setValue(car);
+    }
+  }
 }
 
 
