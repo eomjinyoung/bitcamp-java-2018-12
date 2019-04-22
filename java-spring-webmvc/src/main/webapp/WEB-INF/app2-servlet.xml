@@ -26,6 +26,38 @@
     <property name="suffix" value=".jsp"/>
   </bean>
   
+  <!-- 인터셉터 배치하기 -->
+  <mvc:interceptors>
+  
+    <!-- 이 프론트 컨트롤러의 모든 요청에 대해 인터셉터를 적용하고 싶다면 
+         그냥 <bean> 태그를 선언한다. -->
+    <bean class="bitcamp.app2.Controller04_1_Interceptor3"/>
+   
+    <!-- 특정 URL을 요청했을 때 실행될 인터셉터 배치하기 -->
+    <mvc:interceptor>
+    
+      <!-- URL의 기준은 프론트 컨트롤러이다. 
+           /c04_1/* => /c04_1/ 바로 밑에 있는 URL에 대해서만 적용된다.
+           /c04_1/** => /c04_1/ 의 모든 하위 URL에 대해서 적용된다.-->
+      <mvc:mapping path="/c04_1/**"/> 
+      <bean class="bitcamp.app2.Controller04_1_Interceptor1"/>
+    </mvc:interceptor>
+    
+    <mvc:interceptor>
+      <mvc:mapping path="/c04_1/a/*"/> <!-- URL의 기준은 프론트 컨트롤러이다. -->
+      <bean class="bitcamp.app2.Controller04_1_Interceptor2"/>
+    </mvc:interceptor>
+    
+    <mvc:interceptor>
+      <mvc:mapping path="/c04_1/**"/> 
+      
+      <!-- 특정 URL은 제외하기 -->
+      <mvc:exclude-mapping path="/c04_1/a/**"/>
+      
+      <bean class="bitcamp.app2.Controller04_1_Interceptor4"/>
+    </mvc:interceptor>
+    
+  </mvc:interceptors>
 </beans>
 
 
