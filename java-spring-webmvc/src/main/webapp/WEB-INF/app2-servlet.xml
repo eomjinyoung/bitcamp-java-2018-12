@@ -16,8 +16,7 @@
   
   <context:component-scan base-package="bitcamp.app2"/>
   
-  <!-- component-scan 태그는 @MatrixVariable 애노테이션을 처리할 객체를 추가하지 않는다 
-       이 애노테이션을 처리하려면 다음의 태그를 선언하여 관련 객체를 간접적으로 등록해야 한다.-->
+  <!-- @MatrixVariable 애노테이션을 활성화시키기 -->
   <mvc:annotation-driven enable-matrix-variables="true"/>
   
   <!-- 기존의 뷰 리졸버를 대체한다. -->

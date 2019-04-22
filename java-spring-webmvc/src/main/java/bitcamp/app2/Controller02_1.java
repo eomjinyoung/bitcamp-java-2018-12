@@ -31,8 +31,13 @@ public class Controller02_1 {
   @GetMapping("{name}/{age}")
   @ResponseBody
   public String handler2(
+      /*
       @PathVariable("name") String name,
       @PathVariable("age") int age
+      */
+      // URL의 변수 이름을 생략하면 아규먼트 이름을 사용한다.
+      @PathVariable String name,
+      @PathVariable int age
       ) {
     // URL에 값을 포함하여 전달할 수 있고, 그 값을 아규먼트로 받을 수 있다.
     // URL에 포함된 값을 받으려면 request handler의 URL을 설정할 때 
@@ -54,6 +59,7 @@ public class Controller02_1 {
       ) {
     return String.format("name=%s, age=%d", name, age);
   }
+  
 }
 
 
