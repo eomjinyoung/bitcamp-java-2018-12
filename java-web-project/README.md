@@ -138,4 +138,29 @@
         - <mvc:annotation-driven/> 태그를 추가하라.
 - 기존의 CharacterEncodingFilter를 스프링의 필터로 교체한다.
     - 기존 필터 삭제
- 
+
+## src15 : Spring WebMVC 프레임워크에 XML 설정 적용
+- web.xml 변경
+    - ContextLoaderListener의 IoC 컨테이너가 사용할 XML 설정 파일을 지정
+    - DispatcherServlet의 IoC 컨테이너가 사용할 XML 설정 파일을 지정
+- IoC 컨테이너의 설정 파일 생성
+    - /WEB-INF/app-servlet.xml 파일 생성(DispatcherServlet의 IoC 컨테이너가 사용)
+    - /WEB-INF/application-context*.xml 파일 생성
+- 기존의 자바 config 클래스 파일 삭제
+- 페이지 컨트롤러 변경
+    - 페이지 컨트롤러의 자바 패키지 변경
+- JSP 변경
+    - /WEB-INF/jsp 디렉토리로 이전
+    - 기타 경로 조정
+- AppInitListener 생성
+    - Mybatis의 로그 팩토리 지정
+
+## src16 :  Spring WebMVC 프레임워크에 Java config 설정 적용
+- web.xml 변경 : DispatcherServlet 배치 정보 제거 
+    - WebApplicationInitializer 구현체 정의
+        - WebAppInitializer 클래스 정의
+        - web.xml에 DispatcherServlet을 배치하는 대신에 이 클래스에서 배치한다.
+    - DefaultWebConfig 클래스 정의
+         app-servlet.xml 설정을 이 클래스로 옮긴다.
+- web.xml 변경 : CharacterEncodingFilter 배치 정보 제거
+    - WebAppInitializer 클래스에 필터를 설정한다.
