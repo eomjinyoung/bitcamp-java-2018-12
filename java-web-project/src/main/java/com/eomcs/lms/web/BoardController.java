@@ -1,38 +1,33 @@
 package com.eomcs.lms.web;
 
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 
 @Controller
+@RequestMapping("/board")
 public class BoardController {
   
   @Autowired BoardService boardService;
   
-  @RequestMapping("/board/form")
-  public String form() throws Exception {
-    return "/board/form.jsp";
+  @GetMapping("form")
+  public void form() throws Exception {
   }
   
-  @RequestMapping("/board/add")
-  public String add(
-      @RequestParam("contents") String contents) throws Exception {
-    
-    Board board = new Board();
-    board.setContents(contents);
-    
+  @PostMapping("add")
+  public String add(Board board) throws Exception {
     boardService.add(board);
-    
     return "redirect:list";
   }
   
-  @RequestMapping("/board/delete")
-  public String delete(@RequestParam("no") int no) throws Exception {
+  @GetMapping("delete")
+  public String delete(int no) throws Exception {
   
     if (boardService.delete(no) == 0) 
       throw new Exception("해당 번호의 게시물이 없습니다.");
@@ -40,33 +35,22 @@ public class BoardController {
     return "redirect:list";
   }
   
-  @RequestMapping("/board/detail")
-  public String detail(
-      @RequestParam("no") int no,
-      Map<String,Object> map) throws Exception {
-
+  @GetMapping("detail")
+  public void detail(int no, Model model) throws Exception {
     Board board = boardService.get(no);
-    map.put("board", board);
-    
-    // 뷰 컴포넌트의 URL을 프론트 컨트롤러에게 리턴한다.
-    return "/board/detail.jsp";
+    model.addAttribute("board", board);
   }
   
-  @RequestMapping("/board/list")
-  public String list(Map<String,Object> map) throws Exception {
-    
+  @GetMapping("list")
+  public void list(Model model) throws Exception {
     List<Board> boards = boardService.list();
-    map.put("list", boards);
-    
-    // 뷰 컴포넌트의 URL을 이 메서드를 호출한 프론트 컨트롤러에게 리턴한다.
-    return "/board/list.jsp";
+    model.addAttribute("list", boards);
   }
   
-  @RequestMapping("/board/update")
+  @PostMapping("update")
   public String update(Board board) throws Exception {
     if (boardService.update(board) == 0) 
       throw new Exception("해당 번호의 게시물이 없습니다.");
-      
     return "redirect:list";
   }
 }

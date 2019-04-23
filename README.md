@@ -638,6 +638,6 @@
     - JSP 파일 옮기기
         - /WEB-INF/jsp/ 폴더로 JSP 파일을 옮긴다.
     - ContextLoaderListener의 IoC 컨테이너 설정하기
-        - /WEB-INF/application-context.xml 파일 생성
+        - /WEB-INF/application-context*.xml 파일 생성
     - 페이지 컨트롤러 수정
         - Spring Web MVC 관련 애노테이션을 적용한다.
