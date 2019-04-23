@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.eomcs.lms.dao.MemberDao">
+  
+  <resultMap type="member" id="memberMap">
+    <id column="member_id"  property="no"/>
+    <result column="name"   property="name"/>
+    <result column="email"  property="email"/>
+    <result column="pwd"    property="password"/>
+    <result column="cdt"    property="registeredDate"/>
+    <result column="tel"    property="tel"/>
+    <result column="photo"  property="photo"/>
+  </resultMap>
+  
+  <sql id="default-columns">
+      member_id, 
+      name, 
+      email, 
+      tel,
+      cdt
+  </sql>
+  
+  <select id="findAll" resultMap="memberMap">
+    select 
+      <include refid="default-columns"/>
+    from 
+      lms_member
+    order by 
+      name asc
+  </select>
+  
+  <select id="findByNo" resultMap="memberMap" parameterType="int">
+    select 
+      <include refid="default-columns"/>, 
+      photo
+    from 
+      lms_member
+    where 
+      member_id = #{value}
+  </select>
+  
+  <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
+    select 
+      <include refid="default-columns"/>, 
+      photo
+    from 
+      lms_member
+    where 
+      email = #{email}
+      and pwd = password(#{password})
+  </select>
+  
+  <select id="findByKeyword" resultMap="memberMap" parameterType="string">
+    <bind name="pattern1" value="'%' + _parameter + '%'"/>
+    select 
+      <include refid="default-columns"/> 
+    from 
+      lms_member
+    where 
+      name like #{pattern1}
+      or email like #{pattern1}
+      or tel like #{pattern1}
+    order by name asc
+  </select>
+  
+  <insert id="insert" parameterType="member">
+    insert into lms_member(
+      name,
+      email,
+      pwd,
+      tel,
+      photo)
+    values(
+      #{name},
+      #{email},
+      password(#{password}),
+      #{tel},
+      #{photo})
+  </insert>
+  
+  <update id="update" parameterType="member">
+    update lms_member
+    <set>
+      <if test="name != null">name = #{name},</if>
+      <if test="email != null">email = #{email},</if>
+      <if test="password != null">pwd = password(#{password}),</if>
+      <if test="tel != null">tel = #{tel},</if>
+      <if test="photo != null">photo = #{photo}</if>
+    </set>  
+    where 
+      member_id = #{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from lms_member 
+    where member_id = #{value}
+  </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
