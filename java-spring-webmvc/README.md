@@ -21,3 +21,8 @@
 ## src04 : Request Handler 정의하는 방법
 
 - @Controller를 사용하여 페이지 컨트롤러 표시하기
+- Request Handler의 아규먼트
+- Request Handler의 리턴 타입과 View Resolver
+- Request Handler의 URL @PathVariable 과  @MatrixVariable
+- Request Handler의 @SessionAttributes와 @ModelAttribute
+- 인터셉터 다루기

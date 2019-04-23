@@ -1,4 +1,4 @@
-package com.eomcs.lms.filter;
+package com.eomcs.lms.web.filter;
 
 import java.io.IOException;
 import javax.servlet.Filter;

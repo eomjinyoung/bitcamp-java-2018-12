@@ -1,4 +1,4 @@
-package com.eomcs.lms.controller;
+package com.eomcs.lms.web;
 
 import java.util.ArrayList;
 import java.util.List;

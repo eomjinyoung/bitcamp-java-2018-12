@@ -13,7 +13,7 @@
 --%>
 </head>
 <body>
-  <jsp:include page="/header.jsp" />
+  <jsp:include page="header.jsp" />
   <h1>${requestScope["error.title"]}</h1>
   <p>${requestScope["error.content"]}</p>
   <p><a href="${refererUrl}">이전 페이지로 가기</a></p>

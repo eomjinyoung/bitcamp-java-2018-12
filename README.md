@@ -597,11 +597,12 @@
     - @RequestHeader 처리
     - VO 파라미터 처리
 - Sprint WebMVC 프레임워크 적용
+    - 웹 프로젝트 14단계 과제 수행
 
 ## 71일(2019-4-12) 
 - Spring WebMVC 프레임워크 사용법 
     - 프로젝트 생성(java-spring-webmvc)
-    - 1단계: 스프링 Web MVC 설정하기
+    - 스프링 Web MVC 설정하기
 
 ## 72일(2019-4-15)
 - 프로젝트 발표
@@ -627,3 +628,16 @@
 
 ## 77일(2019-4-22)
 - Spring WebMVC 프레임워크 사용법 IV
+
+## 78일(2019-4-23)
+- 웹 프로젝트 15단계 과제 수행
+    - web 패키지 추가
+        - 페이지 컨트롤러와 웹 관련 클래스들을 이 패키지로 옮긴다.
+    - Spring WebMVC XML 설정하기
+        - /WEB-INF/app-servlet.xml 파일 생성
+    - JSP 파일 옮기기
+        - /WEB-INF/jsp/ 폴더로 JSP 파일을 옮긴다.
+    - ContextLoaderListener의 IoC 컨테이너 설정하기
+        - /WEB-INF/application-context.xml 파일 생성
+    - 페이지 컨트롤러 수정
+        - Spring Web MVC 관련 애노테이션을 적용한다.
