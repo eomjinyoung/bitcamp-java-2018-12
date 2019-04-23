@@ -8,9 +8,9 @@
 </head>
 <body>
 
-  <jsp:include page="/header.jsp" />
+  <jsp:include page="../header.jsp" />
 
-  <h1>사진 조회(JSP2 + EL + JSTL)</h1>
+  <h1>사진 조회</h1>
 <c:choose>
 <c:when test="${empty board}">
   <p>해당 사진을 찾을 수 없습니다.</p>

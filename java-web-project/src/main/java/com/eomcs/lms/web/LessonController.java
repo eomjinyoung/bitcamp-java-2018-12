@@ -1,62 +1,56 @@
 package com.eomcs.lms.web;
 
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
 
 @Controller
+@RequestMapping("/lesson")
 public class LessonController {
   
   @Autowired LessonService lessonService;
 
-  @RequestMapping("/lesson/form")
-  public String form() {
-    return "/lesson/form.jsp";
+  @GetMapping("form")
+  public void form() {
   }
   
-  @RequestMapping("/lesson/add")
-  public String add(Lesson lesson) throws Exception {
+  @PostMapping("add")
+  public String add(Lesson lesson) {
     lessonService.add(lesson);
     return "redirect:list";
   }
   
-  @RequestMapping("/lesson/delete")
-  public String delete(
-      @RequestParam("no") int no) throws Exception {
+  @GetMapping("delete")
+  public String delete(int no) {
 
     if (lessonService.delete(no) == 0) 
-      throw new Exception("해당 번호의 수업이 없습니다.");
+      throw new RuntimeException("해당 번호의 수업이 없습니다.");
       
     return "redirect:list";
   }
   
-  @RequestMapping("/lesson/detail")
-  public String detail(
-      @RequestParam("no") int no,
-      Map<String,Object> map) throws Exception {
-
+  @GetMapping("detail")
+  public void detail(int no, Model model) {
     Lesson lesson = lessonService.get(no);
-    map.put("lesson", lesson);
-    return "/lesson/detail.jsp";
+    model.addAttribute("lesson", lesson);
   }
 
-  @RequestMapping("/lesson/list")
-  public String list(Map<String,Object> map) throws Exception {
+  @GetMapping("list")
+  public void list(Model model) {
     List<Lesson> lessons = lessonService.list();
-    map.put("list", lessons);
-    return "/lesson/list.jsp";
+    model.addAttribute("list", lessons);
   }
   
-  @RequestMapping("/lesson/update")
-  public String update(Lesson lesson) throws Exception {
+  @PostMapping("update")
+  public String update(Lesson lesson) {
     if (lessonService.update(lesson) == 0)
-      throw new Exception("해당 번호의 수업이 없습니다.");
-    
+      throw new RuntimeException("해당 번호의 수업이 없습니다.");
     return "redirect:list";
   }
 }

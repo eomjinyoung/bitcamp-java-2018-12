@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.eomcs.lms.domain.Board;
@@ -17,41 +18,43 @@ public class BoardController {
   @Autowired BoardService boardService;
   
   @GetMapping("form")
-  public void form() throws Exception {
+  public void form() {
   }
   
   @PostMapping("add")
-  public String add(Board board) throws Exception {
+  public String add(Board board) {
     boardService.add(board);
-    return "redirect:list";
+    return "redirect:.";
   }
   
-  @GetMapping("delete")
-  public String delete(int no) throws Exception {
+  @GetMapping("delete/{no}")
+  public String delete(@PathVariable int no) {
   
     if (boardService.delete(no) == 0) 
-      throw new Exception("해당 번호의 게시물이 없습니다.");
+      throw new RuntimeException("해당 번호의 게시물이 없습니다.");
     
-    return "redirect:list";
+    return "redirect:../";
   }
   
-  @GetMapping("detail")
-  public void detail(int no, Model model) throws Exception {
+  @GetMapping("{no}")
+  public String detail(@PathVariable int no, Model model) {
     Board board = boardService.get(no);
     model.addAttribute("board", board);
+    return "board/detail";
   }
   
-  @GetMapping("list")
-  public void list(Model model) throws Exception {
+  @GetMapping
+  public String list(Model model) {
     List<Board> boards = boardService.list();
     model.addAttribute("list", boards);
+    return "board/list";
   }
   
   @PostMapping("update")
-  public String update(Board board) throws Exception {
+  public String update(Board board) {
     if (boardService.update(board) == 0) 
-      throw new Exception("해당 번호의 게시물이 없습니다.");
-    return "redirect:list";
+      throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+    return "redirect:.";
   }
 }
 

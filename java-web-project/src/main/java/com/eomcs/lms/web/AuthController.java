@@ -45,7 +45,7 @@ public class AuthController {
       String password,
       String saveEmail,
       HttpSession session,
-      HttpServletResponse response) throws Exception {
+      HttpServletResponse response) {
 
     Cookie cookie;
     if (saveEmail != null) {

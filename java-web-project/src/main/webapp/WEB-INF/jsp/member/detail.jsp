@@ -8,9 +8,9 @@
 </head>
 <body>
 
-  <jsp:include page="/header.jsp" />
+  <jsp:include page="../header.jsp" />
 
-  <h1>회원 조회(JSP2 + EL + JSTL)</h1>
+  <h1>회원 조회</h1>
 <c:choose>
 <c:when test="${empty member}">
   <p>해당하는 회원이 없습니다.</p>

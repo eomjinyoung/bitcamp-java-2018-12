@@ -7,9 +7,9 @@
 </head>
 <body>
 
-<jsp:include page="/header.jsp"/>
+<jsp:include page="../header.jsp"/>
 
-<h1>새 수업(JSP)</h1>
+<h1>새 수업</h1>
 <form action='add' method='post'>
 <table border='1'>
 <tr>

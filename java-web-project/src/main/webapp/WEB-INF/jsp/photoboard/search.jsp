@@ -7,8 +7,8 @@
 <title>사진 검색</title>
 </head>
 <body>
-  <jsp:include page="/header.jsp" />
-  <h1>사진 검색(JSP2 + EL + JSTL)</h1>
+  <jsp:include page="../header.jsp" />
+  <h1>사진 검색</h1>
   <table border='1'>
     <tr>
       <th>번호</th>

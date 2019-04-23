@@ -10,8 +10,8 @@
   <title>수업 목록</title>
 </head>
 <body>
-<jsp:include page="/header.jsp"/>
-<h1>수업 목록(JSP2 + EL + JSTL)</h1>
+<jsp:include page="../header.jsp"/>
+<h1>수업 목록</h1>
 <p><a href='form'>새 수업</a></p>
 
 <table border='1'>
