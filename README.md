@@ -642,3 +642,4 @@
         - /WEB-INF/application-context*.xml 파일 생성
     - 페이지 컨트롤러 수정
         - Spring Web MVC 관련 애노테이션을 적용한다.
+- 웹 프로젝트 15단계 과제 수행 : Java config 로 설정하기
