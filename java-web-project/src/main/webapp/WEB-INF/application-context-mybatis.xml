@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://mybatis.org/schema/mybatis-spring 
+        http://mybatis.org/schema/mybatis-spring.xsd">
+
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="typeAliasesPackage" value="com.eomcs.lms.domain" />
+    <property name="mapperLocations" 
+              value="classpath*:com/eomcs/lms/mapper/*.xml" />
+  </bean>
+
+  <!-- DAO 인터페이스의 구현체를 생성할 객체 등록 -->
+  <mybatis:scan base-package="com.eomcs.lms.dao"/>
+  
+  <!-- mybatis:scan 태그 대신에 다음과 같이 직접 객체를 등록해도 된다. -->
+  <!--  
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="com.eomcs.lms.dao" />
+  </bean>
+  -->
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

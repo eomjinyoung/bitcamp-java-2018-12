@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -15,7 +16,7 @@ import com.eomcs.lms.service.MemberService;
 
 @Controller
 @RequestMapping("/auth")
-@SessionAttributes("loginUser")
+@SessionAttributes({"loginUser", "refererUrl"})
 public class AuthController {
 
   static final String REFERER_URL = "refererUrl";
@@ -25,9 +26,9 @@ public class AuthController {
   
   @GetMapping("form")
   public void form(
-      @RequestHeader("Referer") String refererUrl,
-      HttpSession session) {
-    session.setAttribute(REFERER_URL, refererUrl);
+      @RequestHeader(value="Referer",required=false) String refererUrl,
+      Model model) {
+    model.addAttribute(REFERER_URL, refererUrl);
   }
   
   @PostMapping("login")

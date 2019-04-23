@@ -13,17 +13,15 @@
 
   <!-- 컨텍스트 파라미터 선언 -->
   <context-param>
-    <!-- ContextLoaderListener가 사용할 Spring IoC 컨테이너를 지정한다. 기본은 XmlWebApplicationContext 
-      클래스이다. 이 컨테이너는 XML 파일에서 설정 정보를 읽어 들인다. ConfigurableWebApplicationContext 
-      클래스는 자바 클래스로부터 설정 정보를 읽는다. -->
-    <param-name>contextClass</param-name>
-    <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
-  </context-param>
-
-  <context-param>
-    <!-- Spring IoC 컨테이너의 설정 정보를 갖고 있는 XML 파일이나 자바 클래스를 지정한다. -->
+    <!-- ContextLoaderListener의 IoC 컨테이너가 사용할 XML 설정 파일의 경로
+         여러 개의 XML 파일을 설정할 때는 공백이나 콤마(,)로 구분한다. -->
     <param-name>contextConfigLocation</param-name>
-    <param-value>com.eomcs.lms.AppConfig</param-value>
+    <param-value>
+      /WEB-INF/application-context.xml
+      /WEB-INF/application-context-db.xml
+      /WEB-INF/application-context-mybatis.xml
+      /WEB-INF/application-context-tx.xml
+    </param-value>
   </context-param>
 
   <!-- 리스너 선언 -->
