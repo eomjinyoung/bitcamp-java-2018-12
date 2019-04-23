@@ -10,7 +10,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.util.UrlPathHelper;
 
-// app-servlet.xml의 설정을 이 클래스로 대신한다.
+// DispatcherServlet의 IoC 컨테이너가 준비해야 할 객체에 대한 정보.
+// => app-servlet.xml의 설정을 이 클래스가 대체한다.
 // 
 @ComponentScan("com.eomcs.lms.web")
 @EnableWebMvc

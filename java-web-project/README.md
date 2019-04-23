@@ -164,3 +164,7 @@
          app-servlet.xml 설정을 이 클래스로 옮긴다.
 - web.xml 변경 : CharacterEncodingFilter 배치 정보 제거
     - WebAppInitializer 클래스에 필터를 설정한다.
+- web.xml 변경 : ContextLoaderListener 배치 정보 제거
+    - 관련된 context-param 태그도 제거한다.
+    - AppConfig, DatabaseConfig, MybatisConfig를 추가한다.
+    - WebAppInitializer에서 getRootConfigClasses() 메서드를 오버라이딩 한다.
