@@ -19,7 +19,7 @@
 <c:forEach items="${list}" var="lesson">
   <tr>
     <td>${lesson.no}</td>
-    <td><a href='detail?no=${lesson.no}'>${lesson.title}</a></td>
+    <td><a href='${lesson.no}'>${lesson.title}</a></td>
     <td>${lesson.startDate} ~ ${lesson.endDate}</td>
     <td>${lesson.totalHours}</td>
   </tr>

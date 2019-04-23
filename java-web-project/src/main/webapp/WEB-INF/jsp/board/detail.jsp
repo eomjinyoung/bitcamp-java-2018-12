@@ -36,7 +36,7 @@
       </tr>
     </table>
     <p>
-      <a href='list'>목록</a> <a href='delete/${board.no}'>삭제</a>
+      <a href='.'>목록</a> <a href='delete/${board.no}'>삭제</a>
       <button type='submit'>변경</button>
     <p>
   </form>

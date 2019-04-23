@@ -6,7 +6,7 @@
     <head><title>새 사진</title></head>
     <body>
 
-    <h1>새 사진(JSP2 + EL + JSTL)</h1>
+    <h1>새 사진</h1>
     <form action='add' method='post' enctype='multipart/form-data'>
     <table border='1'>
     <tr>
@@ -48,7 +48,7 @@
     </table>
     <p>
       <button type='submit'>등록</button>
-      <a href='list'>목록</a>
+      <a href='.'>목록</a>
     </p>
     </form>
     </body>

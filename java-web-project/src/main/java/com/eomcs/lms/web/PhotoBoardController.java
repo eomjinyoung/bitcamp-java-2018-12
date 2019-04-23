@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.eomcs.lms.domain.Lesson;
@@ -63,29 +64,31 @@ public class PhotoBoardController {
 
     } else {
       photoBoardService.add(board);
-      return "redirect:list";
+      return "redirect:.";
     }
   }
   
-  @GetMapping("delete")
-  public String delete(int no) {
+  @GetMapping("delete/{no}")
+  public String delete(@PathVariable int no) {
     if (photoBoardService.delete(no) == 0)
       throw new RuntimeException("해당 번호의 사진이 없습니다.");
-    return "redirect:list";
+    return "redirect:../";
   }
   
-  @GetMapping("detail")
-  public void detail(int no, Model model) {
+  @GetMapping("{no}")
+  public String detail(@PathVariable int no, Model model) {
     PhotoBoard board = photoBoardService.get(no);
     List<Lesson> lessons = lessonService.list();
     model.addAttribute("board", board);
     model.addAttribute("lessons", lessons);
+    return "photoboard/detail";
   }
   
-  @GetMapping("list")
-  public void list(Model model) {
+  @GetMapping
+  public String list(Model model) {
     List<PhotoBoard> boards = photoBoardService.list(0, null);
     model.addAttribute("list", boards);
+    return "photoboard/list";
   }
   
   @GetMapping("search")
@@ -121,6 +124,6 @@ public class PhotoBoardController {
       throw new RuntimeException("최소 한 개의 사진 파일을 등록해야 합니다.");
     
     photoBoardService.update(board);
-    return "redirect:list";
+    return "redirect:.";
   }
 }

@@ -29,7 +29,7 @@
 </c:forEach>
   </table>
   <p>
-    <a href='list'>목록</a>
+    <a href='.'>목록</a>
   </p>
 </body>
 </html>
