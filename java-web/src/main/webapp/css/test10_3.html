@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  /* float II
+    => float의 특징을 살려서 위치 조정하기
+    => width와 height를 지정한다.
+    => 위,아래,좌,우 margin을 조정한다.
+    => 아래에 높여있는 태그의 위치나 margin을 조정한다.
+  */
+  body {
+    border: 1px solid black;
+    padding: 10px;
+  }
+
+  div {
+    border: 1px solid black;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .c1 {
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+  }
+
+  #d1 {background-color: red;}
+  #d11 {background-color: orange;}
+  #d2 {
+    background-color: green;
+    float: left;
+    width: 100px;
+    height: 50px;
+    margin-top: 0px;
+  }
+  #d3 {
+    background-color: blue;
+    margin-left: 140px;
+  }
+  </style>
+</head>
+<body>
+  <div id="d1">1
+    <div id="d11">2
+      <div id="d111" class="c1">3</div>
+      <div id="d112" class="c1">4</div>
+    </div>
+  </div>
+  <div id="d2" class="c2">5</div>
+  <div id="d3" class="c2">6</div>
+
+
+</body>
+</html>
+
+
+
+
+<!-- -->
