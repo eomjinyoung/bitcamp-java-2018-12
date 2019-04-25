@@ -170,4 +170,17 @@
     - WebAppInitializer에서 getRootConfigClasses() 메서드를 오버라이딩 한다.
 
 ## src17 : Bootstrap CSS 적용하기
-- 
+- 메인 화면을 출력하는 페이지 컨트롤러 추가
+    - HomeController 클래스 추가
+    - /WEB-INF/jsp/home.jsp 추가
+    - /index.html 삭제
+- 컨텍스트 루트 경로 정보를 ServletContext에 저장
+    - AppInitListener 클래스 변경
+- /WEB-INF/jsp/header.jsp 변경
+    - Bootstrap CSS 적용
+- /WEB-INF/jsp/javascript.jsp 추가
+    - Bootstrap에서 사용할 자바스크립트 파일을 HTML에 삽입하기
+- 목록에 페이징 처리
+    - 컨트롤러, 서비스, DAO, SQL 맵퍼 파일, JSP 변경
+- JSP에 Bootstrap CSS 적용
+    - /WEB-INF/jsp/../*.jsp 파일 변경
