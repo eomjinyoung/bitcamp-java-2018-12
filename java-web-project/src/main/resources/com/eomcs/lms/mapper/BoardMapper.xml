@@ -23,10 +23,13 @@
       lms_board
   </sql>
   
-  <select id="findAll" resultMap="boardMap">
+  <select id="findAll" resultMap="boardMap" parameterType="map">
     <include refid="select1"/>
     order by 
       board_id desc
+    <if test="#{size != null || rowNo != null}">
+      limit #{rowNo}, #{size}
+    </if>
   </select>
   
   <select id="findByNo" resultMap="boardMap" parameterType="int">
@@ -58,6 +61,10 @@
     delete from lms_board 
     where board_id = #{no}
   </delete>
+  
+  <select id="countAll" resultType="int">
+    select count(*) from lms_board
+  </select>
 </mapper>
 
 

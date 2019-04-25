@@ -18,7 +18,7 @@
 <div class="container">
 <h1>게시물 목록</h1>
 <p><a href='form' class="btn btn-primary btn-sm">새 글</a></p>
-<table class="table table-sm table-hover">
+<table class="table table-hover">
 <thead>
   <tr> 
     <th scope="col">번호</th>

@@ -13,35 +13,48 @@
 <jsp:include page="../header.jsp"/>
 
 <div class="container">
-  <h1>게시물 조회</h1>
+<h1>게시물 조회</h1>
 <c:choose>
 <c:when test="${empty board}">
   <p>해당 게시물이 없습니다</p>
 </c:when>
 <c:otherwise>
   <form action='update' method='post'>
-    <table border='1'>
-      <tr>
-        <th>번호</th>
-        <td><input type='text' name='no' value='${board.no}' readonly></td>
-      </tr>
-      <tr>
-        <th>내용</th>
-        <td><textarea name='contents' rows='3' cols='50'>${board.contents}</textarea></td>
-      </tr>
-      <tr>
-        <th>작성일</th>
-        <td>${board.createdDate}</td>
-      </tr>
-      <tr>
-        <th>조회수</th>
-        <td>${board.viewCount}</td>
-      </tr>
-    </table>
-    <p>
-      <a href='.'>목록</a> <a href='delete/${board.no}'>삭제</a>
-      <button type='submit'>변경</button>
-    <p>
+  <div class="form-group row">
+    <label for="no" class="col-sm-2 col-form-label">번호</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control-plaintext" id="no" 
+             name='no' value='${board.no}' readonly>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="contents" class="col-sm-2 col-form-label">내용</label>
+    <div class="col-sm-8">
+      <textarea class="form-control" id="contents" 
+                name='contents' rows='5'>${board.contents}</textarea>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="createdDate" class="col-sm-2 col-form-label">작성일</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" 
+          id="createdDate" value="${board.createdDate}">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="viewCount" class="col-sm-2 col-form-label">조회수</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" 
+          id="viewCount" value="${board.viewCount}">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <a class="btn btn-primary" href='.'>목록</a> 
+      <a class="btn btn-primary" href='delete/${board.no}'>삭제</a> 
+      <button class="btn btn-primary">변경</button>
+    </div>
+  </div>
   </form>
 </c:otherwise>
 </c:choose>
