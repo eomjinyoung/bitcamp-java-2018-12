@@ -2,11 +2,15 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head><title>로그인</title></head>
+<head>
+  <title>로그인</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
 <body>
 
 <jsp:include page="../header.jsp"/>
 
+<div class="container">
 <h1>로그인(JSP)</h1>
 <form action='login' method='post'>
 <table border='1'>
@@ -24,5 +28,8 @@
   <button>로그인</button>
 </p>
 </form>
+</div><!-- .container -->
+
+<jsp:include page="../javascript.jsp"/>
 </body>
 </html>

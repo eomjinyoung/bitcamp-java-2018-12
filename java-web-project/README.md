@@ -168,4 +168,6 @@
     - 관련된 context-param 태그도 제거한다.
     - AppConfig, DatabaseConfig, MybatisConfig를 추가한다.
     - WebAppInitializer에서 getRootConfigClasses() 메서드를 오버라이딩 한다.
-    
+
+## src17 : Bootstrap CSS 적용하기
+- 

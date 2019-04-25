@@ -642,4 +642,12 @@
         - /WEB-INF/application-context*.xml 파일 생성
     - 페이지 컨트롤러 수정
         - Spring Web MVC 관련 애노테이션을 적용한다.
-- 웹 프로젝트 15단계 과제 수행 : Java config 로 설정하기
+- 웹 프로젝트 16단계 과제 수행 : Java config 로 설정하기
+
+## 79일(2019-4-24)
+- CSS 사용법
+
+## 80일(2019-4-25)
+- CSS 사용법 II
+- 웹 프로젝트 17단계 과제 수행 : Bootstrap CSS 적용하기
+- JavaScript 사용법
