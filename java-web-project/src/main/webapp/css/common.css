@@ -1,5 +1,22 @@
 @charset "UTF-8";
 
+body {
+  font-size: small;
+}
+
+h1 {
+  /* border: 1px solid red; */
+  text-align: center;
+}
+
 div.container {
   width: 800px;
 }
+
+#bit-login-state {
+  margin: 0px 10px;
+}
+
+
+
+

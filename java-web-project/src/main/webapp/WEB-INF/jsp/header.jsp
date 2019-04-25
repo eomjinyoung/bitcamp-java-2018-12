@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="contextRootPath" value="${pageContext.servletContext.contextPath}"/>
 <header>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="${contextRootPath}">수업관리시스템</a>
@@ -12,17 +11,17 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="app/auth/form">로그인</a></li>
+        <a class="nav-link" href="${contextRootPath}/app/auth/form">로그인</a></li>
       <li class="nav-item active">
-        <a class="nav-link" href="app/auth/logout">로그아웃</a></li>
+        <a class="nav-link" href="${contextRootPath}/app/auth/logout">로그아웃</a></li>
       <li class="nav-item active">
-        <a class="nav-link" href="app/board/">게시판</a></li>
+        <a class="nav-link" href="${contextRootPath}/app/board/">게시판</a></li>
       <li class="nav-item active">
-        <a class="nav-link" href="app/member/">회원관리</a></li>
+        <a class="nav-link" href="${contextRootPath}/app/member/">회원관리</a></li>
       <li class="nav-item active">
-        <a class="nav-link" href="app/lesson/">수업관리</a></li>
+        <a class="nav-link" href="${contextRootPath}/app/lesson/">수업관리</a></li>
       <li class="nav-item active">
-        <a class="nav-link" href="app/photoboard/">수업사진관리</a></li>
+        <a class="nav-link" href="${contextRootPath}/app/photoboard/">수업사진관리</a></li>
     </ul>
     
     <div id="bit-login-state">
