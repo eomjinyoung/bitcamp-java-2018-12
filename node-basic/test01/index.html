@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    We are using node <script>document.write(process.versions.node)</script>,
+    Chrome <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.
+    <hr>
+    <form>
+    이름 : <input type='text' name='name'><br>
+    나이 : <input type='text' name='age'><br>
+    전화 : <input type='text' name='tel'><br>
+    <button id='btn' type='button'>등록</button>
+    </form>
+<script>
+window.$ = window.jQuery = require('jquery');
+console.log($('#btn'));
+$('#btn').click(function() {
+  alert('okok')
+});
+
+</script>
+  </body>
+</html>

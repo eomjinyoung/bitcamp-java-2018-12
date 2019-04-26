@@ -1,0 +1,44 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+</head>
+<body>
+  <div id="d1" class="c1">d1</div>
+  <input id="i1" type="text"><br>
+  <button id="btn1" type="button">값 알아내기</button>
+  <button id="btn2" type="button">값 변경하기</button>
+<script>
+/* 태그의 콘텐츠나 값을 다루기
+*/
+var d1 = document.querySelector("#d1")
+var i1 = document.querySelector("#i1")
+var btn1 = document.querySelector("#btn1")
+var btn2 = document.querySelector("#btn2")
+
+// btn1 에 click 이벤트 리스너(핸들러) 등록하기
+btn1.addEventListener('click', function() {
+  // 일반 태그의 콘텐츠 알아내기
+  console.log(d1.innerHTML)
+
+  // form 태그와 관련된 입력항목의 값을 알아내기
+  console.log(i1.value)
+})
+
+// btn2 에 click 이벤트 리스너(핸들러) 등록하기
+btn2.addEventListener('click', function() {
+  d1.innerHTML = "오호라... 변경했네!"
+  i1.value = "유후~~ 변경했네!"
+})
+
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

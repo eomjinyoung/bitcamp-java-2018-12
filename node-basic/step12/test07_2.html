@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>GET 테스트</title>
+</head>
+<body>
+<h1>GET 요청</h1>
+<form action="http://localhost:8888/get.do" method="get">
+이름: <input type="text" name="name"><br>
+나이: <input type="text" name="age"><br>
+전화: <input type="text" name="tel"><br>
+<button>GET 요청</button>
+</form>
+
+<h1>POST 요청</h1>
+<form action="http://localhost:8888/post.do" method="post">
+이름: <input type="text" name="name"><br>
+나이: <input type="text" name="age"><br>
+전화: <input type="text" name="tel"><br>
+<button>POST 요청</button>
+</form>
+
+<p><a href="http://localhost:8888/hello.do">인사</a></p>
+
+<p><a href="http://localhost:8888/nono.do">없는 서비스 요청하기</a></p>
+</body>
+</html>

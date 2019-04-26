@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>계산기</title>
+  <style>
+  .btn {
+    display: inline-block;
+    border: 1px solid gray;
+    box-sizing: border-box;
+    width: 70px;
+    height: 70px;
+    padding: 15px 5px 5px 5px;
+    margin: 5px 5px 0px 0px;
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .container {
+    border: 1px solid gray;
+    width: 300px;
+    padding: 10px 5px 10px 10px;
+  }
+
+  #display {
+    border: 1px solid gray;
+    width: 283px;
+    height: 40px;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 5px;
+    text-align: right;
+  }
+
+  #btn0 {
+    width: 145px;
+  }
+  </style>
+</head>
+<body>
+<div class='container'>
+  <div id='display'>0</div>
+  <div class='btn'>AC</div
+  ><div class='btn'>&nbsp;</div
+  ><div class='btn'>&nbsp;</div
+  ><div class='btn operator'>/</div
+  ><div class='btn number'>7</div
+  ><div class='btn number'>8</div
+  ><div class='btn number'>9</div
+  ><div class='btn operator'>*</div
+  ><div class='btn number'>4</div
+  ><div class='btn number'>5</div
+  ><div class='btn number'>6</div
+  ><div class='btn operator'>-</div
+  ><div class='btn number'>1</div
+  ><div class='btn number'>2</div
+  ><div class='btn number'>3</div
+  ><div class='btn operator'>+</div
+  ><div class='btn number' id='btn0'>0</div
+  ><div class='btn'>.</div
+  ><div class='btn equal'>=</div>
+</div>
+<script>
+var prevValue = 0,
+    op = "",
+    isClear = false;
+
+var display = document.querySelector('#display'),
+    btnList = document.querySelectorAll('.number'),
+    opList = document.querySelectorAll('.operator'),
+    equal = document.querySelector('.equal');
+
+for (var i = 0; i < btnList.length; i++) {
+  btnList[i].onclick = onClickNumber;
+}
+function onClickNumber() {
+  if (isClear == false) { // 연산자를 선택했으면, 이전에 입력 값을 지운다.
+    display.textContent = ""
+    isClear = true
+  }
+  display.textContent += this.textContent
+}
+
+for (var e of opList) {
+  e.onclick = onClickOperator;
+}
+function onClickOperator() {
+  if (op == "") { // 기존에 선택한 연산자가 없다면,
+    // 현재 입력한 값을 보관하라.
+    prevValue = parseInt(display.textContent)
+
+    // 선택한 연산자를 저장하라.
+    op = this.textContent;
+
+  } else { // 기존에 선택한 연산자가 있다면, 계산하라!
+    // 현재 입력한 값을 가져와서 계산하고, 보관한다.
+    var currValue = parseInt(display.textContent)
+    switch (op) {
+      case "+": prevValue += currValue; break;
+      case "-": prevValue -= currValue; break;
+      case "*": prevValue *= currValue; break;
+      case "/": prevValue /= currValue; break;
+    }
+
+    // 계산을 완료했으니, 지금 선택한 연산자를 저장하라.
+    op = this.textContent;
+
+    // 계산 결과를 출력하라!
+    display.textContent = prevValue;
+  }
+  // 다음에 입력하는 숫자를 위해 화면을 지우라고 지정한다.
+  isClear = false;
+}
+
+equal.onclick = function() {
+  if (op != "") {
+    // 연산을 수행하라
+    var currValue = parseInt(display.textContent)
+    switch (op) {
+      case "+": prevValue += currValue; break;
+      case "-": prevValue -= currValue; break;
+      case "*": prevValue *= currValue; break;
+      case "/": prevValue /= currValue; break;
+    }
+    // 결과 값을 출력하라.
+    display.textContent = prevValue;
+    // 연산자 초기화시켜라.
+    op = ""
+  } else { // 연산자가 없다면,
+    // 현재 입력한 값을 보관하라.
+    prevValue = display.textContent;
+  }
+  isClear = false;
+}
+
+
+</script>
+</body>
+</html>

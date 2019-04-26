@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+</head>
+<body>
+
+<script>
+/* 웹브라우저 내장객체(built-in object)
+=> 웹브라우저에서 제공하는 객체를 말한다.
+   nodejs에서는 일부 객체를 제공하지 않는다.
+
+*/
+/* 1) window 객체
+=> 자바스크립트의 모든 글로벌 프로퍼티(변수,객체,함수 등)를 저장하고 있는 객체이다.
+=> 보통 생략하여 사용한다.
+*/
+// 글로벌 프로퍼티
+var v1 = 100; // => window.v1 = 100
+window.v2 = 200;
+function f1() {console.log('f1()....호출됨')}
+window.f2 = function() {console.log('f2()....호출됨')}
+
+console.log(window.v1, window.v2);
+console.log(v1, v2); // window를 생략할 수 있다.
+f1();
+window.f1();
+f2();
+window.f2();
+
+/* 웹브라우저에서 제공하는 다른 내장 객체들도 모두 window에 포함되어 있다.
+DOM API => window.document
+웹브라우저 정보 => window.navigator
+모니터 화면 => window.screen
+페이지 전환 => window.location
+페이지 내역 => window.history
+*/
+console.log("---------------------------")
+console.log(window.document)
+console.log("---------------------------")
+console.log(window.navigator)
+console.log("---------------------------")
+console.log(window.screen)
+console.log(screen.width, screen.height)
+console.log("---------------------------")
+console.log(window.location)
+//location.href = 'http://www.daum.net'
+console.log("---------------------------")
+console.log(window.history)
+
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

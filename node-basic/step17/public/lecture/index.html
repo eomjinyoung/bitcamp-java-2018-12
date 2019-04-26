@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+  .container {
+    width: 600px;
+    margin: 0px auto;
+  }
+  a[disabled] {
+    pointer-events: none;
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+<h1>강의 목록</h1>
+<table id="lecture-tbl" class="table table-hover">
+<thead>
+  <tr>
+    <th>번호</th>
+    <th>제목</th>
+    <th>시작일</th>
+    <th>종료일</th>
+    <th>강의시간</th>
+    <th>수업료</th>
+  </tr>
+</thead>
+
+<tbody>
+</tbody>
+</table>
+
+<button id="prev-btn" class="btn btn-primary">이전</button>
+<span id="page-no">1</span>
+<button id="next-btn" class="btn btn-primary">다음</button>
+<a href="view.html" class="btn btn-primary">추가</a>
+</div>
+
+<script id="tbody-template" type="text/x-handlebars-template">
+{{#each list}}
+  <tr>
+    <td>{{lno}}</td>
+    <td><a href="view.html?no={{lno}}">{{titl}}</a></td>
+    <td>{{sdt2}}</td>
+    <td>{{edt2}}</td>
+    <td>{{thrs}}</td>
+    <td>{{pric}}</td>
+  </tr>
+{{/each}}
+</script>
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>
+
+
+<!-- -->

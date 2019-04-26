@@ -1,0 +1,74 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+</head>
+<body>
+  <button id="btn1" type="button">버튼1</button>
+  <button id="btn2" type="button">버튼2</button>
+  <button id="btn3" type="button"
+  onclick="console.log('버튼3 클릭했음');
+  console.log('오호라');
+  var e = document.querySelector('#p1');
+  e.innerHTML='okok'">버튼3</button>
+  <button id="btn4" type="button" onclick="clickBtn4()">버튼4</button>
+  <p id="p1"></p>
+<script>
+/* 이벤트 다루기 - 이벤트 리스너 등록하기
+=> 태그.addEventListener("이벤트명", 함수)
+=> 태그.on이벤트명 = 함수
+*/
+var btn1 = document.querySelector("#btn1")
+var btn2 = document.querySelector("#btn2")
+
+// 1) addEventListener()를 사용하여 이벤트 핸들러 등록하기
+// => IE9+, 기타 브라우저
+// => IE8 이하: attachEvent() 함수를 사용해야 한다.
+
+btn1.addEventListener('click', function() {
+  console.log('버튼1 클릭했음')
+})
+
+/* 2) 태그 객체에 내장된 onclick 프로퍼티를 이용하여 이벤트 핸들러 등록하기
+=> click 이벤트가 발생하면,
+      웹브라우저는 태그에서 onclick 이름 등록된 함수를 찾는다.
+      없으면, 무시한다.
+      있으면, 호출한다.
+=> 이벤트에 대해 어떤 이름으로 함수를 등록해야 하는지 DOM API에 나와있다. 참고하라!
+=> 단점: 이벤트 핸들러를 한 개만 등록할 수 있다.
+         즉 이벤트 핸들러를 한 개만 등록할 때는 이 방식이 편리하다.
+*/
+btn2.onclick = function() {
+  console.log("버튼2 클릭했다.")
+}
+
+/* 3) 태그의 onXxx 속성에 자바스크립트 코드를 저장한다.
+=> <태그명 onXxx="자바스크립트코드.....">...</태그명>
+=> 단점:
+   1) HTML 코드와 자바스크립트 코드가 혼재되어 있어서 유지보수할 때 가독성이 떨어진다.
+   2) 긴 자바스크립트 코드를 삽입하면 가독성이 떨어진다.
+*/
+
+/* 4) 태그의 onXxx 속성에 긴 자바스크립트를 넣게 되면 코드를 읽기가 불편하다.
+      그래서 별도의 함수를 정의한 후에 그 함수를 호출하는 코드를 넣는다.
+=> <태그명 onXxx="함수를호출하는자바스크립트코드. 예) test()">...</태그명>
+
+   function test() {...}
+*/
+function clickBtn4() {
+  console.log('버튼4 클릭했음');
+  console.log('오호라');
+  var e = document.querySelector('#p1');
+  e.innerHTML='nono'
+}
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

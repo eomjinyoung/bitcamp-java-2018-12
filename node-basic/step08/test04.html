@@ -1,0 +1,60 @@
+<!-- AJAX 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  body {
+    background-color: gray;
+  }
+
+  body > div {
+    border: 1px solid red;
+    min-height: 300px;
+  }
+  </style>
+</head>
+<body>
+  <button id="btn1" type="button">서버에 요청하기</button><br>
+  <textarea id="ta" rows="20" cols="80"></textarea>
+<script>
+"use strict"
+/* AJAX 비동기 요청 상태
+=> xhr.readyState 값으로 현재 요청 상태를 확인할 수 있다.
+1 : 연결 완료
+2 : 요청 전송 완료
+3 : 응답 수신 중
+4 : 응답 완료
+
+*/
+var btn1 = document.querySelector('#btn1')
+var ta = document.querySelector('#ta')
+
+var xhr;
+
+btn1.addEventListener('click', function(event) {
+  xhr = new XMLHttpRequest()
+  // xhr 객체의 요청 상태를 감시하기 위해 이벤트 핸들러를 등록해보자!
+  // onreadystatechange() 함수는 요청 상태가 바뀔 때 마다 호출될 것이다.
+  xhr.onreadystatechange = function() {
+    console.log("=> 요청 상태가 변경되었음: ", xhr.readyState)
+  }
+
+  console.log('open() 호출 전:')
+  xhr.open('get', 'http://localhost:8080/webapp/student/list.json', true)
+  console.log('open() 호출 후: 서버와 연결되었음')
+
+  console.log('send() 호출 전:')
+  xhr.send()
+  console.log('send() 호출 후: 서버에 요청하였음')
+})
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

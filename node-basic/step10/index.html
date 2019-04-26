@@ -1,0 +1,79 @@
+<!-- AJAX 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+  .container {
+    width: 600px;
+    margin: 0px auto;
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+<h1>학생 목록</h1>
+<table id="student-tbl" class="table table-hover">
+<thead>
+  <tr>
+    <th>번호</th>
+    <th>이름</th>
+    <th>전화</th>
+    <th>이메일</th>
+    <th>재직여부</th>
+  </tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+<button type="button" class="btn btn-primary" id="add-btn">추가</button>
+</div>
+
+<script src="context.js"></script>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+"use strict"
+/* AJAX 응용 II
+=> 학생 목록 출력
+*/
+var tbody = $('#student-tbl > tbody'),
+    addBtn = $('#add-btn');
+
+$.ajax(serverUrl + '/webapp/student/list.json?pageNo=1&pageSize=8', {
+  dataType: 'json',
+  success: function(result) {
+    if (result.status != 'success') {
+      alert('데이터를 가져오는데 실패했습니다.')
+      return
+    }
+    var list = result.data.list
+    for (var s of list) {
+      $("<tr>").html("<td>" + s.memberNo +
+                "</td><td><a href='#' data-no='" + s.memberNo + "' class='view-link'>" + s.name +
+                "</a></td><td>" + s.tel +
+                "</td><td>" + s.email +
+                "</td><td>" + (s.working ? "재직중" : "실업") + "</td>")
+               .appendTo(tbody)
+    }
+    $('table .view-link').click(onClickViewLink)
+  }
+})
+
+function onClickViewLink(event) {
+  location.href = 'view.html?no=' + $(this).attr('data-no')
+  event.preventDefault()
+}
+
+addBtn.click(function() {
+  location.href = 'view.html'
+})
+
+</script>
+</body>
+</html>
+
+
+<!-- -->

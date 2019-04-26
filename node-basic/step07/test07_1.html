@@ -1,0 +1,87 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  div, body {
+    border: 1px solid black;
+    padding: 10px;
+  }
+
+  #d3, #d5 {
+    width: 200px;
+    height: 100px;
+  }
+  </style>
+</head>
+<body>body
+  <div id="d1">d1
+    <div id="d2">d2
+      <div id="d3">d3</div>
+    </div>
+    <div id="d4">d4
+      <div id="d5">d5</div>
+    </div>
+  </div>
+<script>
+/* 이벤트 전달 체계
+=> 캡쳐 단계 ==> 타겟 단계 ==> 버블 단계
+1) 캡쳐 단계(capture phase)
+  => 이벤트가 발생했을 때 최상위 태그에서 목적지 태그까지 전달하는 단계
+  => addEventListener(이벤트명, 함수, true)으로
+    등록한 이벤트 핸들러를 호출한다.
+
+2) 타겟 단계(target phase)
+  => 이벤트가 발생된 태그에 도달하는 단계
+  => addEventListener(이벤트명, 함수)
+    또는 addEventListener(이벤트명, 함수, false)으로
+    등록한 이벤트 핸들러를 호출한다.
+
+3) 버블 단계(bubble phase)
+  => 이벤트가 발생된 태그에서 최상위 태그까지 전달하는 단계
+  => addEventListener(이벤트명, 함수)
+    또는 addEventListener(이벤트명, 함수, false)으로
+    등록한 이벤트 핸들러를 호출한다.
+*/
+
+var d1 = document.querySelector("#d1")
+var d2 = document.querySelector("#d2")
+var d3 = document.querySelector("#d3")
+var d4 = document.querySelector("#d4")
+var d5 = document.querySelector("#d5")
+
+d1.addEventListener('click', function() {
+  console.log('d1...click');
+  this.style['background-color'] = 'blue'
+})
+d2.addEventListener('click', function() {
+  console.log('d2...click')
+  this.style['background-color'] = 'green'
+})
+d3.addEventListener('click', function() {
+  console.log('d3...click')
+  this.style['background-color'] = 'red'
+})
+d4.addEventListener('click', function() {
+  console.log('d4...click')
+  this.style['background-color'] = 'green'
+})
+d5.addEventListener('click', function() {
+  console.log('d5...click')
+  this.style['background-color'] = 'red'
+})
+document.body.addEventListener('click', function() {
+  console.log('body...click')
+  this.style['background-color'] = 'yellow'
+})
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

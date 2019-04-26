@@ -1,0 +1,113 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  .c1 {
+    background-color: yellow;
+  }
+
+  .c2 {
+    background-color: red;
+  }
+
+  .c3 {
+    border: 1px solid black;
+  }
+  </style>
+</head>
+<body>
+  <div id="d1" class="c1">d1</div>
+  <a id="a1" href="http://www.google.com">구글</a><br>
+  <button id="btn1" type="button">속성 추가하기</button>
+  <button id="btn2" type="button">속성 추가하기 II</button>
+  <button id="btn3" type="button">속성 추가하기 III</button>
+
+<script>
+/* 태그의 속성 다루기 II - 속성 추가하기
+*/
+var d1 = document.querySelector("#d1")
+var a1 = document.querySelector("#a1")
+var btn1 = document.querySelector("#btn1")
+var btn2 = document.querySelector("#btn2")
+var btn3 = document.querySelector("#btn3")
+
+btn1.addEventListener('click', function() {
+  // 보통 객체에 프로퍼티를 추가하는 방식을 사용하기
+  d1.okok = "하하하"
+  a1.nono = "호호호"
+
+  // 속성이 분명히 추가되어 있다. 다음을 실행하면 값이 출력된다.
+  // 그러나 웹브라우저의 개발자 도구에서 태그에 해당 속성이 보이지 않는다.
+  console.log(d1.okok)
+  console.log(a1.nono)
+
+  // setAttribute()로 추가한 경우에만 getAttribute()로 조회할 수 있다.
+  console.log(d1.getAttribute("okok"))
+  console.log(a1.getAttribute("nono"))
+  console.log("------------------------------")
+})
+
+btn2.addEventListener('click', function() {
+  // 태그에 속성을 추가할 때는 다음과 같이 setAttribute() 함수를 사용하라!
+  // 그래야 개발할 때 디버깅이 쉬워진다.
+  d1.setAttribute("okok2", "헐...")
+  a1.setAttribute("nono2", "후후~~~")
+
+  // setAttribute()로 추가한 것은 별도로 관리하기 때문에 getAttribute()로 꺼내야 한다.
+  // 다음과 같이 객체의 프로퍼티를 조회하는 방법으로는 값을 조회할 수 없다.
+  console.log(d1.okok2)
+  console.log(a1.nono2)
+
+  console.log(d1.getAttribute("okok2"))
+  console.log(a1.getAttribute("nono2"))
+  console.log("------------------------------")
+})
+
+btn3.addEventListener('click', function() {
+  // 태그에 속성을 추가할 때 속성의 이름은 data-xxxx 형태로 지정하라!
+  // HTML 프로그래밍 권고 사항이다.
+  // 왜? 개발자가 무심코 기존에 존재하는 태그의 속성 이름으로 선언할까봐!
+  d1.setAttribute("data-okok", "그렇구나")
+  a1.setAttribute("data-nono", "당연하지")
+
+  console.log(d1.getAttribute("data-okok"))
+  console.log(a1.getAttribute("data-nono"))
+  console.log("------------------------------")
+})
+
+// 프로퍼티(property) vs 속성(attribute)
+// 1) 프로퍼티(변수,함수)
+// => 객체에 추가하는 값
+// => 그 값에는 숫자, 문자열, 논리값, 객체주소, 함수주소 등
+// => 변수 프로퍼티를 특히 "속성"이라 부른다.
+var obj = {};
+obj.prop1 = 10;
+obj.prop2 = "okok";
+obj.prop3 = true;
+obj.prop4 = {};
+obj.prop5 = function() {}; // 프로퍼티 중에서 함수 주소를 저장한 변수에 대해
+                          // "함수" 또는 "메서드"라는 이름으로 부른다.
+
+// 2) 속성(변수)
+// => 일반적인 객체에 대해서는 속성이라는 말보다 프로퍼티라는 말을 많이 사용한다.
+// => 그러나 결국 변수 프로퍼티를 속성이라 불러도 된다.
+// => 단 함수 프로퍼티를 속성이라 부르지 않는다.
+// => 자바스크립트 일반 객체의 변수는 "프로퍼티"라 부르고
+// => 자바스크립트의 태그 객체의 변수는 "속성"이라 주로 부른다.
+
+// 변수 프로퍼티 = 속성 = 프로퍼티
+// 함수 프로퍼티 = 함수, 메서드 = 프로퍼티
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

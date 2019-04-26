@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>계산기</title>
+  <style>
+  .btn {
+    display: inline-block;
+    border: 1px solid gray;
+    box-sizing: border-box;
+    width: 70px;
+    height: 70px;
+    padding: 15px 5px 5px 5px;
+    margin: 5px 5px 0px 0px;
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .container {
+    border: 1px solid gray;
+    width: 300px;
+    padding: 10px 5px 10px 10px;
+  }
+
+  #display {
+    border: 1px solid gray;
+    width: 283px;
+    height: 40px;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 5px;
+    text-align: right;
+  }
+
+  #btn0 {
+    width: 145px;
+  }
+  </style>
+</head>
+<body>
+<div class='container'>
+  <div id='display'></div>
+  <div class='btn'>AC</div
+  ><div class='btn'>&nbsp;</div
+  ><div class='btn'>&nbsp;</div
+  ><div class='btn operator'>/</div
+  ><div class='btn number'>7</div
+  ><div class='btn number'>8</div
+  ><div class='btn number'>9</div
+  ><div class='btn operator'>*</div
+  ><div class='btn number'>4</div
+  ><div class='btn number'>5</div
+  ><div class='btn number'>6</div
+  ><div class='btn operator'>-</div
+  ><div class='btn number'>1</div
+  ><div class='btn number'>2</div
+  ><div class='btn number'>3</div
+  ><div class='btn operator'>+</div
+  ><div class='btn number' id='btn0'>0</div
+  ><div class='btn'>.</div
+  ><div class='btn operator'>=</div>
+</div>
+<script>
+var v1 = 0,
+    v2 = 0,
+    op = "",
+    isClear = false;
+
+var display = document.querySelector('#display'),
+    btnList = document.querySelectorAll('.number'),
+    opList = document.querySelectorAll('.operator');
+
+for (var i = 0; i < btnList.length; i++) {
+  btnList[i].onclick = onClickNumber;
+}
+function onClickNumber() {
+  if (isClear == false) { // 연산자를 선택했으면, 이전에 입력 값을 지운다.
+    display.textContent = ""
+    isClear = true
+  }
+  display.textContent += this.textContent
+}
+
+for (var e of opList) {
+  e.onclick = onClickOperator;
+}
+function onClickOperator() {
+  v1 = parseInt(display.textContent)
+  op = this.textContent;
+  isClear = false;
+}
+
+
+
+
+</script>
+</body>
+</html>

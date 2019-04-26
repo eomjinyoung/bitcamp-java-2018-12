@@ -1,0 +1,35 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+</head>
+<body>
+  <div id="d1">d1</div>
+  <div id="d2">d2</div>
+  <div id="d3">d3</div>
+  <div id="d4">d4</div>
+  <div id="d5">d5</div>
+  <div id="d6">d6</div>
+  <div id="d7">d7</div>
+  <div id="d8">d8</div>
+
+<script>
+/* 태그명으로 태그 찾기
+=> document.getElementsByTagName("태그명")
+*/
+var list = document.getElementsByTagName("div") // => 리턴 값은 HTMLCollection 객체이다.
+for (var i = 0; i < list.length; i++) {
+  console.log(list[i])
+}
+
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

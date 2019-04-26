@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- 웹서버에서 HTML을 생성하지 않고,
+      지금처럼 HTML 파일을 그대로 웹브라우저에게 전달하는 경우
+      웹브라우저가 이 HTML을 제대로 처리할 수 있도록
+      HTML 파일 안에 어떤 문자집합으로 인코딩 했는지 알려줘야 한다.-->
+  <meta charset="UTF-8">
+  <title>GET 테스트</title>
+</head>
+<body>
+<h1>GET 요청</h1>
+<form action="http://localhost:8888/get.do" method="get">
+이름: <input type="text" name="name"><br>
+나이: <input type="text" name="age"><br>
+전화: <input type="text" name="tel"><br>
+<button>전송</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  div {
+    border: 1px solid red;
+    padding: 10px;
+  }
+
+  .child {
+    border: 5px solid gray;
+    width: 100px;
+    height: 20px;
+  }
+
+  </style>
+</head>
+<body>
+  <div id="d1">
+    <div id="c1" class="child">자식 태그1</div>
+    <div id="c2" class="child">자식 태그2</div>
+    <div id="c3" class="child">자식 태그3</div>
+    <div id="c4" class="child">자식 태그4</div>
+    <div id="c5" class="child">자식 태그5</div>
+    <div id="c6" class="child">자식 태그6</div>
+  </div>
+<script>
+/* 태그 삭제하기 IV
+  => 부모 태그를 모를 때
+     element.parentNode
+*/
+var d1 = document.querySelector("#d1")
+//var el = document.querySelectorAll("#d1 > div")
+//var el = document.querySelectorAll("div[id^='c']")
+var el = document.querySelectorAll(".child")
+
+for (var i = 0; i < el.length; i++) {
+  el[i].addEventListener('click', clickDiv)
+}
+
+function clickDiv() {
+  // 이벤트 리스너의 this 변수에는 이벤트가 발생된 태그의 주소가 들어 있다.
+  this.parentNode.removeChild(this)
+}
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

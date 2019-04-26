@@ -1,0 +1,129 @@
+<!-- AJAX 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+  <style>
+  .container {
+    width: 600px;
+    margin: 0px auto;
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+<h1>학생 목록</h1>
+<table id="student-tbl" class="table table-hover">
+<thead>
+  <tr>
+    <th>번호</th>
+    <th>이름</th>
+    <th>전화</th>
+    <th>이메일</th>
+    <th>재직여부</th>
+  </tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+<button type="button" class="btn btn-primary" id="add-btn">추가</button>
+</div>
+
+<!--
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+-->
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+"use strict"
+/* AJAX 응용 II
+=> 학생 목록 출력
+*/
+var tbody = $('#student-tbl > tbody'),
+    addBtn = $('#add-btn');
+
+$.ajax('http://localhost:8080/webapp/student/list.json?pageNo=1&pageSize=8', {
+  dataType: 'json',
+  success: function(result) {
+    if (result.status != 'success') {
+      alert('데이터를 가져오는데 실패했습니다.')
+      return
+    }
+    var list = result.data.list
+    for (var s of list) {
+      $("<tr>").html("<td>" + s.memberNo +
+                "</td><td><a href='#' data-no='" + s.memberNo + "' class='view-link'>" + s.name +
+                "</a></td><td>" + s.tel +
+                "</td><td>" + s.email +
+                "</td><td>" + (s.working ? "재직중" : "실업") + "</td>")
+               .appendTo(tbody)
+    }
+    $('table .view-link').click(onClickViewLink)
+  }
+})
+
+function onClickViewLink(event) {
+  location.href = 'test11_view.html?no=' + $(this).attr('data-no')
+  event.preventDefault()
+}
+
+addBtn.click(function() {
+  location.href = 'test11_view.html'
+})
+
+</script>
+
+
+<pre>
+자바스크립트 라이브러리를 사용하는 방법
+1) CDN(Contents Delivery Network)
+  => 외부에 있는 자바스크립트 파일을 참조하기
+  => 장점:
+     여러 사이트에서 같은 URL을 참조할 경우,
+     웹브라우저에서 캐시된 것을 사용하기 때문에
+     사이트를 방문할 때 마다 다시 다운로드 할 필요가 없다.
+  => 단점:
+     사용하는 라이브러리가 외부 사이트에 있기 때문에
+     보안에 취약하다.
+     즉 외부에서 임의로 변경하는 것을 막을 수 없다.
+2) 로컬 다운로드
+  => 사용할 라이브러리를 HTML이 있는 서버로 다운로드 한 다음에
+     사용하는 것이다.
+  => 장점:
+     사용할 라이브러리가 HTML과 같은 서버에 있기 때문에
+     외부에 임의로 변경할 수 없다.
+     보통 보안을 중요시 하는 사이트(은행, 공공기간 등)에서는
+     이 방식을 주로 사용한다.
+  => 단점:
+     라이브러리를 다운로드 받아서 관리해야 하는 번거로움이 있다.
+     그러나 이런 번거로움도 "패키지 관리자" 프로그램을 사용하면
+     해결할 수 있다.
+
+npm(node package manager)을 사용하여 프론트엔드(front-end) 라이브러리 관리하기
+1) npm 설정 파일을 준비한다.
+  > npm init
+  => 이 명령을 실행하면 package.json 파일이 생성된다.
+2) 이 프로그램(test11_list.html)에서 사용할 라이브러리를 추가한다.
+  > npm install jquery --save
+  > npm install bootstrap --save
+  => 라이브러리를 다운로드 받을 node_modules 폴더를 생성한다.
+  => jquery 최신 라이브러리를 다운로드 한다.
+  => --save 옵션을 붙이면, package.json 파일의 dependencies 항목에
+     jquery 라이브러리 정보를 추가한다.
+     이렇게 package.json 파일에 사용할 라이브러리 정보를 추가해두면,
+     나중에 "npm install" 명령을 실행할 때
+     dependencies 항목에 등록된 모든 라이브러리를 자동으로 다운로드 받는다.
+  => 만약 이전 버전의 라이브러리를 추가하고 싶다면 다음과 같이 버전을 지정하라.
+    > npm install jquery@1.12.4 --save
+</pre>
+
+</body>
+</html>
+
+
+<!-- -->

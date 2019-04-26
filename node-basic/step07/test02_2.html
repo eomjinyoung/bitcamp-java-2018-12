@@ -1,0 +1,54 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  .c1 {
+    background-color: yellow;
+  }
+
+  .c2 {
+    background-color: red;
+  }
+
+  .c3 {
+    border: 1px solid black;
+  }
+  </style>
+</head>
+<body>
+  <div id="d1" class="c1">d1</div>
+  <a id="a1" href="http://www.google.com">구글</a><br>
+  <button id="btn1" type="button">속성값 알아내기</button>
+  <button id="btn2" type="button">속성값 변경하기</button>
+<script>
+/* 태그의 속성 다루기
+*/
+var d1 = document.querySelector("#d1")
+var a1 = document.querySelector("#a1")
+var btn1 = document.querySelector("#btn1")
+var btn2 = document.querySelector("#btn2")
+
+btn1.addEventListener('click', function() {
+  // 태그의 속성 값 알아내기
+  console.log(d1.className)
+  console.log(a1.href)
+})
+
+btn2.addEventListener('click', function() {
+  // 태그의 속성 값 변경하기
+  d1.className = "c2 c3"
+  a1.href = "http://www.facebook.com"
+})
+
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

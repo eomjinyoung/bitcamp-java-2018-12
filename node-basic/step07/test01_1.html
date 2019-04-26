@@ -1,0 +1,69 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+</head>
+<body>
+  <div id="d1">d1</div>
+  <div id="d2">d2</div>
+  <div id="d3">d3</div>
+  <div id="d4">d4</div>
+  <div id="d5">d5</div>
+  <div id="d6">d6</div>
+  <div id="d7">d7</div>
+  <div id="d8">d8</div>
+
+<script>
+/*
+DOM(Document Object Model) Tree?
+=> 웹브라우저는 HTML 태그를 읽고 각 태그를 자바스크립트 객체로 만든다.
+=> 태그와 태그 사이에 있는 부모, 자식 관계를 표현하기 위해
+   트리 구조로 자바스크립트 객체를 다룬다.
+
+Render Tree?
+=> DOM Tree에 있는 태그 중에서 화면에 출력할 태그만 별도로 추린 트리이다.
+=> 예1)
+  <div style="display: none;">...</div>
+  => 이 경우 div 태그는 DOM Tree에는 존재한다.
+  => 그러나 화면에는 출력하지 못하기 때문에 Render Tree에는 존재하지 않는다.
+=> 예2)
+  <div style="visibility: hidden;">...</div>
+  => 이 경우 div 태그는 DOM Tree에 존재한다.
+  => 화면에는 보이지 않지만 Render Tree에도 존재한다.
+
+DOM API?
+=> DOM Tree에 있는 태그를 다룰 때 사용할 객체나 함수를 가리킨다.
+=> 프로그래밍 언어에 상관없이 표준이다.
+=> 대부분의 프로그래밍 언어는 DOM API를 구현하여 제공하고 있다.
+=> DOM API는 HTML 태그를 다루기 위해 만든 것이 아니다.
+   모든 태그를 다루기 위해 만든 것이다.
+
+JavaScript와 DOM API?
+=> JavaScript는 document라는 객체를 통해 DOM API를 제공한다.
+=> document 객체는 window 객체에 내장되어 있다.
+=> 사용법
+  window.document.함수();
+  => window 객체는 생략해도 된다. 그래서 보통 다음과 같이 사용한다.
+  document.함수();
+ */
+
+// 아이디로 태그 찾기
+// => document.getElementById("아이디")
+
+var d1 = window.document.getElementById("d1")
+console.log(d1)
+
+// 물론 window 객체를 생략해도 된다.
+var d2 = document.getElementById("d2")
+console.log(d2)
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

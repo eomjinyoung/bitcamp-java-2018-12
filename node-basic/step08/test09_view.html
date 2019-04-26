@@ -1,0 +1,212 @@
+<!-- AJAX 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+  <style>
+  .container {
+    width: 600px;
+    margin: 0px auto;
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+<h1>학생 정보</h1>
+<form class="form-horizontal">
+  <div class="form-group bit-view">
+    <label class="col-sm-2 control-label">번호</label>
+    <div class="col-sm-10">
+      <p class="form-control-static" id="fi-no"></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fi-email" class="col-sm-2 control-label">이메일</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="fi-email" placeholder="이메일">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fi-name" class="col-sm-2 control-label">이름</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="fi-name" placeholder="이름">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fi-tel" class="col-sm-2 control-label">전화번호</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="fi-tel" placeholder="전화번호">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fi-school-name" class="col-sm-2 control-label">학교명</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="fi-school-name" placeholder="학교명">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="fi-working"> 재직중
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="button" class="btn btn-primary bit-view" id="upd-btn">변경</button>
+      <button type="button" class="btn btn-primary bit-view" id="del-btn">삭제</button>
+      <button type="button" class="btn btn-primary bit-new" id="add-btn">추가</button>
+      <button type="button" class="btn btn-primary" id="lst-btn">목록</button>
+    </div>
+  </div>
+</form>
+</div>
+<script>
+"use strict"
+/* AJAX 응용 II
+=> 학생 상세 정보 출력
+*/
+
+var fiNo = document.querySelector('#fi-no'),
+    fiEmail = document.querySelector('#fi-email'),
+    fiName = document.querySelector('#fi-name'),
+    fiTel = document.querySelector('#fi-tel'),
+    fiSchoolName = document.querySelector('#fi-school-name'),
+    fiWorking = document.querySelector('#fi-working'),
+    updBtn = document.querySelector('#upd-btn'),
+    delBtn = document.querySelector('#del-btn'),
+    addBtn = document.querySelector('#add-btn'),
+    lstBtn = document.querySelector('#lst-btn');
+
+if (location.search == "") {
+  // 새 사용자 등록을 처리한다.
+  // 상세보기와 관련된 태그는 감춘다.
+  var viewTags = document.querySelectorAll('.bit-view')
+  for (var e of viewTags) {
+    e.style.display = 'none'
+  }
+
+  // 새 사용자 등록과 관련된 태그는 보이게 한다.
+  var newTags = document.querySelectorAll('.bit-new')
+  for (var e of newTags) {
+    e.style.display = ''
+  }
+
+  // 추가 버튼에 click 이벤트 핸들러(리스너)를 등록한다.
+  addBtn.onclick = function() {
+    var xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState < 4)
+        return
+      var result = JSON.parse(xhr.responseText)
+
+      if (result.status != 'success') {
+        alert('추가하는데 실패했습니다.')
+        return
+      }
+
+      location.href = 'test09_list.html'
+    }
+    xhr.open('post', 'http://localhost:8080/webapp/student/add.json', true)
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhr.send('name=' + fiName.value +
+            '&email=' + fiEmail.value +
+            '&tel=' + fiTel.value +
+            '&schoolName=' + fiSchoolName.value +
+            '&working=' + fiWorking.checked)
+  }
+
+} else { // 기존 사용자 정보를 가져온다.
+  // 새 사용자 등록과 관련된 태그는 감춘다.
+  var newTags = document.querySelectorAll('.bit-new')
+  for (var e of newTags) {
+    e.style.display = 'none'
+  }
+
+  // URL에서 학생 번호(no)를 추출한다.
+  var no = location.search.substring(1).split('=')[1]
+
+  // 학생 번호를 사용하여 서버에 상세 정보를 요청한다.
+  var xhr = new XMLHttpRequest()
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState < 4)
+      return
+    var result = JSON.parse(xhr.responseText)
+
+    if (result.status != 'success') {
+      alert('데이터를 가져오는데 실패했습니다.')
+      return
+    }
+
+    var student = result.data
+    fiNo.textContent = student.memberNo
+    fiEmail.value = student.email
+    fiName.value = student.name
+    fiTel.value = student.tel
+    fiSchoolName.value = student.schoolName
+    fiWorking.checked = student.working
+  }
+  xhr.open('get', 'http://localhost:8080/webapp/student/detail.json?memberNo=' + no, true)
+  xhr.send()
+
+  updBtn.onclick = function() {
+    var xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState < 4)
+        return
+      var result = JSON.parse(xhr.responseText)
+
+      if (result.status != 'success') {
+        alert('변경하는데 실패했습니다.')
+        return
+      }
+
+      alert('변경했습니다!')
+    }
+    xhr.open('post', 'http://localhost:8080/webapp/student/update.json', true)
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhr.send('memberNo=' + no +
+            '&name=' + fiName.value +
+            '&email=' + fiEmail.value +
+            '&tel=' + fiTel.value +
+            '&schoolName=' + fiSchoolName.value +
+            '&working=' + fiWorking.checked)
+  }
+
+  delBtn.onclick = function() {
+    var xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState < 4)
+        return
+      var result = JSON.parse(xhr.responseText)
+
+      if (result.status != 'success') {
+        alert('삭제하는데 실패했습니다.')
+        return
+      }
+
+      location.href = 'test09_list.html'
+    }
+    xhr.open('get', 'http://localhost:8080/webapp/student/delete.json?memberNo=' + no, true)
+    xhr.send()
+  }
+} // else
+
+lstBtn.onclick = function() {
+  location.href = "test09_list.html"
+}
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

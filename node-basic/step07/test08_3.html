@@ -1,0 +1,47 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+</head>
+<body>
+  <button id="btn1" type="button">버튼1</button>
+  <button id="btn2" type="button">버튼2</button>
+<script>
+/* 사용자 정의 이벤트(custom event)를 발생시키기(triggering event)
+=> HTML과 JavaScript에서 정의된 이벤트가 아닌
+  개발자가 임의로 정의한 이벤트를 발생시킬 수 있다.
+=> 또한 그 이벤트 객체에 데이터를 추가하여 전달할 수 있다.
+=> 사용자 정의 이벤트를 만드는 방법
+1) 단순한 이벤트를 만들 때
+var myevent = new Event('이벤트명')
+
+2) 이벤트에 값을 저장하고 싶을 때
+var myevent = new CustomEvent('이벤트명', {detail: 값})
+
+*/
+var btn1 = document.querySelector('#btn1')
+var btn2 = document.querySelector('#btn2')
+
+btn1.addEventListener('click', function(event) {
+  var ce = new CustomEvent('okok', {detail: {name:'홍길동', age:20, working:false}})
+  btn2.dispatchEvent(ce)
+})
+
+btn2.addEventListener('okok', function(event) {
+  console.log(event)
+  console.log(event.detail.name)
+  console.log(event.detail.age)
+  console.log(event.detail.working)
+})
+
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

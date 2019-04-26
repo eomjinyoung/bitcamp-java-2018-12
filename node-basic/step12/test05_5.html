@@ -1,0 +1,24 @@
+<html>
+<head>
+  <title>학생목록</title>
+</head>
+<body>
+<h1>학생 목록</h1>
+<table border="1">
+<thead>
+  <tr><th>번호</th><th>이름</th><th>이메일</th><th>전화</th><th>직장인</th></tr>
+</thead>
+<tbody>
+{{#each students}}
+  <tr>
+    <td>{{mno}}</td>
+    <td>{{name}}</td>
+    <td>{{email}}</td>
+    <td>{{tel}}</td>
+    <td>{{work}}</td>
+  </tr>
+{{/each}}
+</tbody>
+</table>
+</body>
+</html>

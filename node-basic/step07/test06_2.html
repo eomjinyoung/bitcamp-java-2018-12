@@ -1,0 +1,41 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+</head>
+<body>
+  <button id="btn1" type="button">버튼1</button>
+<script>
+/* 이벤트 다루기 - 여러 개의 이벤트 리스너(핸들러) 등록하기
+=> 태그.addEventListener("이벤트명", 함수)
+=> 태그.onXxx = 함수() {} : 이방식은 오직 한 개의 함수만 등록한다.
+=> 이벤트가 발생하면, 등록된 순서대로 호출된다.
+*/
+var btn1 = document.querySelector("#btn1")
+
+btn1.addEventListener('click', function() {
+  console.log('11111')
+})
+
+btn1.addEventListener('click', function() {
+  console.log('22222')
+})
+
+btn1.addEventListener('click', function() {
+  console.log('33333')
+})
+
+btn1.addEventListener('click', function() {
+  console.log('44444')
+})
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

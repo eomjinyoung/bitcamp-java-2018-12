@@ -1,0 +1,68 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  div {
+    border: 1px solid red;
+    padding: 10px;
+  }
+
+  .child {
+    border: 5px solid gray;
+    width: 50px;
+    height: 20px;
+  }
+  </style>
+</head>
+<body>
+  <button id="btn1" type="button">태그 생성</button>
+  <div id="d1"></div>
+<script>
+/* 태그 생성하기 I
+1) createElement(태그명)
+  => 태그를 생성한다.
+2) createTextNode(내용)
+  => 태그에 들어갈 콘텐츠를 생성한다.
+3) appendChild(자식노드)
+  => 태그에 자식 태그나 콘텐츠를 붙인다.
+  => 콘텐츠도 노드로 취급한다.
+*/
+var d1 = document.querySelector("#d1")
+var btn1 = document.querySelector("#btn1")
+
+btn1.addEventListener('click', function() {
+  // div 태그 생성
+  var e = document.createElement("div")
+  e.className = "child"          // 프로퍼티 설정하는 방식으로 class의 값을 지정할 때는
+                                   // 원래 이름인 "class" 대신 "className"을 사용하라!
+  //e.setAttribute("class", "child") // setAttribute()로 class를 지정할 때는
+                                   // 원래의 속성 이름을 사용하라!
+
+  // 콘텐츠 생성
+  var c = document.createTextNode("내용");
+
+  // 콘텐츠를 태그에 넣는다.
+  e.appendChild(c);
+
+  console.log(e);
+
+  // DOM Tree에 생성한 태그를 붙인다.
+  // 부모 태그를 찾는다.
+  var d1 = document.querySelector("#d1");
+
+  // 부모 태그의 자식 태그를 붙인다.
+  d1.appendChild(e);
+
+})
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

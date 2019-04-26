@@ -1,0 +1,217 @@
+<!-- AJAX 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  body {
+    background-color: gray;
+  }
+
+  body > div {
+    border: 1px solid red;
+    min-height: 300px;
+  }
+  </style>
+</head>
+<body>
+<h1>GET 요청</h1>
+링크: <a href="http://localhost:8080/webapp/student/list.json?pageNo=1&pageSize=6">요청</a><br>
+폼:
+<form action="http://localhost:8080/webapp/student/list.json" method="get">
+  페이지번호: <input type="text" name="pageNo"><br>
+  페이지크기: <input type="text" name="pageSize"><br>
+  <button>요청</button>
+</form>
+
+<h1>POST 요청</h1>
+<form action="http://localhost:8080/webapp/student/list.json" method="post">
+  페이지번호: <input type="text" name="pageNo"><br>
+  페이지크기: <input type="text" name="pageSize"><br>
+  <button>요청</button>
+</form>
+
+<script>
+"use strict"
+/*
+HTTP(Hyper-Text Transfer Protocol) 프로토콜
+=> 웹서버(HTTP Server)와 웹브라우저(HTTP Client) 사이에 데이터를 주고 받는 형식
+
+HTTP 요청 형식
+------------------------------------------------------------------------
+Request-Line CRLF
+((general header | request header | entity header) CRLF)*
+CRLF
+message-body
+------------------------------------------------------------------------
+
+1) Request-Line CRLF
+  => 요청 대상을 가리키는 한 줄 문자열을 보낸다.
+  => 문법 - 요청형식 공백 요청URI 공백 프로토콜버전 줄바꿈
+    예) GET /pub/WWW/TheProject.html HTTP/1.1 (CRLF)
+  => 요청 형식
+  GET  : 자원 조회를 요청할 때 사용한다.
+  POST : 자원의 추가, 변경을 요청할 때 사용한다.
+  HEAD : 생성일, 크기 등 자원의 정보만 요청할 때 사용한다.
+  PUT  : 자원 추가를 요청할 때 사용한다.
+  DELETE : 자원 제거를 요청할 때 사용한다.
+  기타 OPTIONS, TRACE, CONNECT 등이 있다.
+2) 헤더 정보
+  => 요청에 대한 부가 설명을 담은 데이터이다.
+  => 3가지 종류의 데이터로 구성된다.
+    일반정보(general header) : 요청과 응답에 모두 사용되는 데이터
+    요청정보(request header) : 요청할 때만 전달하는 데이터
+    엔티티정보(entity header) : 보내는 데이터에 대한 정보. 단 POST 요청일 때만 보낸다.
+  => 문법 - 헤더명: 값 CRLF
+    예) Host: www.w3.org
+3) message-body
+  => GET 요청에는 message-body가 없다.
+  => POST 요청일 때 message-body가 추가된다.
+  => 문법 - 이름=값&이름=값&이름=값
+    예) pageNo=1&pageSize=6&align=desc
+
+HTTP 응답 형식
+------------------------------------------------------------------------
+Status-Line CRLF
+((general header | response header | entity header) CRLF)*
+CRLF
+message-body
+------------------------------------------------------------------------
+1) Status-Line CRLF
+  => 응답 상태 정보를 표현하는 문자열 한 줄
+  => 문법 - 프로토콜버전 공백 상태코드 공백 간단한설명 (CRLF)
+  => 예) HTTP/1.1 200 OK
+  => 주요 상태 코드와 의미
+  200 : 요청한 자원을 줄 수 있다.
+  301 : 요청한 자원의 주소가 바뀌었다. 다시 요청하라!
+  304 : 요청한 자원이 변경되지 않았다.
+        그러니 웹브라우저가 캐시한 자원을 그냥 사용하라!
+  400 : 요청 형식에 문제가 있다. 올바르게 요청하라!
+  403 : 해당 자원에 대한 요청을 거절한다.
+  404 : 요청한 자원을 못 찾았다.
+
+2) 헤더 정보
+  => 응답에 대한 부가 설명을 담은 데이터이다.
+  => 3가지 종류의 데이터로 구성된다.
+    일반정보(general header) : 요청과 응답에 모두 사용되는 데이터
+    응답정보(request header) : 응답할 때만 전달하는 데이터
+    엔티티정보(entity header) : 응답 데이터에 대한 정보.
+  => 문법 - 헤더명: 값 CRLF
+    예) Server: Apache
+
+3) message-body
+  => 웹서버가 웹브라우저에게 응답하는 데이터
+  => 보통 HTML이 리턴된다.
+  => HTML 외에도 JSON, XML, Plain Text, gif 등 텍스트 데이터에서 바이너리 데이터까지
+    다양한 데이터를 리턴할 수 있다.
+
+[GET 요청]
+  => 발생하는 경우?
+  1) 웹브라우저의 주소창에 주소를 입력한 후 엔터를 칠 때,
+  2) 페이지에서 링크를 클릭했을 때,
+  3) 입력폼의 method 속성이 get 일 때,
+  4) AJAX에서 서버에 연결할 때 'get'으로 설정한 경우,
+
+[POST 요청]
+  1) 입력폼의 method 속성이 post 일 때,
+  2) AJAX에서 서버에 연결할 때 'post'으로 설정한 경우,
+
+[HTTP GET 요청 프로토콜 예:]
+=> 서버에 보내는 데이터는 요청-URI 안에 포함되어 있다.
+  그래서 따로 message-body를 보낼 필요가 없다.
+=> 요청-URI 예)
+  요청-URI: /webapp/student/list.json?pageNo=2&pageSize=5
+  서버에 보내는 데이터: ?pageNo=2&pageSize=5
+-----------------------------------------
+GET /webapp/student/list.json?pageNo=2&pageSize=5 HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36
+Origin: null
+Accept: *
+Accept-Encoding: gzip, deflate, sdch, br
+Accept-Language: ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4
+
+-----------------------------------------
+
+[HTTP POST 요청 프로토콜 예:]
+=> 서버에 보내는 데이터는 요청-URI 안에 포함되지 않는다.
+  따로 message-body 부분에 첨부된다.
+-----------------------------------------
+POST /webapp/student/list.json HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Content-Length: 19
+Pragma: no-cache
+Cache-Control: no-cache
+Origin: null
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*...
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4
+
+pageNo=2&pageSize=8
+-----------------------------------------
+
+
+[HTTP 응답 프로토콜 예:]
+--------------------------------------
+HTTP/1.1 200 OK
+Date: Mon, 10 Apr 2017 03:07:12 GMT
+Server: Apache
+X-Powered-By: PHP/5.5.20
+Vary: Accept-Encoding,User-Agent
+Cache-Control: max-age=0
+Expires: Mon, 10 Apr 2017 03:07:12 GMT
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=utf-8
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+....
+--------------------------------------------
+
+[GET vs POST?]
+GET 요청
+  1) URL에 데이터를 포함하고 있다.
+    => 즐겨 찾기에 데이터와 URL을 함께 저장할 수 있어서 다시 요청하기가 편하다.
+    => 손쉽게 다른 사람에게 전달할 수 있다.
+    => 용도: 데이터 조회 요청에 적합하다.
+  2) 단점
+    => 데이터가 타인에게 쉽게 노출될 수 있다.
+      로그인과 같은 보안 전송에는 사용하기 적합하지 않다.
+    => 바이너리 데이터를 전송할 수 없다.
+      단, 전송하려면 base64와 같은 ASCII 형식으로 변환해야 한다.
+    => 보통 Request-Line의 크기가 8KB나 16KB로 제한되어 있어서,
+      대량의 데이터를 보낼 수 없다.
+POST 요청
+  1) message-body 부분에 데이터를 첨부한다.
+    => 보통 웹서버에서는 message-body 부분으로 전송되는 데이터의 경우
+       대량으로 전송 받는 것을 허락한다.
+    => 대용량 데이터를 첨부할 수 있다.
+    => 웹브라우저 주소창에 보이지 않는다.
+    => 멀티파트 방식을 결합하면 바이너리 데이터도 보낼 수 있다.
+    => 용도: 게시글, 파일업로드 등 대량 데이터 전송 시,
+            로그인 폼처럼 보안을 요구하는 데이터 전송 시.
+  2) 단점
+    => 즐겨 찾기에 추가할 때 데이터가 포함되지 않기 때문에
+      조회 용 URL을 저장할 수 없다.
+    => 특정 페이지의 링크 정보를 다른 사람에게 전달할 수 없다.
+
+*/
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

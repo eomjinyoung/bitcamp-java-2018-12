@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+
+  </style>
+</head>
+<body>
+
+<script>
+"use strict"
+/* eval(자바스크립트코드문자열) 함수
+  => 자바스크립트코드를 문자열로 입력받아 실행한다.
+*/
+var v1 = 20;
+console.log(v1)
+
+// 글로벌 변수와 글로벌 함수를 정의한 자바스크립트 코드 문자열을 실행하기
+eval('window.v2 = 30; window.f1 = function() {console.log("okok")}')
+console.log(v2)
+f1();
+
+// 객체를 생성하는 자바스크립트 문자열을 실행하기
+// => 단, 객체 생성 코드를 괄호로 묶어라!
+var obj = eval('({name: "홍길동", age: 20})')
+console.log(obj)
+console.log(obj.name, obj.age)
+
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

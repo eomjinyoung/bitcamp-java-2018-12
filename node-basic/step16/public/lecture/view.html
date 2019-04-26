@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+  .container {
+    width: 600px;
+    margin: 0px auto;
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+<h1>강의 정보</h1>
+{{#if detail}}
+<form class="form-horizontal" action="update.do" method="post">
+{{else}}
+<form class="form-horizontal" action="add.do" method="post">
+{{/if}}
+{{#if detail}}
+  <div class="form-group bit-view">
+    <label class="col-sm-2 control-label">번호</label>
+    <div class="col-sm-10">
+      <input type="hidden" name="no" value="{{data.lno}}">
+      <p class="form-control-static" id="fi-no">{{data.lno}}</p>
+    </div>
+  </div>
+{{/if}}
+  <div class="form-group">
+    <label for="fi-title" class="col-sm-2 control-label">강의명</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" name="title"
+            id="fi-title" placeholder="강의명" value="{{data.titl}}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fi-content" class="col-sm-2 control-label">설명</label>
+    <div class="col-sm-7">
+      <textarea class="form-control" name="content"
+          id="fi-content" placeholder="강의에 대한 상세 설명"
+          rows="4">{{data.dscp}}</textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fi-start-date" class="col-sm-2 control-label">강의 기간</label>
+    <div class="col-sm-4">
+      <input type="date" class="form-control" name="startDate"
+             id="fi-start-date" placeholder="시작일" value="{{data.sdt2}}">
+      ~
+      <input type="date" class="form-control" name="endDate"
+             id="fi-end-date" placeholder="종료일" value="{{data.edt2}}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fi-quantity" class="col-sm-2 control-label">수강인원</label>
+    <div class="col-sm-4">
+      <input type="number" class="form-control" name="quantity"
+             id="fi-quantity" placeholder="최대 수강 인원" value="{{data.qty}}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fi-hours" class="col-sm-2 control-label">강의시간</label>
+    <div class="col-sm-4">
+      <input type="number" class="form-control" name="hours"
+             id="fi-hours" placeholder="총 강의 시간" value="{{data.thrs}}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fi-price" class="col-sm-2 control-label">수업료</label>
+    <div class="col-sm-4">
+      <input type="number" class="form-control" name="price"
+             id="fi-price" placeholder="수업료" value={{data.pric}}>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fi-classroom" class="col-sm-2 control-label">강의실</label>
+    <div class="col-sm-4">
+      <select id="fi-classroom" class="form-control" name="classroom">
+        <option value="0">강의실을 선택하세요!</option>
+        {{#each classrooms}}
+        <option value="{{crmno}}">{{name}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fi-manager" class="col-sm-2 control-label">매니저</label>
+    <div class="col-sm-4">
+      <select id="fi-manager" class="form-control" name="manager">
+        <option value="0">매니저를 선택하세요!</option>
+        {{#each managers}}
+        <option value="{{mrno}}">{{name}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      {{#if detail}}
+            <button type="submit" class="btn btn-primary bit-view" id="upd-btn">변경</button>
+            <a href="delete.do?no={{data.lno}}" class="btn btn-primary bit-view" id="del-btn">삭제</a>
+      {{else}}
+            <button type="submit" class="btn btn-primary bit-new" id="add-btn">추가</button>
+      {{/if}}
+            <a href="list.do" class="btn btn-primary" id="lst-btn">목록</a>
+    </div>
+  </div>
+</form>
+</div>
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+$('#fi-classroom option[value="{{data.crmno}}"]').prop('selected', true)
+$('#fi-manager option[value="{{data.mrno}}"]').prop('selected', true)
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

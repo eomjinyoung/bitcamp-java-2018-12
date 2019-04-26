@@ -1,0 +1,10 @@
+{
+  "name"    : "test01",
+  "version" : "0.1.0",
+  "main"    : "main.js",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^1.12.4",
+    "handlebars": "^4.0.6"
+  }
+}

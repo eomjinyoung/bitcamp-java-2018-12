@@ -1,0 +1,83 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  div, body {
+    border: 1px solid black;
+    padding: 10px;
+  }
+
+  #d3, #d5 {
+    width: 200px;
+    height: 100px;
+  }
+  </style>
+</head>
+<body>body
+  <div id="d1">d1
+    <div id="d2">d2
+      <div id="d3">d3</div>
+    </div>
+    <div id="d4">d4
+      <div id="d5">d5</div>
+    </div>
+  </div>
+<script>
+/* 이벤트 전달 취소하기
+=> 이벤트객체.stopPropagation() : 버블링을 멈춰라
+=> 이벤트객체.stopImmediatePropagation() : 즉시 다음 핸들러 호출부터 멈춰라
+*/
+
+var d1 = document.querySelector("#d1")
+var d2 = document.querySelector("#d2")
+var d3 = document.querySelector("#d3")
+var d4 = document.querySelector("#d4")
+var d5 = document.querySelector("#d5")
+
+d1.addEventListener('click', function() {
+  console.log('d1...click');
+  this.style['background-color'] = 'blue'
+})
+d2.addEventListener('click', function() {
+  console.log('d2...click')
+  this.style['background-color'] = 'green'
+})
+d3.addEventListener('click', function(event) {
+  console.log('d3...click')
+  this.style['background-color'] = 'red'
+  event.stopPropagation() // 이벤트를 다시 부모 태그에게 전달하지 않도록 설정한다.
+})
+d4.addEventListener('click', function() {
+  console.log('d4...click')
+  this.style['background-color'] = 'green'
+})
+
+d5.addEventListener('click', function(event) {
+  console.log('d5...click 1')
+  //event.stopPropagation() // 버블을 멈춘다. 그러나 현재 태그의 핸들러는 그대로 호출.
+  event.stopImmediatePropagation() // 현재 핸들로 호출 후 즉시 멈춘다. 
+})
+d5.addEventListener('click', function() {
+  console.log('d5...click 2')
+})
+d5.addEventListener('click', function() {
+  console.log('d5...click 3')
+  this.style['background-color'] = 'red'
+})
+
+document.body.addEventListener('click', function() {
+  console.log('body...click')
+  this.style['background-color'] = 'yellow'
+})
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

@@ -1,0 +1,83 @@
+<!-- AJAX 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+  <style>
+  .container {
+    width: 600px;
+    margin: 0px auto;
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+<table id="student-tbl" class="table table-hover">
+<thead>
+  <tr>
+    <th>번호</th>
+    <th>이름</th>
+    <th>전화</th>
+    <th>이메일</th>
+    <th>재직여부</th>
+  </tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<button id='btn1' type='button' class='btn btn-primary'>내용 지우기</button>
+</div>
+<script>
+"use strict"
+/* AJAX 응용
+=> 서버에서 학생 목록 데이터를 받아 테이블로 출력하기
+*/
+var tbody = document.querySelector('#student-tbl > tbody')
+var btn1 = document.querySelector('#btn1')
+
+btn1.onclick = function() {
+  tbody.innerHTML = ""
+}
+
+var xhr = new XMLHttpRequest()
+xhr.onreadystatechange = function() {
+  if (xhr.readyState < 4)
+    return
+  var result = JSON.parse(xhr.responseText)
+
+  if (result.status != 'success') {
+    alert('학생 목록을 가져오는데 실패했습니다.')
+    return
+  }
+
+  var list = result.data.list
+  for (var s of list) {
+    // 객체를 가지고 tr 태그를 생성한다.
+    var tr = document.createElement("tr")
+    tr.innerHTML = "<td>" + s.memberNo +
+              "</td><td>" + s.name +
+              "</td><td>" + s.tel +
+              "</td><td>" + s.email +
+              "</td><td>" + (s.working ? "재직중" : "실업") + "</td>"
+    tbody.appendChild(tr)
+  }
+  console.log('-----------------------------------------------------------')
+}
+xhr.open('get', 'http://localhost:8080/webapp/student/list.json?pageNo=1&pageSize=8', true)
+xhr.send()
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

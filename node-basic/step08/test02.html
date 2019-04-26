@@ -1,0 +1,69 @@
+<!-- AJAX 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  body {
+    background-color: gray;
+  }
+
+  body > div {
+    border: 1px solid red;
+    min-height: 300px;
+  }
+  </style>
+</head>
+<body>
+  <button id="btn1" type="button">서버에 요청하기</button>
+  <button id="btn2" type="button">서버에서 받은 값 출력하기</button><br>
+  <textarea id="ta" rows="20" cols="80"></textarea>
+<script>
+"use strict"
+/* AJAX 비동기 요청
+=> 서버에 요청을 한 후, 기다리지 않고 즉시 다음 명령을 실행한다.
+=> 주의할 사항!
+  요청하자마자 즉시 responseText 변수를 사용해봐야 소용없다.
+  왜? 서버에서 응답 결과를 보내지 않았을 수 있기 때문이다.
+
+*/
+var btn1 = document.querySelector('#btn1')
+var btn2 = document.querySelector('#btn2')
+var ta = document.querySelector('#ta')
+
+var xhr;
+
+btn1.addEventListener('click', function(event) {
+  xhr = new XMLHttpRequest()
+  //비동기 요청을 하려면,
+  //세 번째 파라미터의 값을 true로 지정하라!
+  xhr.open('get', 'http://localhost:8080/webapp/student/list.json', true)
+  xhr.send() // 비동기 요청이기 때문에 서버에서 결과를 받기도 전에 리턴한다.
+
+  // 그래서 responseText 변수에서 어떤 값도 들어 있지 않을 것이다.
+  ta.value = xhr.responseText
+
+  window.alert('실행 완료')
+})
+
+btn2.addEventListener('click', function() {
+  // 요청을 한 다음, 약간의 시간이 지난 후 이 버튼을 눌러보자!
+  // 기존의 요청한 결과가 xhr 객체에 "responseText" 라는 이름으로 저장되어 있을 것이다.
+  // 그 값을 출력해보자!
+  ta.value = xhr.responseText
+})
+
+/* 이런 식으로 서버에 요청한 후, 서버가 보낸 응답 결과를 가져오기 위해서
+  1) 사용자가 직접 버튼을 선택한다거나,
+  2) setTimeout(), setInterval()을 통해서 일정시간이 지난 후 값을 꺼내는 방식은
+  매우 불편하다.*/
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+  .container {
+    width: 600px;
+    margin: 0px auto;
+  }
+  a[disabled] {
+    pointer-events: none;
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+<h1>학생 목록</h1>
+<table id="student-tbl" class="table table-hover">
+<thead>
+  <tr>
+    <th>번호</th>
+    <th>이름</th>
+    <th>전화</th>
+    <th>이메일</th>
+    <th>재직여부</th>
+  </tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<button id="prev-btn" class="btn btn-primary">이전</button>
+<span id="page-no">1</span>
+<button id="next-btn" class="btn btn-primary">다음</button>
+<a href="view.html" class="btn btn-primary">추가</a>
+</div>
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>
+
+
+<!-- -->

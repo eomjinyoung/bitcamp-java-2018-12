@@ -1,0 +1,94 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  div, body {
+    border: 1px solid black;
+    padding: 10px;
+  }
+
+  #d3, #d5 {
+    width: 200px;
+    height: 100px;
+  }
+  </style>
+</head>
+<body>body
+  <div id="d1">d1
+    <div id="d2">d2
+      <div id="d3">d3</div>
+    </div>
+    <div id="d4">d4
+      <div id="d5">d5</div>
+    </div>
+  </div>
+<script>
+/* 이벤트 전달 체계 - 캡쳐단계에 이벤트 핸들러 등록하기
+=> addEventListener(이벤트명, 함수, 캡쳐단계에 호출되게 할 것인지 여부)
+*/
+
+var d1 = document.querySelector("#d1")
+var d2 = document.querySelector("#d2")
+var d3 = document.querySelector("#d3")
+var d4 = document.querySelector("#d4")
+var d5 = document.querySelector("#d5")
+
+d1.addEventListener('click', function() {
+  console.log('d1...click');
+  this.style['background-color'] = 'blue'
+})
+d1.addEventListener('click', function() {
+  console.log('d1...click(캡쳐)');
+}, true)
+
+d2.addEventListener('click', function() {
+  console.log('d2...click')
+  this.style['background-color'] = 'green'
+})
+d2.addEventListener('click', function() {
+  console.log('d2...click(캡쳐)')
+}, true)
+
+d3.addEventListener('click', function() {
+  console.log('d3...click')
+  this.style['background-color'] = 'red'
+})
+d3.addEventListener('click', function() {
+  console.log('d3...click(캡쳐)')
+}, true)
+
+d4.addEventListener('click', function() {
+  console.log('d4...click')
+  this.style['background-color'] = 'green'
+})
+d4.addEventListener('click', function() {
+  console.log('d4...click(캡쳐)')
+}, true)
+
+d5.addEventListener('click', function() {
+  console.log('d5...click')
+  this.style['background-color'] = 'red'
+})
+d5.addEventListener('click', function() {
+  console.log('d5...click(캡쳐)')
+}, true)
+
+document.body.addEventListener('click', function() {
+  console.log('body...click')
+  this.style['background-color'] = 'yellow'
+})
+document.body.addEventListener('click', function() {
+  console.log('body...click(캡쳐)')
+}, true)
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

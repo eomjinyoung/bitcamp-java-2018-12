@@ -1,0 +1,47 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  div {
+    border: 1px solid red;
+    padding: 10px;
+  }
+
+  .child {
+    border: 5px solid gray;
+    width: 50px;
+    height: 20px;
+  }
+  </style>
+</head>
+<body>
+  <button id="btn1" type="button">태그 생성</button>
+  <div id="d1"></div>
+<script>
+/* 태그 생성하기 II
+1) createElement() 대신에 innerHTML을 사용할 수 있다.
+  => innerHTML에 자식 태그에 대한 값을 설정하면,
+     웹브라우저가 알아서 해당 값을 분석해서
+     태그를 만들어야 한다면 만들고, 속성을 추가해야 한다면 자동으로 추가한다.
+*/
+var d1 = document.querySelector("#d1")
+var btn1 = document.querySelector("#btn1")
+
+btn1.addEventListener('click', function() {
+  var d1 = document.querySelector("#d1");
+  d1.innerHTML += "<div class='child'>내용</div>"
+  // 웹브라우저는 innerHTML 변수에 저장되는 값을 자동으로 분석하여
+  // 그에 적절한 처리를 한다.
+})
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

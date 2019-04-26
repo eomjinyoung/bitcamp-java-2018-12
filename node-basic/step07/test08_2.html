@@ -1,0 +1,43 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+</head>
+<body>
+<form>
+이름: <input type="text"><br>
+이메일: <input type="text"><br>
+암호: <input type="password"><br>
+전화: <input type="text"><br>
+우편번호: <input type="text"><br>
+기본주소: <input type="text"><br>
+상세주소: <input type="text"><br>
+재직여부: <input type="checkbox" checked> 재직중
+<button id="btn1" type="button">전송</button>
+<button id="btn2" type="reset">초기화</button>
+</form>
+<script>
+/* 애플리케이션에서 이벤트를 발생시키기(triggering event) 응용
+=> 사용자가 입력한 값을 서버에 전송한 후
+   입력폼을 초기화시키기
+*/
+var btn1 = document.querySelector('#btn1')
+var btn2 = document.querySelector('#btn2')
+
+btn1.addEventListener('click', function(event) {
+  console.log('서버에 데이터를 전송하였습니다.')
+  var me = new MouseEvent('click')
+  btn2.dispatchEvent(me)
+})
+
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

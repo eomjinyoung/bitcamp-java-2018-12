@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+  .container {
+    width: 600px;
+    margin: 0px auto;
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+<h1>학생 정보</h1>
+{{#if detail}}
+<form class="form-horizontal" action="update.do" method="post">
+{{else}}
+<form class="form-horizontal" action="add.do" method="post">
+{{/if}}
+{{#if detail}}
+  <div class="form-group bit-view">
+    <label class="col-sm-2 control-label">번호</label>
+    <div class="col-sm-10">
+      <input type="hidden" name="no" value="{{data.mno}}">
+      <p class="form-control-static" id="fi-no">{{data.mno}}</p>
+    </div>
+  </div>
+{{/if}}
+  <div class="form-group">
+    <label for="fi-email" class="col-sm-2 control-label">이메일</label>
+    <div class="col-sm-7">
+      <input type="email" class="form-control" name="email"
+             id="fi-email" placeholder="이메일" value="{{data.email}}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fi-name" class="col-sm-2 control-label">이름</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" name="name"
+             id="fi-name" placeholder="이름" value="{{data.name}}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fi-tel" class="col-sm-2 control-label">전화번호</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" name="tel"
+             id="fi-tel" placeholder="전화번호" value="{{data.tel}}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fi-school-name" class="col-sm-2 control-label">학교명</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" name="schoolName"
+             id="fi-school-name" placeholder="학교명" value="{{data.schl_nm}}">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="fi-working" {{checkedWorking}} name="working"> 재직중
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+{{#if detail}}
+      <button type="submit" class="btn btn-primary bit-view" id="upd-btn">변경</button>
+      <a href="delete.do?no={{data.mno}}" class="btn btn-primary bit-view" id="del-btn">삭제</a>
+{{else}}
+      <button type="submit" class="btn btn-primary bit-new" id="add-btn">추가</button>
+{{/if}}
+      <a href="list.do" class="btn btn-primary" id="lst-btn">목록</a>
+    </div>
+  </div>
+</form>
+</div>
+
+</body>
+</html>
+
+
+
+
+<!-- -->

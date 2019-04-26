@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+  .container {
+    width: 600px;
+    margin: 0px auto;
+  }
+  a[disabled] {
+    pointer-events: none;
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+<h1>학생 목록</h1>
+<table id="student-tbl" class="table table-hover">
+<thead>
+  <tr>
+    <th>번호</th>
+    <th>이름</th>
+    <th>전화</th>
+    <th>이메일</th>
+    <th>재직여부</th>
+  </tr>
+</thead>
+<tbody>
+{{#each data}}
+  <tr>
+    <td>{{mno}}</td>
+    <td><a href="detail.do?no={{mno}}">{{name}}</a></td>
+    <td>{{tel}}</td>
+    <td>{{email}}</td>
+    <td>{{work}}</td>
+  </tr>
+{{/each}}
+</tbody>
+</table>
+
+<a href="list.do?pageNo={{prevPageNo}}" class="btn btn-primary" {{disabledPrevBtn}}>이전</a>
+<span id="page-no">{{pageNo}}</span>
+<a href="list.do?pageNo={{nextPageNo}}" class="btn btn-primary" {{disabledNextBtn}}>다음</a>
+<a href="form.do" class="btn btn-primary">추가</a>
+</div>
+
+</body>
+</html>
+
+
+<!-- -->

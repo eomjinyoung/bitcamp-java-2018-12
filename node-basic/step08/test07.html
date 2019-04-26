@@ -1,0 +1,64 @@
+<!-- AJAX 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  body {
+    background-color: gray;
+  }
+
+  body > div {
+    border: 1px solid red;
+    min-height: 300px;
+  }
+  </style>
+</head>
+<body>
+  <button id="btn1" type="button">AJAX GET 요청</button><br>
+  <button id="btn2" type="button">AJAX POST 요청</button><br>
+<script>
+"use strict"
+/* AJAX로 GET 또는 POST 요청하기*/
+
+var btn1 = document.querySelector('#btn1')
+var btn2 = document.querySelector('#btn2')
+
+// GET 요청하기
+btn1.addEventListener('click', function(event) {
+  var xhr = new XMLHttpRequest()
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState < 4)
+      return
+    console.log(xhr.responseText)
+    console.log('-----------------------------------------------------------')
+  }
+  xhr.open('get', 'http://localhost:8080/webapp/student/list.json?pageNo=2&pageSize=8', true)
+  xhr.send()
+})
+
+// POST 요청하기
+btn2.addEventListener('click', function(event) {
+  var xhr = new XMLHttpRequest()
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState < 4)
+      return
+    console.log(xhr.responseText)
+    console.log('-----------------------------------------------------------')
+  }
+  xhr.open('post', 'http://localhost:8080/webapp/student/list.json', true)
+  // POST는 GET과 달리 서버에 보내는 데이터에 대해 타입 정보를 헤더에 추가해야 한다.
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+  // POST는 서버에 보내는 데이터를 URL이 아닌, send()의 파라미터에 지정한다.
+  xhr.send('pageNo=2&pageSize=8')
+})
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

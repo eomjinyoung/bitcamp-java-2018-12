@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>계산기</title>
+  <style>
+  .btn {
+    display: inline-block;
+    border: 1px solid gray;
+    box-sizing: border-box;
+    width: 70px;
+    height: 70px;
+    padding: 15px 5px 5px 5px;
+    margin: 5px 5px 0px 0px;
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .container {
+    border: 1px solid gray;
+    width: 300px;
+    padding: 10px 5px 10px 10px;
+  }
+
+  #display {
+    border: 1px solid gray;
+    width: 283px;
+    height: 40px;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 5px;
+    text-align: right;
+  }
+
+  #btn0 {
+    width: 145px;
+  }
+  </style>
+</head>
+<body>
+<div class='container'>
+  <div id='display'>123456789</div>
+  <div class='btn'>AC</div
+  ><div class='btn'>&nbsp;</div
+  ><div class='btn'>&nbsp;</div
+  ><div class='btn operator'>/</div
+  ><div class='btn number'>7</div
+  ><div class='btn number'>8</div
+  ><div class='btn number'>9</div
+  ><div class='btn operator'>*</div
+  ><div class='btn number'>4</div
+  ><div class='btn number'>5</div
+  ><div class='btn number'>6</div
+  ><div class='btn operator'>-</div
+  ><div class='btn number'>1</div
+  ><div class='btn number'>2</div
+  ><div class='btn number'>3</div
+  ><div class='btn operator'>+</div
+  ><div class='btn number' id='btn0'>0</div
+  ><div class='btn'>.</div
+  ><div class='btn operator'>=</div>
+</div>
+<script>
+var btnList = document.querySelectorAll('.number')
+for (var i = 0; i < btnList.length; i++) {
+  btnList[i].onclick = onClickNumber;
+}
+function onClickNumber() {
+  console.log(this)
+}
+
+var opList = document.querySelectorAll('.operator')
+for (var e of opList) {
+  e.onclick = onClickOperator;
+}
+function onClickOperator() {
+  console.log(this)
+}
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+</head>
+<body>
+  <button id="btn1" type="button" onclick="console.log('zzzzz')">버튼1</button>
+<script>
+/* 이벤트 다루기 - onclick과 addEventListener()를 섞어서 등록할 때
+=> 먼저 등록한 순서대로 호출한다.
+*/
+var btn1 = document.querySelector("#btn1")
+
+btn1.addEventListener('click', function() {
+  console.log('11111')
+})
+
+/* 이것은 태그에서 onclick 속성으로 등록된 코드를 덮어쓴다.
+=> 그래서 가능한 HTML의 태그 안에 자바스크립트를 작성하는 것을 권장하지 않는다.
+*/
+btn1.onclick = function() {
+  console.log('xxxxx')
+}
+
+btn1.addEventListener('click', function() {
+  console.log('22222')
+})
+
+btn1.addEventListener('click', function() {
+  console.log('33333')
+})
+
+btn1.addEventListener('click', function() {
+  console.log('44444')
+})
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

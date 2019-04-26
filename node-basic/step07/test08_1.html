@@ -1,0 +1,39 @@
+<!-- DOM API 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+</head>
+<body>
+  <button id="btn1" type="button">버튼1</button>
+  <button id="btn2" type="button">버튼2</button>
+<script>
+/* 애플리케이션에서 이벤트를 발생시키기(triggering event)
+=> 사용자가 아닌 코드에서 이벤트를 발생시키는 것
+*/
+var btn1 = document.querySelector('#btn1')
+var btn2 = document.querySelector('#btn2')
+
+btn1.addEventListener('click', function(event) {
+  //1) 발생시킬 이벤트 객체를 준비한다.
+  // => MouseEvent 중에서 click 이벤트를 준비해보자!
+  var me = new MouseEvent('click')
+
+  //2) 대상 태그에게 이벤트 객체를 보낸다.
+  btn2.dispatchEvent(me)
+})
+
+btn2.addEventListener('click', function(event) {
+  console.log('버튼2 눌렀다!')
+})
+
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->
