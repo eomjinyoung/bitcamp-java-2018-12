@@ -39,7 +39,16 @@ console.log(typeof (new Object())); // 자바스크립트 객체
 
 //function 타입
 console.log(typeof (function f() {})); // 자바스크립트 함수
-console.log(typeof ((a) => {console.log(a)})); // array function
+console.log(typeof ((a) => {console.log(a)})); // arrow function
+
+var v = function() {};
+
+// 이렇게 변수에 들어있는 값이 무슨 타입인지 검사할 때 사용한다.
+if ("function" == typeof v) {
+  window.alert("함수입니다!");
+}
+
+
 </script>
 </body>
 </html>
