@@ -15,6 +15,9 @@ function createScore(name, kor, eng, math) {
 	// new 명령을 사용하여 외부에서 빈 객체를 생성한 후, 
 	// 이 함수를 호출한다.
 	// 외부에서 생성한 객체는 this를 통해 접근할 수 있다.
+	// 만약 new 명령없이 이 함수를 호출한다면 this는 undefined 이다.
+	console.log(this);
+	
 	// 주의! 
 	// => 자바스크립트는 생성자를 만드는 별도의 문법이 없다!
 	// => 단지 일반 함수를 이용하여 생성자로 사용할 뿐이다.
@@ -57,6 +60,19 @@ console.log(scores[0]);
 console.log(scores[1]);
 console.log(scores[2]);
 console.log(scores[0].toString());
+
+// 생성자로 쓰이는 함수를 그냥 호출한다면?
+var obj = createScore("오호라", 100, 100, 100);
+// 객체 없이 createScore()를 호출하면 
+// this 변수는 undefined 상태가 되어 내부에서 실행 오류가 발생할 것이다.
+// 자바스크립트는 컴파일 방식이 아니기 때문에 
+// new를 통해서만 createScore()를 호출하도록 강제할 방법이 없다.
+// 대신에 개발자 사이에 암묵적으로 지키는 관례가 있다.
+// 생성자로 쓰이는 함수는 이름을 대문자로 시작하게 짓는다.
+// 그래서 다른 개발자가 바로 알아볼 수 있도록 한다.
+
+
+
 </script>
 </body>
 </html>

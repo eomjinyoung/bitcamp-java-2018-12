@@ -37,6 +37,7 @@
 // 2) 태그 객체의 onclick 프로퍼티에 함수를 등록한다.
 //    => 사용자가 태그를 클릭하면 onclick이라는 이름으로 등록된 함수를 호출한다.
 //    => HTML 태그와 자바스크립트 코드가 분리되어 있어서 유지보수하기 쉽다.
+//    => 이 방식은 한 개의 이벤트에 대해 오직 한 개의 리스너만 등록할 수 있다.
 // 
 // 3) 태그 객체의 addEventListener()를 이용하여 호출될 함수를 등록한다.
 //    => 사용자가 태그를 클릭하면 해당 이벤트에 등록된 함수가 호출된다.
@@ -48,7 +49,7 @@ var btn2 = document.getElementById("btn2");
 //var btn2 = document.querySelector("#btn2"); // 둘 중 아무거나 사용하면 된다.
 
 btn2.onclick = function() {
-    var str = "Hello!";
+    var str = "Hello2!";
     window.alert(str);
 };
 
@@ -59,16 +60,19 @@ btn2.onclick = function() {
 //
 var btn3 = document.querySelector("#btn3");
 btn3.addEventListener("click", () => {
-    var str = "Hello!!";
-    window.alert(str);
+    console.log(this); // arrow function 문법으로 정의한 리스너의 소속은 window 객체이다.
+    var str = "Hi1!!";
+    //window.alert(str);
 });
 btn3.addEventListener("click", () => {
-    var str = "Hello2!!";
-    window.alert(str);
+    console.log(this);
+    var str = "Hi2!!";
+    //window.alert(str);
 });
-btn3.addEventListener("click", () => {
-    var str = "Hello3!!";
-    window.alert(str);
+btn3.addEventListener("click", function() {
+  console.log(this); // 일반 함수 문법으로 정의한 리스너의 소속은 태그 객체이다.
+    var str = "Hi!!";
+    //window.alert(str);
 });
 
 </script>

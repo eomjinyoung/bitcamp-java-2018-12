@@ -28,7 +28,7 @@ var el = document.getElementsByTagName("h2");
 // 인덱스 번호를 이용하여 찾은 태그들을 꺼낼 수 있다.
 // => 그래서 반복문을 사용할 수 있다.
 for (var i = 0; i < el.length; i++) {
-    console.log(el[i].innerHTML);
+    console.log(i, el[i].innerHTML);
 }
 console.log("--------------------------");
 
@@ -39,7 +39,7 @@ console.log("--------------------------");
 // 즉 HTMLCollection에 대해 다음과 같이 반복문을 사용하지 말라!
 for (var i in el) { //el은 객체이기 때문에 i 변수에는 프로퍼티 이름이 저장된다.  
     //console.log(i, el[i]);
-    console.log(el[i].innerHTML);
+    console.log(i, el[i].innerHTML);
 }
 console.log("--------------------------");
 
@@ -47,7 +47,7 @@ console.log("--------------------------");
 // for...of 반복문을 사용할 수 있다.
 // => for (var 변수 of 배열 또는 iterable 구현체) {...}
 for (var e of el) {
-    console.log(e.innerHTML);
+    console.log(i, e.innerHTML);
 }
 
 </script>

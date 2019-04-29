@@ -23,12 +23,12 @@ button {padding: 30px;}
 "use strict"
 
 // 이벤트가 발생하면 capture-target-bubble 단계로 진행한다.
-// target 단계에서 bubble 단계로 진행하는 막지 않으면 
+// target 단계에서 bubble 단계로 진행하는 것을 막지 않으면 
 // 부모 태그에 등록된 리스너까지 호출되는 문제가 발생한다.
 // 
 // 방법1: Event.stopPropagation()을 호출하라!
 // => 이벤트 bubbling을 막는다. 
-// => target에 등록된 함수는 모두 호출된다.
+// => 단 target에 등록된 함수는 모두 호출된다.
 //
 document.getElementById("btn1").addEventListener("click", function(e) {
 	console.log("버튼1...1");

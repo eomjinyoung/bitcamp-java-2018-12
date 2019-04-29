@@ -37,7 +37,8 @@ var text2 = document.createTextNode("내용입니다.");
 // => appendChild(자식노드)를 사용하여 자식 태그나 노드를 붙인다.
 //    appendChild()는 자식노드(태그)를 맨 뒤에 붙인다.
 //
-h1.appendChild(text);
+h1.appendChild(text); // Node의 함수를 사용해서 콘텐트를 설정할 수 있다.
+//h1.innerHTML = "제목입니다."; // innerHTML에 직접 값을 넣을 수 도 있다.
 p.appendChild(text2);
 
 article.appendChild(h1);

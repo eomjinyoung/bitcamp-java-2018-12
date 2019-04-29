@@ -21,12 +21,14 @@ var obj = {
 	math:80,
 	test1: () => console.log(this),
 	test2: function() {console.log(this);},
+	test3() {console.log(this);},
 	sum: () => this.kor + this.eng + this.math,
 	aver: () => this.sum() / 3
 }; 
 
 obj.test1();
 obj.test2();
+obj.test3();
 
 console.log(obj.sum()); // this 즉 window 객체에 kor, eng, math라는 변수가 없기 때문에 
                         // 리턴 값은 NaN이다.
@@ -34,6 +36,7 @@ console.log(obj.aver()); // 마찬가지로 this 즉 window 객체에 sum() 함�
                          // 함수 실행 중에 오류가 발생한다.
 // 결론!
 // => 객체의 멤버 함수로 등록할 때는 arrow function을 사용하지 말라!
+// => 물론 객체의 다른 멤버를 사용하지 않는다면 arrow function을 사용해도 된다.
 
 </script>
 </body>
