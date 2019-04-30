@@ -9,6 +9,7 @@ temp/
 Debug/
 Release/
 
+package-lock.json
 .DS_Store
 .classpath
 .project
