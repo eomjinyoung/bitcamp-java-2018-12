@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>ex03</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
 
@@ -44,27 +44,25 @@
 - 사용법:  
   - 콘솔창에서 라이브러리를 사용할 웹 애플리케이션 루트(webapp) 디렉토리로 간다.
   - '$ npm init' 실행한다.
-  -  
+    - 명령어를 실행한 디렉토리에 package.json, package-lock.json 파일이 생성된다.
+  - '$ npm install bootstrap --save' 실행한다.
+    - 명령어를 실행한 디렉토리에 라이브러리를 다운로드 받을 node_modules 라는 폴더가 생성된다.
+    - 지정된 라이브러리를 다운로드 받는다.
+    - 라이브러리 정보는 package.json 파일에 기록된다.
+  - '$ npm install jquery --save' 실행한다.
+    - bootstrap이 사용할 의존 라이브러리를 다운로드 한다.
+  - '$ npm install popper.js --save' 실행한다.
+    - bootstrap이 사용할 의존 라이브러리를 다운로드 한다.
 
 [장점] 
-- 우리 서버에 다운로드 하기 때문에 외부 서버의 연결이 되지 않아도 상관없다.
-- 우리 서버에 라이브러리 파일이 있기 때문에 외부에서 임의로 해킹 코드를 넣을 수 없다. 
-- 실무에서는 보안(은행, 관공서 등)과 
-  서비스의 안정성(외부 서버의 연결 여부에 영향을 받지 않는다) 때문에 이 방식을 많이 사용한다.
-
-[단점]
-- 라이브러리를 직접 다운로드 해야 한다.
-- 라이브러리의 버전이 업그레이드 되거나 오류가 패치 될 때마다 다시 다운로드 해야 한다.
-- 사용자가 다른 사이트에서 같은 버전의 라이브러리를 다운로드 했더라도 
-  우리 서버의 페이지를 출력할 때는  
-  다시 같은 라이브러리를 다운로드 해야 한다. 
+- 외부 CSS, JavaScript 라이브러리를 자동으로 다운로드 할 수 있다. 
  
 </pre>  
 </div>
 
-<script src="js/jquery-3.4.0.slim.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="../../node_modules/jquery/dist/jquery.slim.min.js"></script>
+<script src="../../node_modules/popper.js/dist/popper.min.js"></script>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>
