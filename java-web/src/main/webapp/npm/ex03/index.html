@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <title>ex03</title>
   <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  
+  <!-- include the style -->
+  <link rel="stylesheet" href="../../node_modules/alertifyjs/build/css/alertify.min.css" />
+  
+  <!-- include a theme -->
+  <link rel="stylesheet" href="../../node_modules/alertifyjs/build/css/themes/default.min.css" />
 </head>
 <body>
 
@@ -17,7 +23,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">로그인</a></li>
+        <a class="nav-link" href="#" onclick="alertify.alert('오호라!'); return false;">로그인</a></li>
       <li class="nav-item active">
         <a class="nav-link" href="#">게시판</a></li>
       <li class="nav-item active">
@@ -63,6 +69,7 @@
 <script src="../../node_modules/jquery/dist/jquery.slim.min.js"></script>
 <script src="../../node_modules/popper.js/dist/popper.min.js"></script>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../../node_modules/alertifyjs/build/alertify.min.js"></script>
 
 </body>
 </html>
