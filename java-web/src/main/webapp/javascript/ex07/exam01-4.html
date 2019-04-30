@@ -26,14 +26,9 @@ var ta = document.querySelector("#ta");
 
 document.querySelector("#btn1").onclick = () => {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../../jsp/ajaxproxy.jsp", false);
+    xhr.open("GET", "proxy.jsp", false);
     xhr.send();
     ta.value = xhr.responseText;
-    
-    // 이 HTML 문사는 www.zdnet.co.kr 에서 다운로드 받은 것이 아니기 때문에
-    // 웹브라우저는 응답받은 결과를 리턴하지 않는다.
-    // => 실행하면 다음과 같은 오류가 뜬다.
-    // No 'Access-Control-Allow-Origin' header is present on the requested resource.
 };
 
 </script>

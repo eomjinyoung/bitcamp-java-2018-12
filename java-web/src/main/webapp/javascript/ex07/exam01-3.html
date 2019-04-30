@@ -21,7 +21,7 @@ var ta = document.querySelector("#ta");
 
 document.querySelector("#btn1").onclick = () => {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://192.168.0.4:8888/bitcamp-javascript/jsp/test1.jsp", false);
+    xhr.open("GET", "http://192.168.0.31:8080/java-web/javascript/ex07/test1.jsp", false);
     xhr.send();
     ta.value = xhr.responseText;
 };

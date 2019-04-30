@@ -6,8 +6,9 @@
 </head>
 <body>
 <h1>AJAX - readyState와 status</h1>
-<button id="btn1">요청</button><br>
-<textarea id="ta" cols="80" rows="10"></textarea>
+<input type="text" id="a"> + <input type="text" id="b">
+<button id="btn1">=</button>
+<input type="text" id="r">
 
 <script>
 "use strict"
@@ -18,22 +19,28 @@
 //    정상적인 응답인지 검사해야 한다.
 //       
 //
-var ta = document.querySelector("#ta");
+var a = document.querySelector("#a");
+var b = document.querySelector("#b");
+var r = document.querySelector("#r");
 
 document.querySelector("#btn1").onclick = () => {
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = () => {
         if (xhr.readyState == 4) {
-        	// 서버에서 실행 중에 오류가 발생했을 때 200 응답이 아닌 결과가 올 것이다.
-        	// 그 때는 다음과 같이 그냥 출력해서는 안된다. 
-        	ta.value = xhr.responseText;
+        	// 서버에 존재하지 않는 자원을 요청했을 때,
+        	// 또는 서버의 자원을 실행 중에 오류가 발생했을 때
+        	// 그때는 정상적인 응답이 아니기 때문에 responseText를 사용해서는 안된다.
+        	// 
+        	// 다음의 출력 결과를 확인해보라! 
+        	r.value = xhr.responseText;
+        	
         	// 해결책?
         	// => 다음 예제를 보라!
         }
     };
     
-    xhr.open("GET", "../../jsp/test4.jsp?a=100&b=okok", true);
+    xhr.open("GET", "test4.jsp?a=" + a.value + "&b=" + b.value, true);
     xhr.send();
     console.log("send() 리턴함.");
 };

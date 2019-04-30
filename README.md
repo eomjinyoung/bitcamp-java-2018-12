@@ -661,4 +661,10 @@
 ## 82일(2019-4-29)
 - JavaScript 사용법 II
     - 객체 다루기
-    
+    - DOM API 다루기
+    - Event 다루기
+
+## 82일(2019-4-30)
+- JavaScript 사용법 III
+    - AJAX 와 JSON
+- 
