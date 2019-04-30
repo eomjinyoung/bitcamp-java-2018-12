@@ -184,3 +184,7 @@
     - 컨트롤러, 서비스, DAO, SQL 맵퍼 파일, JSP 변경
 - JSP에 Bootstrap CSS 적용
     - /WEB-INF/jsp/../*.jsp 파일 변경
+
+## src18 : npm으로 외부 라이브러리 관리하기 
+- nodejs 설치
+- 

@@ -18,16 +18,16 @@ var header = document.querySelector("#header"),
     footer = document.querySelector("#footer");
 
 (function() { // 머리말 가져오기
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                header.innerHTML = xhr.responseText;
-            }
-        }
-    };
-    xhr.open("GET", "../../jsp/test5.jsp", true);
-    xhr.send();
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = () => {
+      if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+              header.innerHTML = xhr.responseText;
+          }
+      }
+  };
+  xhr.open("GET", "test5.jsp", true);
+  xhr.send();
 })();
 
 (function() { // 꼬리말 가져오기
