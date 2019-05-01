@@ -60,6 +60,7 @@ public class Controller05_1 {
   //    Google의 Gson 라이브러리나 Jackson 라이브러리를 사용하여 
   //    자동으로 JSON 형식의 문자열로 만들어 클라이언트로 출력한다.
   // => 단 Gson 또는 Jackson 라이브러리가 있어야 한다.
+  //    둘 다 있다면 Jackson 라이브러리가 기본으로 사용된다.
   // => build.gradle 파일에서 gson 또는 jackson 라이브러리를 추가하는 부분의 
   //    주석을 참고하라!
   // 테스트:

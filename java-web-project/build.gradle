@@ -50,6 +50,14 @@ dependencies {
     // JSTL 명세를 구현한 라이브러리
     compile group: 'javax.servlet', name: 'jstl', version: '1.2'
     
+    // JSON 라이브러리
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.8'
+    
     implementation 'com.google.guava:guava:26.0-jre'
     testImplementation 'junit:junit:4.12'
 }
+
+
+
+
+

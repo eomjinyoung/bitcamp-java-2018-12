@@ -84,9 +84,9 @@ var header = document.querySelector("body > header");
   xhr.onreadystatechange = function() {
     if (xhr.readyState != 4 || xhr.status != 200)
       return;
-    header.innerHTML = xhr.responseText
+    console.log(xhr.responseText)
   };
-  xhr.open("GET", "../header.html", true)
+  xhr.open("GET", "../../app/json/board/list", true)
   xhr.send()
 })();
 

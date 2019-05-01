@@ -192,4 +192,9 @@
 - /WEB-INF/jsp/../*.jsp 파일 변경
 
 ## src19 : Front-end 와 Back-end 를 분리하기
+- build.gradle 변경
+    - jackson-databind JSON 라이브러리 추가
+    - '$ gradle eclipse' 실행
+    - 이클립스 프로젝트 리프래시
+    - 서버 재시작
 - 

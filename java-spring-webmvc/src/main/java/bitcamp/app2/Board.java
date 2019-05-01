@@ -1,6 +1,7 @@
 package bitcamp.app2;
 
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Board {
   protected int no;
@@ -8,6 +9,9 @@ public class Board {
   protected String content;
   protected String writer;
   protected int viewCount;
+  
+  // 이 애노테이션을 setter나 field에 붙이면 된다.
+  @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd")
   protected Date createdDate;
   
   public Board() {
@@ -63,9 +67,15 @@ public class Board {
   public Date getCreatedDate() {
     return createdDate;
   }
+  
+  //@JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd")
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
-  
-  
 }
+
+
+
+
+
+

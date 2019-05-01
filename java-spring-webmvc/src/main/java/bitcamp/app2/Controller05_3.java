@@ -1,14 +1,8 @@
 // JSON 콘텐트 입력받기 - @RestController
 package bitcamp.app2;
 
-import java.beans.PropertyEditorSupport;
 import java.net.URLDecoder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -71,35 +65,24 @@ public class Controller05_3 {
   @RequestMapping(value="h5", produces="text/plain;charset=UTF-8")
   public Object handler5(@RequestBody Board content) throws Exception {
     System.out.println(content);
+    
+    // 주의!
+    // => 클라이언트에서 보낸 날짜 데이터의 문자열 형식이 yyyy-MM-dd 형태여야 한다.
+    //    그래야 java.util.Date 타입의 값으로 변환해 준다.
+    //    예) 2019-05-01 ===> java.util.Date 객체 변환 성공!
+    // => 만약 이 형태가 아니면 변환할 수 없어 실행 오류가 발생한다.
+    //    예) 2019-5-1 ===> 변환 오류!
+    // 
+    // @JsonFormat 애노테이션 사용
+    // => 이 애노테이션은 MappingJackson2HttpMessageConverter를 위한 것이다.
+    //    GsonHttpMessageConverter는 이 애노테이션을 인식하지 않는다.
+    // => 도메인 객체의 프로퍼티에 이 애노테이션을 붙이면 
+    //    2019-05-01 이나 2019-5-1 모두 처리할 수 있다.
+    // => 뿐만 아니라, 도메인 객체를 JSON 문자열로 변환할 때도 
+    //    해당 형식으로 변환된다.
+    // 
+    
     return "OK!";
-  }
-  
-  @InitBinder
-  public void initBinder(WebDataBinder binder) {
-    
-    DatePropertyEditor propEditor = new DatePropertyEditor();
-    binder.registerCustomEditor(
-        java.util.Date.class, 
-        propEditor  
-    );
-  }
-  
-  class DatePropertyEditor extends  PropertyEditorSupport {
-    SimpleDateFormat format;
-    
-    public DatePropertyEditor() {
-      format = new SimpleDateFormat("yyyy-MM-dd");
-    }
-    
-    @Override
-    public void setAsText(String text) throws IllegalArgumentException {
-      try {
-        Date date = format.parse(text);
-        setValue(date); 
-      } catch (ParseException e) {
-        throw new IllegalArgumentException(e);
-      }
-    }
   }
 }
 
