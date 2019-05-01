@@ -664,12 +664,12 @@
     - DOM API 다루기
     - Event 다루기
 
-## 82일(2019-4-30)
+## 83일(2019-4-30)
 - JavaScript 사용법 III
     - AJAX 와 JSON
 - NPM 패키지 매니저 사용법
 
-## 83일(2019-5-1)
+## 84일(2019-5-1)
 - Spring WebMVC에서 JSON 다루기
     - @RestController 사용법
     - JSON 요청 파라미터 값 ==> 핸들러의 아규먼트 타입
