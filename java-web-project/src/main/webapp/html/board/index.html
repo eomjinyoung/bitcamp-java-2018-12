@@ -24,26 +24,7 @@
     <th scope="col">조회수</th>
   </tr>
 </thead>
-<tbody>
-<tr> 
-    <th scope="row">96</th>
-    <td><a href='96'>오호라</a></td> 
-    <td>2019-04-29</td> 
-    <td>3</td>
-  </tr>
-<tr> 
-    <th scope="row">95</th>
-    <td><a href='95'>오호라ㅏ....</a></td> 
-    <td>2019-04-25</td> 
-    <td>2</td>
-  </tr>
-<tr> 
-    <th scope="row">89</th>
-    <td><a href='89'>오호라...</a></td> 
-    <td>2019-04-23</td> 
-    <td>3</td>
-  </tr>
-</tbody>
+<tbody></tbody>
 </table>
 </div><!-- .bit-list -->
 
@@ -64,7 +45,8 @@
 <script src="/java-web-project/node_modules/popper.js/dist/umd/popper.min.js"></script>
 <script src="/java-web-project/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script>
-var header = document.querySelector("body > header");
+var header = document.querySelector('body > header'),
+    tbody = document.querySelector('tbody');
 
 // 헤더 가져오기
 (function () {
@@ -74,7 +56,7 @@ var header = document.querySelector("body > header");
       return;
     header.innerHTML = xhr.responseText
   };
-  xhr.open("GET", "../header.html", true)
+  xhr.open('GET', '../header.html', true)
   xhr.send()
 })();
 
@@ -84,9 +66,22 @@ var header = document.querySelector("body > header");
   xhr.onreadystatechange = function() {
     if (xhr.readyState != 4 || xhr.status != 200)
       return;
-    console.log(xhr.responseText)
+    
+    // 서버에서 받은 JSON 형식의 데이터를 ==> JavaScript 객체로 변환
+    var obj = JSON.parse(xhr.responseText);
+    
+    // TR 태그를 생성
+    for (data of obj.list) {
+      var tr = '<tr>'
+        + '<th scope="row">' + data.no + '</th>'
+        + '<td><a href="' + data.no + '">' + data.contents + '</a></td>'
+        + '<td>' + data.createdDate + '</td>'
+        + '<td>' + data.viewCount + '</td>'
+        + '</tr>';
+      tbody.innerHTML = tbody.innerHTML + tr;
+    }
   };
-  xhr.open("GET", "../../app/json/board/list", true)
+  xhr.open('GET', '../../app/json/board/list', true)
   xhr.send()
 })();
 
