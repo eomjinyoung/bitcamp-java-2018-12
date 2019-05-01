@@ -188,3 +188,8 @@
 ## src18 : npm으로 외부 라이브러리 관리하기 
 - nodejs 설치
 - npm 으로 CSS, JavaScript 라이브러리 설치
+- /WEB-INF/jsp/commonCss.jsp 파일 추가
+- /WEB-INF/jsp/../*.jsp 파일 변경
+
+## src19 : Front-end 와 Back-end 를 분리하기
+- 

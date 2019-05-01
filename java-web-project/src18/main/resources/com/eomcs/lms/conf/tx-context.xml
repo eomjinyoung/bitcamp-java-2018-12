@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+  
+  <!-- AOP 관련 애노테이션을 처리하라면 그 작업을 수행할 객체를 등록해야 한다.
+       스프링 IoC 컨테이너는 그 클래스가 무엇인지 몰라도 쉽게 등록할 수 있도록 
+       특별한 태그를 제공한다. 위의 <context:component-scan> 처럼!  -->
+  <!--  
+  <aop:aspectj-autoproxy/>
+  -->
+  
+  <!-- 스프링에서 제공하는 트랜잭션 처리 advice를 준비한다. 
+       즉 개발자가 트랜잭션을 준비하고, commit()/rollback() 하는 advice를 만들 필요가 없다.
+       다면 어떤 메서드에 대해 적용할 지 그 규칙을 설정해야 한다. 
+       
+       <tx:advice> 설정할 때 트랜잭션 관리자 객체를 알려줘야 한다.
+       트랜잭션 관리자 객체의 이름이 "transactionManager"라면 따로 알려줄 필요가 없다.
+       만약 다른 이름이라면 다음과 같이 속성에 그 이름을 설정해야 한다.
+           transaction-manager="txManager"
+       -->
+  <tx:advice id="txAdvice">
+        <tx:attributes>
+            <!-- 트랜잭션을 적용하지 않을 메서드를 지정한다.
+                 보통 getXXXX() 메서드는 데이터를 조회하기 때문에 트랜잭션을 사용할 필요가 없지만,
+                 BoardService의 경우 조회할 때 조회수를 증가시키기 위해 데이터를 변경해야 한다.
+                 따라서 우리 프로젝트의 경우 getXXX() 메서드에서도 트랜잭션을 사용해야 한다. -->
+            <tx:method name="list*" read-only="true"/>
+            
+            <!-- 나머지 메서드는 트랜잭션을 적용한다.
+                 그래서 이렇게 XML로 설정하려면 서비스 클래스의 메서드를 정의할 때 
+                 규칙을 정해 메서드를 만들어야 한다. -->
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+    
+    <!-- 트랜잭션 advice를 어떤 객체에 적용할 것인지 패턴을 설정해야 한다. -->
+    <aop:config>
+        <!-- 트랜잭션 advice를 적용할 대상을 정의한다. -->
+        <aop:pointcut id="serviceOperation" 
+                      expression="execution(* com.eomcs.lms.service.impl.*.*(..))"/>
+        
+        <!-- 그 대상에 트랜잭션 advice를 지정한다. -->
+        <aop:advisor advice-ref="txAdvice" 
+                     pointcut-ref="serviceOperation"/>
+    </aop:config>
+    
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
