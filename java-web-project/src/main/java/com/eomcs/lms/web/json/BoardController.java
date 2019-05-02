@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,8 +32,8 @@ public class BoardController {
     return content;
   }
   
-  @GetMapping("delete/{no}")
-  public Object delete(@PathVariable int no) {
+  @GetMapping("delete")
+  public Object delete(int no) {
   
     HashMap<String,Object> content = new HashMap<>();
     try {
@@ -49,7 +48,7 @@ public class BoardController {
     return content;
   }
   
-  @GetMapping("/detail")
+  @GetMapping("detail")
   public Object detail(int no) {
     Board board = boardService.get(no);
     return board;
