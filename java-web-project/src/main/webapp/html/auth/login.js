@@ -1,22 +1,7 @@
-var header = document.querySelector('body > header');
-
-console.log(document.cookie);
-
-//헤더 가져오기
-(function () {
-  var xhr = new XMLHttpRequest()
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState != 4 || xhr.status != 200)
-      return;
-    header.innerHTML = xhr.responseText
-    
-    // body 태그 쪽에 헤더 로딩 완료 이벤트를 보낸다.
-    var e = new Event("loaded.header");
-    document.body.dispatchEvent(e);
-  };
-  xhr.open('GET', '../header.html', true)
-  xhr.send()
-})();
+if (window.localStorage.getItem('email')) {
+  //document.querySelector('#email').value = localStorage.getItem('email')
+  document.querySelector('#email').value = localStorage.email
+}
 
 document.querySelector('#login-btn').onclick = () => {
   var xhr = new XMLHttpRequest()
@@ -40,24 +25,17 @@ document.querySelector('#login-btn').onclick = () => {
   var password = document.querySelector('#password').value;
   
   if (document.querySelector('#saveEmail:checked') != null) {
-    // 쿠키에 email을 저장한다.
-    setCookie("email", email, 1);
+    // 웹브라우저의 로컬 스토리지에 이메일을 저장한다.
+    //window.localStorage.setItem("email", email);
+    window.localStorage.email = email;
   } else {
-    removeCookie("email");
+    window.localStorage.removeItem("email");
   }
   
   var qs = 'email=' + email + '&password=' + password;
   xhr.send(qs);
 };
 
-function setCookie(name, value, expireDays) {
-  var today = new Date();
-  today.setTime(today.getTime() + expireDays * 24 * 60 * 60 * 1000);
-  
-  document.cookie = name + '=' + value + 
-    ';expires=' + today.toUTCString() + 
-    ';path=/';
-}
 
 
 

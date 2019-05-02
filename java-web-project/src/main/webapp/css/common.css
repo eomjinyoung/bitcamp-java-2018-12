@@ -22,6 +22,10 @@ div.container {
   width: 800px;
 }
 
+.bit-invisible {
+  display: none;
+}
+
 #bit-login-state {
   margin: 0px 10px;
 }

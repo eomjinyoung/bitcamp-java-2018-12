@@ -1,21 +1,3 @@
-var header = document.querySelector('body > header');
-
-//헤더 가져오기
-(function () {
-  var xhr = new XMLHttpRequest()
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState != 4 || xhr.status != 200)
-      return;
-    header.innerHTML = xhr.responseText
-    
-    // body 태그 쪽에 헤더 로딩 완료 이벤트를 보낸다.
-    var e = new Event("loaded.header");
-    document.body.dispatchEvent(e);
-  };
-  xhr.open('GET', '../header.html', true)
-  xhr.send()
-})();
-
 var param = location.href.split('?')[1];
 if (param) {
   document.querySelector('h1').innerHTML = "게시물 조회"
@@ -44,7 +26,7 @@ document.querySelector('#add-btn').onclick = () => {
       location.href = "index.html"
         
     } else {
-      alert('등록 실패입니다!')
+      alert('등록 실패입니다!\n' + data.message)
     }
   };
   xhr.open('POST', '../../app/json/board/add', true)
@@ -67,7 +49,7 @@ document.querySelector('#delete-btn').onclick = () => {
       location.href = "index.html"
         
     } else {
-      alert('삭제 실패입니다!')
+      alert('삭제 실패입니다!\n' + data.message)
     }
   };
   var no = document.querySelector('#no').value;
@@ -93,9 +75,13 @@ document.querySelector('#update-btn').onclick = () => {
   xhr.open('POST', '../../app/json/board/update', true)
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   
+  var no = document.querySelector('#no').value;
   var contents = document.querySelector('#contents').value;
   
-  xhr.send("contents=" + encodeURIComponent(contents));
+  var qs = 'contents=' + encodeURIComponent(contents) +
+    '&no=' + no;
+  
+  xhr.send(qs);
 };
 
 function loadData(no) {

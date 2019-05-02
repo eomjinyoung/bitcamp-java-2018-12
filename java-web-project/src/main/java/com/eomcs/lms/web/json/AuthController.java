@@ -1,7 +1,6 @@
 package com.eomcs.lms.web.json;
 import java.util.HashMap;
 import javax.servlet.ServletContext;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
@@ -44,21 +43,8 @@ public class AuthController {
   public Object login(
       String email,
       String password,
-      boolean saveEmail,
       HttpSession session,
       HttpServletResponse response) {
-
-    Cookie cookie;
-    if (saveEmail) {
-      cookie = new Cookie("email", email);
-      cookie.setMaxAge(60 * 60 * 24 * 15); // 15일간 쿠키를 보관한다.
-      cookie.setPath("/");
-      
-    } else {
-      cookie = new Cookie("email", "");
-      cookie.setMaxAge(0); // 기존의 쿠키를 제거한다.
-    }
-    response.addCookie(cookie); 
 
     Member member = memberService.get(email, password);
 
@@ -85,6 +71,22 @@ public class AuthController {
     HashMap<String,Object> content = new HashMap<>();
     content.put("status", "success");
     
+    return content;
+  }
+  
+  @GetMapping("user")
+  public Object user(HttpSession session) throws Exception {
+    
+    Member loginUser = (Member)session.getAttribute("loginUser");
+    
+    HashMap<String,Object> content = new HashMap<>();
+
+    if (loginUser != null) {
+      content.put("status", "success");
+      content.put("user", loginUser);
+    } else {
+      content.put("status", "fail");
+    }
     return content;
   }
 }

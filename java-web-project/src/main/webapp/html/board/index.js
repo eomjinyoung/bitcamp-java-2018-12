@@ -1,34 +1,9 @@
 var pageNo = 1,
     pageSize = 3,
-    header = document.querySelector('body > header'),
     tbody = document.querySelector('tbody'),
     prevPageLi = document.querySelector('#prevPage'),
     nextPageLi = document.querySelector('#nextPage'),
     currSpan = document.querySelector('#currPage > span');
-
-// 헤더 가져오기
-(function () {
-  var xhr = new XMLHttpRequest()
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState != 4 || xhr.status != 200)
-      return;
-    header.innerHTML = xhr.responseText
-    
-    // body 태그 쪽에 헤더 로딩 완료 이벤트를 보낸다.
-    //var e = new Event("loaded.header");
-    //document.body.dispatchEvent(e);
-  };
-  xhr.open('GET', '../header.html', true)
-  xhr.send()
-})();
-
-/* 헤더가 로딩이 완료된 다음에 테이블에 출력할 데이터를 가져오고 싶다면 다음 코드를 참고하라!
-// 헤더 로딩이 완료되었을 때 호출될 함수 등록
-document.body.addEventListener('loaded.header', () => {
-  // 페이지의 헤더를 출력한 후 1페이지 목록을 로딩한다.
-  loadList(1);
-});
-*/
 
 // JSON 형식의 데이터 목록 가져오기
 function loadList(pn) {
