@@ -4,6 +4,10 @@ body {
   font-size: small;
 }
 
+body > header {
+  min-height: 60px;
+}
+    
 h1 {
   /* border: 1px solid red; */
   /* text-align: center; */
