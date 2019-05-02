@@ -75,6 +75,29 @@ document.querySelector('#delete-btn').onclick = () => {
   xhr.send();
 };
 
+document.querySelector('#update-btn').onclick = () => {
+  var xhr = new XMLHttpRequest()
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState != 4 || xhr.status != 200)
+      return;
+    
+    var data = JSON.parse(xhr.responseText);
+    
+    if (data.status == 'success') {
+      location.href = "index.html"
+        
+    } else {
+      alert('변경 실패입니다!\n' + data.message)
+    }
+  };
+  xhr.open('POST', '../../app/json/board/update', true)
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  
+  var contents = document.querySelector('#contents').value;
+  
+  xhr.send("contents=" + encodeURIComponent(contents));
+};
+
 function loadData(no) {
   var xhr = new XMLHttpRequest()
   xhr.onreadystatechange = function() {
