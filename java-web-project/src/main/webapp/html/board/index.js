@@ -48,7 +48,8 @@ function loadList(pn) {
     for (data of obj.list) {
       var tr = '<tr>'
         + '<th scope="row">' + data.no + '</th>'
-        + '<td><a href="' + data.no + '">' + data.contents + '</a></td>'
+        //+ '<td><a href="view.html?no=' + data.no + '">' + data.contents + '</a></td>'
+        + '<td><a class="bit-view-link" href="#" data-no="' + data.no + '">' + data.contents + '</a></td>'
         + '<td>' + data.createdDate + '</td>'
         + '<td>' + data.viewCount + '</td>'
         + '</tr>';
@@ -72,6 +73,9 @@ function loadList(pn) {
       nextPageLi.className = nextPageLi.className.replace(' disabled', '');
     }
     
+    // 데이터 로딩이 완료되면 body 태그에 이벤트를 전송한다.
+    document.body.dispatchEvent(new Event('loaded-list'));
+    
   };
   xhr.open('GET', 
       '../../app/json/board/list?pageNo=' + pn + '&pageSize=' + pageSize, 
@@ -89,9 +93,22 @@ document.querySelector('#nextPage > a').onclick = (e) => {
   loadList(pageNo + 1);
 };
 
+
 //페이지를 출력한 후 1페이지 목록을 로딩한다.
 loadList(1);
 
+// 테이블 목록 가져오기를 완료했으면 제목 a 태그에 클릭 리스너를 등록한다. 
+document.body.addEventListener('loaded-list', () => {
+  // 제목을 클릭했을 때 view.html로 전환시키기
+  var alist = document.querySelectorAll('.bit-view-link');
+  for (a of alist) {
+    a.onclick = (e) => {
+      e.preventDefault();
+      window.location.href = 'view.html?no=' + 
+        e.target.getAttribute('data-no');
+    };
+  }
+});
 
 
 

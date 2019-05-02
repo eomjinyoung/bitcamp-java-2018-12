@@ -49,8 +49,8 @@ public class BoardController {
     return content;
   }
   
-  @GetMapping("{no}")
-  public Object detail(@PathVariable int no) {
+  @GetMapping("/detail")
+  public Object detail(int no) {
     Board board = boardService.get(no);
     return board;
   }

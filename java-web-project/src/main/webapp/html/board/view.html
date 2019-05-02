@@ -16,33 +16,33 @@
     <label for="no" class="col-sm-2 col-form-label">번호</label>
     <div class="col-sm-10">
       <input type="text" class="form-control-plaintext" id="no" 
-             name='no' value='96' readonly>
+             name='no' readonly>
     </div>
   </div>
   <div class="form-group row">
     <label for="contents" class="col-sm-2 col-form-label">내용</label>
     <div class="col-sm-8">
       <textarea class="form-control" id="contents" 
-                name='contents' rows='5'>오호라</textarea>
+                name='contents' rows='5'></textarea>
     </div>
   </div>
   <div class="form-group row">
     <label for="createdDate" class="col-sm-2 col-form-label">작성일</label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control-plaintext" 
-          id="createdDate" value="2019-04-29">
+          id="createdDate">
     </div>
   </div>
   <div class="form-group row">
     <label for="viewCount" class="col-sm-2 col-form-label">조회수</label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control-plaintext" 
-          id="viewCount" value="4">
+          id="viewCount">
     </div>
   </div>
   <div class="form-group row">
     <div class="col-sm-10">
-      <a class="btn btn-primary" href='.'>목록</a> 
+      <a class="btn btn-primary" href='index.html'>목록</a> 
       <a class="btn btn-primary" href='delete/96'>삭제</a> 
       <button class="btn btn-primary">변경</button>
     </div>
@@ -53,25 +53,7 @@
 <script src="/java-web-project/node_modules/jquery/dist/jquery.slim.min.js"></script>
 <script src="/java-web-project/node_modules/popper.js/dist/umd/popper.min.js"></script>
 <script src="/java-web-project/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script>
-var header = document.querySelector('body > header');
-
-//헤더 가져오기
-(function () {
-  var xhr = new XMLHttpRequest()
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState != 4 || xhr.status != 200)
-      return;
-    header.innerHTML = xhr.responseText
-    
-    // body 태그 쪽에 헤더 로딩 완료 이벤트를 보낸다.
-    var e = new Event("loaded.header");
-    document.body.dispatchEvent(e);
-  };
-  xhr.open('GET', '../header.html', true)
-  xhr.send()
-})();
-</script>
+<script src="view.js"></script>
 </body>
 </html>
 
