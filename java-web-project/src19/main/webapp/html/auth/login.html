@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>로그인</title>
+  <link rel="stylesheet" href="/java-web-project/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/java-web-project/css/header.css">
+  <link rel="stylesheet" href="/java-web-project/css/common.css">
+</head>
+<body>
+
+<header class="bit-main-header"></header>
+
+<div class="container">
+<h1>로그인</h1>
+<form>
+  <div class="form-group">
+    <label for="email">이메일</label>
+    <input type="email" class="form-control" id="email" name="email"
+           aria-describedby="emailHelp" placeholder="이메일을 입력하세요.">
+    <small id="emailHelp" 
+           class="form-text text-muted">당신의 이메일을 다른 사이트와 결코 공유하지 않습니다.</small>
+  </div>
+  <div class="form-group">
+    <label for="password">암호</label>
+    <input type="password" class="form-control" id="password" name="password" 
+           placeholder="암호를 입력하세요.">
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="saveEmail"
+           name="saveEmail">
+    <label class="form-check-label" for="saveEmail">이메일 저장</label>
+  </div>
+  <button type="button" id="login-btn" class="btn btn-primary">로그인</button>
+</form>
+</div><!-- .container -->
+
+<script src="/java-web-project/node_modules/jquery/dist/jquery.slim.min.js"></script>
+<script src="/java-web-project/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/java-web-project/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../header.js"></script>
+<script src="login.js"></script>
+</body>
+</html>
+
+
+
+
+
+
