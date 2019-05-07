@@ -16,14 +16,12 @@
    
     <h1>회원 상세조회</h1>
   
-    <c:choose>
-      <c:when test="${empty member}">
-        <meta http-equiv="Refresh" content="2;url=list">
-        <p>해당하는 회원이 없습니다.</p>
-      </c:when>
-      
-      <c:otherwise>
-      
+<c:choose>
+  <c:when test="${empty member}">
+    <meta http-equiv="Refresh" content="2;url=list">
+    <p>해당하는 회원이 없습니다.</p>
+  </c:when>
+  <c:otherwise>
       <form action='update' method='post' enctype='multipart/form-data'>
       
         <div class="row">
@@ -39,9 +37,6 @@
             </c:if>
             
             <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupFileAddon01">사진</span>
-              </div>
               <div class="custom-file">
                 <input type="file" name='photoFile' class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                 <label class="custom-file-label" for="inputGroupFile01">사진 선택</label>
@@ -50,46 +45,46 @@
             
           </div> <!-- .bit-photo -->
           
-          <div class="bit-pro col-7">
+          <div class="col-7">
 
             <div class="form-group row">
-              <label for="no" class="col-sm-2 col-form-label">번호</label>
-              <div class="col-sm-10">
+              <label for="no" class="col-sm-3 col-form-label">번호</label>
+              <div class="col-sm-9">
                 <input type="text" class="form-control-plaintext" name="no" id="no" value="${member.no}" readonly/>
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="name" class="col-sm-2 col-form-label">이름</label>
-              <div class="col-sm-10">
+              <label for="name" class="col-sm-3 col-form-label">이름</label>
+              <div class="col-sm-9">
                 <input type="text" class="form-control" name="name" id="name" value="${member.name}" />
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="password" class="col-sm-2 col-form-label">비밀번호</label>
-              <div class="col-sm-10">
+              <label for="password" class="col-sm-3 col-form-label">비밀번호</label>
+              <div class="col-sm-9">
                 <input type="password" class="form-control" name="password" id="password"/>
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="email" class="col-sm-2 col-form-label">ID (이메일)</label>
-              <div class="col-sm-10">
+              <label for="email" class="col-sm-3 col-form-label">ID (이메일)</label>
+              <div class="col-sm-9">
                 <input type="email" class="form-control" name="email" id="email" value='${member.email}'/>
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="tel" class="col-sm-2 col-form-label">전화번호</label>
-              <div class="col-sm-10">
+              <label for="tel" class="col-sm-3 col-form-label">전화번호</label>
+              <div class="col-sm-9">
                 <input type="text" class="form-control" name="tel" id="tel" value='${member.tel}'/>
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="createdDate" class="col-sm-2 col-form-label">가입일</label>
-              <div class="col-sm-10">
+              <label for="createdDate" class="col-sm-3 col-form-label">가입일</label>
+              <div class="col-sm-9">
                 <input type="text" class="form-control-plaintext" id="createdDate" value='${member.registeredDate}' readonly/>
               </div>
             </div>
@@ -108,8 +103,8 @@
       
     </form>
     
-      </c:otherwise>
-    </c:choose>
+  </c:otherwise>
+</c:choose>
   
   </div> <!-- .container -->
   

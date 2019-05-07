@@ -27,7 +27,7 @@
     <include refid="select1"/>
     order by 
       board_id desc
-    <if test="#{size != null || rowNo != null}">
+    <if test="size != null and rowNo != null">
       limit #{rowNo}, #{size}
     </if>
   </select>

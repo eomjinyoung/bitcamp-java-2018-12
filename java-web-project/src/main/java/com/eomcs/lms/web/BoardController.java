@@ -58,10 +58,10 @@ public class BoardController {
     if (rowCount % pageSize > 0)
       totalPage++;
     
+    if (pageNo > totalPage)
+      pageNo = totalPage;
     if (pageNo < 1) 
       pageNo = 1;
-    else if (pageNo > totalPage)
-      pageNo = totalPage;
     
     List<Board> boards = boardService.list(pageNo, pageSize);
     model.addAttribute("list", boards);

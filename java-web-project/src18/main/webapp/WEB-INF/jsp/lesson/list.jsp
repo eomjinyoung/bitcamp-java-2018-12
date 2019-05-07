@@ -19,8 +19,9 @@
       <a href='form' class="btn btn-primary btn-sm">강의등록</a>
     </p>
     
+    <div class="bit-list">
     <table class="table table-hover">
-      <thead class="thead-dark">
+      <thead>
         <tr>
           <th scope="col">번호</th>
           <th scope="col">제목</th>
@@ -33,7 +34,7 @@
          <c:forEach items="${list}" var="lesson">
          <tr>
            <th scope="row">${lesson.no}</th>
-           <td><a href='${lesson.no}' class="alert-link">${lesson.title}</a></td>
+           <td><a href='${lesson.no}'>${lesson.title}</a></td>
            <td>${lesson.startDate}</td>
            <td>${lesson.endDate}</td>
            <td>${lesson.totalHours}</td>
@@ -41,15 +42,9 @@
          </c:forEach>
        </tbody>
     </table>
-    <!-- .bit-list -->
-  <nav aria-label="목록 페이지 이동">
-    <ul class="pagination justify-content-center">
-      <li class="page-item ${pageNo <= 1 ? 'disabled' : ''}"><a class="page-link" href="?pageNo=${pageNo-1}&pageSize=${pageSize}">이전</a></li>
-      <li class="page-item active"><span class="page-link">${pageNo}</span></li>
-      <li class="page-item ${pageNo >= totalPage ? 'disabled' : ''}"><a class="page-link" href="?pageNo=${pageNo+1}&pageSize=${pageSize}"">다음</a></li>
-    </ul>
-  </nav>
+    <div class="bit-list"><!-- .bit-list -->
     
+    <jsp:include page="../pageNavigation.jsp"/>
     
   </div> <!-- .container -->
   

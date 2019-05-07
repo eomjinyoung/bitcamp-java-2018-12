@@ -12,6 +12,13 @@
     <result column="titl"       property="title"/>
     <result column="cdt"        property="createdDate"/>
     <result column="vw_cnt"     property="viewCount"/>
+    
+    <association property="lesson" javaType="lesson">
+      <id column="lesson_id"        property="no"/>
+      <result column="lessonTitle"  property="title"/>
+      <result column="sdt"          property="startDate"/>
+      <result column="edt"          property="endDate"/>
+    </association>
   </resultMap>
   
   <resultMap type="photoBoard" id="photoBoardFileMap">
@@ -35,38 +42,47 @@
     </collection>
   </resultMap>
   
-  <sql id="select1">
-    select 
-      photo_id, 
-      titl, 
-      cdt, 
-      vw_cnt, 
-      lesson_id 
-    from 
-      lms_photo
-  </sql>
-  
   <select id="findAll" resultMap="photoBoardMap" parameterType="map">
-    <if test="keyword != null">
-      <bind name="pattern1" value="'%' + keyword + '%'"/>
-    </if>
-    <include refid="select1"/>
+    select 
+      p.photo_id, 
+      p.titl, 
+      p.cdt, 
+      p.vw_cnt, 
+      l.lesson_id,
+      l.titl as lessonTitle
+    from 
+      lms_photo p
+      left outer join lms_lesson l on p.lesson_id = l.lesson_id 
     <where>
-      <if test="lessonNo != null">or lesson_id = #{lessonNo}</if>
-      <!-- mybatis에서 검색 패턴을 만든 경ㅇ, 다음과 같이 mybatis에서 만든 bind를 사용한다. -->
-      <if test="pattern1 != null">or titl like #{pattern1}</if>
-      
-      <!-- 자바에서 검색 패턴을 만든 경우, 다음과 같이 그냥 keyword 값을 사용하면 된다. -->
-      <!--  
-      <if test="keyword != null">or titl like #{keyword}</if>
-      -->
+      <if test="lessonNo != null">
+        p.lesson_id = #{lessonNo}
+      </if>
+      <if test="search != null">
+        <bind name="pattern1" value="'%' + search + '%'"/>
+        or p.titl like #{pattern1}
+        or l.titl like #{pattern1}
+      </if>
     </where>
     order by 
-      photo_id desc
+      p.photo_id desc
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
   </select>
-  
+
   <select id="findByNo" resultMap="photoBoardMap" parameterType="int">
-    <include refid="select1"/>
+    select 
+      p.photo_id, 
+      p.titl, 
+      p.cdt, 
+      p.vw_cnt, 
+      l.lesson_id,
+      l.titl as lessonTitle,
+      l.sdt,
+      l.edt
+    from 
+      lms_photo p
+      left outer join lms_lesson l on p.lesson_id = l.lesson_id 
     where 
       photo_id = #{value}
   </select>
@@ -122,6 +138,20 @@
     delete from lms_photo 
     where photo_id = #{value}
   </delete>
+  
+  <select id="countAll" resultType="int" parameterType="string">
+    select count(*) 
+    from 
+      lms_photo p
+      left outer join lms_lesson l on p.lesson_id = l.lesson_id 
+    <where>
+      <if test="_parameter != null">
+        <bind name="pattern1" value="'%' + _parameter + '%'"/>
+        p.titl like #{pattern1}
+        or l.titl like #{pattern1}
+      </if>
+    </where>
+  </select>
 </mapper>
 
 

@@ -24,13 +24,22 @@
       tot_hr
   </sql>
   
-  <select id="findAll" resultMap="lessonMap">
+  <select id="findAll" resultMap="lessonMap" parameterType="map">
     select 
       <include refid="default-columns"/> 
     from 
       lms_lesson
+    <where>
+      <if test="search != null">
+        <bind name="pattern1" value="'%' + search + '%'"/>
+        titl like #{pattern1}
+      </if>
+    </where> 
     order by 
       lesson_id desc
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
   </select>
   
   <select id="findByNo" resultMap="lessonMap" parameterType="int">
@@ -78,6 +87,17 @@
     delete from lms_lesson 
     where lesson_id = #{value}
   </delete>
+  
+    <select id="countAll" resultType="int" parameterType="string">
+    select count(*) 
+    from lms_lesson
+    <where>
+      <if test="_parameter != null">
+        <bind name="pattern1" value="'%' + _parameter + '%'"/>
+        titl like #{pattern1}
+      </if>
+    </where> 
+  </select>
 </mapper>
 
 

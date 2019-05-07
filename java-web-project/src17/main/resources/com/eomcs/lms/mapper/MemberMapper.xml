@@ -24,13 +24,24 @@
       cdt
   </sql>
   
-  <select id="findAll" resultMap="memberMap">
+  <select id="findAll" resultMap="memberMap" parameterType="map">
     select 
       <include refid="default-columns"/>
     from 
       lms_member
+    <where>
+      <if test="search != null">
+        <bind name="pattern1" value="'%' + search + '%'"/>
+        name like #{pattern1}
+        or email like #{pattern1}
+        or tel like #{pattern1}
+      </if>
+    </where>   
     order by 
       name asc
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
   </select>
   
   <select id="findByNo" resultMap="memberMap" parameterType="int">
@@ -52,19 +63,6 @@
     where 
       email = #{email}
       and pwd = password(#{password})
-  </select>
-  
-  <select id="findByKeyword" resultMap="memberMap" parameterType="string">
-    <bind name="pattern1" value="'%' + _parameter + '%'"/>
-    select 
-      <include refid="default-columns"/> 
-    from 
-      lms_member
-    where 
-      name like #{pattern1}
-      or email like #{pattern1}
-      or tel like #{pattern1}
-    order by name asc
   </select>
   
   <insert id="insert" parameterType="member">
@@ -99,6 +97,19 @@
     delete from lms_member 
     where member_id = #{value}
   </delete>
+  
+  <select id="countAll" resultType="int" parameterType="string">
+    select count(*) 
+    from lms_member
+    <where>
+      <if test="_parameter != null">
+        <bind name="pattern1" value="'%' + _parameter + '%'"/>
+        name like #{pattern1}
+        or email like #{pattern1}
+        or tel like #{pattern1}
+      </if>
+    </where> 
+  </select>
 </mapper>
 
 

@@ -42,17 +42,7 @@
 </table>
 </div><!-- .bit-list -->
 
-<nav aria-label="목록 페이지 이동">
-  <ul class="pagination justify-content-center">
-    <li class="page-item ${pageNo <= 1 ? 'disabled' : ''}">
-      <a class="page-link" 
-        href="?pageNo=${pageNo - 1}&pageSize=${pageSize}">이전</a></li>
-    <li class="page-item active"><span class="page-link">${pageNo}</span></li>
-    <li class="page-item ${pageNo >= totalPage ? 'disabled' : ''}">
-      <a class="page-link" 
-         href="?pageNo=${pageNo + 1}&pageSize=${pageSize}">다음</a></li>
-  </ul>
-</nav>
+<jsp:include page="../pageNavigation.jsp"/>
 </div><!-- .container -->
 
 <jsp:include page="../javascript.jsp"/>
