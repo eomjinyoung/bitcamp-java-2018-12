@@ -1,9 +1,9 @@
 var pageNo = 1,
     pageSize = 3,
-    tbody = document.querySelector('tbody'),
-    prevPageLi = document.querySelector('#prevPage'),
-    nextPageLi = document.querySelector('#nextPage'),
-    currSpan = document.querySelector('#currPage > span');
+    tbody = $('tbody'),
+    prevPageLi = $('#prevPage'),
+    nextPageLi = $('#nextPage'),
+    currSpan = $('#currPage > span');
 
 // JSON 형식의 데이터 목록 가져오기
 function loadList(pn) {
@@ -14,7 +14,7 @@ function loadList(pn) {
       pageNo = obj.pageNo;
       
       // TR 태그를 생성하여 테이블 데이터를 갱신한다.
-      tbody.innerHTML = ''; // 이전에 출력한 내용을 제거한다.
+      tbody.html(''); // 이전에 출력한 내용을 제거한다.
       for (data of obj.list) {
         var tr = '<tr>'
           + '<th scope="row">' + data.no + '</th>'
@@ -23,24 +23,24 @@ function loadList(pn) {
           + '<td>' + data.createdDate + '</td>'
           + '<td>' + data.viewCount + '</td>'
           + '</tr>';
-        tbody.innerHTML = tbody.innerHTML + tr;
+        tbody.html(tbody.html() + tr);
       }
       
       // 현재 페이지의 번호를 갱신한다.
-      currSpan.innerHTML = String(pageNo)
+      currSpan.html(String(pageNo));
       
       // 1페이지일 경우 버튼을 비활성화 한다.
       if (pageNo == 1) {
-        prevPageLi.className = prevPageLi.className + ' disabled';
+        prevPageLi.addClass('disabled');
       } else {
-        prevPageLi.className = prevPageLi.className.replace(' disabled', '');
+        prevPageLi.removeClass('disabled');
       } 
         
       // 마지막 페이지일 경우 버튼을 비활성화 한다.
       if (pageNo == obj.totalPage) {
-        nextPageLi.className = nextPageLi.className + ' disabled';
+        nextPageLi.addClass('disabled');
       } else {
-        nextPageLi.className = nextPageLi.className.replace(' disabled', '');
+        nextPageLi.removeClass('disabled');
       }
       
       // 데이터 로딩이 완료되면 body 태그에 이벤트를 전송한다.

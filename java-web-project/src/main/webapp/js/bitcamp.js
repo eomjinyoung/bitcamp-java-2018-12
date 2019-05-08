@@ -1,4 +1,40 @@
-var Bitcamp = {}; // new Object();
+var Bitcamp = function(arg1) { // function = object + 함수 코드
+  var el = document.querySelectorAll(arg1); // => HTMLCollection 리턴
+  
+  // HTMLCollection에 들어 있는 값을 빈 배열에 옮긴다.
+  var arr = [];
+  for (var e of el) {
+    arr.push(e);
+  }
+  
+  // 태그가 들어있는 배열에 그 태그들을 다룰 때 사용할 도구를 첨가한다.
+  arr.html = function(value) {
+    if (arguments.length > 0) {
+      for (var e of this) {
+        e.innerHTML = value;
+      }
+    } else {
+      // 찾은 태그 중에서 첫 번째 태그의 innerHTML 값만 리턴한다.
+      return this[0].innerHTML;
+    }
+  };
+  
+  // 태그에 클래스 이름을 추가하는 함수를 배열에 첨부한다.
+  arr.addClass = function(value) {
+    for (var e of this) {
+      e.className = e.className + " " + value;
+    }
+  };
+  
+  // 태그에 클래스 이름을 제거하는 함수를 배열에 첨부한다.
+  arr.removeClass = function(value) {
+    for (var e of this) {
+      e.className = e.className.replace(value, '');
+    }
+  }
+  
+  return arr;
+}; 
 
 Bitcamp.ajax = function(url, settings) {
   // XMLHttpRequest 객체를 사용하여 AJAX 요청하는 코드를 사용하기 쉽도록 캡슐화시킨다.
