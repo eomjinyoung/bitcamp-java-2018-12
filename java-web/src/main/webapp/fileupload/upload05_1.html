@@ -37,23 +37,17 @@ $('#fileupload').fileupload({
         // 그리고 업로드과 완료되었을 때, 즉 done() 함수가 호출될 때 
         // 해당 버튼을 제거할 수 있도록 data 객체에 context 라는 이름을 보관한다.
         data.context = $('<button>')
-          .text('업로드')
-          .appendTo('#btnBox');
+          .text(data.files[0].name + ' 파일 업로드')
+          .appendTo('#btnBox')
           .click(function () {
-            // 버튼을 클릭했을 때 서버에 전송한다.
-            alert(data.files[0].name + " 파일 업로드!");
-            //data.context = $('<p/>').text('Uploading...').replaceAll($(this));
-            //data.submit();
+            // 이 버튼을 클릭했을 때 파일을 서버에 전송해야 한다.
+            alert("업로드 실행!");
           });
     },
     done: function (e, data) {
       console.log('done()...');
       console.log(data.result);
       console.log(data.context);
-      
-      //var file = data.result;
-      //$('<img/>').attr("src", "../files/" + file.filename)
-      //         .replaceAll(data.context);
     }
 });
 
