@@ -5,7 +5,7 @@
 <title>ajax 파일 업로드</title>
 <style>
 .bar {
-    height: 18px;
+    height: 2px;
     background: green;
 }
 </style>
@@ -25,16 +25,16 @@
 </pre>
 
 <input id="fileupload" type="file" name="files" 
-       data-url="../mvc/exam11_2/upload01" multiple>
+       data-url="upload.jsp" multiple>
 
 <div id="progress">
     <div class="bar" style="width: 0%;"></div>
 </div>
 
-<script src='node_modules/jquery/dist/jquery.js'></script>
-<script src="node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
-<script src="node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
-<script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
+<script src='../node_modules/jquery/dist/jquery.js'></script>
+<script src="../node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="../node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+<script src="../node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
 <script>
 "use strict"
 
@@ -46,13 +46,15 @@ $('#fileupload').fileupload({
       //var file = data.result.fileList[0];
       //$('<p/>').text(file.filename + " : " + file.filesize).appendTo(document.body);
     },
-    progressall: function (e, data) { // 업로드 중간마다 상태를 보고하기 위해 호출된다.
+    // 업로드 중간마다 업로드 상태를 보고받고 싶다면 progressall 함수를 등록하라.
+    // 그러면 업로드 중간에 상태 보고를 위해 이 함수를 호출해줄 것이다.
+    progressall: function (e, data) { 
       console.log('progressall()...', data.loaded, data.total);
-        var progress = parseInt(data.loaded / data.total * 100, 10);
-        $('#progress .bar').css(
-            'width',
-            progress + '%'
-        );
+      var progress = parseInt(data.loaded / data.total * 100, 10);
+      $('#progress .bar').css(
+          'width',
+          progress + '%'
+      );
     }
 });
 

@@ -169,7 +169,7 @@
     <servlet-name>upload.jsp</servlet-name>
     <jsp-file>/fileupload/upload.jsp</jsp-file>
     <multipart-config>
-      <max-file-size>10000000</max-file-size>
+      <max-file-size>100000000</max-file-size>
     </multipart-config>
   </servlet>
   <servlet-mapping>
