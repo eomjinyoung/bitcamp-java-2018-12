@@ -19,12 +19,14 @@
 </pre>
 
 <input id="fileupload" type="file" name="files" 
-       data-url="../mvc/exam11_2/upload01" multiple>
+       data-url="upload.jsp" multiple>
+       
+<div id="btnBox"></div>
 
-<script src='node_modules/jquery/dist/jquery.js'></script>
-<script src="node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
-<script src="node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
-<script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
+<script src='../node_modules/jquery/dist/jquery.js'></script>
+<script src="../node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="../node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+<script src="../node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
 <script>
 "use strict"
 
@@ -32,18 +34,30 @@ $('#fileupload').fileupload({
     dataType: 'json',
     add: function (e, data) {
         console.log('add()...');
-        data.context = $('<button/>').text('Upload')
-          .appendTo(document.body)
+        data.context = $('<p>').append($('<button>')
+          .text(data.files[0].name + ' 파일 업로드')
           .click(function () {
-              data.context = $('<p/>').text('Uploading...').replaceAll($(this));
-              data.submit();// 해당 파일의 서버 전송을 시작한다.
-          });
+            data.context.html('업로드중...');
+            data.submit();
+        })).appendTo('#btnBox');
     },
     done: function (e, data) {
       console.log('done()...');
       console.log(data.result);
-      var file = data.result;
-      data.context.html("<img width='100' src='../files/" + file.filename + "'> " + file.filesize);
+      
+      // p 태그에 img 태그를 붙인다.
+      // => 이클립스에서 톰캣 서버를 실행할 때는 서버에서 파일을 저장한 후 
+      //    일정 시간이 지나야만 웹 브라우저에서 해당 이미지를 제대로 출력할 수 있다.
+      // => 그래서 파일 업로드 한 후 일정 시간이 지난 다음에 이미지 태그를 출력하도록 하였다. 
+      window.setTimeout(function() {
+        // 파일 업로드를 완료한 후 p 태그의 콘텐트를 제거한다.
+        data.context.html('');
+      
+        data.context.append(
+          $('<img>')
+            .attr('src','../upload/' + data.result.files[0].filename)
+            .css('height', '60px'));
+      }, '5000');
     }
 });
 
