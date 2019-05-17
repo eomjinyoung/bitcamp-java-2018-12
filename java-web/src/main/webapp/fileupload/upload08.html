@@ -15,10 +15,10 @@
 
 <input id="fileupload" type="file" name="files" multiple>
 
-<script src='node_modules/jquery/dist/jquery.js'></script>
-<script src="node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
-<script src="node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
-<script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
+<script src='../node_modules/jquery/dist/jquery.js'></script>
+<script src="../node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="../node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+<script src="../node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
 <script>
 "use strict"
 
@@ -29,18 +29,20 @@ $('#fileupload').fileupload({
   done: function (e, data) { // 서버에서 응답이 오면 호출된다. 각 파일 별로 호출된다.
     console.log('done()...');
     console.log(data.result);
-    var file = data.result;
-    $('<p/>').text(file.filename + " : " + file.filesize).appendTo(document.body);
+    var files = data.result.files;
+    for (var file of files) {
+      $('<p/>').text(file.filename + " : " + file.filesize).appendTo(document.body);
+    }
   }
 }); 
 
 // url 옵션의 값을 변경하기
-//$('#fileupload').fileupload('option', 'url', '../mvc/exam11_2/upload01');
+//$('#fileupload').fileupload('option', 'url', 'upload.jsp');
 
 // 변경할 옵션 값이 여러 개일 경우 다음과 같이 자바스크립트 객체에 담아서 넘길 수 있다.
 
 $('#fileupload').fileupload('option', {
-  url: '../mvc/exam11_2/upload01',
+  url: 'upload.jsp',
   sequentialUploads: false
 });
 

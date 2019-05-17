@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>ajax 파일 업로드</title>
-<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-<link rel="stylesheet" href="node_modules/blueimp-file-upload/css/jquery.fileupload.css">
+<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+<link rel="stylesheet" href="../node_modules/blueimp-file-upload/css/jquery.fileupload.css">
 </head>
 <body>
 <h1>AJAX 멀티파트 전송 - 파일 선택 즉시 전송하기(파일 선택 버튼 꾸미기)</h1>
@@ -32,15 +32,15 @@
     <input id="fileupload" type="file" name="files" multiple>
 </span>
 
-<script src='node_modules/jquery/dist/jquery.js'></script>
-<script src="node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
-<script src="node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
-<script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
+<script src='../node_modules/jquery/dist/jquery.js'></script>
+<script src="../node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="../node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+<script src="../node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
 <script>
 "use strict"
 
 $('#fileupload').fileupload({
-    url: '../mvc/exam11_2/upload01',        // 서버에 요청할 URL
+    url: 'upload.jsp',        // 서버에 요청할 URL
     dataType: 'json', /* "서버가 보낸 데이터가 JSON 문자열이다. 자바스크립트 객체로 바꿔라." 라는 의미*/
     done: function (e, data) { // 서버에서 응답이 오면 호출된다. 각 파일 별로 호출된다.
       console.log('done()...');
