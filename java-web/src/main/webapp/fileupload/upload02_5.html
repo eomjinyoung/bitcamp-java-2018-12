@@ -26,7 +26,8 @@
 </pre>
 
 <input id="fileupload" type="file" name="files" 
-       data-url="upload.jsp" multiple>
+       data-url="upload.jsp" multiple><br>
+       
 <hr>
 <p><img id="photoImg" width="100"></p>
 
@@ -37,27 +38,23 @@
 <script>
 "use strict"
 
-// fileupload input 태그를 설정한다.
-// => 사용자가 파일을 선택하면 아래에 설정된대로 동작할 것이다.
-// => 즉 서버에서 응답을 받으면 JSON 데이터로 간주하여 자바스크립트 객체로 변환할 것이다.
-// => 서버의 응답이 완료되면 done() 함수를 호출한다.
-//
+// 해당 태그에 대해 추가적으로 설정하고 싶다면,
+// fileupload() 함수를 호출할 때 아규먼트로 그 설정 값을 넘겨라!
+// 아규먼트 값은 자바스크립트 객체에 담아 넘긴다.
 
 $('#fileupload').fileupload({
-    dataType: 'json', // 서버의 응답 데이터가 어떤 형식인지 알려준다.
-    done: function (e, data) { 
-      console.log('done()...');
-      
-      // 서버가 보낸 JSON 객체는 data.result 에 보관되어 있다.
-      console.log(data.result); 
-      
-      //$('#photoImg').attr("src", "../files/" + data.result.filename);
-      
-      //var file = data.result.fileList[0];
-      //$('<p/>').text(file.filename + " : " + file.filesize).appendTo(document.body);
-    }
+  // 서버가 보내온 데이터가 JSON 형식의 텍스트일 경우 
+  // 자바스크립트 객체로 자동 변환할 수 있다.
+  dataType: 'json',
+  done: function(e, data) {
+    console.log('done()...');
+    
+    // data 아규먼트의 result에는 서버가 보낸 JSON 텍스트를 
+    // 자바스크립트 객체로 변환한 것이 들어 있다. 
+    // 즉 자바스크립트 객체가 들어 있다.
+    console.log(data.result);
+  }
 });
-
 
 </script>
 

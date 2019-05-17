@@ -26,7 +26,8 @@
 </pre>
 
 <input id="fileupload" type="file" name="files" 
-       data-url="upload.jsp" multiple>
+       data-url="upload.jsp" multiple><br>
+       
 <hr>
 <p><img id="photoImg" width="100"></p>
 
@@ -37,27 +38,21 @@
 <script>
 "use strict"
 
-// fileupload input 태그를 설정한다.
-// => 사용자가 파일을 선택하면 아래에 설정된대로 동작할 것이다.
-// => 즉 서버에서 응답을 받으면 JSON 데이터로 간주하여 자바스크립트 객체로 변환할 것이다.
-// => 서버의 응답이 완료되면 done() 함수를 호출한다.
-//
+// 해당 태그에 대해 추가적으로 설정하고 싶다면,
+// fileupload() 함수를 호출할 때 아규먼트로 그 설정 값을 넘겨라!
+// 아규먼트 값은 자바스크립트 객체에 담아 넘긴다.
 
 $('#fileupload').fileupload({
-    dataType: 'json', // 서버의 응답 데이터가 어떤 형식인지 알려준다.
-    done: function (e, data) { 
-      console.log('done()...');
-      
-      // 서버가 보낸 JSON 객체는 data.result 에 보관되어 있다.
-      console.log(data.result); 
-      
-      //$('#photoImg').attr("src", "../files/" + data.result.filename);
-      
-      //var file = data.result.fileList[0];
-      //$('<p/>').text(file.filename + " : " + file.filesize).appendTo(document.body);
-    }
+  // 서버가 응답을 완료했을 때 어떤 작업을 수행하고 싶다면 
+  // "done" 이라는 이름으로 함수를 등록하라!
+  // 그러면 서버로부터 응답을 받았을 때 이 함수가 호출될 것이다.
+  // 이렇게 특정 상태에 놓이면 호출되는 함수를 'callback 함수'라 부른다.
+  // click 이벤트가 발생했을 때 호출되는 함수도 'callback 함수'이다.
+  // 물론 다른 말로 'listener'라 부르기도 한다.
+  done: function(e, data) {
+    console.log('done()...');
+  }
 });
-
 
 </script>
 

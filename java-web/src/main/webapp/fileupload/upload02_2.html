@@ -26,7 +26,8 @@
 </pre>
 
 <input id="fileupload" type="file" name="files" 
-       data-url="upload.jsp" multiple>
+       data-url="upload.jsp" multiple><br>
+       
 <hr>
 <p><img id="photoImg" width="100"></p>
 
@@ -37,27 +38,11 @@
 <script>
 "use strict"
 
-// fileupload input 태그를 설정한다.
-// => 사용자가 파일을 선택하면 아래에 설정된대로 동작할 것이다.
-// => 즉 서버에서 응답을 받으면 JSON 데이터로 간주하여 자바스크립트 객체로 변환할 것이다.
-// => 서버의 응답이 완료되면 done() 함수를 호출한다.
-//
+// file 타입의 평범한 input 태그를 
+// AJAX로 멀티파트 요청을 하는 태그로 만들고 싶다면
+// 이 태그에 대해 jquery.fileupload.js 에서 jQuery 플러그인으로 등록한 함수를 호출하라!
 
-$('#fileupload').fileupload({
-    dataType: 'json', // 서버의 응답 데이터가 어떤 형식인지 알려준다.
-    done: function (e, data) { 
-      console.log('done()...');
-      
-      // 서버가 보낸 JSON 객체는 data.result 에 보관되어 있다.
-      console.log(data.result); 
-      
-      //$('#photoImg').attr("src", "../files/" + data.result.filename);
-      
-      //var file = data.result.fileList[0];
-      //$('<p/>').text(file.filename + " : " + file.filesize).appendTo(document.body);
-    }
-});
-
+$('#fileupload').fileupload();
 
 </script>
 

@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "alertifyjs": "^1.11.2",
+    "blueimp-file-upload": "^9.30.0",
     "bootstrap": "^4.3.1",
     "jquery": "~>3.4.0",
     "popper.js": "^1.15.0"
