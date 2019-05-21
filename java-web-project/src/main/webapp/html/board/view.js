@@ -1,3 +1,5 @@
+var dialog = $('#dialog');
+
 var param = location.href.split('?')[1];
 if (param) {
   document.querySelector('h1').innerHTML = "게시물 조회"
@@ -26,7 +28,9 @@ document.querySelector('#add-btn').onclick = () => {
       location.href = "index.html"
         
     } else {
-      alert('등록 실패입니다!\n' + data.message)
+      dialog.find('p').text('등록 실패입니다!\n' + data.message);
+      dialog.dialog();
+      //alert('등록 실패입니다!\n' + data.message)
     }
   };
   xhr.open('POST', '../../app/json/board/add', true)
