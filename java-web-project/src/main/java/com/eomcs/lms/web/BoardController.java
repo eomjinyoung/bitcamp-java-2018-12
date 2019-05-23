@@ -4,13 +4,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
+import com.eomcs.lms.validator.BoardValidator;
 
 @Controller
 @RequestMapping("/board")
@@ -78,6 +83,38 @@ public class BoardController {
       throw new RuntimeException("해당 번호의 게시물이 없습니다.");
     return "redirect:.";
   }
+  
+  @GetMapping("detail2")
+  public String detail2(
+      Board paramBoard,
+      // 파라미터 값을 아규먼트의 값으로 변환 중에 오류가 발생했을 때 
+      // 클라이언트의 요청에 대해 예외를 던지는 대신에 
+      // 요청 핸들러에서 예외를 처리하고 싶다면 BindingResult 객체에 예외를 받는다.
+      BindingResult result, 
+      Model model) {
+    
+    Board board = boardService.get(paramBoard.getNo());
+    model.addAttribute("board", board);
+    return "board/detail";
+  }
+  
+  @GetMapping("detail3")
+  public String detail3(
+      // 값 검증기(validator)를 실행하려면 @Validated 를 붙인다.
+      @Validated Board paramBoard,
+      BindingResult result, 
+      Model model) {
+    Board board = boardService.get(paramBoard.getNo());
+    model.addAttribute("board", board);
+    return "board/detail";
+  }
+  
+  @InitBinder
+  protected void initBinder(WebDataBinder binder) {
+    // 파라미터 값을 요청 핸들러의 아규먼트의 값으로 변환할 때 사용할 값 검증기를 추가한다.
+    binder.addValidators(new BoardValidator());
+  }
+
 }
 
 
