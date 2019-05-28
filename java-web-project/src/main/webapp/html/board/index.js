@@ -71,7 +71,10 @@ $(document.body).bind('loaded-list', () => {
   });
 });
 
-
+// 사용자 로그인 정보를 가져왔을 때 호출될 메서드 등록
+$(document.body).bind('loaded.loginuser', () => {
+  console.log("로그인 했다");
+});
 
 
 

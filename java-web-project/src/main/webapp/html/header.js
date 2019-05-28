@@ -61,6 +61,13 @@ function loadLoginUser() {
       document.querySelector('#login-username').innerHTML = data.user.name;
       document.querySelector('#login-userphoto').src = 
         "/java-web-project/upload/member/" + data.user.photo;
+      
+      // 다른 JS에서 사용할 수 있도록 window 객체에 저장
+      // 또는 sessionStorage에 저장해도 된다.
+      window.user = data.user;
+      
+      // 로그인 사용자 정보를 가져왔음을 알리는 이벤트를 발생시킨다.
+      $(document.body).trigger('loaded.loginuser');
     } else {
       notLoginState.className = 
         notLoginState.className.replace('bit-invisible', '');
