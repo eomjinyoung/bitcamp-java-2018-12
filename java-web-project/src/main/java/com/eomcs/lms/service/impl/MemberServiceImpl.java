@@ -62,6 +62,11 @@ public class MemberServiceImpl implements MemberService {
   }
   
   @Override
+  public Member get(String email) {
+    return memberDao.findByEmail(email);
+  }
+  
+  @Override
   public int size(String search) {
     return memberDao.countAll(search);
   }

@@ -14,10 +14,10 @@
 window.fbAsyncInit = function() {
   console.log("window.fbAsyncInit() 호출됨!");
   FB.init({
-    appId      : '254057878617352', // 개발자가 등록한 앱 ID
+    appId      : '2057807661191466', // 개발자가 등록한 앱 ID
     cookie     : true,  
     xfbml      : true,  
-    version    : 'v3.2' 
+    version    : 'v3.3' 
   });
   FB.AppEvents.logPageView();
 };
@@ -29,7 +29,7 @@ window.fbAsyncInit = function() {
   js.src = "https://connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-
+console.log("<script> 태그 추가 및 sdk.js 로딩!");
 
 </script>
 </body>

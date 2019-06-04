@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<h1>페이스북 로그인</h1>
-
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>
-
-<script type="text/javascript">
-// 로그인 성공한 후 서버에 자동으로 로그인 하기
-// => 페이스북으로부터 사용자 정보 가져오기
 function autoServerLogin(accessToken) {
-    location.href = "login09.jsp?accessToken=" + accessToken;
+    $.getJSON('../../app/json/auth/fblogin', {
+      "accessToken": accessToken
+    }, (data) => {
+      console.log(data);
+      location.href = "../index.html"
+    });
 }
 
 function checkLoginState() {
@@ -23,7 +13,7 @@ function checkLoginState() {
             autoServerLogin(response.authResponse.accessToken);
         
         } else { // 로그인이 되지 않았을 때,
-            console.log("로그인 되지 않았음");
+            alert("페이스북 로그인 실패!");
         }
     });
 }
@@ -46,15 +36,3 @@ window.fbAsyncInit = function() {
   js.src = "https://connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-
-
-</script>
-</body>
-</html>
-
-
-
-
-
-
-

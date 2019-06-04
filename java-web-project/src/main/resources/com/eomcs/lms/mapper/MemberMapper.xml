@@ -65,7 +65,18 @@
       and pwd = password(#{password})
   </select>
   
-  <insert id="insert" parameterType="member">
+  <select id="findByEmail" resultMap="memberMap" parameterType="string">
+    select 
+      <include refid="default-columns"/>, 
+      photo
+    from 
+      lms_member
+    where 
+      email = #{value}
+  </select>
+  
+  <insert id="insert" parameterType="member"
+      useGeneratedKeys="true" keyColumn="member_id" keyProperty="no">
     insert into lms_member(
       name,
       email,
