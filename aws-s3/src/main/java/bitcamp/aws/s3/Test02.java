@@ -15,7 +15,7 @@ public class Test02 {
     
     CreateBucketRequest createBucketRequest = CreateBucketRequest
         .builder()
-        .bucket("b2.eomcs2.xyz")
+        .bucket("b2.eomcs2.xyz2")
         .createBucketConfiguration(CreateBucketConfiguration.builder()
                                                             .locationConstraint(region.id())
                                                             .build())

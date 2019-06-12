@@ -21,9 +21,13 @@ public class Test05 {
     Path file = getFilePath();
     ByteBuffer buf = getByteBuffer(file);
     
-    s3.putObject(PutObjectRequest.builder().bucket("b1.eomcs2.xyz").key(file.getFileName().toString())
-                .build(),
-        RequestBody.fromByteBuffer(buf));
+    PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+        .bucket("b1.eomcs2.xyz")
+        .key(file.getFileName().toString())
+        .build();
+    RequestBody uploadData = RequestBody.fromByteBuffer(buf);
+    
+    s3.putObject(putObjectRequest, uploadData);
 
     System.out.println("버킷에 파일 업로드 완료!");
   }

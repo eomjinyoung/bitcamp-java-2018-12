@@ -14,7 +14,7 @@ public class Test03 {
     
     DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest
         .builder()
-        .bucket("b2.eomcs2.xyz")
+        .bucket("b2.eomcs2.xyz2")
         .build();
     s3.deleteBucket(deleteBucketRequest);
     

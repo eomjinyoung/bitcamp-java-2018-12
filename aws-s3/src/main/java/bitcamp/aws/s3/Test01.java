@@ -17,6 +17,34 @@ public class Test01 {
     ListBucketsResponse listBucketsResponse = s3.listBuckets(listBucketsRequest);
     
     System.out.println("버킷 목록:");
-    listBucketsResponse.buckets().stream().forEach(x -> System.out.println(x.name()));
+    
+    /* 
+    class MyConsumer implements Consumer<Bucket> {
+      @Override
+      public void accept(Bucket x) {
+        System.out.println(x.name());
+      }
+    }
+    listBucketsResponse.buckets().stream().forEach(new MyConsumer());
+    */
+    
+    /*
+    listBucketsResponse.buckets().stream().forEach(new Consumer<Bucket>() {
+        @Override
+        public void accept(Bucket x) {
+          System.out.println(x.name());
+        }
+    });
+    */
+    
+    listBucketsResponse.buckets().stream().forEach(
+        x -> System.out.println(x.name()));
+    
+    
   }
 }
+
+
+
+
+

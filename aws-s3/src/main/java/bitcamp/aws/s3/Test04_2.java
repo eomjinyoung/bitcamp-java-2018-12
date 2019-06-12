@@ -21,10 +21,12 @@ public class Test04_2 {
         .build();
     
     ListObjectsV2Iterable listRes = s3.listObjectsV2Paginator(listReq);
-    listRes.contents().stream()
+    listRes.stream()
+      .flatMap(r -> r.contents().stream())
       .forEach(content -> 
         System.out.println(" Key: " + content.key() + " size = " + content.size())
       );
+
     
     
   }
