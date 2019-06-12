@@ -1,32 +1,15 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE"
-    }
-}
-
 plugins {
     id 'java'
     id 'eclipse'
 }
 
 repositories {
-    mavenCentral()
-}
-
-apply plugin: "io.spring.dependency-management"
-
-dependencyManagement {
-  imports {
-      mavenBom 'software.amazon.awssdk:bom:2.5.59'
-  }
+    jcenter()
 }
 
 dependencies {
-    compile 'software.amazon.awssdk:s3'
-    
+    implementation platform('software.amazon.awssdk:bom:2.5.60')
+    implementation 'software.amazon.awssdk:s3'
     implementation 'com.google.guava:guava:27.0.1-jre'
     testImplementation 'junit:junit:4.12'
 }
