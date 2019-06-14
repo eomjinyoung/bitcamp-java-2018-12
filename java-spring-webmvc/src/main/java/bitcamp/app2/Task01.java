@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Task01 {
   
+  // cron="초 분 시 일 월 요일"
   @Scheduled(cron="*/10 * * * * *")
   public void m1() {
     System.out.println("m1()");
