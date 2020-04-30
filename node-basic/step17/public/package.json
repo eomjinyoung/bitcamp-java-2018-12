@@ -11,6 +11,6 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "handlebars": "^4.0.6",
-    "jquery": "^1.12.4"
+    "jquery": "^3.5.0"
   }
 }
